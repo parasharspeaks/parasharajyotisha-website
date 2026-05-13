@@ -320,7 +320,6 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
     <div class="tool-tab" onclick="switchTab('transits',this)">🪐 Transits <span class="badge badge-live">Live</span></div>
     <div class="tool-tab" onclick="switchTab('sadesati',this)">⚠️ Sade Sati</div>
     <div class="tool-tab" onclick="switchTab('panchang',this)">📅 Panchang <span class="badge badge-live">Daily</span></div>
-    <div class="tool-tab" onclick="switchTab('muhurat',this)">🕐 Muhurat <span class="badge badge-free">Free</span></div>
   </div>
 </div>
 
@@ -456,25 +455,6 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
     </form>
   </div>
   <div class="results" id="res-panchang"></div>
-</div>
-
-<!-- ════════════════════════════════════════════════
-     8. MUHURAT
-     ════════════════════════════════════════════════ -->
-<div class="tool-panel" id="panel-muhurat">
-  <div class="fcard" id="fc-muhurat">
-    <div class="loader" id="ld-muhurat"><div class="spinner"></div><div class="load-text">Finding auspicious moments...</div></div>
-    <div class="fcard-title">🕐 Muhurat Finder</div>
-    <div class="fcard-sub">Find the most auspicious time for important events — marriage, griha pravesh, business, travel and more.</div>
-    <form onsubmit="genMuhurat(event)">
-      <div class="frow">
-        <div class="fg"><label class="fl">Date</label><input class="fi" type="date" id="mu-date" required></div>
-        <div class="fg"><label class="fl">City</label><input class="fi" id="mu-city" value="Delhi" required></div>
-      </div>
-      <button class="fbtn" type="submit" id="mu-btn">🕐 Find Muhurat</button>
-    </form>
-  </div>
-  <div class="results" id="res-muhurat"></div>
 </div>
 
 <!-- FOOTER -->
@@ -661,8 +641,14 @@ async function genKundli(e){
       api(`/kundli/dasha?${q}`),
     ]).then(([r2,r3])=>{
       try{
-        if(r2.status==='fulfilled'||r3.status==='fulfilled'){
-          renderKundli(name,bc,r2.status==='fulfilled'?r2.value:null,r3.status==='fulfilled'?r3.value:null,{dob,tob,city});
+        const hasYoga=r2.status==='fulfilled'&&r2.value;
+        const hasDasha=r3.status==='fulfilled'&&r3.value;
+        if(hasYoga||hasDasha){
+          // Save scroll position before re-render
+          const scrollY=window.scrollY;
+          renderKundli(name,bc,hasYoga?r2.value:null,hasDasha?r3.value:null,{dob,tob,city},true);
+          // Restore scroll — don't jump back to top
+          window.scrollTo(0,scrollY);
         }
       }catch(err){console.warn('Optional Kundli details could not be rendered:',err);}
     });
@@ -752,7 +738,7 @@ function renderNorthChart(cells, lagN, safeName, lagDisplay){
   return s;
 }
 
-function renderKundli(name,bcRaw,ygRaw,dsRaw,meta={}){
+function renderKundli(name,bcRaw,ygRaw,dsRaw,meta={},skipScroll=false){
   const el=document.getElementById('res-kundli');
   const bc=dig(bcRaw), yg=dig(ygRaw), ds=dig(dsRaw);
   const planets=arr(bc.planets||bc.grahas||bc.Planets||bc.graha_positions);
@@ -843,12 +829,17 @@ function renderKundli(name,bcRaw,ygRaw,dsRaw,meta={}){
   // ── DASHA ──
   let dh='';
   if(ds){
-    const da=arr(ds.mahadasha||ds.periods||ds.dashas);
+    console.log('DASHA raw keys:', typeof ds==='object'?Object.keys(ds):'not-obj');
+    // Try every possible dasha data path
+    let dashaRoot=ds;
+    if(ds.data && typeof ds.data==='object') dashaRoot=ds.data;
+    const da=arr(dashaRoot.mahadasha||dashaRoot.periods||dashaRoot.dashas||dashaRoot.mahadashas||dashaRoot.vimshottari||dashaRoot.dasha_periods||(Array.isArray(dashaRoot)?dashaRoot:[]));
+    console.log('DASHA periods found:', da.length);
     if(da.length){
       const now=new Date();
       dh='<div class="rcard"><div class="rcard-header"><div class="rcard-title">Vimshottari Mahadasha</div><div class="rbadge rb-good">'+da.length+' Periods</div></div><div class="rcard-body"><ul class="dasha-list">';
       da.slice(0,9).forEach(d=>{
-        const pl=cleanName({name:d.planet||d.graha||d.name||''}),st=d.start||d.start_date||'',en=d.end||d.end_date||'',yr=d.years||d.duration||'',co=PCOL[pl]||'var(--text-dim)';
+        const pl=cleanName({name:d.planet||d.graha||d.name||d.lord||''}),st=d.start||d.start_date||d.from||'',en=d.end||d.end_date||d.to||'',yr=d.years||d.duration||d.period||'',co=PCOL[pl]||'var(--text-dim)';
         let cur=false;try{if(now>=new Date(st)&&now<=new Date(en))cur=true;}catch(e){}
         dh+=`<li class="dasha-item" style="${cur?'background:var(--glass);border-radius:10px;padding:8px;border:1px solid rgba(212,116,62,0.15);':''}"><div class="dasha-planet" style="background:${co}14;border:1px solid ${co}28;color:${co};font-size:.72rem;font-weight:700;width:58px;">${escapeHtml(pl)}</div><div class="dasha-info" style="flex:1;"><div class="dasha-name">${escapeHtml(pl)} Mahadasha ${cur?'<span style="font-size:.56rem;padding:1px 5px;border-radius:4px;background:rgba(212,116,62,.15);color:var(--ember-light);margin-left:4px;font-weight:700;text-transform:uppercase;">Current</span>':''}${yr?' <span style="font-size:.7rem;color:var(--text-dim);margin-left:4px;">'+escapeHtml(yr)+' yrs</span>':''}</div><div class="dasha-dates">${escapeHtml(st)} → ${escapeHtml(en)}</div></div></li>`;
       });
@@ -912,7 +903,8 @@ function renderKundli(name,bcRaw,ygRaw,dsRaw,meta={}){
       const active=ss.active||ss.is_active||false;
       flagCards+=`<div style="padding:.8rem;border-radius:10px;background:${active?'rgba(199,96,123,.06)':'rgba(107,155,125,.06)'};border:1px solid ${active?'rgba(199,96,123,.15)':'rgba(107,155,125,.15)'};">
         <div style="display:flex;align-items:center;gap:.4rem;margin-bottom:.3rem;"><span style="font-size:1.1rem;">${active?'♄':'✅'}</span><span style="font-weight:600;font-size:.85rem;color:var(--text-bright);">Sade Sati</span></div>
-        <div style="font-size:.78rem;color:${active?'var(--lotus-light)':'var(--sage-light)'};">${active?'Active'+(ss.phase?' — '+ss.phase+' phase':''):'Not Active'}</div>
+        <div style="font-size:.78rem;color:${active?'var(--lotus-light)':'var(--sage-light)'};">${active?'Active'+(ss.phase?' — '+ss.phase+' phase':''):'Not detected here'}</div>
+        <div style="font-size:.68rem;color:var(--text-dim);margin-top:.3rem;cursor:pointer;" onclick="switchTab('sadesati',document.querySelector('[onclick*=sadesati]'))">→ Use dedicated Sade Sati checker for accurate result</div>
       </div>`;
     }
     if(flagCards) flags=`<div class="rcard"><div class="rcard-header"><div class="rcard-title">Quick Analysis</div><div class="rbadge rb-live">Auto-detected</div></div><div class="rcard-body"><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.6rem;">${flagCards}</div></div></div>`;
@@ -980,7 +972,7 @@ function renderKundli(name,bcRaw,ygRaw,dsRaw,meta={}){
     ${dh}${yh}${hh}
     <div class="spirit"><div class="spirit-icon">☉</div><div class="spirit-text">Your birth chart is a sacred map — not of fate, but of potential. Start by reading the highlighted Lagna sign, then see where each planet name is placed. For deeper interpretation including Navamsa, Antardasha, remedies and life predictions — consider a personal reading.</div><div class="spirit-attr">— Parashar Jyotisha</div><a href="index.html#contact" class="fbtn">Book Personal Reading →</a></div>`;
   el.classList.add('show');
-  el.scrollIntoView({behavior:'smooth',block:'start'});
+  if(!skipScroll) el.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
 // ═══════════════════════════════════════════════════
@@ -1191,22 +1183,58 @@ function renderTransits(data) {
   const planets = data.planets||data.grahas||(Array.isArray(data)?data:[]);
   const pArr = Array.isArray(planets)?planets:Object.entries(planets).map(([k,v])=>({name:k,...(typeof v==='object'?v:{sign:v})}));
   const retros = [];
-  let pHtml = '';
+
+  let tableHtml='<div style="overflow-x:auto;"><table style="width:100%;border-collapse:separate;border-spacing:0 5px;min-width:580px;"><thead><tr>';
+  ['Planet','Sign (Rashi)','Degree','Nakshatra','Speed','Status'].forEach(h=>tableHtml+=`<th style="font-size:.58rem;color:var(--text-dim);font-family:var(--font-mono);letter-spacing:.06em;text-transform:uppercase;padding:5px 6px;text-align:left;font-weight:600;">${h}</th>`);
+  tableHtml+='</tr></thead><tbody>';
+
   pArr.forEach(p => {
-    const nm=p.name||p.graha||'';
+    const nm=cleanName(p);
     const sign=p.sign||p.rashi||'';
-    const deg=typeof p.degree==='number'?p.degree.toFixed(2)+'°':'';
+    const deg=typeof p.degree==='number'?p.degree.toFixed(2)+'°':(p.degree_formatted||p.degree_in_rashi?p.degree_in_rashi?.toFixed(2)+'°':'');
     const nak=p.nakshatra||'';
-    const retro=p.retrograde||p.is_retrograde;
+    const pada=p.nakshatra_pada?'P'+p.nakshatra_pada:(p.pada?'P'+p.pada:'');
+    const retro=retroFlag(p);
+    const speed=typeof p.speed==='number'?p.speed.toFixed(4)+'°/day':'';
+    const dignity=p.dignity||p.status||'';
+    const transitFrom=p.transit_start||p.entered||p.sign_entry||'';
+    const transitTo=p.transit_end||p.leaves||p.sign_exit||'';
+    const co=PCOL[nm]||'var(--text-dim)';
     if(retro)retros.push(nm);
-    pHtml += `<div class="prow" ${retro?'style="border-color:rgba(199,96,123,0.3)"':''}><div class="psym">${P[nm]||'★'}</div><div><div class="pname">${nm}${retro?' <span class="pretro">℞</span>':''}</div><div class="ppos">${sign} ${deg}</div>${nak?`<div class="ppos">${nak}</div>`:''}</div></div>`;
+
+    let statusBadges='';
+    if(retro) statusBadges+=`<span style="font-size:.58rem;padding:1px 5px;border-radius:3px;background:rgba(199,96,123,.12);color:var(--lotus-light);">Retrograde ℞</span> `;
+    if(p.is_exalted) statusBadges+=`<span style="font-size:.58rem;padding:1px 5px;border-radius:3px;background:rgba(107,155,125,.12);color:var(--sage-light);">Exalted ↑</span> `;
+    if(p.is_debilitated) statusBadges+=`<span style="font-size:.58rem;padding:1px 5px;border-radius:3px;background:rgba(199,96,123,.12);color:var(--lotus-light);">Debilitated ↓</span> `;
+    if(dignity && !p.is_exalted && !p.is_debilitated) statusBadges+=`<span style="font-size:.58rem;color:var(--text-dim);">${escapeHtml(dignity)}</span>`;
+
+    tableHtml+=`<tr style="background:var(--glass);${retro?'border-left:2px solid var(--lotus);':''}">
+      <td style="padding:7px 8px;border-radius:8px 0 0 8px;">
+        <div style="display:flex;align-items:center;gap:5px;">
+          <span style="color:${co};font-size:1.1rem;">${P[nm]||'★'}</span>
+          <div>
+            <div style="font-weight:600;font-size:.85rem;color:var(--text-bright);">${escapeHtml(nm)}</div>
+            <div style="font-size:.62rem;color:var(--text-dim);">${escapeHtml(p.sanskrit||'')}</div>
+          </div>
+        </div>
+      </td>
+      <td style="padding:7px 8px;">
+        <div style="font-size:.9rem;color:var(--text-bright);font-weight:500;">${escapeHtml(sign)}</div>
+        ${(transitFrom||transitTo)?`<div style="font-size:.6rem;color:var(--text-dim);margin-top:2px;">${transitFrom?escapeHtml(transitFrom):''}${transitTo?' → '+escapeHtml(transitTo):''}</div>`:''}
+      </td>
+      <td style="padding:7px 8px;font-size:.82rem;color:var(--text-mid);font-family:var(--font-mono);">${escapeHtml(deg)}</td>
+      <td style="padding:7px 8px;font-size:.78rem;color:var(--text-mid);">${escapeHtml(nak)}${pada?' '+escapeHtml(pada):''}</td>
+      <td style="padding:7px 8px;font-size:.7rem;color:var(--text-dim);font-family:var(--font-mono);">${escapeHtml(speed)}</td>
+      <td style="padding:7px 8px;border-radius:0 8px 8px 0;">${statusBadges}</td>
+    </tr>`;
   });
+  tableHtml+='</tbody></table></div>';
 
   const el = document.getElementById('res-transits');
   el.innerHTML = `
     <div class="rcard"><div class="rcard-header"><div class="rcard-title">Navagraha — Current Positions</div><div class="rbadge rb-live">Live</div></div><div class="rcard-body">
-      <div class="pgrid">${pHtml}</div>
-      ${retros.length?`<div class="info-box" style="margin-top:1rem;border-color:rgba(199,96,123,0.2);"><div class="info-box-title" style="color:var(--lotus-light);">⟲ Retrograde Planets</div><div class="info-box-text">${retros.join(', ')} — currently in apparent backward motion. Retrogrades intensify the planet's inner effects.</div></div>`:''}
+      ${tableHtml}
+      ${retros.length?`<div class="info-box" style="margin-top:1rem;border-color:rgba(199,96,123,0.2);"><div class="info-box-title" style="color:var(--lotus-light);">⟲ Retrograde Planets</div><div class="info-box-text">${retros.join(', ')} — currently in apparent backward motion. Retrogrades intensify the planet's inner effects and invite introspection.</div></div>`:''}
     </div></div>
     <div class="spirit"><div class="spirit-icon">🌌</div><div class="spirit-text">The planets are not doing things to you — they are mirrors reflecting the larger cosmic dance you are already part of. Understanding transits helps you flow with the rhythm rather than against it.</div><div class="spirit-attr">— Parashar Jyotisha</div><a href="index.html#contact" class="fbtn">Get Personal Transit Reading →</a></div>`;
   el.classList.add('show');
