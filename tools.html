@@ -164,6 +164,53 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
 @media(max-width:768px){.sav-grid{grid-template-columns:repeat(2,1fr);} .strength-summary-grid{grid-template-columns:repeat(2,1fr);} .strength-mini-guide{grid-template-columns:1fr;} .shad-card-grid{grid-template-columns:1fr 1fr;}}
 @media(max-width:460px){.sav-grid,.strength-summary-grid,.shad-card-grid{grid-template-columns:1fr;}}
 
+
+/* Personal Gochar / Transit */
+.gochar-hero{position:relative;overflow:hidden;border-radius:20px;padding:1.2rem;background:linear-gradient(135deg,rgba(91,141,184,.12),rgba(212,116,62,.08),rgba(199,96,123,.07));border:1px solid rgba(232,149,95,.18);margin-bottom:1rem;}
+.gochar-hero::before{content:'';position:absolute;right:-90px;top:-120px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(232,149,95,.24),transparent 62%);filter:blur(12px);opacity:.9;}
+.gochar-hero::after{content:'☽';position:absolute;right:34px;top:18px;font-family:var(--font-serif);font-size:6rem;color:rgba(255,255,255,.035);line-height:1;}
+.gochar-hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center;}
+.gochar-overline{font-family:var(--font-mono);font-size:.62rem;color:var(--ember-glow);letter-spacing:.18em;text-transform:uppercase;margin-bottom:.35rem;}
+.gochar-title{font-family:var(--font-serif);font-size:clamp(1.45rem,3vw,2.15rem);font-weight:400;color:var(--text-bright);line-height:1.1;margin-bottom:.35rem;}
+.gochar-title em{font-style:italic;color:var(--gold-light);}
+.gochar-sub{font-size:.84rem;color:var(--text-mid);line-height:1.65;max-width:720px;}
+.gochar-mandala{width:112px;height:112px;border-radius:50%;border:1px solid rgba(232,149,95,.28);display:grid;place-items:center;background:radial-gradient(circle,rgba(232,149,95,.16),rgba(10,10,15,.25));box-shadow:0 0 38px rgba(212,116,62,.14);position:relative;}
+.gochar-mandala::before,.gochar-mandala::after{content:'';position:absolute;border-radius:50%;border:1px dashed rgba(255,255,255,.12);inset:14px;animation:gocharSpin 18s linear infinite;}
+.gochar-mandala::after{inset:28px;animation-duration:30s;animation-direction:reverse;border-color:rgba(201,168,76,.18)}
+.gochar-mandala span{font-size:2.2rem;position:relative;z-index:1;filter:drop-shadow(0 0 12px rgba(232,149,95,.3));}
+@keyframes gocharSpin{to{transform:rotate(360deg)}}
+.gochar-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem;margin-bottom:1rem;}
+.gochar-stat{padding:.9rem;border-radius:16px;background:rgba(255,255,255,.027);border:1px solid var(--line);position:relative;overflow:hidden;}
+.gochar-stat strong{display:block;font-family:var(--font-serif);font-size:1.45rem;font-weight:500;color:var(--text-bright);line-height:1.1;}
+.gochar-stat span{display:block;font-family:var(--font-mono);font-size:.56rem;letter-spacing:.11em;text-transform:uppercase;color:var(--text-dim);margin-top:.25rem;}
+.gochar-stat small{display:block;color:var(--text-dim);font-size:.67rem;line-height:1.35;margin-top:.3rem;}
+.gochar-effect-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.75rem;}
+.gochar-effect{border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.026);padding:.95rem;position:relative;overflow:hidden;transition:transform .25s var(--ease),border-color .25s,background .25s;}
+.gochar-effect:hover{transform:translateY(-3px);border-color:rgba(232,149,95,.22);background:rgba(255,255,255,.038);}
+.gochar-effect.good{border-color:rgba(107,155,125,.22);}
+.gochar-effect.alert{border-color:rgba(199,96,123,.22);}
+.gochar-effect.mixed{border-color:rgba(201,168,76,.18);}
+.gochar-effect::after{content:'';position:absolute;right:-38px;bottom:-42px;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,var(--pcGlow,rgba(232,149,95,.12)),transparent 68%);}
+.gochar-effect-head{position:relative;z-index:1;display:flex;align-items:flex-start;gap:.75rem;margin-bottom:.7rem;}
+.gochar-planet-badge{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:color-mix(in srgb,var(--pc) 13%,transparent);border:1px solid color-mix(in srgb,var(--pc) 30%,transparent);color:var(--pc);font-size:1.15rem;font-weight:900;flex-shrink:0;}
+.gochar-effect-title{font-weight:800;color:var(--text-bright);font-size:.94rem;line-height:1.25;}
+.gochar-effect-meta{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.35rem;}
+.gochar-chip{display:inline-flex;align-items:center;gap:.25rem;border:1px solid var(--line);background:rgba(255,255,255,.035);border-radius:999px;padding:.18rem .52rem;font-size:.62rem;color:var(--text-mid);}
+.gochar-nature{margin-left:auto;border-radius:999px;padding:.22rem .55rem;font-size:.58rem;font-family:var(--font-mono);font-weight:800;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap;}
+.gochar-nature.good{background:rgba(107,155,125,.14);color:var(--sage-light);border:1px solid rgba(107,155,125,.22);}
+.gochar-nature.alert{background:rgba(199,96,123,.14);color:var(--lotus-light);border:1px solid rgba(199,96,123,.22);}
+.gochar-nature.mixed{background:rgba(201,168,76,.14);color:var(--gold-light);border:1px solid rgba(201,168,76,.22);}
+.gochar-effect-text{position:relative;z-index:1;color:var(--text-mid);font-size:.8rem;line-height:1.58;margin-top:.55rem;}
+.gochar-timeline{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.65rem;margin-top:.8rem;}
+.gochar-timeitem{border:1px solid var(--line);border-radius:14px;padding:.8rem;background:rgba(10,10,15,.22);}
+.gochar-timeitem b{font-size:.82rem;color:var(--text-bright);}
+.gochar-timeitem div{font-size:.68rem;color:var(--text-dim);margin-top:.24rem;line-height:1.45;}
+.gochar-lesson{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-top:1rem;}
+.gochar-lesson div{border:1px solid var(--line);border-radius:14px;padding:.8rem;background:rgba(255,255,255,.024);}
+.gochar-lesson b{display:block;color:var(--ember-light);font-size:.78rem;margin-bottom:.22rem;}
+.gochar-lesson span{display:block;color:var(--text-dim);font-size:.7rem;line-height:1.45;}
+@media(max-width:780px){.gochar-hero-inner{grid-template-columns:1fr}.gochar-mandala{display:none}.gochar-stat-grid{grid-template-columns:repeat(2,1fr)}.gochar-lesson{grid-template-columns:1fr}}
+
 /* ─── RESULTS ─── */
 .results{margin-top:1.5rem;display:none;animation:fadeUp .5s var(--ease) both;max-width:1120px;margin-left:auto;margin-right:auto;}
 .results.show{display:block;}
@@ -1154,10 +1201,118 @@ function renderShadbalaDetailed(raw){
     <div class="strength-note"><strong>Reading note:</strong> If the API does not return required Shadbala thresholds, the bars are relative within this chart, not final pass/fail. Shadbala must be read with dignity, house placement, combustion, aspects, Yogas and active Dasha.</div>
   </div>`;
 }
+
+function gocharClassFromText(v){
+  const t=String(v||'').toLowerCase();
+  if(/excellent|auspicious|favo[u]?r|benefic|good|positive|support|gain|growth|strong|helpful|opportun|progress|relief/.test(t)) return 'good';
+  if(/challeng|difficult|malefic|caution|weak|negative|obstacle|delay|loss|stress|care|avoid|pressure|risk|conflict|struggle/.test(t)) return 'alert';
+  return 'mixed';
+}
+function gocharPrettyNature(v){
+  const cls=gocharClassFromText(v);
+  if(cls==='good') return 'Supportive';
+  if(cls==='alert') return 'Caution';
+  return v ? titleCase(v) : 'Mixed';
+}
+function normalizeGocharEffects(raw){
+  const d=dig(raw);
+  if(!d || typeof d!=='object') return {summary:{}, effects:[], slow:[], source:null};
+  let summary={};
+  const sObj=pickDeep(d,['summary','overall','overview','current_period','transit_summary','gochar_summary']);
+  if(sObj && typeof sObj==='object') summary=sObj;
+  else if(sObj) summary={summary:sObj};
+  const keys=['effects','effect_list','personal_effects','transit_effects','gochar_effects','predictions','prediction','analysis','results','planet_effects','current_transits','major_transits','transits','planetary_transits'];
+  let src=null;
+  for(const k of keys){
+    if(d[k]!==undefined && d[k]!==null){ src=d[k]; break; }
+  }
+  if(!src && Array.isArray(d)) src=d;
+  const effects=[];
+  const addEffect=(key,val)=>{
+    if(val===null || val===undefined || val==='') return;
+    const obj=(typeof val==='object' && !Array.isArray(val))?val:{prediction:val};
+    let planet=firstText(obj,['planet','graha','name','body','transit_planet','transiting_planet','lord']) || key || '';
+    if(planet && !DASHA_ORDER.includes(canonicalDashaPlanet(planet))) planet=titleCase(String(planet));
+    planet=cleanName({name:planet});
+    const sign=firstText(obj,['sign','rashi','current_sign','transit_sign','to_sign','zodiac','rasi']);
+    const house=firstText(obj,['house','bhava','transit_house','gochar_house','from_moon_house','moon_house','from_lagna_house','lagna_house']);
+    const natalHouse=firstText(obj,['natal_house','birth_house','janma_house']);
+    const nature=firstText(obj,['nature','quality','status','result','effect_type','type','classification','grade']);
+    const prediction=firstText(obj,['prediction','interpretation','effect','summary','description','advice','message','result_text','reading','impact']) || (typeof val==='string'?val:'');
+    const aspect=firstText(obj,['aspect','aspects','drishti','relation']);
+    const start=firstText(obj,['start','start_date','from','from_date','entered','entry','transit_start','rashi_start','sign_entry']);
+    const end=firstText(obj,['end','end_date','to','to_date','leaves','exit','transit_end','rashi_end','sign_exit']);
+    const score=numFromAny(pickDeep(obj,['score','points','rating','strength','weight','impact_score']));
+    if(!planet && !prediction && !sign && !house) return;
+    effects.push({planet:planet||'Transit',sign,house,natalHouse,nature,prediction,aspect,start,end,score,raw:obj});
+  };
+  if(Array.isArray(src)) src.forEach((x,i)=>addEffect('',x));
+  else if(src && typeof src==='object') Object.entries(src).forEach(([k,v])=>addEffect(k,v));
+  ['saturn','jupiter','rahu','ketu','mars','venus','sun','moon','mercury'].forEach(k=>{
+    if(d[k] && typeof d[k]==='object' && !effects.find(e=>e.planet.toLowerCase()===k)) addEffect(k,d[k]);
+  });
+  const slow=effects.filter(e=>/Saturn|Jupiter|Rahu|Ketu/i.test(e.planet) || e.start || e.end).slice(0,6);
+  let favorable=numFromAny(pickDeep(summary,['favorable','favourable','favorable_transits','favourable_transits','positive','positive_count']));
+  let challenging=numFromAny(pickDeep(summary,['challenging','difficult','caution','negative','challenging_transits','negative_count']));
+  let total=numFromAny(pickDeep(summary,['total','total_transits','count']));
+  if(effects.length){
+    const computedGood=effects.filter(e=>gocharClassFromText([e.nature,e.prediction].join(' '))==='good').length;
+    const computedBad=effects.filter(e=>gocharClassFromText([e.nature,e.prediction].join(' '))==='alert').length;
+    if(favorable===null) favorable=computedGood;
+    if(challenging===null) challenging=computedBad;
+    if(total===null) total=effects.length;
+  }
+  summary={...summary,favorable,challenging,total};
+  return {summary,effects,slow,source:d};
+}
+function renderGocharDetailed(raw,bc={}){
+  const g=normalizeGocharEffects(raw);
+  const d=g.source;
+  if(!d) return '';
+  const moonObj=bc.moon_sign||bc.moon||{};
+  const moonSign=firstText(moonObj,['rashi','sign','name']) || (typeof moonObj==='string'?moonObj:'');
+  const verdict=firstText(g.summary,['verdict','quality','mood','status','result','title']) || '';
+  const advice=firstText(g.summary,['advice','summary','overview','interpretation','message','description']) || '';
+  const score=numFromAny(pickDeep(g.summary,['score','rating','strength','gochar_score','transit_score']));
+  const favorable=g.summary.favorable ?? 0;
+  const challenging=g.summary.challenging ?? 0;
+  const total=g.summary.total || g.effects.length || 0;
+  const overallClass=score!==null ? (score>=70?'good':score<=40?'alert':'mixed') : (favorable>challenging?'good':challenging>favorable?'alert':'mixed');
+  const mood=verdict || (overallClass==='good'?'Supportive transit weather':overallClass==='alert'?'Careful transit weather':'Mixed transit weather');
+  const heroText=advice || 'Gochar shows how current planetary movement touches your birth chart. Read this together with active Dasha for practical timing.';
+  const effectCards=g.effects.slice(0,12).map((e,idx)=>{
+    const cls=gocharClassFromText([e.nature,e.prediction].join(' '));
+    const co=PCOL[e.planet]||'var(--ember-light)';
+    const titleParts=[e.planet];
+    if(e.sign) titleParts.push('in '+e.sign);
+    const heading=titleParts.join(' ');
+    const text=e.prediction || 'Transit data received. Detailed interpretation can be expanded from backend for this planet.';
+    const meta=[];
+    if(e.house) meta.push(`House ${escapeHtml(e.house)}`);
+    if(e.natalHouse) meta.push(`Natal H${escapeHtml(e.natalHouse)}`);
+    if(e.aspect) meta.push(escapeHtml(e.aspect));
+    if(e.start||e.end) meta.push(`${e.start?escapeHtml(e.start):'Now'}${e.end?' → '+escapeHtml(e.end):''}`);
+    return `<div class="gochar-effect ${cls}" style="--pc:${co};--pcGlow:color-mix(in srgb,${co} 14%,transparent);">
+      <div class="gochar-effect-head"><div class="gochar-planet-badge">${escapeHtml(P[e.planet]||e.planet.charAt(0)||'●')}</div><div style="flex:1;"><div class="gochar-effect-title">${escapeHtml(heading)}</div><div class="gochar-effect-meta">${meta.map(m=>`<span class="gochar-chip">${m}</span>`).join('')}</div></div><div class="gochar-nature ${cls}">${escapeHtml(gocharPrettyNature(e.nature||cls))}</div></div>
+      <div class="gochar-effect-text">${escapeHtml(text)}</div>
+    </div>`;
+  }).join('');
+  const slowHtml=g.slow.length?`<div class="advanced-card" style="grid-column:1/-1;margin-top:1rem;"><div class="advanced-card-title">Major Slow-Moving Transits</div><div class="advanced-card-text">Saturn, Jupiter, Rahu and Ketu usually shape longer life themes. Use these with Dasha for timing.</div><div class="gochar-timeline">${g.slow.map(e=>`<div class="gochar-timeitem"><b>${escapeHtml(e.planet)}${e.sign?' in '+escapeHtml(e.sign):''}</b><div>${e.start||e.end?`${e.start?escapeHtml(e.start):'Current'}${e.end?' → '+escapeHtml(e.end):''}`:'Ongoing influence'}</div><div>${escapeHtml(e.prediction||e.nature||'Major transit influence')}</div></div>`).join('')}</div></div>`:'';
+  const emptyNote=!effectCards?`<div class="strength-note"><strong>Partial data:</strong> Gochar API returned summary only. To make this more powerful, backend should return planet-wise effects with planet, sign, house, nature and prediction.</div>`:'';
+  return `<div class="rcard" id="result-gochar"><div class="rcard-header"><div class="rcard-title">Personal Gochar / Transit Reading</div><div class="rbadge rb-live">Live Influence</div></div><div class="rcard-body">
+    <div class="gochar-hero"><div class="gochar-hero-inner"><div><div class="gochar-overline">Current planetary movement over your birth chart</div><div class="gochar-title">${escapeHtml(mood)} <em>${score!==null?'• '+score+'/100':''}</em></div><div class="gochar-sub">${escapeHtml(heroText)}</div></div><div class="gochar-mandala"><span>🪐</span></div></div></div>
+    <div class="gochar-stat-grid"><div class="gochar-stat"><strong>${escapeHtml(String(total||'—'))}</strong><span>Total factors</span><small>Planetary effects received</small></div><div class="gochar-stat"><strong>${escapeHtml(String(favorable||0))}</strong><span>Supportive</span><small>Helpful / growth giving</small></div><div class="gochar-stat"><strong>${escapeHtml(String(challenging||0))}</strong><span>Needs care</span><small>Requires patience & remedy</small></div><div class="gochar-stat"><strong>${escapeHtml(moonSign||'—')}</strong><span>Janma Rashi</span><small>Moon sign reference</small></div></div>
+    ${effectCards?`<div class="gochar-effect-grid">${effectCards}</div>`:''}
+    ${emptyNote}
+    ${slowHtml}
+    <div class="gochar-lesson"><div><b>1. First see Dasha</b><span>Dasha shows which planet is currently delivering life results.</span></div><div><b>2. Then see Gochar</b><span>Transit shows when those themes become active in real time.</span></div><div><b>3. Then apply remedy</b><span>Use mantra, discipline and timing to work with the cosmic weather.</span></div></div>
+    <div class="strength-note"><strong>Reading note:</strong> Personal transit is not a final prediction by itself. Best result comes when Gochar is read with birth chart, Ashtakavarga, Shadbala and current Dasha.</div>
+  </div></div>`;
+}
+
 function renderAdvancedKundliCards(advanced={}){
   const strengthHtml = `${renderAshtakavargaDetailed(advanced.ashtakavarga)}${renderShadbalaDetailed(advanced.shadbala)}`;
   const otherCards=[
-    ['gochar','Personal Transit','Current Gochar impact on birth chart'],
     ['remedies','Remedies','Practical upaya, mantra and guidance'],
   ].map(([key,title,sub])=>{
     const summary=compactAdvancedSummary(advanced[key],key);
@@ -1706,7 +1861,8 @@ function renderKundli(name,bcRaw,ygRaw,dsRaw,meta={},skipScroll=false){
 
   const planetWarning=planets.length?'':`<div class="info-box"><div class="info-box-title">Chart note</div><div class="info-box-text">The chart frame was created, but the API did not return planet positions in the expected format. Please share the API response if this appears after testing.</div></div>`;
   const advancedHtml=renderAdvancedKundliCards(advanced);
-  const jumpbar=`<div class="result-jumpbar"><a href="#result-summary">Summary</a><a href="#result-chart">Chart</a><a href="#result-planets">Planets</a><a href="#result-dasha">Dasha</a><a href="#result-yogas">Yogas</a><a href="#result-houses">Houses</a>${advancedHtml?'<a href="#result-advanced">Advanced</a>':''}</div>`;
+  const gocharHtml=renderGocharDetailed(advanced.gochar,bc);
+  const jumpbar=`<div class="result-jumpbar"><a href="#result-summary">Summary</a><a href="#result-chart">Chart</a><a href="#result-planets">Planets</a><a href="#result-dasha">Dasha</a><a href="#result-yogas">Yogas</a><a href="#result-houses">Houses</a>${advancedHtml?'<a href="#result-advanced">Strength</a>':''}${gocharHtml?'<a href="#result-gochar">Transit</a>':''}</div>`;
 
   // ── ASSEMBLE ──
   el.innerHTML=`
@@ -1718,6 +1874,7 @@ function renderKundli(name,bcRaw,ygRaw,dsRaw,meta={},skipScroll=false){
     ${panchHtml}
     ${dh}${yh.replace('<div class="rcard"','<div class="rcard" id="result-yogas"')}${hh.replace('<div class="rcard"','<div class="rcard" id="result-houses"')}
     ${advancedHtml}
+    ${gocharHtml}
     <div class="spirit"><div class="spirit-icon">☉</div><div class="spirit-text">Your birth chart is a sacred map — not of fate, but of potential. Start by reading the highlighted Lagna sign, then see where each planet name is placed. For deeper interpretation including Navamsa, Antardasha, remedies and life predictions — consider a personal reading.</div><div class="spirit-attr">— Parashar Jyotisha</div><a href="index.html#contact" class="fbtn">Book Personal Reading →</a></div>`;
   el.classList.add('show');
   if(!skipScroll) el.scrollIntoView({behavior:'smooth',block:'start'});
