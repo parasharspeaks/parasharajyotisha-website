@@ -1268,7 +1268,16 @@ function normalizeGocharEffects(raw){
 function renderGocharDetailed(raw,bc={}){
   const g=normalizeGocharEffects(raw);
   const d=g.source;
-  if(!d) return '';
+  if(!d){
+    const moonObj=bc.moon_sign||bc.moon||{};
+    const moonSign=firstText(moonObj,['rashi','sign','name']) || (typeof moonObj==='string'?moonObj:'');
+    return `<div class="rcard" id="result-gochar"><div class="rcard-header"><div class="rcard-title">Personal Gochar / Transit Reading</div><div class="rbadge rb-live">Connect API</div></div><div class="rcard-body">
+      <div class="gochar-hero"><div class="gochar-hero-inner"><div><div class="gochar-overline">Current planetary movement over your birth chart</div><div class="gochar-title">Gochar section is ready <em>• API data pending</em></div><div class="gochar-sub">The website layout is now prepared. To show live personal transit, the backend must return data from the Gochar endpoint for this birth profile.</div></div><div class="gochar-mandala"><span>🪐</span></div></div></div>
+      <div class="gochar-stat-grid"><div class="gochar-stat"><strong>—</strong><span>Total factors</span><small>Waiting for planet-wise effects</small></div><div class="gochar-stat"><strong>—</strong><span>Supportive</span><small>Requires Gochar API data</small></div><div class="gochar-stat"><strong>—</strong><span>Needs care</span><small>Requires Gochar API data</small></div><div class="gochar-stat"><strong>${escapeHtml(moonSign||'—')}</strong><span>Janma Rashi</span><small>Moon sign reference</small></div></div>
+      <div class="strength-note"><strong>Why this appears:</strong> Birth chart, Dasha and Strength are working, but the website did not receive Gochar data. Check whether <code>/kundli/gochar-analysis</code> exists on the backend and returns planet-wise effects.</div>
+      <div class="gochar-lesson"><div><b>1. First see Dasha</b><span>Dasha shows which planet is delivering results.</span></div><div><b>2. Then see Gochar</b><span>Gochar shows current timing and activation.</span></div><div><b>3. Then apply remedy</b><span>Use practical upaya only after combining both.</span></div></div>
+    </div></div>`;
+  }
   const moonObj=bc.moon_sign||bc.moon||{};
   const moonSign=firstText(moonObj,['rashi','sign','name']) || (typeof moonObj==='string'?moonObj:'');
   const verdict=firstText(g.summary,['verdict','quality','mood','status','result','title']) || '';
@@ -1862,7 +1871,7 @@ function renderKundli(name,bcRaw,ygRaw,dsRaw,meta={},skipScroll=false){
   const planetWarning=planets.length?'':`<div class="info-box"><div class="info-box-title">Chart note</div><div class="info-box-text">The chart frame was created, but the API did not return planet positions in the expected format. Please share the API response if this appears after testing.</div></div>`;
   const advancedHtml=renderAdvancedKundliCards(advanced);
   const gocharHtml=renderGocharDetailed(advanced.gochar,bc);
-  const jumpbar=`<div class="result-jumpbar"><a href="#result-summary">Summary</a><a href="#result-chart">Chart</a><a href="#result-planets">Planets</a><a href="#result-dasha">Dasha</a><a href="#result-yogas">Yogas</a><a href="#result-houses">Houses</a>${advancedHtml?'<a href="#result-advanced">Strength</a>':''}${gocharHtml?'<a href="#result-gochar">Transit</a>':''}</div>`;
+  const jumpbar=`<div class="result-jumpbar"><a href="#result-summary">Summary</a><a href="#result-chart">Chart</a><a href="#result-planets">Planets</a><a href="#result-dasha">Dasha</a><a href="#result-yogas">Yogas</a><a href="#result-houses">Houses</a>${advancedHtml?'<a href="#result-advanced">Strength</a>':''}<a href="#result-gochar">Transit</a></div>`;
 
   // ── ASSEMBLE ──
   el.innerHTML=`
