@@ -122,6 +122,32 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
 .advanced-card-title{font-weight:800;color:var(--text-bright);font-size:.85rem;margin-bottom:.35rem;}
 .advanced-card-text{font-size:.76rem;color:var(--text-mid);line-height:1.55;}
 .advanced-list{margin:.45rem 0 0;padding-left:1rem;color:var(--text-dim);font-size:.72rem;line-height:1.55;}
+.strength-summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.65rem;margin-bottom:1rem;}
+.strength-summary-card{padding:.9rem;border-radius:14px;background:rgba(255,255,255,.032);border:1px solid var(--line);}
+.strength-summary-card span{display:block;font-family:var(--font-mono);font-size:.58rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.22rem;}
+.strength-summary-card strong{font-family:var(--font-serif);font-size:1.18rem;color:var(--text-bright);font-weight:500;line-height:1.1;}
+.strength-summary-card small{display:block;color:var(--text-dim);font-size:.68rem;margin-top:.22rem;line-height:1.35;}
+.sav-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.65rem;}
+.sav-house{padding:.75rem;border-radius:14px;background:rgba(255,255,255,.025);border:1px solid var(--line);position:relative;overflow:hidden;}
+.sav-house.high{border-color:rgba(107,155,125,.34);background:rgba(107,155,125,.055);}
+.sav-house.low{border-color:rgba(199,96,123,.30);background:rgba(199,96,123,.045);}
+.sav-top{display:flex;align-items:center;justify-content:space-between;gap:.4rem;margin-bottom:.5rem;}
+.sav-label{font-family:var(--font-mono);font-size:.62rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.08em;}
+.sav-score{font-family:var(--font-serif);font-size:1.35rem;color:var(--text-bright);font-weight:600;line-height:1;}
+.strength-bar{height:6px;border-radius:999px;background:rgba(255,255,255,.065);overflow:hidden;}
+.strength-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--ember),var(--gold));width:0%;transition:width 1s var(--ease);}
+.sav-meta{font-size:.64rem;color:var(--text-dim);margin-top:.42rem;line-height:1.35;}
+.shadbala-table-wrap{overflow-x:auto;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.018);}
+.shadbala-table{width:100%;border-collapse:separate;border-spacing:0;min-width:680px;}
+.shadbala-table th{font-family:var(--font-mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text-dim);text-align:left;padding:.65rem .7rem;border-bottom:1px solid var(--line);}
+.shadbala-table td{padding:.7rem;border-bottom:1px solid rgba(255,255,255,.045);font-size:.76rem;color:var(--text-mid);vertical-align:middle;}
+.shadbala-table tr:last-child td{border-bottom:none;}
+.shad-planet{display:inline-flex;align-items:center;gap:.4rem;font-weight:800;color:var(--pc);background:color-mix(in srgb,var(--pc) 10%,transparent);border:1px solid color-mix(in srgb,var(--pc) 24%,transparent);padding:.26rem .52rem;border-radius:999px;}
+.shad-score{font-family:var(--font-mono);font-weight:800;color:var(--text-bright);}
+.shad-subgrid{display:flex;flex-wrap:wrap;gap:.32rem;}
+.shad-subchip{font-size:.58rem;padding:.15rem .35rem;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.035);color:var(--text-dim);}
+.strength-note{margin-top:.85rem;padding:.8rem 1rem;border-radius:14px;background:rgba(212,116,62,.055);border:1px solid rgba(212,116,62,.18);font-size:.76rem;color:var(--text-mid);line-height:1.65;}
+@media(max-width:768px){.sav-grid{grid-template-columns:repeat(2,1fr);} .strength-summary-grid{grid-template-columns:repeat(2,1fr);}}
 
 /* ─── RESULTS ─── */
 .results{margin-top:1.5rem;display:none;animation:fadeUp .5s var(--ease) both;max-width:1120px;margin-left:auto;margin-right:auto;}
@@ -838,17 +864,192 @@ function compactAdvancedSummary(raw, type){
     preferred.forEach(k=>{ if(d[k]!==undefined && d[k]!==null && typeof d[k]!=='object') rows.push([k,d[k]]); });
     primitiveEntries(d,6).forEach(([k,v])=>{ if(!rows.find(r=>r[0]===k)) rows.push([k,v]); });
     if(rows.length){
-      return `<ul class="advanced-list">${rows.slice(0,6).map(([k,v])=>`<li><strong>${escapeHtml(k.replace(/_/g,' '))}:</strong> ${escapeHtml(String(v))}</li>`).join('')}</ul>`;
+      return `<ul class="advanced-list">${rows.slice(0,6).map(([k,v])=>`<li><strong>${escapeHtml(titleCase(k))}:</strong> ${escapeHtml(String(v))}</li>`).join('')}</ul>`;
     }
     const keys=Object.keys(d).slice(0,6);
-    if(keys.length) return `<div class="advanced-card-text">Data received: ${keys.map(k=>escapeHtml(k.replace(/_/g,' '))).join(', ')}</div>`;
+    if(keys.length) return `<div class="advanced-card-text">Data received: ${keys.map(k=>escapeHtml(titleCase(k))).join(', ')}</div>`;
   }
   return '';
 }
+function titleCase(k){
+  return String(k||'').replace(/_/g,' ').replace(/\b\w/g,m=>m.toUpperCase());
+}
+function numFromAny(v){
+  if(v===null || v===undefined || v==='') return null;
+  if(typeof v==='number' && Number.isFinite(v)) return v;
+  if(typeof v==='string'){
+    const m=v.replace(/,/g,'').match(/-?\d+(\.\d+)?/);
+    return m?Number(m[0]):null;
+  }
+  if(typeof v==='object'){
+    const keys=['points','bindu','bindus','score','total','value','strength','rupa','virupa','percentage','percent','ratio'];
+    for(const k of keys){ const n=numFromAny(v[k]); if(n!==null) return n; }
+  }
+  return null;
+}
+function firstText(obj, keys){
+  if(!obj || typeof obj!=='object') return '';
+  for(const k of keys){
+    const v=obj[k];
+    if(v===undefined || v===null || v==='') continue;
+    if(typeof v==='string' || typeof v==='number' || typeof v==='boolean') return String(v);
+    if(typeof v==='object'){
+      const t=v.name||v.title||v.label||v.value||v.text||v.summary||v.description;
+      if(t!==undefined && t!==null && t!=='') return String(t);
+    }
+  }
+  return '';
+}
+function pickDeep(obj, keys){
+  if(!obj || typeof obj!=='object') return null;
+  for(const k of keys){ if(obj[k]!==undefined && obj[k]!==null) return obj[k]; }
+  return null;
+}
+function extractSavPoints(raw){
+  const d=dig(raw);
+  if(!d) return {points:[], total:0, average:0, strongest:[], weakest:[], source:null};
+  let src = pickDeep(d,['sarvashtakavarga','sarva_ashtakavarga','sav','sarva','total','ashtakavarga','points_per_house','house_points','houses','bhava_points','sign_points','rashi_points']) || d;
+  if(src && typeof src==='object'){
+    src = pickDeep(src,['points_per_house','house_points','houses','bhava_points','sign_points','rashi_points','values','data']) || src;
+  }
+  const points=[];
+  if(Array.isArray(src)){
+    src.slice(0,12).forEach((v,i)=>{ const n=numFromAny(v); if(n!==null) points.push({house:i+1, points:n, raw:v}); });
+  }else if(src && typeof src==='object'){
+    Object.entries(src).forEach(([k,v])=>{
+      let h = /^\d+$/.test(String(k).trim()) ? parseInt(String(k).trim(),10) : 0;
+      if(!h){
+        const m=String(k).match(/house\s*([1-9]|1[0-2])/i);
+        if(m) h=parseInt(m[1],10);
+      }
+      if(!h) h=signNameToNum(k);
+      const n=numFromAny(v);
+      if(h>=1 && h<=12 && n!==null) points.push({house:h, points:n, raw:v});
+    });
+  }
+  points.sort((a,b)=>a.house-b.house);
+  const totalCandidate = numFromAny(pickDeep(d,['total_points','total_score','sarva_total','bindu_total','total_bindus','total']));
+  const total = totalCandidate!==null ? totalCandidate : points.reduce((a,b)=>a+b.points,0);
+  const avgCandidate = numFromAny(pickDeep(d,['average_per_house','average','avg','mean']));
+  const average = avgCandidate!==null ? avgCandidate : (points.length?total/points.length:0);
+  const strongestRaw = pickDeep(d,['strongest_houses','strong_houses','best_houses','strongest','strong']);
+  const weakestRaw = pickDeep(d,['weakest_houses','weak_houses','challenging_houses','weakest','weak']);
+  const max = points.length?Math.max(...points.map(x=>x.points)):0;
+  const min = points.length?Math.min(...points.map(x=>x.points)):0;
+  const strongest = strongestRaw ? formatAnyList(strongestRaw) : points.filter(x=>x.points===max).map(x=>`House ${x.house}`);
+  const weakest = weakestRaw ? formatAnyList(weakestRaw) : points.filter(x=>x.points===min).map(x=>`House ${x.house}`);
+  return {points,total,average,strongest,weakest,source:d};
+}
+function formatAnyList(v){
+  if(v===null || v===undefined || v==='') return [];
+  if(Array.isArray(v)) return v.map(formatOne).filter(Boolean);
+  if(typeof v==='object') return Object.entries(v).slice(0,5).map(([k,x])=>{
+    const n=numFromAny(x);
+    const t=formatOne(x);
+    if(/^\d+$/.test(String(k))) return `House ${k}${n!==null?' ('+n+')':''}`;
+    return `${titleCase(k)}${t && t!==String(x)?': '+t:''}`;
+  }).filter(Boolean);
+  return [String(v)];
+}
+function formatOne(v){
+  if(v===null || v===undefined || v==='') return '';
+  if(typeof v==='string' || typeof v==='number' || typeof v==='boolean') return String(v);
+  if(typeof v==='object'){
+    const h=v.house||v.house_number||v.bhava||v.sign||v.rashi||v.name||v.title||v.label;
+    const n=numFromAny(v);
+    if(h) return `${/^\d+$/.test(String(h))?'House ':''}${h}${n!==null?' ('+n+')':''}`;
+    return JSON.stringify(v).slice(0,80);
+  }
+  return String(v);
+}
+function renderAshtakavargaDetailed(raw){
+  const sav=extractSavPoints(raw);
+  if(!sav.points.length && !sav.strongest.length && !sav.weakest.length) return '';
+  const max = sav.points.length ? Math.max(...sav.points.map(x=>x.points), 1) : 1;
+  const avgTxt = sav.average ? sav.average.toFixed(1) : '—';
+  const cards = sav.points.map(x=>{
+    const cls = x.points >= 30 ? 'high' : (x.points <= 24 ? 'low' : '');
+    const width = Math.max(7, Math.min(100, (x.points/max)*100));
+    const note = x.points >= 30 ? 'supportive' : (x.points <= 24 ? 'needs attention' : 'balanced');
+    return `<div class="sav-house ${cls}"><div class="sav-top"><div class="sav-label">House ${x.house}</div><div class="sav-score">${escapeHtml(x.points)}</div></div><div class="strength-bar"><div class="strength-fill" style="width:${width}%"></div></div><div class="sav-meta">${escapeHtml(note)}</div></div>`;
+  }).join('');
+  return `<div class="advanced-card" style="grid-column:1/-1;">
+    <div class="advanced-card-title">Ashtakavarga / Sarvashtakavarga</div>
+    <div class="advanced-card-text">Bindu strength by house/sign. Higher bindu count generally shows stronger support for that life area.</div>
+    <div class="strength-summary-grid" style="margin-top:.85rem;">
+      <div class="strength-summary-card"><span>Total Bindus</span><strong>${sav.total?escapeHtml(sav.total):'—'}</strong><small>SAV total from API or calculated from houses</small></div>
+      <div class="strength-summary-card"><span>Average</span><strong>${escapeHtml(avgTxt)}</strong><small>Average bindus per house</small></div>
+      <div class="strength-summary-card"><span>Strongest</span><strong>${escapeHtml(sav.strongest.slice(0,2).join(', ')||'—')}</strong><small>Likely supportive areas</small></div>
+      <div class="strength-summary-card"><span>Needs Care</span><strong>${escapeHtml(sav.weakest.slice(0,2).join(', ')||'—')}</strong><small>Areas needing effort/remedy</small></div>
+    </div>
+    ${cards?`<div class="sav-grid">${cards}</div>`:''}
+    <div class="strength-note"><strong>Reading note:</strong> Ashtakavarga should be interpreted with Lagna, house lord strength, Dasha, and transits. It is a strength indicator, not a standalone prediction.</div>
+  </div>`;
+}
+function extractShadbalaRows(raw){
+  const d=dig(raw);
+  if(!d) return {rows:[], summary:{}, source:null};
+  let src = pickDeep(d,['shadbala','planet_strengths','strengths','planets','planetary_strength','bala','table','rows']) || d;
+  if(src && typeof src==='object') src = pickDeep(src,['planets','rows','table','data','strengths']) || src;
+  const rows=[];
+  const pushRow=(planet,val)=>{
+    if(!planet && val && typeof val==='object') planet=firstText(val,['planet','name','graha','body']);
+    if(!planet) return;
+    const planetName=cleanName({name:planet});
+    const obj=(val && typeof val==='object')?val:{};
+    const score=numFromAny(pickDeep(obj,['total_score','total','score','shadbala','bala','rupa','strength','points','value','ratio','percent','percentage']) ?? val);
+    const required=numFromAny(pickDeep(obj,['required','required_score','minimum','threshold','target','needed']));
+    let ratio=numFromAny(pickDeep(obj,['ratio','percent','percentage','strength_percent','score_percent']));
+    if((ratio===null || ratio>300) && score!==null && required) ratio=(score/required)*100;
+    const status=firstText(obj,['status','grade','level','result','interpretation','summary','remarks']) || (ratio!==null ? (ratio>=100?'Sufficient':ratio>=80?'Moderate':'Needs support') : '');
+    const subKeys=['sthana_bala','dig_bala','kala_bala','chesta_bala','naisargika_bala','drik_bala','saptavargaja_bala','ojayugma_bala','kendradi_bala','drekkana_bala'];
+    const sub=[];
+    subKeys.forEach(k=>{ const n=numFromAny(obj[k]); if(n!==null) sub.push([k,n]); });
+    rows.push({planet:planetName, score, required, ratio, status, sub, raw:obj});
+  };
+  if(Array.isArray(src)) src.forEach(x=>pushRow('',x));
+  else if(src && typeof src==='object'){
+    Object.entries(src).forEach(([k,v])=>{
+      if(['summary','strongest_planet','weakest_planet','overall','recommendation','total_score'].includes(k)) return;
+      pushRow(k,v);
+    });
+  }
+  const order=['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn','Rahu','Ketu'];
+  rows.sort((a,b)=>order.indexOf(a.planet)-order.indexOf(b.planet));
+  const numericRows=rows.filter(r=>r.score!==null);
+  const strongest = firstText(d,['strongest_planet','strongest','best_planet','strong']) || (numericRows.length?numericRows.slice().sort((a,b)=>b.score-a.score)[0].planet:'');
+  const weakest = firstText(d,['weakest_planet','weakest','weak_planet','weak']) || (numericRows.length?numericRows.slice().sort((a,b)=>a.score-b.score)[0].planet:'');
+  const overall = firstText(d,['overall','summary','interpretation','recommendation','result']);
+  return {rows,summary:{strongest,weakest,overall},source:d};
+}
+function renderShadbalaDetailed(raw){
+  const sh=extractShadbalaRows(raw);
+  if(!sh.rows.length && !sh.summary.overall && !sh.summary.strongest) return '';
+  const rowsHtml=sh.rows.map(r=>{
+    const co=PCOL[r.planet]||'var(--text-dim)';
+    const ratio = r.ratio!==null ? Math.max(0, Math.min(160, r.ratio)) : null;
+    const ratioTxt = r.ratio!==null ? `${r.ratio.toFixed(0)}%` : '—';
+    const scoreTxt = r.score!==null ? (Number.isInteger(r.score)?String(r.score):r.score.toFixed(2)) : '—';
+    const reqTxt = r.required!==null ? (Number.isInteger(r.required)?String(r.required):r.required.toFixed(2)) : '—';
+    const sub=r.sub.slice(0,6).map(([k,n])=>`<span class="shad-subchip">${escapeHtml(titleCase(k))}: ${escapeHtml(Number.isInteger(n)?n:n.toFixed(2))}</span>`).join('');
+    return `<tr><td><span class="shad-planet" style="--pc:${co};">${escapeHtml(P[r.planet]||'●')} ${escapeHtml(r.planet)}</span></td><td><span class="shad-score">${escapeHtml(scoreTxt)}</span></td><td>${escapeHtml(reqTxt)}</td><td><div class="strength-bar"><div class="strength-fill" style="width:${ratio!==null?ratio:0}%"></div></div><div style="font-size:.62rem;color:var(--text-dim);margin-top:.22rem;">${escapeHtml(ratioTxt)}</div></td><td>${escapeHtml(r.status||'—')}</td><td><div class="shad-subgrid">${sub||'<span class="shad-subchip">Sub-bala details not returned</span>'}</div></td></tr>`;
+  }).join('');
+  return `<div class="advanced-card" style="grid-column:1/-1;">
+    <div class="advanced-card-title">Shadbala / Planetary Strength</div>
+    <div class="advanced-card-text">Six-fold planetary strength. Use it to understand which grahas can deliver results more confidently.</div>
+    <div class="strength-summary-grid" style="margin-top:.85rem;">
+      <div class="strength-summary-card"><span>Strongest Planet</span><strong>${escapeHtml(sh.summary.strongest||'—')}</strong><small>Highest score / API summary</small></div>
+      <div class="strength-summary-card"><span>Weakest Planet</span><strong>${escapeHtml(sh.summary.weakest||'—')}</strong><small>Needs supportive interpretation</small></div>
+      <div class="strength-summary-card"><span>Planets Loaded</span><strong>${escapeHtml(sh.rows.length||'—')}</strong><small>Rows received from API</small></div>
+      <div class="strength-summary-card"><span>Overall</span><strong>${escapeHtml(sh.summary.overall?'Ready':'—')}</strong><small>${escapeHtml(sh.summary.overall||'Detailed strength data displayed below')}</small></div>
+    </div>
+    ${rowsHtml?`<div class="shadbala-table-wrap"><table class="shadbala-table"><thead><tr><th>Planet</th><th>Score</th><th>Required</th><th>Strength</th><th>Status</th><th>Sub Balas</th></tr></thead><tbody>${rowsHtml}</tbody></table></div>`:''}
+    <div class="strength-note"><strong>Reading note:</strong> Shadbala must be read with dignity, house placement, combustion, retrogression, aspects, Yogas and active Dasha.</div>
+  </div>`;
+}
 function renderAdvancedKundliCards(advanced={}){
-  const cards=[
-    ['ashtakavarga','Ashtakavarga','Bindu strength by signs / houses'],
-    ['shadbala','Shadbala','Planetary strength and balance'],
+  const strengthHtml = `${renderAshtakavargaDetailed(advanced.ashtakavarga)}${renderShadbalaDetailed(advanced.shadbala)}`;
+  const otherCards=[
     ['gochar','Personal Transit','Current Gochar impact on birth chart'],
     ['remedies','Remedies','Practical upaya, mantra and guidance'],
   ].map(([key,title,sub])=>{
@@ -856,8 +1057,8 @@ function renderAdvancedKundliCards(advanced={}){
     if(!summary) return '';
     return `<div class="advanced-card"><div class="advanced-card-title">${escapeHtml(title)}</div><div class="advanced-card-text">${escapeHtml(sub)}</div>${summary}</div>`;
   }).join('');
-  if(!cards) return '';
-  return `<div class="rcard" id="result-advanced"><div class="rcard-header"><div class="rcard-title">Advanced Kundli Insights</div><div class="rbadge rb-good">Loaded</div></div><div class="rcard-body"><div class="advanced-grid">${cards}</div></div></div>`;
+  if(!strengthHtml && !otherCards) return '';
+  return `<div class="rcard" id="result-advanced"><div class="rcard-header"><div class="rcard-title">Strength & Advanced Kundli Insights</div><div class="rbadge rb-good">Ashtakavarga / Shadbala</div></div><div class="rcard-body"><div class="advanced-grid">${strengthHtml}${otherCards}</div></div></div>`;
 }
 function dashaValueText(v){
   if(v===null || v===undefined || v==='') return '';
