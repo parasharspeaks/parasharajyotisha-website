@@ -882,6 +882,9 @@ function renderKundli(name,bcRaw,ygRaw,dsRaw,meta={}){
     hh+='</div></div></div>';
   }
 
+  // ── BIRTH SUMMARY CARD ──
+  const birthSummary=`<div class="rcard"><div class="rcard-header"><div class="rcard-title">Birth Details</div><div class="rbadge rb-live">Generated</div></div><div class="rcard-body"><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:.6rem;"><div class="info-box" style="margin-top:0;"><div class="info-box-title">Name</div><div class="info-box-text">${safeName}</div></div><div class="info-box" style="margin-top:0;"><div class="info-box-title">Date of Birth</div><div class="info-box-text">${escapeHtml(meta.dob||'—')}</div></div><div class="info-box" style="margin-top:0;"><div class="info-box-title">Time of Birth</div><div class="info-box-text">${escapeHtml(meta.tob||'—')}</div></div><div class="info-box" style="margin-top:0;"><div class="info-box-title">Place</div><div class="info-box-text">${escapeHtml(meta.city||'—')}</div></div></div></div></div>`;
+
   // ── QUICK FLAGS (Mangal Dosha, Kaal Sarp, Sade Sati) ──
   let flags='';
   const qf=bc.quick_flags||bc.flags||bc.doshas||{};
