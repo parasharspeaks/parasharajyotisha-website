@@ -795,7 +795,12 @@ async function genKundli(e){
       api(`/kundli/shadbala?${q}`),
       api(`/kundli/gochar-analysis?${q}`),
       api(`/kundli/remedies?${q}`),
-    ]).then(([rYoga,rDasha,rAshta,rShad,rGochar,rRemedies])=>{
+      // Gochar fallback: your Transit screen already uses current positions separately.
+      // If personal gochar-analysis is not ready, website can still show a useful
+      // Moon-sign based transit reading from live planet positions.
+      api(`/transits/current?city=${encodeURIComponent(city)}`),
+      api(`/kundli/gochar-major?${q}`),
+    ]).then(([rYoga,rDasha,rAshta,rShad,rGochar,rRemedies,rCurrentTransits,rGocharMajor])=>{
       try{
         const get = r => r.status==='fulfilled' ? r.value : null;
         const advanced = {
@@ -803,6 +808,8 @@ async function genKundli(e){
           shadbala: get(rShad),
           gochar: get(rGochar),
           remedies: get(rRemedies),
+          currentTransits: get(rCurrentTransits),
+          gocharMajor: get(rGocharMajor),
         };
         const hasAny = get(rYoga) || get(rDasha) || Object.values(advanced).some(Boolean);
         if(hasAny){
@@ -1265,16 +1272,121 @@ function normalizeGocharEffects(raw){
   summary={...summary,favorable,challenging,total};
   return {summary,effects,slow,source:d};
 }
-function renderGocharDetailed(raw,bc={}){
-  const g=normalizeGocharEffects(raw);
+
+function gocharHouseFromMoon(moonSignNo, transitSignNo){
+  if(!moonSignNo || !transitSignNo) return 0;
+  return ((transitSignNo - moonSignNo + 12) % 12) + 1;
+}
+function gocharHouseTheme(h){
+  return ({1:'body, mind, confidence and personal direction',2:'money, family, speech and food habits',3:'courage, communication, skills and short travel',4:'home, mother, property and emotional peace',5:'education, children, creativity and mantra practice',6:'health, service, competition, enemies and discipline',7:'marriage, partnership, public dealings and agreements',8:'sudden change, hidden matters, research and transformation',9:'fortune, dharma, guru, father and long journeys',10:'career, authority, duty and public karma',11:'income, gains, network and fulfilment of desires',12:'expenses, sleep, foreign links, isolation and moksha'})[Number(h)] || 'this life area';
+}
+function gocharRule(planet, house){
+  const p=canonicalDashaPlanet(planet||'');
+  const h=Number(house)||0;
+  const good={
+    Sun:[3,6,10,11], Moon:[1,3,6,7,10,11], Mars:[3,6,10,11], Mercury:[2,4,6,8,10,11],
+    Jupiter:[2,5,7,9,11], Venus:[1,2,3,4,5,8,9,11], Saturn:[3,6,11], Rahu:[3,6,10,11], Ketu:[3,6,10,11]
+  };
+  const caution={
+    Sun:[1,2,4,5,7,8,9,12], Moon:[4,5,8,9,12], Mars:[1,2,4,5,7,8,9,12], Mercury:[1,3,5,7,9,12],
+    Jupiter:[1,3,4,6,8,10,12], Venus:[6,7,10,12], Saturn:[1,2,4,5,7,8,10,12], Rahu:[1,2,4,5,7,8,9,12], Ketu:[1,2,4,5,7,8,9,12]
+  };
+  if(good[p]?.includes(h)) return {nature:'Supportive', cls:'good'};
+  if(caution[p]?.includes(h)) return {nature:'Caution', cls:'alert'};
+  return {nature:'Mixed', cls:'mixed'};
+}
+function gocharMessage(planet, sign, house, rule){
+  const p=canonicalDashaPlanet(planet||'Transit') || planet || 'Transit';
+  const theme=gocharHouseTheme(house);
+  const signPart=sign ? ` through ${sign}` : '';
+  if(rule.cls==='good') return `${p} is transiting${signPart}, activating House ${house} from your Janma Rashi. This supports ${theme}. Use this period for steady effort, planning and constructive action.`;
+  if(rule.cls==='alert') return `${p} is transiting${signPart}, activating House ${house} from your Janma Rashi. This can test ${theme}. Move carefully, avoid haste and combine this with your active Dasha before making major decisions.`;
+  return `${p} is transiting${signPart}, activating House ${house} from your Janma Rashi. Results may be mixed for ${theme}; practical discipline and timing will matter more than emotion.`;
+}
+function normalizeCurrentTransitPlanets(raw){
+  const d=dig(raw);
+  if(!d || typeof d!=='object') return [];
+  let src=d.planets || d.positions || d.grahas || d.planetary_positions || d.current_positions || d.transits || d;
+  let list=[];
+  if(Array.isArray(src)) list=src;
+  else if(src && typeof src==='object'){
+    list=Object.entries(src)
+      .filter(([k])=>!['status','cached','timestamp','date','city','ayanamsa','data'].includes(String(k).toLowerCase()))
+      .map(([k,v])=>({name:k,...(v&&typeof v==='object'?v:{rashi:v})}));
+  }
+  const order=['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn','Rahu','Ketu'];
+  return list.map(x=>{
+    const obj=(x&&typeof x==='object')?x:{};
+    const planet=cleanName({name:firstText(obj,['planet','graha','name','body']) || obj.name || ''});
+    const sign=firstText(obj,['sign','rashi','current_sign','transit_sign','zodiac','rasi','to_sign']) || signText(obj);
+    const signNo=signNumberFromAny(sign) || rashiNum(obj);
+    const degree=degText(obj) || firstText(obj,['degree_formatted','degree','longitude','degree_in_rashi']);
+    const nakshatra=firstText(obj,['nakshatra','star','constellation']);
+    const retro=retroFlag(obj);
+    return {planet, sign, signNo, degree, nakshatra, retro, raw:obj};
+  }).filter(x=>x.planet && order.includes(canonicalDashaPlanet(x.planet)))
+    .sort((a,b)=>order.indexOf(canonicalDashaPlanet(a.planet))-order.indexOf(canonicalDashaPlanet(b.planet)));
+}
+function deriveGocharFromCurrentTransits(currentRaw, bc={}, majorRaw=null){
+  const planets=normalizeCurrentTransitPlanets(currentRaw);
+  if(!planets.length) return null;
+  const moonObj=bc.moon_sign || bc.moon || {};
+  const lagnaObj=bc.lagna || bc.ascendant || {};
+  const moonSign=firstText(moonObj,['rashi','sign','name']) || (typeof moonObj==='string'?moonObj:'');
+  const moonNo=signNumberFromAny(moonObj) || signNumberFromAny(moonSign);
+  const lagnaSign=firstText(lagnaObj,['rashi','sign','name']) || (typeof lagnaObj==='string'?lagnaObj:'');
+  const lagnaNo=signNumberFromAny(lagnaObj) || signNumberFromAny(lagnaSign);
+  if(!moonNo) return null;
+  const effects=planets.map(p=>{
+    const h=gocharHouseFromMoon(moonNo,p.signNo);
+    const lh=lagnaNo && p.signNo ? houseFromSign(lagnaNo,p.signNo) : 0;
+    const rule=gocharRule(p.planet,h);
+    return {
+      planet:canonicalDashaPlanet(p.planet)||p.planet,
+      sign:p.sign || (p.signNo?RF[p.signNo]:''),
+      house:h,
+      natalHouse:lh || '',
+      nature:rule.nature,
+      prediction:gocharMessage(p.planet,p.sign,h,rule),
+      aspect:p.retro?'Retrograde motion':'',
+      start:firstText(p.raw,['rashi_start','sign_entry','transit_start','entered','entry','from_date','start_date']),
+      end:firstText(p.raw,['rashi_end','sign_exit','transit_end','leaves','exit','to_date','end_date']),
+      score:rule.cls==='good'?75:(rule.cls==='alert'?38:55),
+      raw:p.raw,
+      derived:true,
+      degree:p.degree,
+      nakshatra:p.nakshatra,
+      retro:p.retro
+    };
+  });
+  const favorable=effects.filter(e=>gocharClassFromText(e.nature)==='good').length;
+  const challenging=effects.filter(e=>gocharClassFromText(e.nature)==='alert').length;
+  const total=effects.length;
+  const score=total?Math.round((favorable*100 + (total-favorable-challenging)*55 + challenging*35)/total):0;
+  const summary={
+    verdict: favorable>challenging ? 'Supportive transit weather' : challenging>favorable ? 'Careful transit weather' : 'Mixed transit weather',
+    advice:'This reading is derived from live current planetary positions and your Janma Rashi. It is useful immediately, but final judgement should still combine Dasha, Ashtakavarga, Shadbala and full birth chart.',
+    favorable, challenging, total, score,
+    source:'derived_current_transits', moon_sign:moonSign, lagna:lagnaSign
+  };
+  const slow=effects.filter(e=>/Saturn|Jupiter|Rahu|Ketu/i.test(e.planet));
+  return {summary,effects,slow,source:{summary,effects,derived_from_current_transits:true,major:majorRaw||null}};
+}
+function renderGocharDetailed(raw,bc={},advanced={}){
+  let g=normalizeGocharEffects(raw);
+  let derived=false;
+  if(!g.source || (!g.effects.length && advanced.currentTransits)){
+    const fallback=deriveGocharFromCurrentTransits(advanced.currentTransits,bc,advanced.gocharMajor);
+    if(fallback){ g=fallback; derived=true; }
+  }
   const d=g.source;
   if(!d){
     const moonObj=bc.moon_sign||bc.moon||{};
     const moonSign=firstText(moonObj,['rashi','sign','name']) || (typeof moonObj==='string'?moonObj:'');
     return `<div class="rcard" id="result-gochar"><div class="rcard-header"><div class="rcard-title">Personal Gochar / Transit Reading</div><div class="rbadge rb-live">Connect API</div></div><div class="rcard-body">
-      <div class="gochar-hero"><div class="gochar-hero-inner"><div><div class="gochar-overline">Current planetary movement over your birth chart</div><div class="gochar-title">Gochar section is ready <em>• API data pending</em></div><div class="gochar-sub">The website layout is now prepared. To show live personal transit, the backend must return data from the Gochar endpoint for this birth profile.</div></div><div class="gochar-mandala"><span>🪐</span></div></div></div>
-      <div class="gochar-stat-grid"><div class="gochar-stat"><strong>—</strong><span>Total factors</span><small>Waiting for planet-wise effects</small></div><div class="gochar-stat"><strong>—</strong><span>Supportive</span><small>Requires Gochar API data</small></div><div class="gochar-stat"><strong>—</strong><span>Needs care</span><small>Requires Gochar API data</small></div><div class="gochar-stat"><strong>${escapeHtml(moonSign||'—')}</strong><span>Janma Rashi</span><small>Moon sign reference</small></div></div>
-      <div class="strength-note"><strong>Why this appears:</strong> Birth chart, Dasha and Strength are working, but the website did not receive Gochar data. Check whether <code>/kundli/gochar-analysis</code> exists on the backend and returns planet-wise effects.</div>
+      <div class="gochar-hero"><div class="gochar-hero-inner"><div><div class="gochar-overline">Current planetary movement over your birth chart</div><div class="gochar-title">Gochar section is ready <em>• API data pending</em></div><div class="gochar-sub">The layout is ready. The website tried personal Gochar and live current-transit fallback, but neither returned planet-wise data for this profile.</div></div><div class="gochar-mandala"><span>🪐</span></div></div></div>
+      <div class="gochar-stat-grid"><div class="gochar-stat"><strong>—</strong><span>Total factors</span><small>Waiting for planet-wise effects</small></div><div class="gochar-stat"><strong>—</strong><span>Supportive</span><small>Requires Gochar/API data</small></div><div class="gochar-stat"><strong>—</strong><span>Needs care</span><small>Requires Gochar/API data</small></div><div class="gochar-stat"><strong>${escapeHtml(moonSign||'—')}</strong><span>Janma Rashi</span><small>Moon sign reference</small></div></div>
+      <div class="strength-note"><strong>Backend check:</strong> Enable either <code>/kundli/gochar-analysis</code> or <code>/transits/current</code>. The second one is enough for this website to derive a useful Moon-sign based personal transit reading.</div>
       <div class="gochar-lesson"><div><b>1. First see Dasha</b><span>Dasha shows which planet is delivering results.</span></div><div><b>2. Then see Gochar</b><span>Gochar shows current timing and activation.</span></div><div><b>3. Then apply remedy</b><span>Use practical upaya only after combining both.</span></div></div>
     </div></div>`;
   }
@@ -1289,6 +1401,7 @@ function renderGocharDetailed(raw,bc={}){
   const overallClass=score!==null ? (score>=70?'good':score<=40?'alert':'mixed') : (favorable>challenging?'good':challenging>favorable?'alert':'mixed');
   const mood=verdict || (overallClass==='good'?'Supportive transit weather':overallClass==='alert'?'Careful transit weather':'Mixed transit weather');
   const heroText=advice || 'Gochar shows how current planetary movement touches your birth chart. Read this together with active Dasha for practical timing.';
+  const sourceBadge=derived ? 'Live positions derived' : 'Personal API';
   const effectCards=g.effects.slice(0,12).map((e,idx)=>{
     const cls=gocharClassFromText([e.nature,e.prediction].join(' '));
     const co=PCOL[e.planet]||'var(--ember-light)';
@@ -1297,8 +1410,11 @@ function renderGocharDetailed(raw,bc={}){
     const heading=titleParts.join(' ');
     const text=e.prediction || 'Transit data received. Detailed interpretation can be expanded from backend for this planet.';
     const meta=[];
-    if(e.house) meta.push(`House ${escapeHtml(e.house)}`);
-    if(e.natalHouse) meta.push(`Natal H${escapeHtml(e.natalHouse)}`);
+    if(e.house) meta.push(`From Moon: H${escapeHtml(e.house)}`);
+    if(e.natalHouse) meta.push(`From Lagna: H${escapeHtml(e.natalHouse)}`);
+    if(e.degree) meta.push(escapeHtml(e.degree));
+    if(e.nakshatra) meta.push('⭐ '+escapeHtml(e.nakshatra));
+    if(e.retro) meta.push('Retrograde');
     if(e.aspect) meta.push(escapeHtml(e.aspect));
     if(e.start||e.end) meta.push(`${e.start?escapeHtml(e.start):'Now'}${e.end?' → '+escapeHtml(e.end):''}`);
     return `<div class="gochar-effect ${cls}" style="--pc:${co};--pcGlow:color-mix(in srgb,${co} 14%,transparent);">
@@ -1308,13 +1424,15 @@ function renderGocharDetailed(raw,bc={}){
   }).join('');
   const slowHtml=g.slow.length?`<div class="advanced-card" style="grid-column:1/-1;margin-top:1rem;"><div class="advanced-card-title">Major Slow-Moving Transits</div><div class="advanced-card-text">Saturn, Jupiter, Rahu and Ketu usually shape longer life themes. Use these with Dasha for timing.</div><div class="gochar-timeline">${g.slow.map(e=>`<div class="gochar-timeitem"><b>${escapeHtml(e.planet)}${e.sign?' in '+escapeHtml(e.sign):''}</b><div>${e.start||e.end?`${e.start?escapeHtml(e.start):'Current'}${e.end?' → '+escapeHtml(e.end):''}`:'Ongoing influence'}</div><div>${escapeHtml(e.prediction||e.nature||'Major transit influence')}</div></div>`).join('')}</div></div>`:'';
   const emptyNote=!effectCards?`<div class="strength-note"><strong>Partial data:</strong> Gochar API returned summary only. To make this more powerful, backend should return planet-wise effects with planet, sign, house, nature and prediction.</div>`:'';
-  return `<div class="rcard" id="result-gochar"><div class="rcard-header"><div class="rcard-title">Personal Gochar / Transit Reading</div><div class="rbadge rb-live">Live Influence</div></div><div class="rcard-body">
+  const derivedNote=derived?`<div class="strength-note"><strong>Live fallback used:</strong> Personal Gochar API did not return planet-wise effects, so this section is derived from <code>/transits/current</code> and your Janma Rashi. This is useful for users immediately, while the deeper backend Gochar endpoint can be improved later.</div>`:'';
+  return `<div class="rcard" id="result-gochar"><div class="rcard-header"><div class="rcard-title">Personal Gochar / Transit Reading</div><div class="rbadge rb-live">${escapeHtml(sourceBadge)}</div></div><div class="rcard-body">
     <div class="gochar-hero"><div class="gochar-hero-inner"><div><div class="gochar-overline">Current planetary movement over your birth chart</div><div class="gochar-title">${escapeHtml(mood)} <em>${score!==null?'• '+score+'/100':''}</em></div><div class="gochar-sub">${escapeHtml(heroText)}</div></div><div class="gochar-mandala"><span>🪐</span></div></div></div>
     <div class="gochar-stat-grid"><div class="gochar-stat"><strong>${escapeHtml(String(total||'—'))}</strong><span>Total factors</span><small>Planetary effects received</small></div><div class="gochar-stat"><strong>${escapeHtml(String(favorable||0))}</strong><span>Supportive</span><small>Helpful / growth giving</small></div><div class="gochar-stat"><strong>${escapeHtml(String(challenging||0))}</strong><span>Needs care</span><small>Requires patience & remedy</small></div><div class="gochar-stat"><strong>${escapeHtml(moonSign||'—')}</strong><span>Janma Rashi</span><small>Moon sign reference</small></div></div>
     ${effectCards?`<div class="gochar-effect-grid">${effectCards}</div>`:''}
     ${emptyNote}
     ${slowHtml}
     <div class="gochar-lesson"><div><b>1. First see Dasha</b><span>Dasha shows which planet is currently delivering life results.</span></div><div><b>2. Then see Gochar</b><span>Transit shows when those themes become active in real time.</span></div><div><b>3. Then apply remedy</b><span>Use mantra, discipline and timing to work with the cosmic weather.</span></div></div>
+    ${derivedNote}
     <div class="strength-note"><strong>Reading note:</strong> Personal transit is not a final prediction by itself. Best result comes when Gochar is read with birth chart, Ashtakavarga, Shadbala and current Dasha.</div>
   </div></div>`;
 }
@@ -1870,7 +1988,7 @@ function renderKundli(name,bcRaw,ygRaw,dsRaw,meta={},skipScroll=false){
 
   const planetWarning=planets.length?'':`<div class="info-box"><div class="info-box-title">Chart note</div><div class="info-box-text">The chart frame was created, but the API did not return planet positions in the expected format. Please share the API response if this appears after testing.</div></div>`;
   const advancedHtml=renderAdvancedKundliCards(advanced);
-  const gocharHtml=renderGocharDetailed(advanced.gochar,bc);
+  const gocharHtml=renderGocharDetailed(advanced.gochar,bc,advanced);
   const jumpbar=`<div class="result-jumpbar"><a href="#result-summary">Summary</a><a href="#result-chart">Chart</a><a href="#result-planets">Planets</a><a href="#result-dasha">Dasha</a><a href="#result-yogas">Yogas</a><a href="#result-houses">Houses</a>${advancedHtml?'<a href="#result-advanced">Strength</a>':''}<a href="#result-gochar">Transit</a></div>`;
 
   // ── ASSEMBLE ──
