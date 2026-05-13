@@ -198,6 +198,31 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
 .dasha-dates{font-size:.75rem;color:var(--text-dim);}
 .dasha-bar{height:4px;border-radius:2px;background:var(--line);margin-top:.4rem;overflow:hidden;}
 .dasha-fill{height:100%;border-radius:2px;transition:width 1s var(--ease);}
+.dasha-current-card{padding:1rem;border-radius:16px;background:linear-gradient(135deg,rgba(212,116,62,.10),rgba(201,168,76,.05));border:1px solid rgba(212,116,62,.18);margin-bottom:1rem;}
+.dasha-current-top{display:flex;justify-content:space-between;align-items:flex-start;gap:.8rem;flex-wrap:wrap;}
+.dasha-current-label{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ember-light);margin-bottom:.25rem;}
+.dasha-current-line{font-family:var(--font-serif);font-size:1.18rem;color:var(--text-bright);line-height:1.25;}
+.dasha-current-dates{font-size:.78rem;color:var(--text-mid);margin-top:.35rem;}
+.dasha-percent{font-family:var(--font-mono);font-size:.72rem;color:var(--gold-light);border:1px solid rgba(201,168,76,.22);background:rgba(201,168,76,.08);border-radius:100px;padding:.25rem .6rem;white-space:nowrap;}
+.dasha-path{display:flex;align-items:center;gap:.45rem;flex-wrap:wrap;margin:0 0 .9rem;}
+.dasha-chip{padding:.3rem .65rem;border-radius:100px;background:var(--glass);border:1px solid var(--line);font-size:.7rem;color:var(--text-mid);}
+.dasha-chip.active{background:rgba(212,116,62,.15);border-color:rgba(212,116,62,.28);color:var(--ember-light);}
+.dasha-toolbar{display:flex;justify-content:space-between;align-items:center;gap:.8rem;margin:.6rem 0 1rem;flex-wrap:wrap;}
+.dasha-level-title{font-family:var(--font-serif);font-size:1.05rem;color:var(--text-bright);}
+.dasha-back-btn{border:1px solid var(--line-hover);background:var(--glass);color:var(--text-mid);border-radius:100px;padding:.4rem .8rem;font-size:.75rem;cursor:pointer;transition:.25s;}
+.dasha-back-btn:hover{border-color:var(--ember);color:var(--ember-light);}
+.dasha-row{width:100%;display:grid;grid-template-columns:74px 1fr auto;gap:.75rem;align-items:center;padding:.75rem;border:1px solid var(--line);background:var(--glass);border-radius:14px;margin-bottom:.55rem;cursor:pointer;text-align:left;transition:all .25s var(--ease);color:inherit;}
+.dasha-row:hover{border-color:rgba(212,116,62,.34);transform:translateY(-1px);background:var(--glass-hover);}
+.dasha-row.current{border-color:rgba(212,116,62,.35);background:rgba(212,116,62,.07);box-shadow:0 8px 28px rgba(0,0,0,.18);}
+.dasha-row-planet{height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.72rem;letter-spacing:.02em;}
+.dasha-row-main{min-width:0;}
+.dasha-row-title{font-weight:700;color:var(--text-bright);font-size:.9rem;display:flex;gap:.35rem;align-items:center;flex-wrap:wrap;}
+.dasha-row-dates{font-size:.74rem;color:var(--text-dim);margin-top:.2rem;}
+.dasha-row-nature{font-size:.7rem;color:var(--text-mid);margin-top:.25rem;}
+.dasha-row-action{font-size:.72rem;color:var(--ember-light);white-space:nowrap;}
+.dasha-small-badge{font-size:.56rem;padding:.12rem .4rem;border-radius:5px;background:rgba(212,116,62,.16);color:var(--ember-light);font-weight:800;text-transform:uppercase;letter-spacing:.05em;}
+.dasha-note{font-size:.76rem;color:var(--text-dim);line-height:1.6;margin-top:.8rem;border-top:1px solid var(--line);padding-top:.75rem;}
+@media(max-width:560px){.dasha-row{grid-template-columns:58px 1fr;}.dasha-row-action{grid-column:2;font-size:.68rem;}.dasha-current-line{font-size:1.02rem;}}
 
 /* Yoga cards */
 .yoga-list{display:flex;flex-direction:column;gap:.6rem;}
@@ -828,6 +853,189 @@ function humanDashaLine(obj){
   return parts.filter(Boolean).join(' → ');
 }
 
+// ─────────────────────────────────────────────────────────────
+// Step A: Website Dasha drill-down, aligned with Flutter Kundli tab.
+// Backend remains the source for Mahadasha. Antardasha/Pratyantar levels
+// are derived proportionally on the frontend only for navigation display.
+// ─────────────────────────────────────────────────────────────
+const DASHA_YEARS={Sun:6,Moon:10,Mars:7,Rahu:18,Jupiter:16,Saturn:19,Mercury:17,Ketu:7,Venus:20};
+const DASHA_ORDER=['Ketu','Venus','Sun','Moon','Mars','Rahu','Jupiter','Saturn','Mercury'];
+const DASHA_LEVELS=['Mahadasha','Antardasha','Pratyantar Dasha','Sookshma Dasha','Prana Dasha'];
+let __kundliDashaRoot=null;
+let __kundliDashaStack=[];
+let __kundliDashaKey='';
+
+function canonicalDashaPlanet(v){
+  const t=String(v||'').trim();
+  if(!t) return '';
+  const k=t.toLowerCase().replace(/[^a-z]/g,'');
+  const map={surya:'Sun',sun:'Sun',chandra:'Moon',moon:'Moon',mangal:'Mars',mars:'Mars',kuja:'Mars',budha:'Mercury',mercury:'Mercury',guru:'Jupiter',jupiter:'Jupiter',brihaspati:'Jupiter',shukra:'Venus',venus:'Venus',shani:'Saturn',saturn:'Saturn',rahu:'Rahu',ketu:'Ketu'};
+  return map[k] || (t.charAt(0).toUpperCase()+t.slice(1));
+}
+function parseDashaDate(v){
+  if(!v) return null;
+  if(v instanceof Date && !isNaN(v)) return v;
+  const raw=String(v).trim();
+  let m=raw.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+  if(m) return new Date(Number(m[1]),Number(m[2])-1,Number(m[3]));
+  m=raw.match(/^(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})/);
+  if(m) return new Date(Number(m[3]),Number(m[2])-1,Number(m[1]));
+  const d=new Date(raw);
+  return isNaN(d)?null:d;
+}
+function formatDashaDate(d,raw=''){
+  if(raw) return String(raw).split('T')[0];
+  if(!d || isNaN(d)) return '—';
+  return d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+}
+function dashaDayDiff(a,b){return Math.max(0,(b-a)/86400000);}
+function dashaYearsBetween(a,b){
+  const days=dashaDayDiff(a,b);
+  return days>0 ? (days/365.2425) : 0;
+}
+function dashaProgress(start,end,now=new Date()){
+  if(!start||!end||isNaN(start)||isNaN(end)||end<=start) return 0;
+  if(now<=start) return 0;
+  if(now>=end) return 100;
+  return Math.round(((now-start)/(end-start))*100);
+}
+function normalizeDashaPeriod(entry){
+  if(!entry || typeof entry!=='object') return null;
+  const planet=canonicalDashaPlanet(entry.planet||entry.graha||entry.name||entry.lord||entry.dasha_lord||entry.mahadasha||entry.maha_dasha);
+  if(!planet) return null;
+  const rawStart=entry.start||entry.start_date||entry.from||entry.begin||entry.begin_date||entry.startDate||'';
+  const rawEnd=entry.end||entry.end_date||entry.to||entry.finish||entry.endDate||'';
+  const start=parseDashaDate(rawStart);
+  const end=parseDashaDate(rawEnd);
+  const duration=entry.years||entry.duration_years||entry.duration||entry.period||'';
+  const nature=entry.nature||entry.result||entry.status||entry.summary||'';
+  return {planet,start,end,rawStart:String(rawStart||''),rawEnd:String(rawEnd||''),duration:String(duration||''),nature:String(nature||''),isCurrent:entry.is_current===true||entry.current===true};
+}
+function normalizeDashaTimeline(root){
+  if(!root) return [];
+  const d=root.data&&typeof root.data==='object'?root.data:root;
+  const raw=arr(d.timeline||d.mahadasha_timeline||d.mahadasha||d.periods||d.dashas||d.mahadashas||d.vimshottari||d.dasha_periods||(Array.isArray(d)?d:[]));
+  return raw.map(normalizeDashaPeriod).filter(Boolean);
+}
+function calcDashaSubPeriods(parentPlanet,start,end){
+  const p=canonicalDashaPlanet(parentPlanet);
+  const totalDays=dashaDayDiff(start,end);
+  const startIdx=DASHA_ORDER.indexOf(p);
+  if(startIdx<0 || !start || !end || totalDays<=0) return [];
+  let cursor=new Date(start.getTime());
+  const out=[];
+  for(let i=0;i<9;i++){
+    const pl=DASHA_ORDER[(startIdx+i)%9];
+    const subDays=totalDays*((DASHA_YEARS[pl]||0)/120);
+    const subEnd=new Date(cursor.getTime()+Math.round(subDays*86400000));
+    out.push({planet:pl,start:new Date(cursor.getTime()),end:subEnd,rawStart:'',rawEnd:'',duration:(subDays/365.2425).toFixed(2),nature:'',isCurrent:false});
+    cursor=subEnd;
+  }
+  return out;
+}
+function dashaRootData(raw){
+  if(!raw) return null;
+  const d=dig(raw);
+  return d && d.data && typeof d.data==='object' ? d.data : d;
+}
+function dashaCurrentFromRoot(root,periods){
+  const r=dashaRootData(root)||{};
+  const c=r.current||r.current_dasha||r.running||r.active||{};
+  if(c && typeof c==='object' && Object.keys(c).length) return c;
+  const now=new Date();
+  const p=periods.find(x=>x.isCurrent || (x.start && x.end && now>=x.start && now<=x.end));
+  return p ? {mahadasha:p.planet,start:p.rawStart,end:p.rawEnd} : {};
+}
+function renderDashaCurrentCard(current,periods){
+  const line=humanDashaLine(current) || (current.planet?canonicalDashaPlanet(current.planet):'');
+  if(!line) return '';
+  const st=current.start||current.start_date||current.from||'';
+  const en=current.end||current.end_date||current.to||'';
+  let pct=0;
+  const sd=parseDashaDate(st), ed=parseDashaDate(en);
+  if(sd&&ed) pct=dashaProgress(sd,ed);
+  return `<div class="dasha-current-card">
+    <div class="dasha-current-top">
+      <div>
+        <div class="dasha-current-label">Current Running Dasha</div>
+        <div class="dasha-current-line">${escapeHtml(line)}</div>
+        ${st||en?`<div class="dasha-current-dates">${escapeHtml(st||formatDashaDate(sd))} → ${escapeHtml(en||formatDashaDate(ed))}</div>`:''}
+      </div>
+      ${pct?`<div class="dasha-percent">${pct}% complete</div>`:''}
+    </div>
+    ${pct?`<div class="dasha-bar"><div class="dasha-fill" style="width:${pct}%;background:linear-gradient(90deg,var(--ember),var(--gold));"></div></div>`:''}
+  </div>`;
+}
+function dashaLevelPeriods(){
+  if(!__kundliDashaRoot) return [];
+  if(!__kundliDashaStack.length) return normalizeDashaTimeline(__kundliDashaRoot);
+  return __kundliDashaStack[__kundliDashaStack.length-1].periods || [];
+}
+function renderDashaPath(){
+  const chips=['Mahadasha'].map(x=>`<span class="dasha-chip ${__kundliDashaStack.length?'':'active'}">${x}</span>`);
+  __kundliDashaStack.forEach((s,idx)=>chips.push(`<span class="dasha-chip ${idx===__kundliDashaStack.length-1?'active':''}">${escapeHtml(s.planet)} • ${escapeHtml(s.level)}</span>`));
+  return `<div class="dasha-path">${chips.join('<span style="color:var(--text-dim);">›</span>')}</div>`;
+}
+function renderDashaLevelHtml(){
+  const root=__kundliDashaRoot;
+  const periods=dashaLevelPeriods();
+  const current=dashaCurrentFromRoot(root,periods);
+  const level=__kundliDashaStack.length ? (__kundliDashaStack[__kundliDashaStack.length-1].level || 'Antardasha') : 'Mahadasha';
+  const title=`Vimshottari ${level}`;
+  if(!periods.length && !humanDashaLine(current)) return `<div class="kundli-help">Dasha endpoint loaded, but no readable timeline was found.</div>`;
+  const rows=periods.slice(0,12).map((p,idx)=>{
+    const co=PCOL[p.planet]||'var(--text-dim)';
+    let cur=p.isCurrent;
+    const now=new Date();
+    if(!cur && p.start && p.end) cur=now>=p.start&&now<=p.end;
+    const yrs=p.duration || (p.start&&p.end?dashaYearsBetween(p.start,p.end).toFixed(2):'');
+    const canOpen=p.start&&p.end && __kundliDashaStack.length < 4;
+    const pct=cur?dashaProgress(p.start,p.end):0;
+    return `<button type="button" class="dasha-row ${cur?'current':''}" onclick="${canOpen?`openDashaLevel(${idx})`:'return false;'}">
+      <div class="dasha-row-planet" style="background:${co}18;border:1px solid ${co}35;color:${co};">${escapeHtml(p.planet)}</div>
+      <div class="dasha-row-main">
+        <div class="dasha-row-title">${escapeHtml(p.planet)} ${escapeHtml(level)} ${cur?'<span class="dasha-small-badge">Current</span>':''}${yrs?`<span style="font-size:.7rem;color:var(--text-dim);font-weight:500;">${escapeHtml(yrs)} yrs</span>`:''}</div>
+        <div class="dasha-row-dates">${escapeHtml(formatDashaDate(p.start,p.rawStart))} → ${escapeHtml(formatDashaDate(p.end,p.rawEnd))}</div>
+        ${p.nature?`<div class="dasha-row-nature">${escapeHtml(p.nature)}</div>`:''}
+        ${pct?`<div class="dasha-bar"><div class="dasha-fill" style="width:${pct}%;background:${co};"></div></div>`:''}
+      </div>
+      <div class="dasha-row-action">${canOpen?'View sub-periods →':''}</div>
+    </button>`;
+  }).join('');
+  return `${renderDashaCurrentCard(current,periods)}${renderDashaPath()}
+    <div class="dasha-toolbar"><div class="dasha-level-title">${escapeHtml(title)}</div>${__kundliDashaStack.length?'<button type="button" class="dasha-back-btn" onclick="backDashaLevel()">← Back</button>':''}</div>
+    <div class="dasha-rows">${rows}</div>
+    <div class="dasha-note"><strong>Tip:</strong> Click any period to open its sub-periods. This gives Mahadasha → Antardasha → Pratyantar → Sookshma → Prana navigation, similar to the app screen.</div>`;
+}
+function renderDashaSection(raw,key=''){
+  const root=dashaRootData(raw);
+  if(!root) return '';
+  if(__kundliDashaKey!==key){__kundliDashaStack=[];__kundliDashaKey=key;}
+  __kundliDashaRoot=root;
+  const periods=normalizeDashaTimeline(root);
+  const current=dashaCurrentFromRoot(root,periods);
+  if(!periods.length && !humanDashaLine(current)) return '';
+  return `<div class="rcard" id="result-dasha"><div class="rcard-header"><div class="rcard-title">Vimshottari Dasha</div><div class="rbadge rb-good">${periods.length?periods.length+' Periods':'Current'}</div></div><div class="rcard-body" id="kundli-dasha-mount">${renderDashaLevelHtml()}</div></div>`;
+}
+function refreshDashaMount(){
+  const mount=document.getElementById('kundli-dasha-mount');
+  if(mount) mount.innerHTML=renderDashaLevelHtml();
+}
+function openDashaLevel(index){
+  const periods=dashaLevelPeriods();
+  const p=periods[index];
+  if(!p||!p.start||!p.end) return;
+  const level=DASHA_LEVELS[Math.min(__kundliDashaStack.length+1,DASHA_LEVELS.length-1)] || 'Sub Dasha';
+  const sub=calcDashaSubPeriods(p.planet,p.start,p.end);
+  if(!sub.length) return;
+  __kundliDashaStack.push({planet:p.planet,level,periods:sub});
+  refreshDashaMount();
+}
+function backDashaLevel(){
+  __kundliDashaStack.pop();
+  refreshDashaMount();
+}
+
 function renderKundli(name,bcRaw,ygRaw,dsRaw,meta={},skipScroll=false){
   const el=document.getElementById('res-kundli');
   const bc=dig(bcRaw), yg=dig(ygRaw), ds=dig(dsRaw);
@@ -918,37 +1126,8 @@ function renderKundli(name,bcRaw,ygRaw,dsRaw,meta={},skipScroll=false){
   tb+='</tbody></table></div>';
 
   // ── DASHA ──
-  let dh='';
-  if(ds){
-    let dashaRoot=ds;
-    if(ds.data && typeof ds.data==='object') dashaRoot=ds.data;
-    const current=dashaRoot.current||dashaRoot.current_dasha||dashaRoot.running||dashaRoot.active||{};
-    const da=arr(
-      dashaRoot.timeline||dashaRoot.mahadasha_timeline||dashaRoot.mahadasha||
-      dashaRoot.periods||dashaRoot.dashas||dashaRoot.mahadashas||
-      dashaRoot.vimshottari||dashaRoot.dasha_periods||(Array.isArray(dashaRoot)?dashaRoot:[])
-    );
-    const currentLine=humanDashaLine(current);
-    if(da.length || currentLine){
-      const now=new Date();
-      dh='<div class="rcard" id="result-dasha"><div class="rcard-header"><div class="rcard-title">Vimshottari Dasha</div><div class="rbadge rb-good">'+(da.length?da.length+' Periods':'Current')+'</div></div><div class="rcard-body">';
-      if(currentLine){
-        const cStart=current.start||current.start_date||current.from||'';
-        const cEnd=current.end||current.end_date||current.to||'';
-        dh+=`<div class="info-box" style="margin-top:0;"><div class="info-box-title">Current Running Dasha</div><div class="info-box-text"><strong style="color:var(--ember-light);">${escapeHtml(currentLine)}</strong>${cStart||cEnd?`<br>${escapeHtml(cStart)} → ${escapeHtml(cEnd)}`:''}</div></div>`;
-      }
-      if(da.length){
-        dh+='<ul class="dasha-list">';
-        da.slice(0,12).forEach(d=>{
-          const pl=cleanName({name:d.planet||d.graha||d.name||d.lord||''}),st=d.start||d.start_date||d.from||'',en=d.end||d.end_date||d.to||'',yr=d.years||d.duration_years||d.duration||d.period||'',co=PCOL[pl]||'var(--text-dim)';
-          let cur=d.is_current===true||d.current===true;try{if(!cur&&st&&en&&now>=new Date(st)&&now<=new Date(en))cur=true;}catch(e){}
-          dh+=`<li class="dasha-item" style="${cur?'background:var(--glass);border-radius:10px;padding:8px;border:1px solid rgba(212,116,62,0.15);':''}"><div class="dasha-planet" style="background:${co}14;border:1px solid ${co}28;color:${co};font-size:.72rem;font-weight:700;width:58px;">${escapeHtml(pl)}</div><div class="dasha-info" style="flex:1;"><div class="dasha-name">${escapeHtml(pl)} Mahadasha ${cur?'<span style="font-size:.56rem;padding:1px 5px;border-radius:4px;background:rgba(212,116,62,.15);color:var(--ember-light);margin-left:4px;font-weight:700;text-transform:uppercase;">Current</span>':''}${yr?' <span style="font-size:.7rem;color:var(--text-dim);margin-left:4px;">'+escapeHtml(yr)+' yrs</span>':''}</div><div class="dasha-dates">${escapeHtml(st)} → ${escapeHtml(en)}</div></div></li>`;
-        });
-        dh+='</ul>';
-      }
-      dh+='<div class="kundli-help"><strong>Next improvement:</strong> Make each Mahadasha clickable to open Antardasha / Pratyantar Dasha, matching the Flutter app experience.</div></div></div>';
-    }
-  }
+  const dashaKey=`${meta.dob||''}|${meta.tob||''}|${meta.city||''}`;
+  const dh=renderDashaSection(ds,dashaKey);
 
   // ── YOGAS ──
   let yh='';
