@@ -43,7 +43,7 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
 .nav-back:hover{color:var(--ember-light);border-color:var(--ember);}
 
 /* ─── HERO ─── */
-.tools-hero{padding:7rem 2rem 2rem;text-align:center;position:relative;overflow:hidden;}
+.tools-hero{padding:6.4rem 2rem 1.4rem;text-align:center;position:relative;overflow:hidden;}
 .tools-hero::before{content:'';position:absolute;top:20%;left:50%;transform:translateX(-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(212,116,62,0.06) 0%,transparent 70%);filter:blur(40px);}
 .tools-hero::after{content:'';position:absolute;right:clamp(-4rem,3vw,3rem);top:4.8rem;width:min(28vw,230px);height:320px;background:url('assets/images/ganesha-dark.jpg') center/contain no-repeat;opacity:.13;filter:drop-shadow(0 0 30px rgba(232,149,95,.15));pointer-events:none;}
 .tools-hero > *{position:relative;z-index:1;}
@@ -64,7 +64,7 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
 .badge-live{background:rgba(212,116,62,.2);color:var(--ember-glow);}
 
 /* ─── PANELS ─── */
-.tool-panel{display:none;max-width:800px;margin:2rem auto 0;padding:0 1rem;animation:fadeUp .5s var(--ease) both;}
+.tool-panel{display:none;max-width:960px;margin:2rem auto 0;padding:0 1rem;animation:fadeUp .5s var(--ease) both;}
 .tool-panel.active{display:block;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
 
@@ -109,8 +109,22 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
 .fbtn-secondary{background:var(--glass);border:1px solid var(--line);color:var(--text-bright);}
 .fbtn-secondary:hover{border-color:var(--ember);color:var(--ember-light);box-shadow:none;}
 
+/* Kundli value strip */
+.kundli-scope-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.55rem;margin:0 0 1.25rem;}
+.kundli-scope{padding:.65rem .7rem;border-radius:12px;background:rgba(255,255,255,.028);border:1px solid var(--line);}
+.kundli-scope strong{display:block;font-size:.75rem;color:var(--text-bright);line-height:1.2;}
+.kundli-scope span{display:block;font-size:.62rem;color:var(--text-dim);margin-top:.18rem;line-height:1.35;}
+.result-jumpbar{position:sticky;top:108px;z-index:60;display:flex;gap:.45rem;flex-wrap:wrap;justify-content:center;margin:0 0 1rem;padding:.55rem;border:1px solid var(--line);border-radius:999px;background:rgba(10,10,15,.78);backdrop-filter:blur(18px);}
+.result-jumpbar a{font-size:.68rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);padding:.35rem .65rem;border-radius:999px;border:1px solid transparent;}
+.result-jumpbar a:hover{color:var(--ember-light);border-color:rgba(212,116,62,.32);background:rgba(212,116,62,.08);}
+.advanced-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.7rem;}
+.advanced-card{padding:.9rem;border-radius:14px;background:var(--glass);border:1px solid var(--line);}
+.advanced-card-title{font-weight:800;color:var(--text-bright);font-size:.85rem;margin-bottom:.35rem;}
+.advanced-card-text{font-size:.76rem;color:var(--text-mid);line-height:1.55;}
+.advanced-list{margin:.45rem 0 0;padding-left:1rem;color:var(--text-dim);font-size:.72rem;line-height:1.55;}
+
 /* ─── RESULTS ─── */
-.results{margin-top:1.5rem;display:none;animation:fadeUp .5s var(--ease) both;}
+.results{margin-top:1.5rem;display:none;animation:fadeUp .5s var(--ease) both;max-width:1120px;margin-left:auto;margin-right:auto;}
 .results.show{display:block;}
 .rcard{background:var(--night);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-bottom:1.2rem;}
 .rcard-header{padding:1.2rem 1.5rem;background:linear-gradient(135deg,rgba(212,116,62,.06),rgba(201,168,76,.04));border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;}
@@ -286,7 +300,10 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
   .rcard-header{padding:1rem;flex-direction:column;text-align:center;}
   .chart-wrap{padding:.5rem;}
   .tool-nav-inner{justify-content:flex-start;}
+  .kundli-scope-grid{grid-template-columns:1fr 1fr;}
+  .result-jumpbar{top:96px;border-radius:18px;justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap;}
 }
+
 @media(max-width:400px){
   .rashi-grid{grid-template-columns:repeat(2,1fr);}
   .num-grid{grid-template-columns:1fr 1fr;}
@@ -331,7 +348,13 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
   <div class="fcard" id="fc-kundli" style="--panel-art:url('assets/images/hero-chandra.webp')">
     <div class="loader" id="ld-kundli"><div class="spinner"></div><div class="load-text">Mapping your celestial blueprint...</div></div>
     <div class="fcard-title">📜 Birth Chart Generator</div>
-    <div class="fcard-sub">Generate your visual South Indian Vedic birth chart first, followed by planetary positions, Dasha timeline, Yogas, and houses. Authentic Parashari calculations with Lahiri Ayanamsa.</div>
+    <div class="fcard-sub">Generate your visual Vedic birth chart first, then read planets, houses, Panchang, Dasha, Yogas, strength, transit and remedies from the same birth details.</div>
+    <div class="kundli-scope-grid" aria-label="Kundli sections">
+      <div class="kundli-scope"><strong>Chart</strong><span>South / North style</span></div>
+      <div class="kundli-scope"><strong>Dasha</strong><span>Current + timeline</span></div>
+      <div class="kundli-scope"><strong>Yogas</strong><span>Yog / Dosha summary</span></div>
+      <div class="kundli-scope"><strong>Advanced</strong><span>Shadbala, Ashtakavarga</span></div>
+    </div>
     <form onsubmit="genKundli(event)">
       <div class="fg"><label class="fl">Full Name</label><input class="fi" id="k-name" placeholder="Your name" required></div>
       <div class="frow">
@@ -636,18 +659,27 @@ async function genKundli(e){
     ld('kundli',false);
 
     // Optional details load silently after the main chart is visible.
+    // All calls are safe: if one endpoint is unavailable, the main Kundli still works.
     Promise.allSettled([
       api(`/kundli/yogas?${q}`),
       api(`/kundli/dasha?${q}`),
-    ]).then(([r2,r3])=>{
+      api(`/kundli/ashtakavarga?${q}`),
+      api(`/kundli/shadbala?${q}`),
+      api(`/kundli/gochar-analysis?${q}`),
+      api(`/kundli/remedies?${q}`),
+    ]).then(([rYoga,rDasha,rAshta,rShad,rGochar,rRemedies])=>{
       try{
-        const hasYoga=r2.status==='fulfilled'&&r2.value;
-        const hasDasha=r3.status==='fulfilled'&&r3.value;
-        if(hasYoga||hasDasha){
-          // Save scroll position before re-render
+        const get = r => r.status==='fulfilled' ? r.value : null;
+        const advanced = {
+          ashtakavarga: get(rAshta),
+          shadbala: get(rShad),
+          gochar: get(rGochar),
+          remedies: get(rRemedies),
+        };
+        const hasAny = get(rYoga) || get(rDasha) || Object.values(advanced).some(Boolean);
+        if(hasAny){
           const scrollY=window.scrollY;
-          renderKundli(name,bc,hasYoga?r2.value:null,hasDasha?r3.value:null,{dob,tob,city},true);
-          // Restore scroll — don't jump back to top
+          renderKundli(name,bc,get(rYoga),get(rDasha),{dob,tob,city,advanced},true);
           window.scrollTo(0,scrollY);
         }
       }catch(err){console.warn('Optional Kundli details could not be rendered:',err);}
@@ -738,9 +770,68 @@ function renderNorthChart(cells, lagN, safeName, lagDisplay){
   return s;
 }
 
+
+function primitiveEntries(obj, limit=6){
+  if(!obj || typeof obj!=='object') return [];
+  const out=[];
+  Object.entries(obj).forEach(([k,v])=>{
+    if(out.length>=limit) return;
+    if(v===null || v===undefined || v==='') return;
+    if(typeof v==='string' || typeof v==='number' || typeof v==='boolean') out.push([k,v]);
+  });
+  return out;
+}
+function compactAdvancedSummary(raw, type){
+  const d=dig(raw);
+  if(!d) return '';
+  if(Array.isArray(d)){
+    return `<ul class="advanced-list">${d.slice(0,5).map(x=>`<li>${escapeHtml(typeof x==='object'?(x.name||x.planet||x.title||JSON.stringify(x).slice(0,80)):x)}</li>`).join('')}</ul>`;
+  }
+  if(typeof d==='object'){
+    const preferred={
+      ashtakavarga:['total','total_score','sarva_total','bindu_total','summary','best_house','weak_house'],
+      shadbala:['strongest_planet','weakest_planet','total_score','overall','summary','recommendation'],
+      gochar:['summary','current_period','major_transit','saturn','jupiter','rahu','ketu'],
+      remedies:['summary','mantra','gemstone','donation','fasting','remedy']
+    }[type] || [];
+    const rows=[];
+    preferred.forEach(k=>{ if(d[k]!==undefined && d[k]!==null && typeof d[k]!=='object') rows.push([k,d[k]]); });
+    primitiveEntries(d,6).forEach(([k,v])=>{ if(!rows.find(r=>r[0]===k)) rows.push([k,v]); });
+    if(rows.length){
+      return `<ul class="advanced-list">${rows.slice(0,6).map(([k,v])=>`<li><strong>${escapeHtml(k.replace(/_/g,' '))}:</strong> ${escapeHtml(String(v))}</li>`).join('')}</ul>`;
+    }
+    const keys=Object.keys(d).slice(0,6);
+    if(keys.length) return `<div class="advanced-card-text">Data received: ${keys.map(k=>escapeHtml(k.replace(/_/g,' '))).join(', ')}</div>`;
+  }
+  return '';
+}
+function renderAdvancedKundliCards(advanced={}){
+  const cards=[
+    ['ashtakavarga','Ashtakavarga','Bindu strength by signs / houses'],
+    ['shadbala','Shadbala','Planetary strength and balance'],
+    ['gochar','Personal Transit','Current Gochar impact on birth chart'],
+    ['remedies','Remedies','Practical upaya, mantra and guidance'],
+  ].map(([key,title,sub])=>{
+    const summary=compactAdvancedSummary(advanced[key],key);
+    if(!summary) return '';
+    return `<div class="advanced-card"><div class="advanced-card-title">${escapeHtml(title)}</div><div class="advanced-card-text">${escapeHtml(sub)}</div>${summary}</div>`;
+  }).join('');
+  if(!cards) return '';
+  return `<div class="rcard" id="result-advanced"><div class="rcard-header"><div class="rcard-title">Advanced Kundli Insights</div><div class="rbadge rb-good">Loaded</div></div><div class="rcard-body"><div class="advanced-grid">${cards}</div></div></div>`;
+}
+function humanDashaLine(obj){
+  if(!obj || typeof obj!=='object') return '';
+  const parts=[];
+  ['mahadasha','maha_dasha','antardasha','antara_dasha','pratyantar','pratyantara_dasha','sookshma','prana'].forEach(k=>{
+    if(obj[k]) parts.push(String(obj[k]));
+  });
+  return parts.filter(Boolean).join(' → ');
+}
+
 function renderKundli(name,bcRaw,ygRaw,dsRaw,meta={},skipScroll=false){
   const el=document.getElementById('res-kundli');
   const bc=dig(bcRaw), yg=dig(ygRaw), ds=dig(dsRaw);
+  const advanced = meta.advanced || {};
   const planets=arr(bc.planets||bc.grahas||bc.Planets||bc.graha_positions);
   let lag=bc.lagna||bc.ascendant||bc.Lagna||{};
   if(typeof lag==='string'||typeof lag==='number')lag={sign:lag};
@@ -829,21 +920,33 @@ function renderKundli(name,bcRaw,ygRaw,dsRaw,meta={},skipScroll=false){
   // ── DASHA ──
   let dh='';
   if(ds){
-    console.log('DASHA raw keys:', typeof ds==='object'?Object.keys(ds):'not-obj');
-    // Try every possible dasha data path
     let dashaRoot=ds;
     if(ds.data && typeof ds.data==='object') dashaRoot=ds.data;
-    const da=arr(dashaRoot.mahadasha||dashaRoot.periods||dashaRoot.dashas||dashaRoot.mahadashas||dashaRoot.vimshottari||dashaRoot.dasha_periods||(Array.isArray(dashaRoot)?dashaRoot:[]));
-    console.log('DASHA periods found:', da.length);
-    if(da.length){
+    const current=dashaRoot.current||dashaRoot.current_dasha||dashaRoot.running||dashaRoot.active||{};
+    const da=arr(
+      dashaRoot.timeline||dashaRoot.mahadasha_timeline||dashaRoot.mahadasha||
+      dashaRoot.periods||dashaRoot.dashas||dashaRoot.mahadashas||
+      dashaRoot.vimshottari||dashaRoot.dasha_periods||(Array.isArray(dashaRoot)?dashaRoot:[])
+    );
+    const currentLine=humanDashaLine(current);
+    if(da.length || currentLine){
       const now=new Date();
-      dh='<div class="rcard"><div class="rcard-header"><div class="rcard-title">Vimshottari Mahadasha</div><div class="rbadge rb-good">'+da.length+' Periods</div></div><div class="rcard-body"><ul class="dasha-list">';
-      da.slice(0,9).forEach(d=>{
-        const pl=cleanName({name:d.planet||d.graha||d.name||d.lord||''}),st=d.start||d.start_date||d.from||'',en=d.end||d.end_date||d.to||'',yr=d.years||d.duration||d.period||'',co=PCOL[pl]||'var(--text-dim)';
-        let cur=false;try{if(now>=new Date(st)&&now<=new Date(en))cur=true;}catch(e){}
-        dh+=`<li class="dasha-item" style="${cur?'background:var(--glass);border-radius:10px;padding:8px;border:1px solid rgba(212,116,62,0.15);':''}"><div class="dasha-planet" style="background:${co}14;border:1px solid ${co}28;color:${co};font-size:.72rem;font-weight:700;width:58px;">${escapeHtml(pl)}</div><div class="dasha-info" style="flex:1;"><div class="dasha-name">${escapeHtml(pl)} Mahadasha ${cur?'<span style="font-size:.56rem;padding:1px 5px;border-radius:4px;background:rgba(212,116,62,.15);color:var(--ember-light);margin-left:4px;font-weight:700;text-transform:uppercase;">Current</span>':''}${yr?' <span style="font-size:.7rem;color:var(--text-dim);margin-left:4px;">'+escapeHtml(yr)+' yrs</span>':''}</div><div class="dasha-dates">${escapeHtml(st)} → ${escapeHtml(en)}</div></div></li>`;
-      });
-      dh+='</ul></div></div>';
+      dh='<div class="rcard" id="result-dasha"><div class="rcard-header"><div class="rcard-title">Vimshottari Dasha</div><div class="rbadge rb-good">'+(da.length?da.length+' Periods':'Current')+'</div></div><div class="rcard-body">';
+      if(currentLine){
+        const cStart=current.start||current.start_date||current.from||'';
+        const cEnd=current.end||current.end_date||current.to||'';
+        dh+=`<div class="info-box" style="margin-top:0;"><div class="info-box-title">Current Running Dasha</div><div class="info-box-text"><strong style="color:var(--ember-light);">${escapeHtml(currentLine)}</strong>${cStart||cEnd?`<br>${escapeHtml(cStart)} → ${escapeHtml(cEnd)}`:''}</div></div>`;
+      }
+      if(da.length){
+        dh+='<ul class="dasha-list">';
+        da.slice(0,12).forEach(d=>{
+          const pl=cleanName({name:d.planet||d.graha||d.name||d.lord||''}),st=d.start||d.start_date||d.from||'',en=d.end||d.end_date||d.to||'',yr=d.years||d.duration_years||d.duration||d.period||'',co=PCOL[pl]||'var(--text-dim)';
+          let cur=d.is_current===true||d.current===true;try{if(!cur&&st&&en&&now>=new Date(st)&&now<=new Date(en))cur=true;}catch(e){}
+          dh+=`<li class="dasha-item" style="${cur?'background:var(--glass);border-radius:10px;padding:8px;border:1px solid rgba(212,116,62,0.15);':''}"><div class="dasha-planet" style="background:${co}14;border:1px solid ${co}28;color:${co};font-size:.72rem;font-weight:700;width:58px;">${escapeHtml(pl)}</div><div class="dasha-info" style="flex:1;"><div class="dasha-name">${escapeHtml(pl)} Mahadasha ${cur?'<span style="font-size:.56rem;padding:1px 5px;border-radius:4px;background:rgba(212,116,62,.15);color:var(--ember-light);margin-left:4px;font-weight:700;text-transform:uppercase;">Current</span>':''}${yr?' <span style="font-size:.7rem;color:var(--text-dim);margin-left:4px;">'+escapeHtml(yr)+' yrs</span>':''}</div><div class="dasha-dates">${escapeHtml(st)} → ${escapeHtml(en)}</div></div></li>`;
+        });
+        dh+='</ul>';
+      }
+      dh+='<div class="kundli-help"><strong>Next improvement:</strong> Make each Mahadasha clickable to open Antardasha / Pratyantar Dasha, matching the Flutter app experience.</div></div></div>';
     }
   }
 
@@ -961,15 +1064,19 @@ function renderKundli(name,bcRaw,ygRaw,dsRaw,meta={},skipScroll=false){
   tb2+='</tbody></table></div>';
 
   const planetWarning=planets.length?'':`<div class="info-box"><div class="info-box-title">Chart note</div><div class="info-box-text">The chart frame was created, but the API did not return planet positions in the expected format. Please share the API response if this appears after testing.</div></div>`;
+  const advancedHtml=renderAdvancedKundliCards(advanced);
+  const jumpbar=`<div class="result-jumpbar"><a href="#result-summary">Summary</a><a href="#result-chart">Chart</a><a href="#result-planets">Planets</a><a href="#result-dasha">Dasha</a><a href="#result-yogas">Yogas</a><a href="#result-houses">Houses</a>${advancedHtml?'<a href="#result-advanced">Advanced</a>':''}</div>`;
 
   // ── ASSEMBLE ──
   el.innerHTML=`
-    ${birthSummary}
+    ${jumpbar}
+    ${birthSummary.replace('<div class="rcard"','<div class="rcard" id="result-summary"')}
     ${flags}
-    <div class="rcard"><div class="rcard-header"><div class="rcard-title">${safeName}'s Birth Chart</div><div class="rbadge rb-good">South / North Toggle</div></div><div class="rcard-body">${chartSummary}${ch}${planetWarning}</div></div>
-    <div class="rcard"><div class="rcard-header"><div class="rcard-title">Planetary Positions</div><div class="rbadge rb-good">Lagna: ${escapeHtml(lagDisplay)}</div></div><div class="rcard-body">${tb2}</div></div>
+    <div class="rcard" id="result-chart"><div class="rcard-header"><div class="rcard-title">${safeName}'s Birth Chart</div><div class="rbadge rb-good">South / North Toggle</div></div><div class="rcard-body">${chartSummary}${ch}${planetWarning}</div></div>
+    <div class="rcard" id="result-planets"><div class="rcard-header"><div class="rcard-title">Planetary Positions</div><div class="rbadge rb-good">Lagna: ${escapeHtml(lagDisplay)}</div></div><div class="rcard-body">${tb2}</div></div>
     ${panchHtml}
-    ${dh}${yh}${hh}
+    ${dh}${yh.replace('<div class="rcard"','<div class="rcard" id="result-yogas"')}${hh.replace('<div class="rcard"','<div class="rcard" id="result-houses"')}
+    ${advancedHtml}
     <div class="spirit"><div class="spirit-icon">☉</div><div class="spirit-text">Your birth chart is a sacred map — not of fate, but of potential. Start by reading the highlighted Lagna sign, then see where each planet name is placed. For deeper interpretation including Navamsa, Antardasha, remedies and life predictions — consider a personal reading.</div><div class="spirit-attr">— Parashar Jyotisha</div><a href="index.html#contact" class="fbtn">Book Personal Reading →</a></div>`;
   el.classList.add('show');
   if(!skipScroll) el.scrollIntoView({behavior:'smooth',block:'start'});
