@@ -117,37 +117,52 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
 .result-jumpbar{position:sticky;top:108px;z-index:60;display:flex;gap:.45rem;flex-wrap:wrap;justify-content:center;margin:0 0 1rem;padding:.55rem;border:1px solid var(--line);border-radius:999px;background:rgba(10,10,15,.78);backdrop-filter:blur(18px);}
 .result-jumpbar a{font-size:.68rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);padding:.35rem .65rem;border-radius:999px;border:1px solid transparent;}
 .result-jumpbar a:hover{color:var(--ember-light);border-color:rgba(212,116,62,.32);background:rgba(212,116,62,.08);}
-.advanced-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.7rem;}
-.advanced-card{padding:.9rem;border-radius:14px;background:var(--glass);border:1px solid var(--line);}
-.advanced-card-title{font-weight:800;color:var(--text-bright);font-size:.85rem;margin-bottom:.35rem;}
-.advanced-card-text{font-size:.76rem;color:var(--text-mid);line-height:1.55;}
+.advanced-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.85rem;}
+.advanced-card{padding:1rem;border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.018));border:1px solid var(--line);box-shadow:0 14px 40px rgba(0,0,0,.16);position:relative;overflow:hidden;}
+.advanced-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 12% 0%,rgba(212,116,62,.08),transparent 34%),radial-gradient(circle at 88% 12%,rgba(201,168,76,.06),transparent 32%);pointer-events:none;}
+.advanced-card>*{position:relative;z-index:1;}
+.advanced-card-title{font-family:var(--font-serif);font-weight:700;color:var(--text-bright);font-size:1.05rem;margin-bottom:.35rem;letter-spacing:.01em;}
+.advanced-card-text{font-size:.78rem;color:var(--text-mid);line-height:1.6;}
 .advanced-list{margin:.45rem 0 0;padding-left:1rem;color:var(--text-dim);font-size:.72rem;line-height:1.55;}
-.strength-summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.65rem;margin-bottom:1rem;}
-.strength-summary-card{padding:.9rem;border-radius:14px;background:rgba(255,255,255,.032);border:1px solid var(--line);}
-.strength-summary-card span{display:block;font-family:var(--font-mono);font-size:.58rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.22rem;}
-.strength-summary-card strong{font-family:var(--font-serif);font-size:1.18rem;color:var(--text-bright);font-weight:500;line-height:1.1;}
-.strength-summary-card small{display:block;color:var(--text-dim);font-size:.68rem;margin-top:.22rem;line-height:1.35;}
-.sav-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.65rem;}
-.sav-house{padding:.75rem;border-radius:14px;background:rgba(255,255,255,.025);border:1px solid var(--line);position:relative;overflow:hidden;}
-.sav-house.high{border-color:rgba(107,155,125,.34);background:rgba(107,155,125,.055);}
-.sav-house.low{border-color:rgba(199,96,123,.30);background:rgba(199,96,123,.045);}
-.sav-top{display:flex;align-items:center;justify-content:space-between;gap:.4rem;margin-bottom:.5rem;}
+.strength-summary-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:.75rem;margin:1rem 0;}
+.strength-summary-card{padding:1rem;border-radius:16px;background:rgba(10,10,15,.24);border:1px solid var(--line);transition:transform .25s var(--ease),border-color .25s;}
+.strength-summary-card:hover{transform:translateY(-2px);border-color:rgba(212,116,62,.28);}
+.strength-summary-card span{display:block;font-family:var(--font-mono);font-size:.58rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.12em;margin-bottom:.28rem;}
+.strength-summary-card strong{font-family:var(--font-serif);font-size:1.25rem;color:var(--text-bright);font-weight:500;line-height:1.15;}
+.strength-summary-card small{display:block;color:var(--text-dim);font-size:.68rem;margin-top:.28rem;line-height:1.35;}
+.strength-mini-guide{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;margin:.9rem 0;}
+.strength-guide-chip{padding:.62rem .7rem;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.026);font-size:.7rem;color:var(--text-mid);line-height:1.35;}
+.strength-guide-chip strong{display:block;color:var(--text-bright);font-size:.72rem;margin-bottom:.12rem;}
+.sav-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem;}
+.sav-house{padding:.82rem;border-radius:16px;background:rgba(255,255,255,.026);border:1px solid var(--line);position:relative;overflow:hidden;transition:transform .25s var(--ease),border-color .25s;}
+.sav-house:hover{transform:translateY(-2px);border-color:rgba(212,116,62,.26);}
+.sav-house.high{border-color:rgba(107,155,125,.38);background:rgba(107,155,125,.06);}
+.sav-house.low{border-color:rgba(199,96,123,.34);background:rgba(199,96,123,.05);}
+.sav-top{display:flex;align-items:center;justify-content:space-between;gap:.4rem;margin-bottom:.35rem;}
 .sav-label{font-family:var(--font-mono);font-size:.62rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.08em;}
-.sav-score{font-family:var(--font-serif);font-size:1.35rem;color:var(--text-bright);font-weight:600;line-height:1;}
-.strength-bar{height:6px;border-radius:999px;background:rgba(255,255,255,.065);overflow:hidden;}
+.sav-score{font-family:var(--font-serif);font-size:1.55rem;color:var(--text-bright);font-weight:700;line-height:1;}
+.sav-life{font-size:.7rem;color:var(--text-mid);font-weight:700;margin-bottom:.5rem;}
+.strength-bar{height:7px;border-radius:999px;background:rgba(255,255,255,.065);overflow:hidden;}
 .strength-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--ember),var(--gold));width:0%;transition:width 1s var(--ease);}
-.sav-meta{font-size:.64rem;color:var(--text-dim);margin-top:.42rem;line-height:1.35;}
-.shadbala-table-wrap{overflow-x:auto;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.018);}
-.shadbala-table{width:100%;border-collapse:separate;border-spacing:0;min-width:680px;}
-.shadbala-table th{font-family:var(--font-mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text-dim);text-align:left;padding:.65rem .7rem;border-bottom:1px solid var(--line);}
-.shadbala-table td{padding:.7rem;border-bottom:1px solid rgba(255,255,255,.045);font-size:.76rem;color:var(--text-mid);vertical-align:middle;}
+.sav-meta{font-size:.64rem;color:var(--text-dim);margin-top:.45rem;line-height:1.35;}
+.shad-card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.7rem;margin:1rem 0;}
+.shad-card{padding:.82rem;border-radius:16px;background:rgba(255,255,255,.026);border:1px solid var(--line);transition:transform .25s var(--ease),border-color .25s;}
+.shad-card:hover{transform:translateY(-2px);border-color:rgba(212,116,62,.26);}
+.shad-card-top{display:flex;align-items:center;justify-content:space-between;gap:.4rem;margin-bottom:.45rem;}
+.shad-card-score{font-family:var(--font-mono);font-size:.82rem;font-weight:900;color:var(--text-bright);}
+.shad-card-status{font-size:.66rem;color:var(--text-dim);line-height:1.35;margin-top:.4rem;}
+.shadbala-table-wrap{overflow-x:auto;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.018);}
+.shadbala-table{width:100%;border-collapse:separate;border-spacing:0;min-width:720px;}
+.shadbala-table th{font-family:var(--font-mono);font-size:.58rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text-dim);text-align:left;padding:.7rem;border-bottom:1px solid var(--line);}
+.shadbala-table td{padding:.72rem;border-bottom:1px solid rgba(255,255,255,.045);font-size:.76rem;color:var(--text-mid);vertical-align:middle;}
 .shadbala-table tr:last-child td{border-bottom:none;}
-.shad-planet{display:inline-flex;align-items:center;gap:.4rem;font-weight:800;color:var(--pc);background:color-mix(in srgb,var(--pc) 10%,transparent);border:1px solid color-mix(in srgb,var(--pc) 24%,transparent);padding:.26rem .52rem;border-radius:999px;}
+.shad-planet{display:inline-flex;align-items:center;gap:.4rem;font-weight:800;color:var(--pc);background:color-mix(in srgb,var(--pc) 10%,transparent);border:1px solid color-mix(in srgb,var(--pc) 24%,transparent);padding:.28rem .56rem;border-radius:999px;}
 .shad-score{font-family:var(--font-mono);font-weight:800;color:var(--text-bright);}
 .shad-subgrid{display:flex;flex-wrap:wrap;gap:.32rem;}
-.shad-subchip{font-size:.58rem;padding:.15rem .35rem;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.035);color:var(--text-dim);}
-.strength-note{margin-top:.85rem;padding:.8rem 1rem;border-radius:14px;background:rgba(212,116,62,.055);border:1px solid rgba(212,116,62,.18);font-size:.76rem;color:var(--text-mid);line-height:1.65;}
-@media(max-width:768px){.sav-grid{grid-template-columns:repeat(2,1fr);} .strength-summary-grid{grid-template-columns:repeat(2,1fr);}}
+.shad-subchip{font-size:.58rem;padding:.16rem .38rem;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.035);color:var(--text-dim);}
+.strength-note{margin-top:.9rem;padding:.85rem 1rem;border-radius:16px;background:rgba(212,116,62,.055);border:1px solid rgba(212,116,62,.18);font-size:.76rem;color:var(--text-mid);line-height:1.65;}
+@media(max-width:768px){.sav-grid{grid-template-columns:repeat(2,1fr);} .strength-summary-grid{grid-template-columns:repeat(2,1fr);} .strength-mini-guide{grid-template-columns:1fr;} .shad-card-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:460px){.sav-grid,.strength-summary-grid,.shad-card-grid{grid-template-columns:1fr;}}
 
 /* ─── RESULTS ─── */
 .results{margin-top:1.5rem;display:none;animation:fadeUp .5s var(--ease) both;max-width:1120px;margin-left:auto;margin-right:auto;}
@@ -905,39 +920,87 @@ function pickDeep(obj, keys){
   for(const k of keys){ if(obj[k]!==undefined && obj[k]!==null) return obj[k]; }
   return null;
 }
-function extractSavPoints(raw){
-  const d=dig(raw);
-  if(!d) return {points:[], total:0, average:0, strongest:[], weakest:[], source:null};
-  let src = pickDeep(d,['sarvashtakavarga','sarva_ashtakavarga','sav','sarva','total','ashtakavarga','points_per_house','house_points','houses','bhava_points','sign_points','rashi_points']) || d;
-  if(src && typeof src==='object'){
-    src = pickDeep(src,['points_per_house','house_points','houses','bhava_points','sign_points','rashi_points','values','data']) || src;
+function houseLifeLabel(h){
+  return ({1:'Self & vitality',2:'Wealth & speech',3:'Courage & skills',4:'Home & peace',5:'Education & children',6:'Service & health',7:'Marriage & public',8:'Transformation',9:'Dharma & fortune',10:'Career & karma',11:'Gains & network',12:'Moksha & expenses'})[Number(h)]||'Life area';
+}
+function savPointFromObject(v){
+  if(v===null || v===undefined || v==='') return null;
+  if(typeof v==='number' || typeof v==='string') return numFromAny(v);
+  if(typeof v==='object'){
+    const keys=['points','point','bindu','bindus','bindu_count','binduCount','sav','score','value','total_points','total'];
+    for(const k of keys){ const n=numFromAny(v[k]); if(n!==null) return n; }
   }
+  return null;
+}
+function houseNumFromAny(key,val,idx=null){
+  const keyStr=String(key??'').trim();
+  if(/^([1-9]|1[0-2])$/.test(keyStr)) return parseInt(keyStr,10);
+  let m=keyStr.match(/(?:house|bhava|h)[_\s\-]*([1-9]|1[0-2])/i);
+  if(m) return parseInt(m[1],10);
+  if(val && typeof val==='object'){
+    const hv=val.house ?? val.house_number ?? val.houseNo ?? val.house_no ?? val.bhava ?? val.bhava_number ?? val.index;
+    if(hv!==undefined && /^([1-9]|1[0-2])$/.test(String(hv).trim())) return parseInt(String(hv).trim(),10);
+  }
+  if(idx!==null) return idx+1;
+  return 0;
+}
+function parseSavSource(src){
   const points=[];
   if(Array.isArray(src)){
-    src.slice(0,12).forEach((v,i)=>{ const n=numFromAny(v); if(n!==null) points.push({house:i+1, points:n, raw:v}); });
+    src.slice(0,12).forEach((v,i)=>{
+      const h=houseNumFromAny('',v,i);
+      const n=savPointFromObject(v);
+      if(h>=1 && h<=12 && n!==null) points.push({house:h, points:n, raw:v});
+    });
   }else if(src && typeof src==='object'){
     Object.entries(src).forEach(([k,v])=>{
-      let h = /^\d+$/.test(String(k).trim()) ? parseInt(String(k).trim(),10) : 0;
-      if(!h){
-        const m=String(k).match(/house\s*([1-9]|1[0-2])/i);
-        if(m) h=parseInt(m[1],10);
-      }
-      if(!h) h=signNameToNum(k);
-      const n=numFromAny(v);
+      const h=houseNumFromAny(k,v,null);
+      const n=savPointFromObject(v);
       if(h>=1 && h<=12 && n!==null) points.push({house:h, points:n, raw:v});
     });
   }
+  const map=new Map();
+  points.forEach(x=>map.set(x.house,x));
+  return [...map.values()].sort((a,b)=>a.house-b.house);
+}
+function scanSavPoints(obj, depth=0){
+  if(!obj || depth>4) return [];
+  const direct=parseSavSource(obj);
+  if(direct.length>=6) return direct;
+  let best=direct;
+  if(typeof obj==='object'){
+    const values=Array.isArray(obj)?obj:Object.values(obj);
+    for(const v of values){
+      if(v && typeof v==='object'){
+        const found=scanSavPoints(v, depth+1);
+        if(found.length>best.length) best=found;
+        if(best.length>=12) break;
+      }
+    }
+  }
+  return best;
+}
+function extractSavPoints(raw){
+  const d=dig(raw);
+  if(!d) return {points:[], total:0, average:0, strongest:[], weakest:[], source:null};
+  const preferred = pickDeep(d,['sarvashtakavarga','sarva_ashtakavarga','sav','sarva','ashtakavarga','points_per_house','house_points','houses','bhava_points','sign_points','rashi_points']);
+  let points = scanSavPoints(preferred || d);
+  if(points.length<6) points = scanSavPoints(d);
   points.sort((a,b)=>a.house-b.house);
-  const totalCandidate = numFromAny(pickDeep(d,['total_points','total_score','sarva_total','bindu_total','total_bindus','total']));
-  const total = totalCandidate!==null ? totalCandidate : points.reduce((a,b)=>a+b.points,0);
+
+  let totalCandidate = numFromAny(pickDeep(d,['total_points','total_score','sarva_total','bindu_total','total_bindus','sav_total']));
+  const calculatedTotal = points.reduce((a,b)=>a+b.points,0);
+  if((totalCandidate===null || totalCandidate<20) && calculatedTotal>0) totalCandidate=calculatedTotal;
+  const total = totalCandidate!==null ? totalCandidate : 0;
   const avgCandidate = numFromAny(pickDeep(d,['average_per_house','average','avg','mean']));
   const average = avgCandidate!==null ? avgCandidate : (points.length?total/points.length:0);
+
   const strongestRaw = pickDeep(d,['strongest_houses','strong_houses','best_houses','strongest','strong']);
   const weakestRaw = pickDeep(d,['weakest_houses','weak_houses','challenging_houses','weakest','weak']);
-  const max = points.length?Math.max(...points.map(x=>x.points)):0;
-  const min = points.length?Math.min(...points.map(x=>x.points)):0;
-  const strongest = strongestRaw ? formatAnyList(strongestRaw) : points.filter(x=>x.points===max).map(x=>`House ${x.house}`);
-  const weakest = weakestRaw ? formatAnyList(weakestRaw) : points.filter(x=>x.points===min).map(x=>`House ${x.house}`);
+  const sorted = points.slice().sort((a,b)=>b.points-a.points);
+  const weakestSorted = points.slice().sort((a,b)=>a.points-b.points);
+  const strongest = points.length ? sorted.slice(0,3).map(x=>`House ${x.house} (${x.points})`) : formatAnyList(strongestRaw);
+  const weakest = points.length ? weakestSorted.slice(0,3).map(x=>`House ${x.house} (${x.points})`) : formatAnyList(weakestRaw);
   return {points,total,average,strongest,weakest,source:d};
 }
 function formatAnyList(v){
@@ -970,20 +1033,25 @@ function renderAshtakavargaDetailed(raw){
   const cards = sav.points.map(x=>{
     const cls = x.points >= 30 ? 'high' : (x.points <= 24 ? 'low' : '');
     const width = Math.max(7, Math.min(100, (x.points/max)*100));
-    const note = x.points >= 30 ? 'supportive' : (x.points <= 24 ? 'needs attention' : 'balanced');
-    return `<div class="sav-house ${cls}"><div class="sav-top"><div class="sav-label">House ${x.house}</div><div class="sav-score">${escapeHtml(x.points)}</div></div><div class="strength-bar"><div class="strength-fill" style="width:${width}%"></div></div><div class="sav-meta">${escapeHtml(note)}</div></div>`;
+    const note = x.points >= 30 ? 'strong support' : (x.points <= 24 ? 'needs mindful effort' : 'balanced support');
+    return `<div class="sav-house ${cls}"><div class="sav-top"><div class="sav-label">House ${x.house}</div><div class="sav-score">${escapeHtml(x.points)}</div></div><div class="sav-life">${escapeHtml(houseLifeLabel(x.house))}</div><div class="strength-bar"><div class="strength-fill" style="width:${width}%"></div></div><div class="sav-meta">${escapeHtml(note)}</div></div>`;
   }).join('');
   return `<div class="advanced-card" style="grid-column:1/-1;">
     <div class="advanced-card-title">Ashtakavarga / Sarvashtakavarga</div>
-    <div class="advanced-card-text">Bindu strength by house/sign. Higher bindu count generally shows stronger support for that life area.</div>
-    <div class="strength-summary-grid" style="margin-top:.85rem;">
-      <div class="strength-summary-card"><span>Total Bindus</span><strong>${sav.total?escapeHtml(sav.total):'—'}</strong><small>SAV total from API or calculated from houses</small></div>
-      <div class="strength-summary-card"><span>Average</span><strong>${escapeHtml(avgTxt)}</strong><small>Average bindus per house</small></div>
+    <div class="advanced-card-text">Bindu strength by house. This is best shown as a support map: high bindus show easier support; lower bindus show areas where Dasha, effort and remedies matter more.</div>
+    <div class="strength-mini-guide">
+      <div class="strength-guide-chip"><strong>30+ bindus</strong>Generally more supportive</div>
+      <div class="strength-guide-chip"><strong>25–29 bindus</strong>Balanced / mixed area</div>
+      <div class="strength-guide-chip"><strong>24 or less</strong>Needs care and conscious effort</div>
+    </div>
+    <div class="strength-summary-grid">
+      <div class="strength-summary-card"><span>Total Bindus</span><strong>${sav.total?escapeHtml(sav.total):'—'}</strong><small>${sav.points.length?'Calculated from available house bindus':'Total not returned by API'}</small></div>
+      <div class="strength-summary-card"><span>Average</span><strong>${escapeHtml(avgTxt)}</strong><small>Average bindus per loaded house</small></div>
       <div class="strength-summary-card"><span>Strongest</span><strong>${escapeHtml(sav.strongest.slice(0,2).join(', ')||'—')}</strong><small>Likely supportive areas</small></div>
       <div class="strength-summary-card"><span>Needs Care</span><strong>${escapeHtml(sav.weakest.slice(0,2).join(', ')||'—')}</strong><small>Areas needing effort/remedy</small></div>
     </div>
-    ${cards?`<div class="sav-grid">${cards}</div>`:''}
-    <div class="strength-note"><strong>Reading note:</strong> Ashtakavarga should be interpreted with Lagna, house lord strength, Dasha, and transits. It is a strength indicator, not a standalone prediction.</div>
+    ${cards?`<div class="sav-grid">${cards}</div>`:'<div class="strength-note"><strong>Partial data:</strong> API returned summary only. Ask backend to return all 12 house bindus for full visual grid.</div>'}
+    <div class="strength-note"><strong>Reading note:</strong> Ashtakavarga is a support indicator, not a standalone prediction. Read it with Lagna, house lord strength, active Dasha and transits.</div>
   </div>`;
 }
 function extractShadbalaRows(raw){
@@ -997,15 +1065,29 @@ function extractShadbalaRows(raw){
     if(!planet) return;
     const planetName=cleanName({name:planet});
     const obj=(val && typeof val==='object')?val:{};
-    const score=numFromAny(pickDeep(obj,['total_score','total','score','shadbala','bala','rupa','strength','points','value','ratio','percent','percentage']) ?? val);
+    const score=numFromAny(pickDeep(obj,['total_score','total','score','shadbala','bala','rupa','strength','points','value']) ?? val);
     const required=numFromAny(pickDeep(obj,['required','required_score','minimum','threshold','target','needed']));
-    let ratio=numFromAny(pickDeep(obj,['ratio','percent','percentage','strength_percent','score_percent']));
-    if((ratio===null || ratio>300) && score!==null && required) ratio=(score/required)*100;
-    const status=firstText(obj,['status','grade','level','result','interpretation','summary','remarks']) || (ratio!==null ? (ratio>=100?'Sufficient':ratio>=80?'Moderate':'Needs support') : '');
+    const percentRaw=numFromAny(pickDeep(obj,['percent','percentage','strength_percent','score_percent']));
+    const ratioRaw=numFromAny(pickDeep(obj,['ratio']));
+    let ratio=null;
+    let ratioBasis='relative';
+    if(score!==null && required && required>0){
+      ratio=(score/required)*100;
+      ratioBasis='of required';
+    }else if(percentRaw!==null && percentRaw>=3 && percentRaw<=180){
+      ratio=percentRaw;
+      ratioBasis='API percent';
+    }else if(ratioRaw!==null && ratioRaw>0){
+      // ratio around 1.0 generally means 100%, but tiny 1.03 values without required are often raw rupa scores mislabeled by APIs.
+      if(ratioRaw>2.5 && ratioRaw<=180){ ratio=ratioRaw; ratioBasis='API percent'; }
+      else if(ratioRaw>0 && ratioRaw<=2.5 && score!==null && score>3){ ratio=ratioRaw*100; ratioBasis='API ratio'; }
+    }
+    const backendStatus=firstText(obj,['status','grade','level','result','interpretation','summary','remarks']);
+    const status=backendStatus || (ratio!==null ? (ratio>=100?'Sufficient':ratio>=80?'Moderate':'Needs support') : '');
     const subKeys=['sthana_bala','dig_bala','kala_bala','chesta_bala','naisargika_bala','drik_bala','saptavargaja_bala','ojayugma_bala','kendradi_bala','drekkana_bala'];
     const sub=[];
     subKeys.forEach(k=>{ const n=numFromAny(obj[k]); if(n!==null) sub.push([k,n]); });
-    rows.push({planet:planetName, score, required, ratio, status, sub, raw:obj});
+    rows.push({planet:planetName, score, required, ratio, ratioBasis, status, sub, raw:obj});
   };
   if(Array.isArray(src)) src.forEach(x=>pushRow('',x));
   else if(src && typeof src==='object'){
@@ -1025,26 +1107,51 @@ function extractShadbalaRows(raw){
 function renderShadbalaDetailed(raw){
   const sh=extractShadbalaRows(raw);
   if(!sh.rows.length && !sh.summary.overall && !sh.summary.strongest) return '';
+  const scores=sh.rows.map(r=>r.score).filter(n=>n!==null && Number.isFinite(n));
+  const maxScore=scores.length?Math.max(...scores):0;
+  const minScore=scores.length?Math.min(...scores):0;
+  const strengthFor=(r)=>{
+    if(r.ratio!==null) return Math.max(0,Math.min(160,r.ratio));
+    if(r.score!==null && maxScore>0) return Math.max(7,Math.min(100,(r.score/maxScore)*100));
+    return 0;
+  };
+  const statusFor=(r)=>{
+    const rel=strengthFor(r);
+    if(r.status) return r.status;
+    if(r.score!==null && r.score===maxScore) return 'Strongest in this chart';
+    if(rel>=75) return 'Supportive';
+    if(rel>=50) return 'Moderate';
+    return 'Needs support';
+  };
+  const valueLabel=(r)=>{
+    if(r.ratio!==null) return `${r.ratio.toFixed(0)}% ${r.ratioBasis}`;
+    if(r.score!==null && maxScore>0) return `${strengthFor(r).toFixed(0)}% relative`;
+    return '—';
+  };
+  const planetCards=sh.rows.map(r=>{
+    const co=PCOL[r.planet]||'var(--text-dim)';
+    const scoreTxt=r.score!==null ? `${Number.isInteger(r.score)?r.score:r.score.toFixed(2)} rūpa` : '—';
+    return `<div class="shad-card"><div class="shad-card-top"><span class="shad-planet" style="--pc:${co};">${escapeHtml(P[r.planet]||'●')} ${escapeHtml(r.planet)}</span><span class="shad-card-score">${escapeHtml(scoreTxt)}</span></div><div class="strength-bar"><div class="strength-fill" style="width:${strengthFor(r)}%"></div></div><div class="shad-card-status">${escapeHtml(valueLabel(r))} • ${escapeHtml(statusFor(r))}</div></div>`;
+  }).join('');
   const rowsHtml=sh.rows.map(r=>{
     const co=PCOL[r.planet]||'var(--text-dim)';
-    const ratio = r.ratio!==null ? Math.max(0, Math.min(160, r.ratio)) : null;
-    const ratioTxt = r.ratio!==null ? `${r.ratio.toFixed(0)}%` : '—';
-    const scoreTxt = r.score!==null ? (Number.isInteger(r.score)?String(r.score):r.score.toFixed(2)) : '—';
+    const scoreTxt = r.score!==null ? `${Number.isInteger(r.score)?String(r.score):r.score.toFixed(2)} rūpa` : '—';
     const reqTxt = r.required!==null ? (Number.isInteger(r.required)?String(r.required):r.required.toFixed(2)) : '—';
     const sub=r.sub.slice(0,6).map(([k,n])=>`<span class="shad-subchip">${escapeHtml(titleCase(k))}: ${escapeHtml(Number.isInteger(n)?n:n.toFixed(2))}</span>`).join('');
-    return `<tr><td><span class="shad-planet" style="--pc:${co};">${escapeHtml(P[r.planet]||'●')} ${escapeHtml(r.planet)}</span></td><td><span class="shad-score">${escapeHtml(scoreTxt)}</span></td><td>${escapeHtml(reqTxt)}</td><td><div class="strength-bar"><div class="strength-fill" style="width:${ratio!==null?ratio:0}%"></div></div><div style="font-size:.62rem;color:var(--text-dim);margin-top:.22rem;">${escapeHtml(ratioTxt)}</div></td><td>${escapeHtml(r.status||'—')}</td><td><div class="shad-subgrid">${sub||'<span class="shad-subchip">Sub-bala details not returned</span>'}</div></td></tr>`;
+    return `<tr><td><span class="shad-planet" style="--pc:${co};">${escapeHtml(P[r.planet]||'●')} ${escapeHtml(r.planet)}</span></td><td><span class="shad-score">${escapeHtml(scoreTxt)}</span></td><td>${escapeHtml(reqTxt)}</td><td><div class="strength-bar"><div class="strength-fill" style="width:${strengthFor(r)}%"></div></div><div style="font-size:.62rem;color:var(--text-dim);margin-top:.22rem;">${escapeHtml(valueLabel(r))}</div></td><td>${escapeHtml(statusFor(r))}</td><td><div class="shad-subgrid">${sub||'<span class="shad-subchip">Sub-bala details not returned</span>'}</div></td></tr>`;
   }).join('');
   return `<div class="advanced-card" style="grid-column:1/-1;">
     <div class="advanced-card-title">Shadbala / Planetary Strength</div>
-    <div class="advanced-card-text">Six-fold planetary strength. Use it to understand which grahas can deliver results more confidently.</div>
-    <div class="strength-summary-grid" style="margin-top:.85rem;">
-      <div class="strength-summary-card"><span>Strongest Planet</span><strong>${escapeHtml(sh.summary.strongest||'—')}</strong><small>Highest score / API summary</small></div>
-      <div class="strength-summary-card"><span>Weakest Planet</span><strong>${escapeHtml(sh.summary.weakest||'—')}</strong><small>Needs supportive interpretation</small></div>
-      <div class="strength-summary-card"><span>Planets Loaded</span><strong>${escapeHtml(sh.rows.length||'—')}</strong><small>Rows received from API</small></div>
-      <div class="strength-summary-card"><span>Overall</span><strong>${escapeHtml(sh.summary.overall?'Ready':'—')}</strong><small>${escapeHtml(sh.summary.overall||'Detailed strength data displayed below')}</small></div>
+    <div class="advanced-card-text">Six-fold planetary strength. To avoid misleading users, this display treats raw rūpa values as scores and uses relative bars when the API does not return required strength thresholds.</div>
+    <div class="strength-summary-grid">
+      <div class="strength-summary-card"><span>Strongest Planet</span><strong>${escapeHtml(sh.summary.strongest||'—')}</strong><small>Highest raw score / API summary</small></div>
+      <div class="strength-summary-card"><span>Weakest Planet</span><strong>${escapeHtml(sh.summary.weakest||'—')}</strong><small>Lowest raw score / needs review</small></div>
+      <div class="strength-summary-card"><span>Planets Loaded</span><strong>${escapeHtml(sh.rows.length||'—')}</strong><small>Traditional Shadbala generally uses 7 grahas</small></div>
+      <div class="strength-summary-card"><span>Score Range</span><strong>${scores.length?escapeHtml(minScore.toFixed(2)+'–'+maxScore.toFixed(2)):'—'}</strong><small>Raw rūpa range received from API</small></div>
     </div>
-    ${rowsHtml?`<div class="shadbala-table-wrap"><table class="shadbala-table"><thead><tr><th>Planet</th><th>Score</th><th>Required</th><th>Strength</th><th>Status</th><th>Sub Balas</th></tr></thead><tbody>${rowsHtml}</tbody></table></div>`:''}
-    <div class="strength-note"><strong>Reading note:</strong> Shadbala must be read with dignity, house placement, combustion, retrogression, aspects, Yogas and active Dasha.</div>
+    ${planetCards?`<div class="shad-card-grid">${planetCards}</div>`:''}
+    ${rowsHtml?`<div class="shadbala-table-wrap"><table class="shadbala-table"><thead><tr><th>Planet</th><th>Score</th><th>Required</th><th>Display Strength</th><th>Status</th><th>Sub Balas</th></tr></thead><tbody>${rowsHtml}</tbody></table></div>`:''}
+    <div class="strength-note"><strong>Reading note:</strong> If the API does not return required Shadbala thresholds, the bars are relative within this chart, not final pass/fail. Shadbala must be read with dignity, house placement, combustion, aspects, Yogas and active Dasha.</div>
   </div>`;
 }
 function renderAdvancedKundliCards(advanced={}){
