@@ -582,7 +582,9 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
 .match-koot{padding:.85rem;border-radius:16px;background:rgba(255,255,255,.026);border:1px solid var(--line);transition:transform .25s var(--ease),border-color .25s;}
 .match-koot:hover{transform:translateY(-2px);border-color:rgba(232,149,95,.24);}
 .match-koot-top{display:flex;justify-content:space-between;align-items:flex-start;gap:.6rem;margin-bottom:.45rem;}
-.match-koot-name{font-weight:900;color:var(--text-bright);font-size:.86rem;}
+.match-koot-name{font-weight:900;color:var(--text-bright);font-size:.86rem;display:flex;align-items:center;gap:.35rem;flex-wrap:wrap;}
+.match-koot-badge{display:inline-flex;align-items:center;border:1px solid rgba(201,168,76,.24);background:rgba(201,168,76,.09);color:var(--gold-light);border-radius:999px;padding:.08rem .38rem;font-family:var(--font-mono);font-size:.50rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;}
+.match-koot-badge.alert{border-color:rgba(199,96,123,.30);background:rgba(199,96,123,.10);color:var(--lotus-light);}
 .match-koot-desc{font-size:.66rem;color:var(--text-dim);line-height:1.35;margin-top:.1rem;}
 .match-koot-score{font-family:var(--font-mono);font-size:.78rem;font-weight:900;white-space:nowrap;}
 .match-koot-score.pass{color:var(--sage-light);}.match-koot-score.fail{color:var(--lotus-light);}.match-koot-score.mid{color:var(--gold-light);}
@@ -2801,9 +2803,14 @@ function matchBadge(pct){
   return ['Needs Guidance','low'];
 }
 function matchingBoolText(v){
-  if(v===true || v==='true' || v==='yes' || v==='Manglik') return '<span style="color:var(--lotus-light)">Manglik / active ⚠️</span>';
-  if(v===false || v==='false' || v==='no' || v==='Non-Manglik') return '<span style="color:var(--sage-light)">Not indicated ✓</span>';
-  return escapeHtml(v??'Not returned');
+  if(v===true || v==='true' || v==='yes' || v==='Manglik' || v==='active') return '<span style="color:var(--lotus-light)">Manglik / active ⚠️</span>';
+  if(v===false || v==='false' || v==='no' || v==='Non-Manglik' || v==='not indicated') return '<span style="color:var(--sage-light)">Not indicated ✓</span>';
+  return escapeHtml(cleanEncodingText(v??'Not returned'));
+}
+function matchingPlainStatus(v){
+  if(v===true || v==='true' || v==='yes' || v==='Manglik' || v==='active') return 'Manglik / active';
+  if(v===false || v==='false' || v==='no' || v==='Non-Manglik' || v==='not indicated') return 'Not indicated';
+  return cleanEncodingText(v??'Not returned');
 }
 
 function matchingPerson(data, side){
@@ -2828,17 +2835,67 @@ function extractMangal(data, side){
   if(side==='boy') return data?.boy_manglik ?? data?.mangal_boy ?? data?.manglik_boy ?? m?.boy_has_mangal_dosha ?? m?.boy ?? m?.boy_manglik ?? null;
   return data?.girl_manglik ?? data?.mangal_girl ?? data?.manglik_girl ?? m?.girl_has_mangal_dosha ?? m?.girl ?? m?.girl_manglik ?? null;
 }
+function yesNo(v){
+  if(v===true || String(v).toLowerCase()==='true') return 'Yes';
+  if(v===false || String(v).toLowerCase()==='false') return 'No';
+  if(v===null || v===undefined || v==='') return '';
+  return String(v);
+}
+function cleanEncodingText(v){
+  return String(v ?? '').replace(/â/g,'—').replace(/â/g,'–').replace(/â/g,"’").replace(/â/g,'“').replace(/â/g,'”');
+}
+function displayKootName(name){
+  const n=String(name||'').trim();
+  if(n.toLowerCase()==='maitri') return 'Graha Maitri';
+  return n;
+}
+function kootImportanceBadge(k){
+  const nm=String(k?.name||'').toLowerCase();
+  const score=Number(k?.score||0);
+  if((nm.includes('nadi') || nm.includes('bhakoot')) && score===0) return '<span class="match-koot-badge alert">Review</span>';
+  if(nm.includes('nadi') || nm.includes('bhakoot')) return '<span class="match-koot-badge">Important</span>';
+  return '';
+}
 function formatMatchingExtra(k){
-  const skip=new Set(['name','koot','koota','title','description','desc','score','obtained','obtained_points','points','value','gun','guna','received','received_points','match_points','max','max_points','maximum','total','out_of','full_score','reason','explanation','result','comment']);
-  const parts=[];
   if(!k || typeof k!=='object') return '';
-  for(const [key,val] of Object.entries(k)){
-    if(skip.has(key) || val===null || val===undefined || val==='') continue;
-    if(typeof val==='object') continue;
-    const label=key.replace(/_/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
-    parts.push(`${label}: ${val}`);
+  const nm=String(k.name||k.koot||k.koota||'').toLowerCase();
+  const parts=[];
+  const add=(label,val)=>{ if(val!==undefined && val!==null && val!=='') parts.push(`${label}: ${cleanEncodingText(val)}`); };
+  const addPair=(label,boy,girl)=>{
+    if((boy!==undefined && boy!==null && boy!=='') || (girl!==undefined && girl!==null && girl!=='')){
+      parts.push(`${label} — Boy: ${cleanEncodingText(boy||'—')} • Girl: ${cleanEncodingText(girl||'—')}`);
+    }
+  };
+  if(nm.includes('varna')) addPair('Varna', k.boy_varna, k.girl_varna);
+  else if(nm.includes('vashya')) addPair('Vashya', k.boy_vashya, k.girl_vashya);
+  else if(nm.includes('tara')) addPair('Tara count', k.boy_tara_count, k.girl_tara_count);
+  else if(nm.includes('yoni')){
+    addPair('Yoni', k.boy_yoni, k.girl_yoni);
+    if(k.is_enemy!==undefined) parts.push(`Enemy pair: ${yesNo(k.is_enemy)}`);
   }
-  return parts.slice(0,4).join(' • ');
+  else if(nm.includes('maitri') || nm.includes('graha')){
+    addPair('Rashi lord', k.boy_rashi_lord, k.girl_rashi_lord);
+    add('Relationship', k.relationship);
+  }
+  else if(nm.includes('gana')) addPair('Gana', k.boy_gana, k.girl_gana);
+  else if(nm.includes('bhakoot')){
+    add('Rashi distance', k.rashi_distance);
+    if(k.has_dosha!==undefined) parts.push(`Bhakoot Dosha: ${k.has_dosha ? 'Present' : 'Not present'}`);
+    if(k.cancelled!==undefined) parts.push(`Cancellation: ${k.cancelled ? 'Yes' : 'No'}`);
+  }
+  else if(nm.includes('nadi')){
+    addPair('Nadi', k.boy_nadi, k.girl_nadi);
+    if(k.has_dosha!==undefined) parts.push(`Nadi Dosha: ${k.has_dosha ? 'Present' : 'Not present'}`);
+    if(k.cancellation_notes) add('Cancellation note', k.cancellation_notes);
+  }
+  if(parts.length) return parts.slice(0,3).join(' • ');
+  const skip=new Set(['name','koot','koota','title','description','desc','score','obtained','obtained_points','points','value','gun','guna','received','received_points','match_points','max','max_points','maximum','total','out_of','full_score','reason','explanation','result','comment']);
+  for(const [key,val] of Object.entries(k)){
+    if(skip.has(key) || val===null || val===undefined || val==='' || typeof val==='object') continue;
+    const label=key.replace(/_/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
+    parts.push(`${label}: ${cleanEncodingText(val)}`);
+  }
+  return parts.slice(0,3).join(' • ');
 }
 function matchingIssueList(data){
   const out=[];
@@ -2895,8 +2952,10 @@ function renderMatching(raw) {
   const kootHtml = showKootBreakdown ? kootArr.map(k=>{
     const p=k.max>0 ? Math.max(0,Math.min(100,k.score/k.max*100)) : 0;
     const cls=p>=65?'pass':p>=35?'mid':'fail';
-    const isCritical = ['nadi','bhakoot','gana','yoni'].some(x=>String(k.name||'').toLowerCase().includes(x));
-    return `<div class="match-koot"><div class="match-koot-top"><div><div class="match-koot-name">${escapeHtml(k.name)} ${isCritical?'<span style="color:var(--gold-light);font-size:.62rem;">• key</span>':''}</div><div class="match-koot-desc">${escapeHtml(k.description||'')}</div></div><div class="match-koot-score ${cls}">${Number(k.score).toFixed(k.score%1?1:0)}/${k.max}</div></div><div class="match-bar"><div class="match-fill" style="width:${p}%;"></div></div>${k.reason?`<div class="match-koot-desc" style="margin-top:.45rem;">${escapeHtml(k.reason)}</div>`:''}${k.extra?`<div class="match-koot-desc" style="margin-top:.35rem;color:var(--text-mid);">${escapeHtml(k.extra)}</div>`:''}</div>`;
+    const badge = kootImportanceBadge(k);
+    const name = displayKootName(k.name);
+    const extra = k.extra || formatMatchingExtra(k);
+    return `<div class="match-koot"><div class="match-koot-top"><div><div class="match-koot-name"><span>${escapeHtml(name)}</span>${badge}</div><div class="match-koot-desc">${escapeHtml(cleanEncodingText(k.description||''))}</div></div><div class="match-koot-score ${cls}">${Number(k.score).toFixed(k.score%1?1:0)}/${k.max}</div></div><div class="match-bar"><div class="match-fill" style="width:${p}%;"></div></div>${k.reason?`<div class="match-koot-desc" style="margin-top:.45rem;">${escapeHtml(cleanEncodingText(k.reason))}</div>`:''}${extra?`<div class="match-koot-desc" style="margin-top:.35rem;color:var(--text-mid);">${escapeHtml(extra)}</div>`:''}</div>`;
   }).join('') : '';
   const note = data.note || raw.note || '';
   const pairHtml = hasPairData ? `<div class="match-pair-grid"><div class="match-pair"><span>Boy / Var</span><strong>${escapeHtml(boyRashi||'—')}</strong><small>${escapeHtml(boyNak||'Nakshatra not shown')}</small><small>${escapeHtml(boyNote||'')}</small></div><div class="match-pair"><span>Girl / Kanya</span><strong>${escapeHtml(girlRashi||'—')}</strong><small>${escapeHtml(girlNak||'Nakshatra not shown')}</small><small>${escapeHtml(girlNote||'')}</small></div></div>` : '';
@@ -2914,7 +2973,7 @@ function renderMatching(raw) {
     <div class="match-logic-note"><strong>Why Full Match is useful:</strong> The 36-point Gun Milan score can be the same as Quick Match because Ashtakoot is Moon-based. Full Match is still more valuable because it calculates Moon data from birth details and adds chart-level checks such as Mangal Dosha, Bhakoot/Nadi warnings and future scope for Lagna, Navamsa and Dasha timing.</div>
     <div class="match-decision-grid">
       <div class="match-decision-card good"><b>Moon data verified</b><span>Rashi and Nakshatra are calculated from DOB, time and place instead of manual selection.</span></div>
-      <div class="match-decision-card ${hasMangalData?'warn':'alert'}"><b>Mangal Dosha</b><span>${hasMangalData ? `${escapeHtml(bn)}: ${String(mangalB===true?'active':mangalB===false?'not indicated':mangalB??'returned')} · ${escapeHtml(gn)}: ${String(mangalG===true?'active':mangalG===false?'not indicated':mangalG??'returned')}` : 'Not returned by API for this result.'}</span></div>
+      <div class="match-decision-card ${hasMangalData?'warn':'alert'}"><b>Mangal Dosha</b><span>${hasMangalData ? `${escapeHtml(bn)}: ${escapeHtml(matchingPlainStatus(mangalB))} · ${escapeHtml(gn)}: ${escapeHtml(matchingPlainStatus(mangalG))}` : 'Not returned by API for this result.'}</span></div>
       <div class="match-decision-card ${issues.length?'alert':'good'}"><b>Critical issues</b><span>${issues.length ? escapeHtml(issues.slice(0,2).join(' ')) : 'No critical issue returned by API.'}</span></div>
       <div class="match-decision-card warn"><b>Final reading</b><span>Add Lagna, 7th house, Venus/Jupiter, D9 and Dasha before final decision.</span></div>
     </div>`;
@@ -2928,12 +2987,13 @@ function renderMatching(raw) {
     <div class="match-check"><b>6. Dasha timing</b><span>Even a good match needs supportive timing for marriage and adjustment.</span><small class="warn">Next upgrade</small></div>
   </div>` : '';
 
-  const mangalHtml = (mangalB!==null||mangalG!==null) ? `<div class="match-warning"><strong>Mangal Dosha Check:</strong> ${escapeHtml(bn)}: ${matchingBoolText(mangalB)} · ${escapeHtml(gn)}: ${matchingBoolText(mangalG)}<br>${escapeHtml(data?.mangal_dosha?.verdict || 'When either chart is Manglik, check cancellation rules and Navamsa before making any conclusion.')}</div>` : '';
-  const issueHtml = issues.length ? `<div class="match-warning"><strong>Critical issues:</strong><br>${issues.map(x=>'• '+escapeHtml(String(x))).join('<br>')}</div>` : '';
+  const mangalVerdict = cleanEncodingText(data?.mangal_dosha?.verdict || 'When either chart is Manglik, check cancellation rules and Navamsa before making any conclusion.');
+  const mangalHtml = (mangalB!==null||mangalG!==null) ? `<div class="match-warning"><strong>Mangal Dosha Check:</strong> ${escapeHtml(bn)}: ${matchingBoolText(mangalB)} · ${escapeHtml(gn)}: ${matchingBoolText(mangalG)}<br>${escapeHtml(mangalVerdict)}</div>` : '';
+  const issueHtml = issues.length ? `<div class="match-warning"><strong>Critical issues:</strong><br>${issues.map(x=>'• '+escapeHtml(cleanEncodingText(String(x)))).join('<br>')}</div>` : '';
   const el = document.getElementById('res-matching');
   el.innerHTML = `
     <div class="rcard"><div class="rcard-header"><div class="rcard-title">Kundli Matching Result</div><div class="rbadge ${bCls==='good'?'rb-good':bCls==='avg'?'rb-avg':'rb-low'}">${bText}</div></div><div class="rcard-body">
-      <div class="match-hero"><div class="match-hero-inner"><div><div class="match-mode-pill">${escapeHtml(matchingModeLabel(mode))}</div><div class="match-overline">Ashtakoot Gun Milan</div><div class="match-title">${escapeHtml(bn)} <em>with</em> ${escapeHtml(gn)}</div><div class="match-sub">${escapeHtml(String(recommendation))} ${raw._fallback||data._fallback?'This result uses a safe Rashi–Nakshatra calculation.':''}</div></div><div class="match-mandala"><span>💞</span></div></div></div>
+      <div class="match-hero"><div class="match-hero-inner"><div><div class="match-mode-pill">${escapeHtml(matchingModeLabel(mode))}</div><div class="match-overline">Ashtakoot Gun Milan</div><div class="match-title">${escapeHtml(bn)} <em>with</em> ${escapeHtml(gn)}</div><div class="match-sub">${escapeHtml(cleanEncodingText(String(recommendation)))} ${raw._fallback||data._fallback?'This result uses a safe Rashi–Nakshatra calculation.':''}</div></div><div class="match-mandala"><span>💞</span></div></div></div>
       <div class="match-result-grid">
         <div class="match-score-card"><div class="match-score-circle"><svg viewBox="0 0 120 120"><circle class="bg" cx="60" cy="60" r="52"/><circle class="fg" id="match-score-fg" cx="60" cy="60" r="52" stroke="${stroke}" stroke-dasharray="${circ}" stroke-dashoffset="${circ}"/></svg><div class="match-score-num"><div class="match-score-val">${Number(total).toFixed(total%1?1:0)}</div><div class="match-score-of">out of ${maxScore}</div></div></div><span class="match-score-label ${bCls}">${bText}</span><div style="font-size:.75rem;color:var(--text-dim);margin-top:.6rem;">${escapeHtml(sourceText)}</div></div>
         <div class="match-summary-card">${pairHtml}<div class="match-insight-grid"><div class="match-insight"><b>Score reading</b><span>18+ is generally workable; 24+ is stronger. Low Nadi/Bhakoot still needs care.</span></div><div class="match-insight"><b>Quick vs Full</b><span>Same score can happen because both use Moon Rashi and Nakshatra for Ashtakoot.</span></div><div class="match-insight"><b>Final decision</b><span>Full reading should include Mangal, D9, 7th house, Dasha and practical compatibility.</span></div></div></div>
