@@ -613,6 +613,26 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
 .match-logic-note{margin:.85rem 0;padding:.9rem 1rem;border-radius:18px;border:1px solid rgba(91,141,184,.20);background:rgba(91,141,184,.055);font-size:.76rem;color:var(--text-mid);line-height:1.6;}
 .match-logic-note strong{color:var(--sky-light);}
 
+.match-deep-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem;margin:.9rem 0 1rem;}
+.match-deep-card{padding:.95rem;border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.04),rgba(255,255,255,.018));border:1px solid var(--line);position:relative;overflow:hidden;transition:transform .25s var(--ease),border-color .25s;}
+.match-deep-card:hover{transform:translateY(-2px);border-color:rgba(232,149,95,.24);}
+.match-deep-card.good{border-color:rgba(107,155,125,.22);}
+.match-deep-card.warn{border-color:rgba(201,168,76,.22);}
+.match-deep-card.alert{border-color:rgba(199,96,123,.22);}
+.match-deep-card b{display:block;color:var(--text-bright);font-size:.86rem;margin-bottom:.3rem;}
+.match-deep-card span{display:block;color:var(--text-mid);font-size:.72rem;line-height:1.48;}
+.match-deep-card small{display:inline-flex;margin-top:.55rem;border-radius:999px;padding:.18rem .52rem;border:1px solid var(--line);background:rgba(255,255,255,.035);font-size:.58rem;color:var(--text-mid);}
+.match-deep-card small.ok{color:var(--sage-light);border-color:rgba(107,155,125,.23);background:rgba(107,155,125,.08);}
+.match-deep-card small.warn{color:var(--gold-light);border-color:rgba(201,168,76,.23);background:rgba(201,168,76,.08);}
+.match-deep-card small.alert{color:var(--lotus-light);border-color:rgba(199,96,123,.23);background:rgba(199,96,123,.08);}
+.match-astro-pair{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-top:.55rem;}
+.match-astro-mini{padding:.65rem;border-radius:14px;border:1px solid var(--line);background:rgba(10,10,15,.22);}
+.match-astro-mini strong{display:block;color:var(--text-bright);font-family:var(--font-serif);font-size:1.05rem;font-weight:600;line-height:1.15;}
+.match-astro-mini em{display:block;font-style:normal;color:var(--text-dim);font-size:.62rem;line-height:1.35;margin-top:.22rem;}
+.match-deep-note{margin:.8rem 0 1rem;padding:.85rem 1rem;border-radius:16px;background:rgba(201,168,76,.055);border:1px solid rgba(201,168,76,.18);font-size:.74rem;color:var(--text-mid);line-height:1.62;}
+.match-deep-note strong{color:var(--gold-light);}
+@media(max-width:840px){.match-deep-grid,.match-astro-pair{grid-template-columns:1fr;}}
+
 @media(max-width:840px){.match-person-grid,.match-result-grid,.match-hero-inner{grid-template-columns:1fr}.match-heart,.match-mandala{display:none}.match-guide-grid,.match-insight-grid,.match-check-grid,.match-decision-grid{grid-template-columns:1fr}.match-koot-grid,.match-pair-grid{grid-template-columns:1fr}}
 @media(max-width:560px){.match-mode-tabs{grid-template-columns:1fr}.match-person{padding:.85rem}}
 
@@ -2614,6 +2634,8 @@ async function genFullMatching(e){
       data.note = 'Full matching API was unavailable or incomplete, so this result was derived from each birth chart Moon sign and Nakshatra. Use backend full Ashtakoot/Mangal checks for final decisions.';
     }
 
+    const fullExtras = await fetchFullMatchChartExtras({dob:bd,tob:bt,city:bc},{dob:gd,tob:gt,city:gc},data);
+    Object.assign(data, fullExtras);
     data._boy_name = boyName; data._girl_name = girlName; data._mode='full';
     data._boy_chart_note = data._boy_chart_note || `${bd} • ${bt} • ${bc}`;
     data._girl_chart_note = data._girl_chart_note || `${gd} • ${gt} • ${gc}`;
@@ -2916,6 +2938,127 @@ function matchingModeLabel(mode){
   if(mode==='full') return 'Full Birth-Detail Match';
   return 'Kundli Matching';
 }
+
+async function fetchFullMatchChartExtras(boy,girl,currentData={}){
+  const out={};
+  const q=(p)=>`dob=${encodeURIComponent(p.dob)}&tob=${encodeURIComponent(p.tob)}&city=${encodeURIComponent(p.city)}`;
+  try{
+    const calls=[
+      currentData._boy_chart ? Promise.resolve(currentData._boy_chart) : api(`/kundli/birth-chart?${q(boy)}`),
+      currentData._girl_chart ? Promise.resolve(currentData._girl_chart) : api(`/kundli/birth-chart?${q(girl)}`),
+      api(`/kundli/dasha?${q(boy)}`),
+      api(`/kundli/dasha?${q(girl)}`)
+    ];
+    const [bc,gc,bd,gd]=await Promise.allSettled(calls);
+    if(bc.status==='fulfilled') out._boy_chart=bc.value;
+    if(gc.status==='fulfilled') out._girl_chart=gc.value;
+    if(bd.status==='fulfilled') out._boy_dasha=bd.value;
+    if(gd.status==='fulfilled') out._girl_dasha=gd.value;
+    out._full_extra_note='Birth-chart based Lagna, 7th house, Venus/Jupiter and Dasha check loaded.';
+  }catch(err){
+    console.warn('Full Match extra chart loading failed:', err.message);
+  }
+  return out;
+}
+function matchChartRoot(raw){ return dig(raw?.data ? raw : raw) || raw?.data || raw || {}; }
+function chartHouses(root){ return arr(root?.houses || root?.bhavas || root?.house_details || []); }
+function chartPlanets(root){ return arr(root?.planets || root?.graha_positions || root?.grahas || []); }
+function chartPlanet(root,name){
+  const key=String(name||'').toLowerCase();
+  return chartPlanets(root).find(p=>{
+    const nm=cleanName(p).toLowerCase();
+    const raw=String(p.name||p.planet||p.sanskrit||p.graha||'').toLowerCase();
+    return nm===key || raw===key || raw.includes(key);
+  }) || null;
+}
+function chartHouse(root,num){
+  return chartHouses(root).find(h=>Number(h.house_number ?? h.house ?? h.number ?? h.bhava)===Number(num)) || null;
+}
+function signNameFromIndex(idx){ return idx>=0 && RASHIS[idx] ? RASHIS[idx].en : ''; }
+function signElement(sign){
+  const i=indexOfRashiName(sign);
+  if(i<0) return '';
+  return ['Fire','Earth','Air','Water'][i%4] || '';
+}
+function signDistanceText(a,b){
+  const ia=indexOfRashiName(a), ib=indexOfRashiName(b);
+  if(ia<0 || ib<0) return '';
+  const ab=((ib-ia+12)%12)+1;
+  const ba=((ia-ib+12)%12)+1;
+  return `${ab}-${ba}`;
+}
+function lagnaInfo(root){
+  const lag=root?.lagna || root?.ascendant || root?.asc || {};
+  const rashi=textFromAny(lag.rashi ?? lag.sign ?? lag.zodiac ?? root?.lagna_rashi ?? root?.ascendant_rashi);
+  const lord=textFromAny(lag.lord ?? lag.rashi_lord ?? root?.lagna_lord ?? root?.ascendant_lord);
+  const nak=textFromAny(lag.nakshatra ?? lag.star ?? root?.lagna_nakshatra);
+  const deg=textFromAny(lag.degree_in_rashi ?? lag.degree ?? lag.longitude);
+  return {rashi,lord,nak,deg,element:signElement(rashi),index:indexOfRashiName(rashi)};
+}
+function seventhInfo(root){
+  const h=chartHouse(root,7) || {};
+  const rashi=textFromAny(h.rashi ?? h.sign ?? h.zodiac);
+  const lord=textFromAny(h.lord ?? h.house_lord ?? h.rashi_lord);
+  const lordIn=textFromAny(h.lord_in_house ?? h.lord_house ?? h.lord_placed_in_house);
+  const planets=Array.isArray(h.planets) ? h.planets.map(x=>textFromAny(x)).filter(Boolean) : arr(h.planets).map(x=>cleanName(x)).filter(Boolean);
+  return {rashi,lord,lordIn,planets,element:signElement(rashi)};
+}
+function planetMarriageInfo(root,name){
+  const p=chartPlanet(root,name) || {};
+  const planet=cleanName(p) || name;
+  const rashi=textFromAny(p.rashi ?? p.sign ?? p.zodiac);
+  const house=textFromAny(p.house ?? p.house_number ?? p.bhava);
+  const dignity=textFromAny(p.dignity ?? p.status ?? p.strength);
+  const nak=textFromAny(p.nakshatra ?? p.star);
+  const d9=textFromAny(p.d9_rashi ?? p.navamsa_rashi ?? p.navamsa ?? p.d9_sign);
+  const combust=!!(p.is_combust || p.combust);
+  const retro=!!(p.is_retrograde || p.retrograde);
+  return {planet,rashi,house,dignity,nak,d9,combust,retro,found:!!(p && Object.keys(p).length)};
+}
+function dashaSummaryForMatch(raw){
+  if(!raw) return {line:'',note:'Dasha API not loaded'};
+  const root=dashaRootData(raw) || {};
+  const periods=normalizeDashaTimeline(root);
+  const cur=dashaCurrentFromRoot(root,periods);
+  const line=humanDashaLine(cur) || (periods.find(p=>p.isCurrent)?.planet || '');
+  let note='Current period';
+  const st=cur?.start||cur?.start_date||cur?.from||'';
+  const en=cur?.end||cur?.end_date||cur?.to||'';
+  if(st||en) note=`${st||'—'} → ${en||'—'}`;
+  return {line,note};
+}
+function marriageDeepCard(title,status,body,tag='Available',cls='good'){
+  return `<div class="match-deep-card ${cls}"><b>${escapeHtml(title)}</b><span>${body}</span><small class="${cls==='alert'?'alert':cls==='warn'?'warn':'ok'}">${escapeHtml(tag)}</small></div>`;
+}
+function astroMini(title,main,sub=''){
+  return `<div class="match-astro-mini"><em>${escapeHtml(title)}</em><strong>${escapeHtml(main||'—')}</strong>${sub?`<em>${escapeHtml(sub)}</em>`:''}</div>`;
+}
+function renderMarriageDeepDive(raw,data,bn,gn){
+  const boyRoot=matchChartRoot(raw._boy_chart || data._boy_chart);
+  const girlRoot=matchChartRoot(raw._girl_chart || data._girl_chart);
+  const hasBoy=boyRoot && Object.keys(boyRoot).length;
+  const hasGirl=girlRoot && Object.keys(girlRoot).length;
+  if(!hasBoy || !hasGirl){
+    return `<div class="match-warning"><strong>Lagna upgrade pending:</strong> Birth chart data was not returned for both partners, so Lagna, 7th house and Venus/Jupiter checks could not be displayed. Ashtakoot result is still valid as Moon-based Gun Milan.</div>`;
+  }
+  const bLag=lagnaInfo(boyRoot), gLag=lagnaInfo(girlRoot);
+  const b7=seventhInfo(boyRoot), g7=seventhInfo(girlRoot);
+  const bVen=planetMarriageInfo(boyRoot,'Venus'), gJup=planetMarriageInfo(girlRoot,'Jupiter');
+  const bJup=planetMarriageInfo(boyRoot,'Jupiter'), gVen=planetMarriageInfo(girlRoot,'Venus');
+  const bD=dashaSummaryForMatch(raw._boy_dasha || data._boy_dasha);
+  const gD=dashaSummaryForMatch(raw._girl_dasha || data._girl_dasha);
+  const dist=signDistanceText(bLag.rashi,gLag.rashi);
+  const elementLine=[bLag.element?`${bn}: ${bLag.element}`:'',gLag.element?`${gn}: ${gLag.element}`:''].filter(Boolean).join(' • ');
+  const lagnaBody=`<div class="match-astro-pair">${astroMini(`${bn} Lagna`, bLag.rashi, `${bLag.lord?`Lord: ${bLag.lord}`:''}${bLag.nak?` • ${bLag.nak}`:''}`)}${astroMini(`${gn} Lagna`, gLag.rashi, `${gLag.lord?`Lord: ${gLag.lord}`:''}${gLag.nak?` • ${gLag.nak}`:''}`)}</div><span style="margin-top:.5rem;">${escapeHtml([dist?`Lagna distance: ${dist}`:'',elementLine].filter(Boolean).join(' • ') || 'Lagna basics loaded from birth chart.')}</span>`;
+  const b7Sub=[b7.lord?`Lord: ${b7.lord}`:'',b7.lordIn?`lord in H${b7.lordIn}`:'',b7.planets.length?`Planets: ${b7.planets.join(', ')}`:'No planet in 7th'].filter(Boolean).join(' • ');
+  const g7Sub=[g7.lord?`Lord: ${g7.lord}`:'',g7.lordIn?`lord in H${g7.lordIn}`:'',g7.planets.length?`Planets: ${g7.planets.join(', ')}`:'No planet in 7th'].filter(Boolean).join(' • ');
+  const seventhBody=`<div class="match-astro-pair">${astroMini(`${bn} 7th House`, b7.rashi, b7Sub)}${astroMini(`${gn} 7th House`, g7.rashi, g7Sub)}</div><span style="margin-top:.5rem;">7th house shows practical marriage, partnership style and adjustment pattern.</span>`;
+  const karakaBody=`<div class="match-astro-pair">${astroMini(`${bn} Venus`, bVen.rashi || '—', [`H${bVen.house||'—'}`,bVen.dignity,bVen.combust?'Combust':'',bVen.retro?'Retrograde':''].filter(Boolean).join(' • '))}${astroMini(`${gn} Jupiter`, gJup.rashi || '—', [`H${gJup.house||'—'}`,gJup.dignity,gJup.combust?'Combust':'',gJup.retro?'Retrograde':''].filter(Boolean).join(' • '))}</div><span style="margin-top:.5rem;">Traditional marriage karakas: Venus is especially important in male chart, Jupiter in female chart. Also review both Venus and Jupiter for complete judgment.</span>`;
+  const d9Body=`<div class="match-astro-pair">${astroMini(`${bn} Navamsa hint`, bVen.d9 || bJup.d9 || '—', `${bVen.d9?`Venus D9: ${bVen.d9}`:''}${bJup.d9?` • Jupiter D9: ${bJup.d9}`:''}`)}${astroMini(`${gn} Navamsa hint`, gVen.d9 || gJup.d9 || '—', `${gVen.d9?`Venus D9: ${gVen.d9}`:''}${gJup.d9?` • Jupiter D9: ${gJup.d9}`:''}`)}</div><span style="margin-top:.5rem;">This is a D9 hint from birth-chart planet data. Full D9 chart comparison can be added next.</span>`;
+  const dashaBody=`<div class="match-astro-pair">${astroMini(`${bn} current Dasha`, bD.line || '—', bD.note || '')}${astroMini(`${gn} current Dasha`, gD.line || '—', gD.note || '')}</div><span style="margin-top:.5rem;">Dasha timing shows whether marriage and adjustment periods are currently supportive or stressful.</span>`;
+  return `<div class="match-section-title">Lagna, 7th House & Marriage Karaka Review</div><div class="match-deep-note"><strong>New Full Match layer:</strong> This section uses both birth charts, so it gives extra value beyond Quick Match. It does not change the 36-point Gun Milan score; it adds chart-level marriage judgment.</div><div class="match-deep-grid">${marriageDeepCard('1. Lagna foundation','good',lagnaBody,'Birth chart based')}${marriageDeepCard('2. 7th house comparison','good',seventhBody,'Marriage house')}${marriageDeepCard('3. Venus / Jupiter check','warn',karakaBody,'Karaka review')}${marriageDeepCard('4. Navamsa D9 hint','warn',d9Body,'Partial D9')}${marriageDeepCard('5. Dasha timing','warn',dashaBody,(bD.line||gD.line)?'Current Dasha':'Needs Dasha API')}</div>`;
+}
+
 function renderMatching(raw) {
   const data = extractMatchingData(raw);
   const explicitMode = raw._mode || data._mode || '';
@@ -2978,14 +3121,17 @@ function renderMatching(raw) {
       <div class="match-decision-card warn"><b>Final reading</b><span>Add Lagna, 7th house, Venus/Jupiter, D9 and Dasha before final decision.</span></div>
     </div>`;
 
+  const hasDeepCharts = isFull && !!((raw._boy_chart||data._boy_chart) && (raw._girl_chart||data._girl_chart));
+  const hasDashaTiming = isFull && !!((raw._boy_dasha||data._boy_dasha) || (raw._girl_dasha||data._girl_dasha));
   const fullChecklistHtml = isFull ? `<div class="match-section-title">Full Match Advantage</div><div class="match-check-grid">
     <div class="match-check"><b>1. Ashtakoot score</b><span>Moon Rashi and Nakshatra based 36-point Gun Milan.</span><small class="ok">Available</small></div>
     <div class="match-check"><b>2. Mangal / Kuja Dosha</b><span>Important for marital adjustment and should be checked with cancellation rules.</span><small class="${hasMangalData?'ok':'warn'}">${hasMangalData?'Available':'Needs API'}</small></div>
     <div class="match-check"><b>3. Bhakoot / Nadi review</b><span>Critical koots must be interpreted carefully, not mechanically.</span><small class="${issues.length?'alert':'ok'}">${issues.length?'Review needed':'No issue returned'}</small></div>
-    <div class="match-check"><b>4. Lagna & 7th house</b><span>Shows practical married life, spouse indicators and relationship stability.</span><small class="warn">Next upgrade</small></div>
-    <div class="match-check"><b>5. Navamsa D9</b><span>Marriage strength and dharmic compatibility should be checked from D9.</span><small class="warn">Next upgrade</small></div>
-    <div class="match-check"><b>6. Dasha timing</b><span>Even a good match needs supportive timing for marriage and adjustment.</span><small class="warn">Next upgrade</small></div>
+    <div class="match-check"><b>4. Lagna & 7th house</b><span>Shows practical married life, spouse indicators and relationship stability.</span><small class="${hasDeepCharts?'ok':'warn'}">${hasDeepCharts?'Available':'Needs chart API'}</small></div>
+    <div class="match-check"><b>5. Navamsa D9</b><span>Shows marriage strength through D9 hints from Venus/Jupiter, with full D9 comparison as next upgrade.</span><small class="${hasDeepCharts?'warn':'warn'}">${hasDeepCharts?'Partial available':'Next upgrade'}</small></div>
+    <div class="match-check"><b>6. Dasha timing</b><span>Even a good match needs supportive timing for marriage and adjustment.</span><small class="${hasDashaTiming?'ok':'warn'}">${hasDashaTiming?'Available':'Needs Dasha API'}</small></div>
   </div>` : '';
+  const deepDiveHtml = isFull ? renderMarriageDeepDive(raw,data,bn,gn) : '';
 
   const mangalVerdict = cleanEncodingText(data?.mangal_dosha?.verdict || 'When either chart is Manglik, check cancellation rules and Navamsa before making any conclusion.');
   const mangalHtml = (mangalB!==null||mangalG!==null) ? `<div class="match-warning"><strong>Mangal Dosha Check:</strong> ${escapeHtml(bn)}: ${matchingBoolText(mangalB)} · ${escapeHtml(gn)}: ${matchingBoolText(mangalG)}<br>${escapeHtml(mangalVerdict)}</div>` : '';
@@ -3000,6 +3146,7 @@ function renderMatching(raw) {
       </div>
       ${purposeHtml}
       ${fullChecklistHtml}
+      ${deepDiveHtml}
       ${detailsNote}
       ${breakdownHtml}
       ${mangalHtml}
