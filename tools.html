@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Free Vedic Tools — Parashar Jyotisha</title>
-<meta name="description" content="Free Kundli generator, Kundli Matching, Numerology, Daily Horoscope, Transits & more. Authentic Vedic calculations by Parashar Jyotisha.">
+<meta name="description" content="Free Kundli generator, Kundli Matching, Numerology, Transits & Panchang. Authentic Vedic calculations by Parashar Jyotisha.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -636,6 +636,20 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
 @media(max-width:840px){.match-person-grid,.match-result-grid,.match-hero-inner{grid-template-columns:1fr}.match-heart,.match-mandala{display:none}.match-guide-grid,.match-insight-grid,.match-check-grid,.match-decision-grid{grid-template-columns:1fr}.match-koot-grid,.match-pair-grid{grid-template-columns:1fr}}
 @media(max-width:560px){.match-mode-tabs{grid-template-columns:1fr}.match-person{padding:.85rem}}
 
+
+/* Numerology upgrade */
+.num-mode-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;margin:0 0 1.2rem;padding:.35rem;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.025)}
+.num-mode{border:1px solid transparent;background:transparent;color:var(--text-dim);border-radius:12px;padding:.7rem .75rem;font-family:var(--font-sans);font-size:.8rem;font-weight:800;cursor:pointer;transition:all .25s var(--ease)}
+.num-mode:hover{color:var(--text-bright);background:rgba(255,255,255,.04);border-color:var(--line)}
+.num-mode.active{color:white;background:linear-gradient(135deg,var(--ember),#B85A2A);box-shadow:0 8px 28px rgba(212,116,62,.18)}
+.num-panel{display:none;animation:fadeUp .35s var(--ease) both}.num-panel.active{display:block}
+.num-intro{margin-bottom:1rem;padding:.85rem 1rem;border-radius:14px;background:rgba(201,168,76,.055);border:1px solid rgba(201,168,76,.16);font-size:.78rem;color:var(--text-mid);line-height:1.55}.num-intro b{display:block;color:var(--gold-light);font-size:.84rem;margin-bottom:.2rem}.num-intro span{display:block;color:var(--text-dim)}
+.num-hero{position:relative;overflow:hidden;border-radius:22px;padding:1.25rem;background:linear-gradient(135deg,rgba(212,116,62,.12),rgba(201,168,76,.09),rgba(91,141,184,.08));border:1px solid rgba(232,149,95,.18);margin-bottom:1rem}.num-hero:after{content:'🔢';position:absolute;right:1.2rem;top:1rem;font-size:4.8rem;opacity:.09}.num-hero-title{font-family:var(--font-serif);font-size:clamp(1.55rem,3vw,2.25rem);color:var(--text-bright);line-height:1.1}.num-hero-title em{font-style:italic;color:var(--gold-light)}.num-hero-sub{font-size:.83rem;color:var(--text-mid);line-height:1.6;max-width:720px;margin-top:.35rem}.num-source{display:inline-flex;margin-top:.8rem;border:1px solid rgba(107,155,125,.22);background:rgba(107,155,125,.10);color:var(--sage-light);border-radius:999px;padding:.22rem .65rem;font-size:.62rem;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.06em}
+.num-core-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.75rem;margin:1rem 0}.num-core{padding:1rem;border-radius:18px;background:rgba(255,255,255,.028);border:1px solid var(--line);position:relative;overflow:hidden;transition:transform .25s var(--ease),border-color .25s}.num-core:hover{transform:translateY(-3px);border-color:rgba(212,116,62,.28)}.num-core small{font-family:var(--font-mono);font-size:.56rem;color:var(--text-dim);letter-spacing:.12em;text-transform:uppercase}.num-core strong{display:block;font-family:var(--font-serif);font-size:2.5rem;line-height:1;color:var(--nc,var(--gold));margin:.35rem 0}.num-core span{font-size:.72rem;color:var(--text-mid);line-height:1.45}.num-core i{position:absolute;right:.8rem;top:.8rem;font-style:normal;font-size:1.25rem;opacity:.55}
+.num-insight-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.75rem;margin:1rem 0}.num-insight{padding:1rem;border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.04),rgba(255,255,255,.016));border:1px solid var(--line)}.num-insight b{display:block;color:var(--text-bright);font-size:.9rem;margin-bottom:.35rem}.num-insight p{font-size:.78rem;color:var(--text-mid);line-height:1.6}.num-chip-wrap{display:flex;flex-wrap:wrap;gap:.38rem;margin-top:.55rem}.num-chip{display:inline-flex;align-items:center;border:1px solid var(--line);background:rgba(255,255,255,.035);color:var(--text-mid);border-radius:999px;padding:.22rem .58rem;font-size:.66rem}.loshu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.45rem;max-width:360px;margin:0 auto}.loshu-cell{min-height:64px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.028);display:flex;flex-direction:column;align-items:center;justify-content:center}.loshu-cell strong{font-family:var(--font-serif);font-size:1.35rem;color:var(--text-bright)}.loshu-cell span{font-size:.62rem;color:var(--text-dim)}
+.num-love-wrap{display:grid;grid-template-columns:220px 1fr;gap:1rem;align-items:stretch}.num-meter{border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.026);display:grid;place-items:center;padding:1.2rem}.num-meter-circle{width:155px;height:155px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sage-light) var(--pct),rgba(255,255,255,.08) 0);position:relative}.num-meter-circle:after{content:'';position:absolute;inset:12px;border-radius:50%;background:var(--night)}.num-meter-circle strong{position:relative;z-index:1;font-family:var(--font-serif);font-size:2.6rem;color:var(--text-bright)}.num-meter-circle span{position:relative;z-index:1;color:var(--text-dim);font-size:.68rem}.baby-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:.65rem;margin-top:1rem}.baby-name{padding:.9rem;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.026)}.baby-name b{display:block;color:var(--text-bright);font-family:var(--font-serif);font-size:1.15rem}.baby-name span{display:block;font-size:.7rem;color:var(--text-dim);margin-top:.2rem}.num-note{margin-top:.85rem;padding:.85rem 1rem;border-radius:16px;background:rgba(212,116,62,.055);border:1px solid rgba(212,116,62,.16);font-size:.74rem;color:var(--text-mid);line-height:1.6}
+@media(max-width:760px){.num-mode-tabs{grid-template-columns:1fr}.num-love-wrap{grid-template-columns:1fr}.num-core-grid,.num-insight-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -660,7 +674,6 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
   <div class="tool-nav-inner">
     <div class="tool-tab active" onclick="switchTab('kundli',this)">📜 Kundli <span class="badge badge-free">Free</span></div>
     <div class="tool-tab" onclick="switchTab('matching',this)">💑 Matching <span class="badge badge-free">Free</span></div>
-    <div class="tool-tab" onclick="switchTab('horoscope',this)">🔮 Rashifal <span class="badge badge-live">Daily</span></div>
     <div class="tool-tab" onclick="switchTab('numerology',this)">🔢 Numerology <span class="badge badge-free">Free</span></div>
     <div class="tool-tab" onclick="switchTab('transits',this)">🪐 Transits <span class="badge badge-live">Live</span></div>
     <div class="tool-tab" onclick="switchTab('sadesati',this)">⚠️ Sade Sati</div>
@@ -765,32 +778,57 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
   <div class="results" id="res-matching"></div>
 </div>
 
-<!-- ════════════════════════════════════════════════
-     3. HOROSCOPE — Daily Rashifal
-     ════════════════════════════════════════════════ -->
-<div class="tool-panel" id="panel-horoscope">
-  <div class="fcard" id="fc-horoscope" style="--panel-art:url('assets/images/surya-panchang.webp')">
-    <div class="loader" id="ld-horoscope"><div class="spinner"></div><div class="load-text">Reading the stars for today...</div></div>
-    <div class="fcard-title">🔮 Daily Rashifal</div>
-    <div class="fcard-sub">Today's horoscope for all 12 zodiac signs. Select your Rashi below.</div>
-    <div class="rashi-grid" id="rashi-grid"></div>
-  </div>
-  <div class="results" id="res-horoscope"></div>
-</div>
 
 <!-- ════════════════════════════════════════════════
-     4. NUMEROLOGY
+     3. NUMEROLOGY
      ════════════════════════════════════════════════ -->
 <div class="tool-panel" id="panel-numerology">
-  <div class="fcard" id="fc-numerology" style="--panel-art:url('assets/images/surya-panchang.webp')">
+  <div class="fcard numerology-card" id="fc-numerology" style="--panel-art:url('assets/images/surya-panchang.webp')">
     <div class="loader" id="ld-numerology"><div class="spinner"></div><div class="load-text">Decoding your cosmic numbers...</div></div>
-    <div class="fcard-title">🔢 Vedic Numerology</div>
-    <div class="fcard-sub">Discover your Life Path, Destiny, and Soul numbers. Each number carries a unique cosmic vibration shaping your journey.</div>
-    <form onsubmit="genNumerology(event)">
-      <div class="fg"><label class="fl">Full Name</label><input class="fi" id="n-name" placeholder="Your full name" required></div>
-      <div class="fg"><label class="fl">Date of Birth</label><input class="fi" type="date" id="n-dob" required></div>
-      <button class="fbtn" type="submit" id="n-btn">🔢 Reveal My Numbers</button>
-    </form>
+    <div class="fcard-title">🔢 Numerology</div>
+    <div class="fcard-sub">Life Path, Destiny, Soul Urge, Personality, name compatibility and baby-name starting vibration. Works with the API when available and safely calculates in the browser when needed.</div>
+
+    <div class="num-mode-tabs" role="tablist" aria-label="Numerology modes">
+      <button class="num-mode active" type="button" onclick="setNumTab('report',this)">🔮 My Numbers</button>
+      <button class="num-mode" type="button" onclick="setNumTab('love',this)">❤️ Love Match</button>
+      <button class="num-mode" type="button" onclick="setNumTab('baby',this)">👶 Baby Names</button>
+    </div>
+
+    <div class="num-panel active" id="num-panel-report">
+      <div class="num-intro"><b>Personal numerology report</b><span>Enter full name and date of birth. Date is sent to API as YYYY-MM-DD and browser fallback also works offline.</span></div>
+      <form onsubmit="genNumerology(event)">
+        <div class="fg"><label class="fl">Full Name</label><input class="fi" id="n-name" placeholder="e.g. Rahul Sharma" autocomplete="name" required></div>
+        <div class="fg"><label class="fl">Date of Birth</label><input class="fi" type="date" id="n-dob" required></div>
+        <button class="fbtn" type="submit" id="n-btn">🔢 Reveal My Numbers</button>
+      </form>
+    </div>
+
+    <div class="num-panel" id="num-panel-love">
+      <div class="num-intro"><b>Name compatibility</b><span>Useful for checking name vibrations. For marriage decisions, use Kundli Matching also.</span></div>
+      <form onsubmit="genNumerologyLove(event)">
+        <div class="frow">
+          <div class="fg"><label class="fl">Person 1 Name</label><input class="fi" id="nl-name1" placeholder="First name" required></div>
+          <div class="fg"><label class="fl">Person 2 Name</label><input class="fi" id="nl-name2" placeholder="Second name" required></div>
+        </div>
+        <div class="frow">
+          <div class="fg"><label class="fl">Person 1 DOB <small>(optional)</small></label><input class="fi" type="date" id="nl-dob1"></div>
+          <div class="fg"><label class="fl">Person 2 DOB <small>(optional)</small></label><input class="fi" type="date" id="nl-dob2"></div>
+        </div>
+        <button class="fbtn" type="submit">❤️ Check Name Compatibility</button>
+      </form>
+    </div>
+
+    <div class="num-panel" id="num-panel-baby">
+      <div class="num-intro"><b>Baby-name vibration helper</b><span>Suggests auspicious name starting sounds from birth-date numerology. This is a gentle naming helper, not a substitute for full Nakshatra-nama calculation.</span></div>
+      <form onsubmit="genBabyNames(event)">
+        <div class="frow">
+          <div class="fg"><label class="fl">Baby DOB</label><input class="fi" type="date" id="nb-dob" required></div>
+          <div class="fg"><label class="fl">Gender</label><select class="fsel" id="nb-gender"><option value="any">Any</option><option value="boy">Boy</option><option value="girl">Girl</option></select></div>
+        </div>
+        <div class="fg"><label class="fl">Preferred starting letter <small>(optional)</small></label><input class="fi" id="nb-letter" placeholder="e.g. A, S, Kr, Om"></div>
+        <button class="fbtn" type="submit">👶 Suggest Names</button>
+      </form>
+    </div>
   </div>
   <div class="results" id="res-numerology"></div>
 </div>
@@ -3163,107 +3201,186 @@ function renderMatching(raw) {
 
 
 // ═══════════════════════════════════════════════════
-// 3. HOROSCOPE / RASHIFAL
+// 4. NUMEROLOGY — API first, browser fallback
 // ═══════════════════════════════════════════════════
-let horoscopeData = null;
-const rashiGrid = document.getElementById('rashi-grid');
-RASHIS.forEach((r,i) => {
-  rashiGrid.innerHTML += `<div class="rashi-card" onclick="selectRashi(${i+1},this)"><div class="rashi-sym">${r.sym}</div><div class="rashi-name">${r.hi}</div><div class="rashi-name-en">${r.en}</div></div>`;
-});
-
-async function selectRashi(num, el) {
-  document.querySelectorAll('.rashi-card').forEach(c=>c.classList.remove('active'));
-  if(el)el.classList.add('active');
-  ld('horoscope',true);
-  try {
-    if (!horoscopeData) {
-      const r = await api('/predictions/daily-all');
-      horoscopeData = r.data||r;
-    }
-    renderHoroscope(num);
-  } catch(err) {
-    try {
-      const r = await api(`/predictions/daily-by-rashi?rashi=${num}`);
-      renderSingleHoroscope(num, r.data||r);
-    } catch(e2) { console.error(e2); alert('Could not load horoscope.'); }
-  }
-  ld('horoscope',false);
+const NUM_MEANINGS = {
+  1:{planet:'Sun',traits:['Leadership','confidence','initiative'],strength:'Independent will, courage and visibility.',challenge:'Avoid ego, impatience and domination.'},
+  2:{planet:'Moon',traits:['Sensitivity','cooperation','imagination'],strength:'Emotional intelligence, care and diplomacy.',challenge:'Avoid over-dependence and mood swings.'},
+  3:{planet:'Jupiter',traits:['Wisdom','expression','optimism'],strength:'Teaching, creativity and growth.',challenge:'Avoid scattered effort and over-promising.'},
+  4:{planet:'Rahu',traits:['Discipline','systems','unconventional path'],strength:'Building structures and solving practical problems.',challenge:'Avoid rigidity, anxiety and rebellion without direction.'},
+  5:{planet:'Mercury',traits:['Communication','travel','adaptability'],strength:'Learning, business, speech and networking.',challenge:'Avoid restlessness and inconsistency.'},
+  6:{planet:'Venus',traits:['Harmony','beauty','responsibility'],strength:'Relationships, art, comfort and care.',challenge:'Avoid over-attachment and luxury imbalance.'},
+  7:{planet:'Ketu',traits:['Introspection','research','spirituality'],strength:'Depth, analysis and inner wisdom.',challenge:'Avoid isolation and excessive doubt.'},
+  8:{planet:'Saturn',traits:['Karma','authority','endurance'],strength:'Long-term success, discipline and management.',challenge:'Avoid pessimism and harshness.'},
+  9:{planet:'Mars',traits:['Energy','service','courage'],strength:'Action, protection and humanitarian spirit.',challenge:'Avoid anger and impulsive decisions.'},
+  11:{planet:'Moon/Sun',traits:['Inspiration','intuition','vision'],strength:'Master number of spiritual sensitivity and influence.',challenge:'Needs grounding and emotional discipline.'},
+  22:{planet:'Rahu/Saturn',traits:['Master builder','large vision','practical power'],strength:'Can convert big ideas into real structures.',challenge:'Pressure is high; avoid fear and control issues.'},
+  33:{planet:'Venus/Jupiter',traits:['Compassion','teacher','healer'],strength:'Service through love, wisdom and responsibility.',challenge:'Avoid self-sacrifice without boundaries.'}
+};
+const PYTH = {A:1,B:2,C:3,D:4,E:5,F:6,G:7,H:8,I:9,J:1,K:2,L:3,M:4,N:5,O:6,P:7,Q:8,R:9,S:1,T:2,U:3,V:4,W:5,X:6,Y:7,Z:8};
+const VOWELS = new Set(['A','E','I','O','U']);
+function setNumTab(id, el){
+  document.querySelectorAll('.num-mode').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.num-panel').forEach(p=>p.classList.remove('active'));
+  if(el) el.classList.add('active');
+  const panel=document.getElementById('num-panel-'+id); if(panel) panel.classList.add('active');
+  const res=document.getElementById('res-numerology'); if(res) res.classList.remove('show');
 }
-
-function renderHoroscope(num) {
-  const r = RASHIS[num-1];
-  let pred = null;
-  if (Array.isArray(horoscopeData)) {
-    pred = horoscopeData.find(p => (p.rashi_number||p.number) === num) || horoscopeData[num-1];
-  } else if (horoscopeData && typeof horoscopeData === 'object') {
-    pred = horoscopeData[r.en.toLowerCase()] || horoscopeData[num] || horoscopeData;
-  }
-  renderSingleHoroscope(num, pred);
+function rawDateValue(id){return (document.getElementById(id)?.value||'').trim();}
+function digitsOnly(s){return (s||'').replace(/\D/g,'');}
+function reduceNum(n, keepMaster=true){
+  n = Math.abs(parseInt(n||0,10));
+  while(n>9){ if(keepMaster && (n===11||n===22||n===33)) return n; n = String(n).split('').reduce((a,b)=>a+Number(b),0); }
+  return n||0;
 }
-
-function renderSingleHoroscope(num, pred) {
-  if (!pred) { document.getElementById('res-horoscope').innerHTML = '<div class="info-box"><div class="info-box-text">Horoscope not available right now. Please try again later.</div></div>'; document.getElementById('res-horoscope').classList.add('show'); return; }
-  const r = RASHIS[num-1];
-  const text = pred.prediction||pred.text||pred.horoscope||pred.description||'';
-  const score = pred.score||pred.rating||0;
-  const lucky = [];
-  if(pred.lucky_number)lucky.push('Number: '+pred.lucky_number);
-  if(pred.lucky_color)lucky.push('Color: '+pred.lucky_color);
-  if(pred.lucky_time)lucky.push('Time: '+pred.lucky_time);
-
-  const el = document.getElementById('res-horoscope');
-  el.innerHTML = `
-    <div class="rcard"><div class="rcard-header"><div class="rcard-title">${r.sym} ${r.en} — ${r.hi}</div>${score?`<div class="rbadge ${score>=7?'rb-good':score>=4?'rb-avg':'rb-low'}">${score}/10</div>`:''}</div><div class="rcard-body">
-      <div style="font-family:var(--font-serif);font-size:1.05rem;color:var(--text-bright);line-height:1.8;font-style:italic;">"${text}"</div>
-      ${lucky.length?`<div class="info-box" style="margin-top:1rem;"><div class="info-box-title">Lucky for Today</div><div class="info-box-text">${lucky.join(' · ')}</div></div>`:''}
-    </div></div>`;
-  el.classList.add('show');
-  el.scrollIntoView({behavior:'smooth',block:'start'});
+function dobNumber(iso){return reduceNum(digitsOnly(iso).split('').reduce((a,b)=>a+Number(b),0));}
+function birthDayNumber(iso){const d=(iso||'').split('-')[2]||''; return reduceNum(d);}
+function nameTotal(name, mode='all'){
+  const chars=(name||'').toUpperCase().replace(/[^A-Z]/g,'').split('');
+  let total=0;
+  chars.forEach(ch=>{
+    const isV=VOWELS.has(ch);
+    if(mode==='vowels' && !isV) return;
+    if(mode==='consonants' && isV) return;
+    total += PYTH[ch]||0;
+  });
+  return reduceNum(total);
 }
-
-// ═══════════════════════════════════════════════════
-// 4. NUMEROLOGY
-// ═══════════════════════════════════════════════════
+function calcNumerologyReport(name, isoDob){
+  const lifePath = dobNumber(isoDob);
+  const destiny = nameTotal(name,'all');
+  const soul = nameTotal(name,'vowels');
+  const personality = nameTotal(name,'consonants');
+  const birthDay = birthDayNumber(isoDob);
+  const maturity = reduceNum(lifePath + destiny);
+  const missing = [1,2,3,4,5,6,7,8,9].filter(n=>!digitsOnly(isoDob).includes(String(n)));
+  const lucky = Array.from(new Set([lifePath,destiny,birthDay].filter(Boolean)));
+  return {source:'Browser calculation',life_path_number:lifePath,destiny_number:destiny,soul_urge_number:soul,personality_number:personality,birth_day_number:birthDay,maturity_number:maturity,missing_numbers:missing,lucky_numbers:lucky};
+}
+function normalizeNumReport(apiData, fallback){
+  const d = dig(apiData||{});
+  const get=(...keys)=>{for(const k of keys){const v=d[k]; if(v!==undefined&&v!==null&&v!=='') return (typeof v==='object'?(v.number||v.value||v.total||v.num):v);} return undefined;};
+  return {
+    source:d.source||d.cached?'API + normalized':'API + normalized',
+    life_path_number:get('life_path_number','life_path','lifePath')||fallback.life_path_number,
+    destiny_number:get('destiny_number','destiny','expression','expression_number')||fallback.destiny_number,
+    soul_urge_number:get('soul_urge_number','soul_urge','soul','heart_desire')||fallback.soul_urge_number,
+    personality_number:get('personality_number','personality')||fallback.personality_number,
+    birth_day_number:get('birth_day_number','birth_day','birthday')||fallback.birth_day_number,
+    maturity_number:get('maturity_number','maturity')||fallback.maturity_number,
+    missing_numbers:d.missing_numbers||fallback.missing_numbers,
+    lucky_numbers:d.lucky_numbers||fallback.lucky_numbers,
+    traits:d.traits||[], strengths:d.strengths||[], challenges:d.challenges||[], description:d.description||d.life_path_description||''
+  };
+}
 async function genNumerology(e) {
   e.preventDefault();
-  const name=document.getElementById('n-name').value;
-  const dob=fmtDate(document.getElementById('n-dob').value);
+  const name=document.getElementById('n-name').value.trim();
+  const dob=rawDateValue('n-dob'); // API expects YYYY-MM-DD
+  if(!name||!dob) return;
   ld('numerology',true);
+  const fallback=calcNumerologyReport(name,dob);
+  let result=fallback;
   try {
-    const data = await api(`/numerology/report?name=${encodeURIComponent(name)}&dob=${dob}`);
-    renderNumerology(name, data.data||data);
-  } catch(err) { console.error(err); alert('Could not connect. Please try again.'); }
+    const data = await api(`/numerology/report?name=${encodeURIComponent(name)}&dob=${encodeURIComponent(dob)}`);
+    result = normalizeNumReport(data, fallback);
+  } catch(err) { console.warn('Numerology API fallback used:', err); }
+  renderNumerologyReport(name, dob, result);
   ld('numerology',false);
 }
-
-function renderNumerology(name, data) {
-  const entries = [
-    {key:'life_path',label:'Life Path',icon:'🛤️',col:'var(--ember)'},
-    {key:'destiny',label:'Destiny',icon:'⭐',col:'var(--gold)'},
-    {key:'soul_urge',label:'Soul Urge',icon:'💫',col:'var(--lotus)'},
-    {key:'personality',label:'Personality',icon:'🎭',col:'var(--sky)'},
-    {key:'maturity',label:'Maturity',icon:'🌳',col:'var(--sage)'},
-    {key:'birth_day',label:'Birth Day',icon:'🎂',col:'var(--ember-light)'},
+function numMeaning(n){return NUM_MEANINGS[Number(n)]||NUM_MEANINGS[reduceNum(n)]||{planet:'',traits:[],strength:'',challenge:''};}
+function renderNumerologyReport(name, dob, data) {
+  const fields=[
+    ['Life Path',data.life_path_number,'🛤️','var(--ember)','Birth-date path and life direction'],
+    ['Destiny',data.destiny_number,'⭐','var(--gold)','Name expression and outer purpose'],
+    ['Soul Urge',data.soul_urge_number,'💫','var(--lotus)','Inner desire and emotional need'],
+    ['Personality',data.personality_number,'🎭','var(--sky)','How others first experience you'],
+    ['Birth Day',data.birth_day_number,'🎂','var(--ember-light)','Natural gift from date of birth'],
+    ['Maturity',data.maturity_number,'🌳','var(--sage)','Later-life integration number']
   ];
-  let numHtml = '', detailHtml = '';
-  entries.forEach(en => {
-    const val = data[en.key]||data[en.label.toLowerCase().replace(' ','_')];
-    if(!val)return;
-    const num = typeof val==='object'?(val.number||val.value||0):val;
-    const meaning = typeof val==='object'?(val.meaning||val.description||''):'';
-    numHtml += `<div class="num-card"><div class="num-label">${en.label}</div><div class="num-val" style="color:${en.col}">${num}</div><div class="num-icon">${en.icon}</div></div>`;
-    if(meaning) detailHtml += `<div class="info-box" style="margin-bottom:.6rem;"><div class="info-box-title">${en.icon} ${en.label}: ${num}</div><div class="info-box-text">${meaning}</div></div>`;
-  });
-
-  const el = document.getElementById('res-numerology');
-  el.innerHTML = `
-    <div class="rcard"><div class="rcard-header"><div class="rcard-title">${name}'s Numbers</div><div class="rbadge rb-good">Free Report</div></div><div class="rcard-body">
-      <div class="num-grid">${numHtml}</div>${detailHtml}
-    </div></div>
-    <div class="spirit"><div class="spirit-icon">🔢</div><div class="spirit-text">Numbers are the language of the universe. In the Vedic tradition, each number resonates with a planetary deity, shaping the rhythms of your life. Your numbers are signposts — not limits.</div><div class="spirit-attr">— Parashar Jyotisha</div></div>`;
-  el.classList.add('show');
-  el.scrollIntoView({behavior:'smooth',block:'start'});
+  const core=fields.map(([label,num,icon,col,sub])=>{const m=numMeaning(num);return `<div class="num-core" style="--nc:${col}"><i>${icon}</i><small>${label}</small><strong>${num||'—'}</strong><span>${sub}${m.planet?` · Planet: ${m.planet}`:''}</span></div>`}).join('');
+  const insight=fields.slice(0,4).map(([label,num,icon])=>{const m=numMeaning(num);return `<div class="num-insight"><b>${icon} ${label} ${num||''}</b><p>${m.strength||'This number adds a specific vibration to your nature.'}</p><div class="num-chip-wrap">${(m.traits||[]).map(t=>`<span class="num-chip">${t}</span>`).join('')}</div>${m.challenge?`<p style="margin-top:.55rem;color:var(--text-dim)"><b style="color:var(--gold-light);display:inline">Balance:</b> ${m.challenge}</p>`:''}</div>`}).join('');
+  const loshu = buildLoshu(dob);
+  const missing=(data.missing_numbers||[]).map(n=>`<span class="num-chip">${n}</span>`).join('') || '<span class="num-chip">None prominent</span>';
+  const lucky=(data.lucky_numbers||[]).map(n=>`<span class="num-chip">${n}</span>`).join('') || '<span class="num-chip">—</span>';
+  const el=document.getElementById('res-numerology');
+  el.innerHTML=`<div class="rcard"><div class="rcard-header"><div class="rcard-title">Numerology Report</div><div class="rbadge rb-good">Working</div></div><div class="rcard-body">
+    <div class="num-hero"><div class="num-hero-title">${escapeHtml(name)}'s <em>Number Signature</em></div><div class="num-hero-sub">DOB: ${dob}. The report combines API response where available with safe browser-side calculation for uninterrupted use.</div><span class="num-source">${escapeHtml(data.source||'Numerology')}</span></div>
+    <div class="num-core-grid">${core}</div>
+    <div class="num-insight-grid">${insight}</div>
+    <div class="num-insight-grid"><div class="num-insight"><b>🔲 Lo Shu Grid from DOB</b>${loshu}</div><div class="num-insight"><b>Lucky / Supportive Numbers</b><div class="num-chip-wrap">${lucky}</div><p style="margin-top:.65rem">Use these for gentle support in dates, reminders, creative naming and personal symbolism.</p></div><div class="num-insight"><b>Missing Numbers</b><div class="num-chip-wrap">${missing}</div><p style="margin-top:.65rem">Missing numbers show qualities to consciously develop, not weaknesses.</p></div></div>
+    <div class="num-note"><b>Reading note:</b> Numerology is a guidance tool. For life decisions, combine it with Kundli, Dasha, Panchang timing and practical wisdom.</div>
+  </div></div>`;
+  el.classList.add('show'); el.scrollIntoView({behavior:'smooth',block:'start'});
 }
+function buildLoshu(dob){
+  const counts={}; digitsOnly(dob).split('').forEach(d=>{if(d!=='0') counts[d]=(counts[d]||0)+1;});
+  const order=[4,9,2,3,5,7,8,1,6];
+  return `<div class="loshu-grid">${order.map(n=>`<div class="loshu-cell"><strong>${String(n).repeat(counts[n]||1)}</strong><span>${counts[n]?`${counts[n]} time${counts[n]>1?'s':''}`:'missing'}</span></div>`).join('')}</div>`;
+}
+async function genNumerologyLove(e){
+  e.preventDefault();
+  const n1=document.getElementById('nl-name1').value.trim(), n2=document.getElementById('nl-name2').value.trim();
+  const d1=rawDateValue('nl-dob1'), d2=rawDateValue('nl-dob2');
+  if(!n1||!n2) return;
+  ld('numerology',true);
+  const num1=d1?dobNumber(d1):nameTotal(n1,'all');
+  const num2=d2?dobNumber(d2):nameTotal(n2,'all');
+  let out=calcNumCompatibility(n1,n2,num1,num2,d1,d2);
+  try{
+    const r=await api(`/numerology/compatibility?number1=${encodeURIComponent(num1)}&number2=${encodeURIComponent(num2)}`);
+    const d=dig(r);
+    out.percent=Number(d.compatibility||d.match_percentage||d.percentage||d.score||out.percent);
+    out.description=d.description||d.analysis||d.recommendation||out.description;
+    out.source='API + name numbers';
+  }catch(err){console.warn('Numerology compatibility fallback used:',err)}
+  renderNumerologyLove(out);
+  ld('numerology',false);
+}
+function calcNumCompatibility(n1,n2,num1,num2,d1,d2){
+  const diff=Math.abs(Number(num1)-Number(num2));
+  let percent=Math.max(42, 92 - diff*8);
+  if(num1===num2) percent=88;
+  const friendly={1:[3,5,9],2:[2,4,6],3:[1,3,6,9],4:[2,4,8],5:[1,5,6],6:[2,3,5,6,9],7:[2,7,9],8:[4,6,8],9:[1,3,6,9]};
+  const r1=reduceNum(num1,false), r2=reduceNum(num2,false);
+  if((friendly[r1]||[]).includes(r2)) percent+=6;
+  percent=Math.max(35,Math.min(96,percent));
+  const verdict=percent>=75?'Very supportive vibration':percent>=60?'Good with conscious adjustment':percent>=45?'Mixed, needs understanding':'Challenging vibration';
+  return {n1,n2,num1,num2,d1,d2,percent,verdict,source:'Browser calculation',description:`${n1} carries ${num1} vibration and ${n2} carries ${num2}. ${verdict}.`};
+}
+function renderNumerologyLove(o){
+  const pct=Math.round(o.percent); const color=pct>=75?'var(--sage-light)':pct>=60?'var(--gold-light)':pct>=45?'var(--ember-light)':'var(--lotus-light)';
+  const el=document.getElementById('res-numerology');
+  el.innerHTML=`<div class="rcard"><div class="rcard-header"><div class="rcard-title">Name Compatibility</div><div class="rbadge ${pct>=60?'rb-good':'rb-avg'}">${pct}% Match</div></div><div class="rcard-body"><div class="num-love-wrap"><div class="num-meter"><div class="num-meter-circle" style="--pct:${pct}%;--sage-light:${color}"><div style="position:relative;z-index:2;text-align:center"><strong>${pct}%</strong><br><span>compatibility</span></div></div></div><div><div class="num-hero"><div class="num-hero-title">${escapeHtml(o.n1)} <em>with</em> ${escapeHtml(o.n2)}</div><div class="num-hero-sub">${escapeHtml(o.description)}</div><span class="num-source">${escapeHtml(o.source)}</span></div><div class="num-core-grid"><div class="num-core"><small>${escapeHtml(o.n1)}</small><strong>${o.num1}</strong><span>${numMeaning(o.num1).planet||'Name'} vibration</span></div><div class="num-core"><small>${escapeHtml(o.n2)}</small><strong>${o.num2}</strong><span>${numMeaning(o.num2).planet||'Name'} vibration</span></div></div><div class="num-note"><b>Important:</b> Name numerology checks vibration only. For marriage decisions, also use Kundli Matching, Mangal Dosha, 7th house, Navamsa and Dasha timing.</div></div></div></div></div>`;
+  el.classList.add('show'); el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function genBabyNames(e){
+  e.preventDefault();
+  const dob=rawDateValue('nb-dob'), gender=document.getElementById('nb-gender').value, pref=(document.getElementById('nb-letter').value||'').trim();
+  const life=dobNumber(dob), birth=birthDayNumber(dob); const m=numMeaning(life);
+  const syllables=pref?[pref]:suggestSyllables(life,birth);
+  const names=suggestBabyNames(syllables,gender);
+  const el=document.getElementById('res-numerology');
+  el.innerHTML=`<div class="rcard"><div class="rcard-header"><div class="rcard-title">Baby Name Vibration Helper</div><div class="rbadge rb-good">Free</div></div><div class="rcard-body"><div class="num-hero"><div class="num-hero-title">Life Path ${life} <em>naming support</em></div><div class="num-hero-sub">Birth-day number ${birth}. Planetary tone: ${m.planet||'—'}. Suggested starting sounds: ${syllables.join(', ')}.</div><span class="num-source">Browser calculation</span></div><div class="baby-grid">${names.map(x=>`<div class="baby-name"><b>${escapeHtml(x.name)}</b><span>${escapeHtml(x.note)}</span></div>`).join('')}</div><div class="num-note"><b>Note:</b> For traditional Hindu naming, final syllable should be checked with birth Nakshatra Pada from Kundli/Panchang. This tool gives a numerology-based short list.</div></div></div>`;
+  el.classList.add('show'); el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function suggestSyllables(life,birth){
+  const map={1:['A','I','Ra'],2:['Ch','Sa','Ma'],3:['Gu','Sh','Di'],4:['Ka','Ri','Vi'],5:['Na','Pa','Va'],6:['La','Me','Sh'],7:['Om','Ke','Ni'],8:['Sa','Da','Pr'],9:['Ma','Te','Ar']};
+  return map[reduceNum(life,false)]||['A','Sa','Ma'];
+}
+function suggestBabyNames(syllables,gender){
+  const pool={
+    boy:['Aarav','Ishaan','Raghav','Kabir','Ritvik','Vivaan','Naman','Parth','Vedant','Laksh','Madhav','Shivansh','Omkar','Keshav','Nirvan','Samar','Daksh','Pranav','Manav','Tejas'],
+    girl:['Aaradhya','Isha','Radhika','Kavya','Ritika','Vihana','Nandini','Pavani','Veda','Lavanya','Meera','Shreya','Omisha','Ketaki','Nitya','Saanvi','Dakshita','Prisha','Manya','Tara'],
+    any:['Arya','Ira','Riya','Kiran','Ved','Sai','Mitra','Dev','Anika','Reva','Neel','Om','Shiva','Kavi','Mahi']
+  };
+  const arr=[...(pool[gender]||[]),...pool.any];
+  let out=[];
+  syllables.forEach(syl=>{const s=syl.toLowerCase(); out.push(...arr.filter(n=>n.toLowerCase().startsWith(s)));});
+  if(out.length<8) out.push(...arr);
+  return Array.from(new Set(out)).slice(0,12).map(n=>({name:n,note:`Matches suggested sound group: ${syllables.join(' / ')}`}));
+}
+function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
 
 // ═══════════════════════════════════════════════════
 // 5. TRANSITS
@@ -3500,7 +3617,8 @@ function enableNativePickers(){
 }
 
 function openTabFromHash(){
-  const id = (location.hash || '#kundli').replace('#','');
+  let id = (location.hash || '#kundli').replace('#','');
+  if(id === 'horoscope') id = 'kundli';
   const tab = Array.from(document.querySelectorAll('.tool-tab')).find(t => t.getAttribute('onclick')?.includes(`'${id}'`));
   if (tab && document.getElementById('panel-' + id)) switchTab(id, tab);
 }
