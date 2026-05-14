@@ -2525,29 +2525,12 @@ async function genQuickMatching(e){
   try{
     if(!Number.isFinite(br)||!Number.isFinite(bn)||!Number.isFinite(gr)||!Number.isFinite(gn)) throw new Error('Selection missing');
 
-    // Quick Match should never show a blank / 0 result merely because a backend endpoint returned an empty 200 response.
-    // Therefore we first prepare a reliable browser calculation, then use API only when it returns a useful score + koots.
-    const local = localQuickMatching(br,bn,gr,gn);
-    local._fallback = true;
-    local._source_detail = 'Free Rashi–Nakshatra calculation in browser';
-
-    const qs1=`boy_nakshatra=${bn}&boy_rashi=${br}&girl_nakshatra=${gn}&girl_rashi=${gr}`;
-    const qs2=`boyNakshatra=${bn}&boyRashi=${br}&girlNakshatra=${gn}&girlRashi=${gr}`;
-    const paths=[`/matching/quick?${qs1}`,`/matching/quick-match?${qs1}`,`/matching/ashtakoot/quick?${qs1}`,`/matching/quick?${qs2}`,`/matching/quick-match?${qs2}`];
-    let data = local;
-    try{
-      const apiData = await tryMatchingEndpoints(paths);
-      if(isUsefulMatchingData(apiData)){
-        data = apiData;
-        data._fallback = false;
-        data._source_detail = 'Quick Match API';
-      } else {
-        console.warn('Quick Match API returned no useful score/koots; using local calculation.');
-      }
-    } catch(apiErr){
-      console.warn('Using local quick matching fallback:', apiErr.message);
-    }
-
+    // IMPORTANT: Quick Match is the FREE Rashi + Nakshatra tool.
+    // We keep it fully working in the browser so it never shows API demo/static score or empty koot details.
+    // Full Match below still uses the backend birth-detail API.
+    const data = localQuickMatching(br,bn,gr,gn);
+    data._fallback = true;
+    data._source_detail = 'Free Quick Match — Rashi + Nakshatra calculation';
     data._boy_name = boyName; data._girl_name = girlName; data._mode='quick';
     data._boy_rashi = RASHIS[br]?.en || ''; data._girl_rashi = RASHIS[gr]?.en || '';
     data._boy_nakshatra = NAKSHATRAS[bn] || ''; data._girl_nakshatra = NAKSHATRAS[gn] || '';
@@ -2727,6 +2710,17 @@ function isUsefulMatchingData(raw){
   const hasKoots=koots.some(k=>Number(k.score)>0);
   return Number(score)>0 || hasKoots;
 }
+function hasDetailedKoots(raw){
+  const data=extractMatchingData(raw);
+  const src=findKootSource(data);
+  if(!src) return false;
+  if(Array.isArray(src)) return src.length>0 && normalizeKoots(data).some(k=>Number(k.score)>0 || Number(k.max)>0);
+  if(typeof src==='object') return Object.keys(src).length>0 && normalizeKoots(data).some(k=>Number(k.score)>0 || Number(k.max)>0);
+  return false;
+}
+function hasPositiveKootScores(raw){
+  return normalizeKoots(extractMatchingData(raw)).some(k=>Number(k.score)>0);
+}
 function extractTotalScore(data,kootArr=[]){
   const direct=deepFind(data,['total_score','total_guna','total_gunas','guna_score','gun_score','ashtakoot_score','match_score','score_obtained','obtained_score','total_points','points_obtained','total']);
   const n=matchNum(direct,NaN);
@@ -2792,25 +2786,32 @@ function renderMatching(raw) {
   const mangalB = data.boy_manglik ?? data.mangal_boy ?? data.manglik_boy ?? null;
   const mangalG = data.girl_manglik ?? data.mangal_girl ?? data.manglik_girl ?? null;
   const sourceText = raw._source_detail || data._source_detail || (raw._fallback||data._fallback ? 'Quick local calculation' : (raw._mode==='quick'||data._mode==='quick' ? 'API quick match' : 'Full birth-detail API'));
+  const hasKootScores = kootArr.some(k=>Number(k.score)>0);
+  const showKootBreakdown = hasKootScores || raw._fallback || data._fallback;
+  const hasPairData = !!(boyRashi || girlRashi || boyNak || girlNak);
+  const minimalApiOnly = !showKootBreakdown && total>0;
   const circ = 326.73;
   const offset = circ - (pct/100 * circ);
   const stroke = pct>=50?'var(--sage-light)':pct>=33?'var(--gold-light)':'var(--lotus-light)';
-  const kootHtml = kootArr.map(k=>{
+  const kootHtml = showKootBreakdown ? kootArr.map(k=>{
     const p=k.max>0 ? Math.max(0,Math.min(100,k.score/k.max*100)) : 0;
     const cls=p>=65?'pass':p>=35?'mid':'fail';
     return `<div class="match-koot"><div class="match-koot-top"><div><div class="match-koot-name">${escapeHtml(k.name)}</div><div class="match-koot-desc">${escapeHtml(k.description||'')}</div></div><div class="match-koot-score ${cls}">${Number(k.score).toFixed(k.score%1?1:0)}/${k.max}</div></div><div class="match-bar"><div class="match-fill" style="width:${p}%;"></div></div>${k.reason?`<div class="match-koot-desc" style="margin-top:.45rem;">${escapeHtml(k.reason)}</div>`:''}</div>`;
-  }).join('');
+  }).join('') : '';
   const note = data.note || raw.note || '';
+  const pairHtml = hasPairData ? `<div class="match-pair-grid"><div class="match-pair"><span>Boy / Var</span><strong>${escapeHtml(boyRashi||'—')}</strong><small>${escapeHtml(boyNak||'Nakshatra not shown')}</small></div><div class="match-pair"><span>Girl / Kanya</span><strong>${escapeHtml(girlRashi||'—')}</strong><small>${escapeHtml(girlNak||'Nakshatra not shown')}</small></div></div>` : '';
+  const detailsNote = minimalApiOnly ? `<div class="match-warning"><strong>API detail note:</strong> The backend returned the total score, but did not return the 8-koot breakdown or boy/girl Moon details. Therefore this page is showing only the reliable total score. To display Varna, Vashya, Tara, Yoni, Maitri, Gana, Bhakoot and Nadi, the API should return a <code>koots</code> / <code>koot_details</code> array.</div>` : '';
+  const breakdownHtml = showKootBreakdown ? `<div style="font-size:.72rem;color:var(--text-dim);margin:0 0 .7rem;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.1em;">8 Koot Breakdown</div><div class="match-koot-grid">${kootHtml}</div>` : '';
   const el = document.getElementById('res-matching');
   el.innerHTML = `
     <div class="rcard"><div class="rcard-header"><div class="rcard-title">Kundli Matching Result</div><div class="rbadge ${bCls==='good'?'rb-good':bCls==='avg'?'rb-avg':'rb-low'}">${bText}</div></div><div class="rcard-body">
-      <div class="match-hero"><div class="match-hero-inner"><div><div class="match-overline">Ashtakoot Gun Milan</div><div class="match-title">${escapeHtml(bn)} <em>with</em> ${escapeHtml(gn)}</div><div class="match-sub">${escapeHtml(String(recommendation))} ${raw._fallback||data._fallback?'This result uses a safe fallback because the matching API did not return a complete score.':''}</div></div><div class="match-mandala"><span>💞</span></div></div></div>
+      <div class="match-hero"><div class="match-hero-inner"><div><div class="match-overline">Ashtakoot Gun Milan</div><div class="match-title">${escapeHtml(bn)} <em>with</em> ${escapeHtml(gn)}</div><div class="match-sub">${escapeHtml(String(recommendation))} ${raw._fallback||data._fallback?'This result uses a safe Rashi–Nakshatra calculation for the free tool.':''}</div></div><div class="match-mandala"><span>💞</span></div></div></div>
       <div class="match-result-grid">
         <div class="match-score-card"><div class="match-score-circle"><svg viewBox="0 0 120 120"><circle class="bg" cx="60" cy="60" r="52"/><circle class="fg" id="match-score-fg" cx="60" cy="60" r="52" stroke="${stroke}" stroke-dasharray="${circ}" stroke-dashoffset="${circ}"/></svg><div class="match-score-num"><div class="match-score-val">${Number(total).toFixed(total%1?1:0)}</div><div class="match-score-of">out of ${maxScore}</div></div></div><span class="match-score-label ${bCls}">${bText}</span><div style="font-size:.75rem;color:var(--text-dim);margin-top:.6rem;">${escapeHtml(sourceText)}</div></div>
-        <div class="match-summary-card"><div class="match-pair-grid"><div class="match-pair"><span>Boy / Var</span><strong>${escapeHtml(boyRashi||'—')}</strong><small>${escapeHtml(boyNak||'Nakshatra not shown')}</small></div><div class="match-pair"><span>Girl / Kanya</span><strong>${escapeHtml(girlRashi||'—')}</strong><small>${escapeHtml(girlNak||'Nakshatra not shown')}</small></div></div><div class="match-insight-grid"><div class="match-insight"><b>Score reading</b><span>18+ is generally workable; 24+ is stronger. Still verify full chart.</span></div><div class="match-insight"><b>Important koots</b><span>Nadi, Bhakoot, Gana and Yoni need careful reading when low.</span></div><div class="match-insight"><b>Final decision</b><span>Also check Mangal Dosha, Dasha, Navamsa and family compatibility.</span></div></div></div>
+        <div class="match-summary-card">${pairHtml}<div class="match-insight-grid"><div class="match-insight"><b>Score reading</b><span>18+ is generally workable; 24+ is stronger. Still verify full chart.</span></div><div class="match-insight"><b>Important koots</b><span>Nadi, Bhakoot, Gana and Yoni need careful reading when low.</span></div><div class="match-insight"><b>Final decision</b><span>Also check Mangal Dosha, Dasha, Navamsa and family compatibility.</span></div></div></div>
       </div>
-      <div style="font-size:.72rem;color:var(--text-dim);margin:0 0 .7rem;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.1em;">8 Koot Breakdown</div>
-      <div class="match-koot-grid">${kootHtml}</div>
+      ${detailsNote}
+      ${breakdownHtml}
       ${(mangalB!==null||mangalG!==null)?`<div class="match-warning"><strong>Mangal Dosha Check:</strong> ${escapeHtml(bn)}: ${matchingBoolText(mangalB)} · ${escapeHtml(gn)}: ${matchingBoolText(mangalG)}<br>When either chart is Manglik, check cancellation rules and Navamsa before making any conclusion.</div>`:''}
       ${note?`<div class="match-warning"><strong>Source note:</strong> ${escapeHtml(note)}</div>`:''}
       <div class="match-note"><strong>Reading note:</strong> Gun Milan is a useful first filter, not a complete marriage prediction. For a serious proposal, compare Lagna, Moon, Venus, Jupiter, 7th house, Navamsa, Dasha timing, family background and practical understanding.</div>
