@@ -3782,5 +3782,43 @@ try {
 } catch(_) {}
 
 </script>
+
+<!-- Legal footer added for Google Play Store and Razorpay readiness -->
+
+<footer class="legal-footer">
+  <div class="legal-footer-inner">
+    <div class="legal-brand">
+      <strong>Parashar Jyotisha</strong>
+      <span>Vedic Panchanga and Joytisha • Guidance by M. Sharma</span>
+    </div>
+    <nav class="legal-links" aria-label="Legal links">
+      <a href="about-us.html">About Us</a>
+      <a href="contact-us.html">Contact Us</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms-and-conditions.html">Terms &amp; Conditions</a>
+      <a href="refund-cancellation-policy.html">Refund Policy</a>
+      <a href="disclaimer.html">Disclaimer</a>
+      <a href="data-deletion.html">Data Deletion</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="digital-delivery-policy.html">Digital Delivery</a>
+      <a href="legal.html">Legal Center</a>
+    </nav>
+    <p class="legal-copy">© <span id="legalYear"></span> Parashar Jyotisha. All rights reserved. Contact: <a href="mailto:su03may@gmail.com">su03may@gmail.com</a></p>
+  </div>
+</footer>
+<script>document.querySelectorAll('#legalYear').forEach(el => el.textContent = new Date().getFullYear());</script>
+
+<style>
+.legal-footer{padding:2.5rem 1.5rem;background:#0A0A0F;border-top:1px solid rgba(255,255,255,.08);color:#A8A3B3;font-family:var(--font-sans, 'DM Sans', sans-serif);}
+.legal-footer-inner{max-width:1200px;margin:0 auto;text-align:center;}
+.legal-brand strong{display:block;color:#F0EDE8;font-family:var(--font-serif, 'Cormorant Garamond', serif);font-size:1.35rem;font-weight:400;}
+.legal-brand span{display:block;margin:.25rem 0 1rem;color:#6B6778;font-size:.85rem;}
+.legal-links{display:flex;flex-wrap:wrap;gap:.55rem 1rem;justify-content:center;margin:1rem 0;}
+.legal-links a{color:#A8A3B3;text-decoration:none;font-size:.82rem;}
+.legal-links a:hover{color:#E8955F;}
+.legal-copy{font-size:.78rem;color:#6B6778;margin-top:1rem;}
+.legal-copy a{color:#E8955F;text-decoration:none;}
+</style>
+
 </body>
 </html>
