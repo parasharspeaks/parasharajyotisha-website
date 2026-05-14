@@ -590,7 +590,28 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
 .match-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--ember),var(--gold));width:0%;transition:width 1s var(--ease);}
 .match-warning{margin-top:1rem;padding:.95rem 1rem;border-radius:18px;border:1px solid rgba(199,96,123,.22);background:rgba(199,96,123,.06);font-size:.78rem;color:var(--text-mid);line-height:1.55;}
 .match-note{margin-top:1rem;padding:1rem;border-radius:18px;background:rgba(212,116,62,.055);border:1px solid rgba(212,116,62,.18);font-size:.78rem;color:var(--text-mid);line-height:1.65;}
-@media(max-width:840px){.match-person-grid,.match-result-grid,.match-hero-inner{grid-template-columns:1fr}.match-heart,.match-mandala{display:none}.match-guide-grid,.match-insight-grid{grid-template-columns:1fr}.match-koot-grid,.match-pair-grid{grid-template-columns:1fr}}
+
+.match-mode-pill{display:inline-flex;align-items:center;gap:.35rem;border-radius:999px;padding:.24rem .62rem;font-family:var(--font-mono);font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;font-weight:900;border:1px solid rgba(232,149,95,.25);background:rgba(212,116,62,.08);color:var(--ember-glow);margin-bottom:.55rem;}
+.match-section-title{font-family:var(--font-mono);font-size:.72rem;color:var(--text-dim);margin:1rem 0 .7rem;text-transform:uppercase;letter-spacing:.1em;}
+.match-decision-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.65rem;margin:1rem 0;}
+.match-decision-card{padding:.9rem;border-radius:16px;background:rgba(255,255,255,.027);border:1px solid var(--line);position:relative;overflow:hidden;}
+.match-decision-card b{display:block;color:var(--text-bright);font-size:.82rem;margin-bottom:.25rem;}
+.match-decision-card span{display:block;color:var(--text-dim);font-size:.69rem;line-height:1.45;}
+.match-decision-card.good{border-color:rgba(107,155,125,.22);background:rgba(107,155,125,.045);}
+.match-decision-card.warn{border-color:rgba(201,168,76,.22);background:rgba(201,168,76,.045);}
+.match-decision-card.alert{border-color:rgba(199,96,123,.24);background:rgba(199,96,123,.05);}
+.match-check-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem;margin:.9rem 0 1rem;}
+.match-check{padding:.85rem;border-radius:16px;background:rgba(10,10,15,.23);border:1px solid var(--line);}
+.match-check b{display:block;color:var(--text-bright);font-size:.8rem;margin-bottom:.25rem;}
+.match-check span{display:block;color:var(--text-dim);font-size:.68rem;line-height:1.45;}
+.match-check small{display:inline-flex;margin-top:.5rem;border-radius:999px;padding:.18rem .52rem;border:1px solid var(--line);background:rgba(255,255,255,.035);font-size:.58rem;color:var(--text-mid);}
+.match-check small.ok{color:var(--sage-light);border-color:rgba(107,155,125,.23);background:rgba(107,155,125,.08);}
+.match-check small.warn{color:var(--gold-light);border-color:rgba(201,168,76,.23);background:rgba(201,168,76,.08);}
+.match-check small.alert{color:var(--lotus-light);border-color:rgba(199,96,123,.23);background:rgba(199,96,123,.08);}
+.match-logic-note{margin:.85rem 0;padding:.9rem 1rem;border-radius:18px;border:1px solid rgba(91,141,184,.20);background:rgba(91,141,184,.055);font-size:.76rem;color:var(--text-mid);line-height:1.6;}
+.match-logic-note strong{color:var(--sky-light);}
+
+@media(max-width:840px){.match-person-grid,.match-result-grid,.match-hero-inner{grid-template-columns:1fr}.match-heart,.match-mandala{display:none}.match-guide-grid,.match-insight-grid,.match-check-grid,.match-decision-grid{grid-template-columns:1fr}.match-koot-grid,.match-pair-grid{grid-template-columns:1fr}}
 @media(max-width:560px){.match-mode-tabs{grid-template-columns:1fr}.match-person{padding:.85rem}}
 
 </style>
@@ -660,7 +681,7 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
   <div class="fcard" id="fc-matching" style="--panel-art:url('assets/images/krishna-govardhan.webp')">
     <div class="loader" id="ld-matching"><div class="spinner"></div><div class="load-text">Comparing celestial harmonies...</div></div>
     <div class="fcard-title">💑 Free Kundli Matching</div>
-    <div class="fcard-sub">Two ways to match: a fast free Rashi–Nakshatra check, or a full birth-details Ashtakoot Gun Milan when date, time and place are available.</div>
+    <div class="fcard-sub">Two ways to match: Quick Match gives the same core Ashtakoot score from Moon Rashi–Nakshatra; Full Match adds birth-chart verification, Mangal Dosha, critical issues and next-step marriage guidance.</div>
 
     <div class="match-mode-tabs" role="tablist" aria-label="Kundli matching mode">
       <button type="button" class="match-mode-tab active" id="match-tab-quick" onclick="switchMatchingMode('quick')">⚡ Quick Match <span class="badge badge-free">Free</span></button>
@@ -668,9 +689,9 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
     </div>
 
     <div class="match-guide-grid">
-      <div class="match-guide"><b>1. Choose mode</b><span>Use Quick Match when birth time is unknown.</span></div>
-      <div class="match-guide"><b>2. Read score</b><span>36-point Ashtakoot is a guide, not the whole marriage decision.</span></div>
-      <div class="match-guide"><b>3. Consult if serious</b><span>Check Dasha, Navamsa and Mangal Dosha before final decision.</span></div>
+      <div class="match-guide"><b>Quick = first filter</b><span>Use Rashi and Nakshatra only. Good when exact birth time is unknown.</span></div>
+      <div class="match-guide"><b>Full = safer decision</b><span>Uses birth details to calculate Moon data and checks Mangal / critical issues.</span></div>
+      <div class="match-guide"><b>Final = expert reading</b><span>Add Lagna, 7th house, Navamsa, Dasha timing and practical family factors.</span></div>
     </div>
 
     <div class="match-error" id="match-error"></div>
@@ -693,7 +714,7 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
           </div>
         </div>
         <button class="fbtn" type="submit" id="mq-btn">⚡ Check Free Compatibility</button>
-        <div class="match-mini-note"><strong>Quick Match:</strong> useful for first screening. For marriage decisions, use Full Match with birth details and verify Mangal Dosha, Navamsa and active Dasha.</div>
+        <div class="match-mini-note"><strong>Quick Match:</strong> this is the free Moon Rashi + Nakshatra screening. It may give the same 36-point score as Full Match when the same Moon data is used. It does not verify Mangal Dosha, Navamsa or Dasha.</div>
       </form>
     </div>
 
@@ -715,7 +736,7 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
           <div class="fg"><label class="fl">Place of Birth</label><input class="fi" id="m-gc" placeholder="City" required></div>
         </div>
         <button class="fbtn" type="submit" id="m-btn">💑 Match Kundlis</button>
-        <div class="match-mini-note"><strong>Full Match:</strong> uses birth details for better Ashtakoot and Mangal Dosha assessment when the backend endpoint is available.</div>
+        <div class="match-mini-note"><strong>Full Match:</strong> birth details calculate the Moon Rashi/Nakshatra automatically and add extra checks such as Mangal Dosha, Bhakoot/Nadi issues and detailed guidance. The Ashtakoot score can still match Quick Match because its core is Moon-based.</div>
       </form>
     </div>
   </div>
@@ -2592,6 +2613,8 @@ async function genFullMatching(e){
     }
 
     data._boy_name = boyName; data._girl_name = girlName; data._mode='full';
+    data._boy_chart_note = data._boy_chart_note || `${bd} • ${bt} • ${bc}`;
+    data._girl_chart_note = data._girl_chart_note || `${gd} • ${gt} • ${gc}`;
     renderMatching(data);
   } catch(err) {
     console.error(err);
@@ -2817,8 +2840,31 @@ function formatMatchingExtra(k){
   }
   return parts.slice(0,4).join(' • ');
 }
+function matchingIssueList(data){
+  const out=[];
+  const crit=data?.critical_issues;
+  if(Array.isArray(crit)) crit.forEach(x=>out.push(String(x)));
+  else if(crit) out.push(String(crit));
+  const koots=normalizeKoots(data);
+  koots.forEach(k=>{
+    const nm=String(k.name||'').toLowerCase();
+    if((nm.includes('bhakoot')||nm.includes('nadi')) && Number(k.score)===0){
+      out.push(`${k.name} needs careful review (${k.score}/${k.max}).`);
+    }
+  });
+  return [...new Set(out.filter(Boolean))];
+}
+function matchingModeLabel(mode){
+  if(mode==='quick') return 'Free Quick Screening';
+  if(mode==='full') return 'Full Birth-Detail Match';
+  return 'Kundli Matching';
+}
 function renderMatching(raw) {
   const data = extractMatchingData(raw);
+  const explicitMode = raw._mode || data._mode || '';
+  const mode = explicitMode || ((raw._source_detail||'').toLowerCase().includes('quick') ? 'quick' : 'full');
+  const isQuick = mode === 'quick';
+  const isFull = mode === 'full';
   const kootArr=normalizeKoots(data);
   const total = extractTotalScore(data,kootArr);
   const maxScore = matchNum(deepFind(data,['max_score','maximum_score','out_of','full_score','total_possible']) ?? 36,36);
@@ -2831,9 +2877,13 @@ function renderMatching(raw) {
   const girlNak = matchingPersonValue(data,raw,'girl',['nakshatra','star']) || '';
   const boyRashi = matchingPersonValue(data,raw,'boy',['rashi','sign']) || '';
   const girlRashi = matchingPersonValue(data,raw,'girl',['rashi','sign']) || '';
+  const boyNote = raw._boy_chart_note || data._boy_chart_note || (isQuick ? 'Selected manually' : 'Birth details verified');
+  const girlNote = raw._girl_chart_note || data._girl_chart_note || (isQuick ? 'Selected manually' : 'Birth details verified');
   const mangalB = extractMangal(data,'boy');
   const mangalG = extractMangal(data,'girl');
-  const sourceText = raw._source_detail || data._source_detail || (raw._fallback||data._fallback ? 'Quick local calculation' : (raw._mode==='quick'||data._mode==='quick' ? 'API quick match' : 'Full birth-detail API'));
+  const hasMangalData = mangalB!==null || mangalG!==null || !!data?.mangal_dosha;
+  const issues = matchingIssueList(data);
+  const sourceText = raw._source_detail || data._source_detail || (raw._fallback||data._fallback ? 'Rashi–Nakshatra fallback calculation' : (isQuick ? 'API quick match' : 'Full birth-detail API'));
   const hasKootScores = kootArr.some(k=>Number(k.score)>0);
   const showKootBreakdown = hasKootScores || raw._fallback || data._fallback;
   const hasPairData = !!(boyRashi || girlRashi || boyNak || girlNak);
@@ -2841,35 +2891,68 @@ function renderMatching(raw) {
   const circ = 326.73;
   const offset = circ - (pct/100 * circ);
   const stroke = pct>=50?'var(--sage-light)':pct>=33?'var(--gold-light)':'var(--lotus-light)';
+
   const kootHtml = showKootBreakdown ? kootArr.map(k=>{
     const p=k.max>0 ? Math.max(0,Math.min(100,k.score/k.max*100)) : 0;
     const cls=p>=65?'pass':p>=35?'mid':'fail';
-    return `<div class="match-koot"><div class="match-koot-top"><div><div class="match-koot-name">${escapeHtml(k.name)}</div><div class="match-koot-desc">${escapeHtml(k.description||'')}</div></div><div class="match-koot-score ${cls}">${Number(k.score).toFixed(k.score%1?1:0)}/${k.max}</div></div><div class="match-bar"><div class="match-fill" style="width:${p}%;"></div></div>${k.reason?`<div class="match-koot-desc" style="margin-top:.45rem;">${escapeHtml(k.reason)}</div>`:''}${k.extra?`<div class="match-koot-desc" style="margin-top:.35rem;color:var(--text-mid);">${escapeHtml(k.extra)}</div>`:''}</div>`;
+    const isCritical = ['nadi','bhakoot','gana','yoni'].some(x=>String(k.name||'').toLowerCase().includes(x));
+    return `<div class="match-koot"><div class="match-koot-top"><div><div class="match-koot-name">${escapeHtml(k.name)} ${isCritical?'<span style="color:var(--gold-light);font-size:.62rem;">• key</span>':''}</div><div class="match-koot-desc">${escapeHtml(k.description||'')}</div></div><div class="match-koot-score ${cls}">${Number(k.score).toFixed(k.score%1?1:0)}/${k.max}</div></div><div class="match-bar"><div class="match-fill" style="width:${p}%;"></div></div>${k.reason?`<div class="match-koot-desc" style="margin-top:.45rem;">${escapeHtml(k.reason)}</div>`:''}${k.extra?`<div class="match-koot-desc" style="margin-top:.35rem;color:var(--text-mid);">${escapeHtml(k.extra)}</div>`:''}</div>`;
   }).join('') : '';
   const note = data.note || raw.note || '';
-  const pairHtml = hasPairData ? `<div class="match-pair-grid"><div class="match-pair"><span>Boy / Var</span><strong>${escapeHtml(boyRashi||'—')}</strong><small>${escapeHtml(boyNak||'Nakshatra not shown')}</small></div><div class="match-pair"><span>Girl / Kanya</span><strong>${escapeHtml(girlRashi||'—')}</strong><small>${escapeHtml(girlNak||'Nakshatra not shown')}</small></div></div>` : '';
-  const detailsNote = minimalApiOnly ? `<div class="match-warning"><strong>API detail note:</strong> The backend returned the total score, but did not return the 8-koot breakdown or boy/girl Moon details. Therefore this page is showing only the reliable total score. To display Varna, Vashya, Tara, Yoni, Maitri, Gana, Bhakoot and Nadi, the API should return a <code>koots</code> / <code>koot_details</code> array.</div>` : '';
-  const breakdownHtml = showKootBreakdown ? `<div style="font-size:.72rem;color:var(--text-dim);margin:0 0 .7rem;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.1em;">8 Koot Breakdown</div><div class="match-koot-grid">${kootHtml}</div>` : '';
+  const pairHtml = hasPairData ? `<div class="match-pair-grid"><div class="match-pair"><span>Boy / Var</span><strong>${escapeHtml(boyRashi||'—')}</strong><small>${escapeHtml(boyNak||'Nakshatra not shown')}</small><small>${escapeHtml(boyNote||'')}</small></div><div class="match-pair"><span>Girl / Kanya</span><strong>${escapeHtml(girlRashi||'—')}</strong><small>${escapeHtml(girlNak||'Nakshatra not shown')}</small><small>${escapeHtml(girlNote||'')}</small></div></div>` : '';
+  const detailsNote = minimalApiOnly ? `<div class="match-warning"><strong>API detail note:</strong> The backend returned the total score, but did not return the 8-koot breakdown or boy/girl Moon details. Therefore this page is showing only the reliable total score.</div>` : '';
+  const breakdownHtml = showKootBreakdown ? `<div class="match-section-title">8 Koot Breakdown — Core Gun Milan</div><div class="match-koot-grid">${kootHtml}</div>` : '';
+
+  const purposeHtml = isQuick ? `
+    <div class="match-logic-note"><strong>Why Quick Match exists:</strong> Quick Match is a free first filter. It uses only Moon Rashi and Nakshatra, so it is useful when exact birth time is missing or when you want a fast screening. It does not verify Mangal Dosha, Navamsa, 7th house, Dasha timing or birth-data accuracy.</div>
+    <div class="match-decision-grid">
+      <div class="match-decision-card good"><b>Fast</b><span>No birth time required. Select Rashi and Nakshatra only.</span></div>
+      <div class="match-decision-card warn"><b>Limited</b><span>Depends on correct manual selection of Moon Rashi and Nakshatra.</span></div>
+      <div class="match-decision-card warn"><b>Same score possible</b><span>If Full Match calculates the same Moon data, the 36-point score will be identical.</span></div>
+      <div class="match-decision-card alert"><b>Not final</b><span>Use Full Match before any marriage decision.</span></div>
+    </div>` : `
+    <div class="match-logic-note"><strong>Why Full Match is useful:</strong> The 36-point Gun Milan score can be the same as Quick Match because Ashtakoot is Moon-based. Full Match is still more valuable because it calculates Moon data from birth details and adds chart-level checks such as Mangal Dosha, Bhakoot/Nadi warnings and future scope for Lagna, Navamsa and Dasha timing.</div>
+    <div class="match-decision-grid">
+      <div class="match-decision-card good"><b>Moon data verified</b><span>Rashi and Nakshatra are calculated from DOB, time and place instead of manual selection.</span></div>
+      <div class="match-decision-card ${hasMangalData?'warn':'alert'}"><b>Mangal Dosha</b><span>${hasMangalData ? `${escapeHtml(bn)}: ${String(mangalB===true?'active':mangalB===false?'not indicated':mangalB??'returned')} · ${escapeHtml(gn)}: ${String(mangalG===true?'active':mangalG===false?'not indicated':mangalG??'returned')}` : 'Not returned by API for this result.'}</span></div>
+      <div class="match-decision-card ${issues.length?'alert':'good'}"><b>Critical issues</b><span>${issues.length ? escapeHtml(issues.slice(0,2).join(' ')) : 'No critical issue returned by API.'}</span></div>
+      <div class="match-decision-card warn"><b>Final reading</b><span>Add Lagna, 7th house, Venus/Jupiter, D9 and Dasha before final decision.</span></div>
+    </div>`;
+
+  const fullChecklistHtml = isFull ? `<div class="match-section-title">Full Match Advantage</div><div class="match-check-grid">
+    <div class="match-check"><b>1. Ashtakoot score</b><span>Moon Rashi and Nakshatra based 36-point Gun Milan.</span><small class="ok">Available</small></div>
+    <div class="match-check"><b>2. Mangal / Kuja Dosha</b><span>Important for marital adjustment and should be checked with cancellation rules.</span><small class="${hasMangalData?'ok':'warn'}">${hasMangalData?'Available':'Needs API'}</small></div>
+    <div class="match-check"><b>3. Bhakoot / Nadi review</b><span>Critical koots must be interpreted carefully, not mechanically.</span><small class="${issues.length?'alert':'ok'}">${issues.length?'Review needed':'No issue returned'}</small></div>
+    <div class="match-check"><b>4. Lagna & 7th house</b><span>Shows practical married life, spouse indicators and relationship stability.</span><small class="warn">Next upgrade</small></div>
+    <div class="match-check"><b>5. Navamsa D9</b><span>Marriage strength and dharmic compatibility should be checked from D9.</span><small class="warn">Next upgrade</small></div>
+    <div class="match-check"><b>6. Dasha timing</b><span>Even a good match needs supportive timing for marriage and adjustment.</span><small class="warn">Next upgrade</small></div>
+  </div>` : '';
+
+  const mangalHtml = (mangalB!==null||mangalG!==null) ? `<div class="match-warning"><strong>Mangal Dosha Check:</strong> ${escapeHtml(bn)}: ${matchingBoolText(mangalB)} · ${escapeHtml(gn)}: ${matchingBoolText(mangalG)}<br>${escapeHtml(data?.mangal_dosha?.verdict || 'When either chart is Manglik, check cancellation rules and Navamsa before making any conclusion.')}</div>` : '';
+  const issueHtml = issues.length ? `<div class="match-warning"><strong>Critical issues:</strong><br>${issues.map(x=>'• '+escapeHtml(String(x))).join('<br>')}</div>` : '';
   const el = document.getElementById('res-matching');
   el.innerHTML = `
     <div class="rcard"><div class="rcard-header"><div class="rcard-title">Kundli Matching Result</div><div class="rbadge ${bCls==='good'?'rb-good':bCls==='avg'?'rb-avg':'rb-low'}">${bText}</div></div><div class="rcard-body">
-      <div class="match-hero"><div class="match-hero-inner"><div><div class="match-overline">Ashtakoot Gun Milan</div><div class="match-title">${escapeHtml(bn)} <em>with</em> ${escapeHtml(gn)}</div><div class="match-sub">${escapeHtml(String(recommendation))} ${raw._fallback||data._fallback?'This result uses a safe Rashi–Nakshatra calculation for the free tool.':''}</div></div><div class="match-mandala"><span>💞</span></div></div></div>
+      <div class="match-hero"><div class="match-hero-inner"><div><div class="match-mode-pill">${escapeHtml(matchingModeLabel(mode))}</div><div class="match-overline">Ashtakoot Gun Milan</div><div class="match-title">${escapeHtml(bn)} <em>with</em> ${escapeHtml(gn)}</div><div class="match-sub">${escapeHtml(String(recommendation))} ${raw._fallback||data._fallback?'This result uses a safe Rashi–Nakshatra calculation.':''}</div></div><div class="match-mandala"><span>💞</span></div></div></div>
       <div class="match-result-grid">
         <div class="match-score-card"><div class="match-score-circle"><svg viewBox="0 0 120 120"><circle class="bg" cx="60" cy="60" r="52"/><circle class="fg" id="match-score-fg" cx="60" cy="60" r="52" stroke="${stroke}" stroke-dasharray="${circ}" stroke-dashoffset="${circ}"/></svg><div class="match-score-num"><div class="match-score-val">${Number(total).toFixed(total%1?1:0)}</div><div class="match-score-of">out of ${maxScore}</div></div></div><span class="match-score-label ${bCls}">${bText}</span><div style="font-size:.75rem;color:var(--text-dim);margin-top:.6rem;">${escapeHtml(sourceText)}</div></div>
-        <div class="match-summary-card">${pairHtml}<div class="match-insight-grid"><div class="match-insight"><b>Score reading</b><span>18+ is generally workable; 24+ is stronger. Still verify full chart.</span></div><div class="match-insight"><b>Important koots</b><span>Nadi, Bhakoot, Gana and Yoni need careful reading when low.</span></div><div class="match-insight"><b>Final decision</b><span>Also check Mangal Dosha, Dasha, Navamsa and family compatibility.</span></div></div></div>
+        <div class="match-summary-card">${pairHtml}<div class="match-insight-grid"><div class="match-insight"><b>Score reading</b><span>18+ is generally workable; 24+ is stronger. Low Nadi/Bhakoot still needs care.</span></div><div class="match-insight"><b>Quick vs Full</b><span>Same score can happen because both use Moon Rashi and Nakshatra for Ashtakoot.</span></div><div class="match-insight"><b>Final decision</b><span>Full reading should include Mangal, D9, 7th house, Dasha and practical compatibility.</span></div></div></div>
       </div>
+      ${purposeHtml}
+      ${fullChecklistHtml}
       ${detailsNote}
       ${breakdownHtml}
-      ${(mangalB!==null||mangalG!==null)?`<div class="match-warning"><strong>Mangal Dosha Check:</strong> ${escapeHtml(bn)}: ${matchingBoolText(mangalB)} · ${escapeHtml(gn)}: ${matchingBoolText(mangalG)}<br>${escapeHtml(data?.mangal_dosha?.verdict || 'When either chart is Manglik, check cancellation rules and Navamsa before making any conclusion.')}</div>`:''}
-      ${Array.isArray(data.critical_issues)&&data.critical_issues.length?`<div class="match-warning"><strong>Critical issues:</strong><br>${data.critical_issues.map(x=>'• '+escapeHtml(String(x))).join('<br>')}</div>`:''}
+      ${mangalHtml}
+      ${issueHtml}
       ${note?`<div class="match-warning"><strong>Source note:</strong> ${escapeHtml(note)}</div>`:''}
       <div class="match-note"><strong>Reading note:</strong> Gun Milan is a useful first filter, not a complete marriage prediction. For a serious proposal, compare Lagna, Moon, Venus, Jupiter, 7th house, Navamsa, Dasha timing, family background and practical understanding.</div>
     </div></div>
-    <div class="spirit"><div class="spirit-icon">💫</div><div class="spirit-text">Compatibility is not only a number; it is the meeting of temperament, karma, timing and conscious effort. Use this result as guidance, then take a full reading for final decisions.</div><div class="spirit-attr">— Parashar Jyotisha</div><a href="index.html#contact" class="fbtn">Get Expert Analysis →</a></div>`;
+    <div class="spirit"><div class="spirit-icon">💫</div><div class="spirit-text">Compatibility is not only a number; it is the meeting of temperament, karma, timing and conscious effort. Use Quick Match for screening, Full Match for chart-level review, and expert guidance for final decisions.</div><div class="spirit-attr">— Parashar Jyotisha</div><a href="index.html#contact" class="fbtn">Get Expert Analysis →</a></div>`;
   el.classList.add('show');
   el.scrollIntoView({behavior:'smooth',block:'start'});
   setTimeout(()=>{const fg=document.getElementById('match-score-fg'); if(fg) fg.style.strokeDashoffset=offset;},100);
 }
+
 
 
 // ═══════════════════════════════════════════════════
