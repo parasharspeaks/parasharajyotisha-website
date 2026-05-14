@@ -650,6 +650,58 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
 .num-love-wrap{display:grid;grid-template-columns:220px 1fr;gap:1rem;align-items:stretch}.num-meter{border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.026);display:grid;place-items:center;padding:1.2rem}.num-meter-circle{width:155px;height:155px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--sage-light) var(--pct),rgba(255,255,255,.08) 0);position:relative}.num-meter-circle:after{content:'';position:absolute;inset:12px;border-radius:50%;background:var(--night)}.num-meter-circle strong{position:relative;z-index:1;font-family:var(--font-serif);font-size:2.6rem;color:var(--text-bright)}.num-meter-circle span{position:relative;z-index:1;color:var(--text-dim);font-size:.68rem}.baby-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:.65rem;margin-top:1rem}.baby-name{padding:.9rem;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.026)}.baby-name b{display:block;color:var(--text-bright);font-family:var(--font-serif);font-size:1.15rem}.baby-name span{display:block;font-size:.7rem;color:var(--text-dim);margin-top:.2rem}.num-note{margin-top:.85rem;padding:.85rem 1rem;border-radius:16px;background:rgba(212,116,62,.055);border:1px solid rgba(212,116,62,.16);font-size:.74rem;color:var(--text-mid);line-height:1.6}
 @media(max-width:760px){.num-mode-tabs{grid-template-columns:1fr}.num-love-wrap{grid-template-columns:1fr}.num-core-grid,.num-insight-grid{grid-template-columns:1fr}}
 
+
+
+/* Transit and Panchang premium-style result cards */
+.cosmic-hero{position:relative;overflow:hidden;border-radius:22px;padding:1.35rem;background:linear-gradient(135deg,rgba(91,141,184,.12),rgba(212,116,62,.08),rgba(201,168,76,.08));border:1px solid rgba(232,149,95,.18);margin-bottom:1rem;box-shadow:0 24px 70px rgba(0,0,0,.22)}
+.cosmic-hero::before{content:'';position:absolute;right:-80px;top:-100px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(232,149,95,.23),transparent 64%);filter:blur(10px)}
+.cosmic-hero::after{content:var(--hero-symbol,'☽');position:absolute;right:34px;top:10px;font-family:var(--font-serif);font-size:6rem;color:rgba(255,255,255,.04);line-height:1;pointer-events:none}
+.cosmic-hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center}
+.cosmic-overline{font-family:var(--font-mono);font-size:.62rem;color:var(--ember-glow);letter-spacing:.18em;text-transform:uppercase;margin-bottom:.35rem}
+.cosmic-title{font-family:var(--font-serif);font-size:clamp(1.45rem,3vw,2.25rem);font-weight:400;color:var(--text-bright);line-height:1.1;margin-bottom:.35rem}
+.cosmic-title em{font-style:italic;color:var(--gold-light)}
+.cosmic-sub{font-size:.84rem;color:var(--text-mid);line-height:1.65;max-width:760px}
+.cosmic-mandala{width:112px;height:112px;border-radius:50%;border:1px solid rgba(232,149,95,.28);display:grid;place-items:center;background:radial-gradient(circle,rgba(232,149,95,.16),rgba(10,10,15,.25));box-shadow:0 0 38px rgba(212,116,62,.14);position:relative}
+.cosmic-mandala::before,.cosmic-mandala::after{content:'';position:absolute;border-radius:50%;border:1px dashed rgba(255,255,255,.12);inset:14px;animation:gocharSpin 18s linear infinite}
+.cosmic-mandala::after{inset:28px;animation-duration:30s;animation-direction:reverse;border-color:rgba(201,168,76,.18)}
+.cosmic-mandala span{font-size:2.2rem;position:relative;z-index:1;filter:drop-shadow(0 0 12px rgba(232,149,95,.3))}
+.cosmic-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem;margin-bottom:1rem}
+.cosmic-stat{padding:.9rem;border-radius:16px;background:rgba(255,255,255,.027);border:1px solid var(--line);position:relative;overflow:hidden;transition:transform .25s var(--ease),border-color .25s}
+.cosmic-stat:hover{transform:translateY(-2px);border-color:rgba(212,116,62,.28)}
+.cosmic-stat strong{display:block;font-family:var(--font-serif);font-size:1.35rem;font-weight:500;color:var(--text-bright);line-height:1.14}
+.cosmic-stat span{display:block;font-family:var(--font-mono);font-size:.56rem;letter-spacing:.11em;text-transform:uppercase;color:var(--text-dim);margin-top:.25rem}
+.cosmic-stat small{display:block;color:var(--text-dim);font-size:.67rem;line-height:1.35;margin-top:.3rem}
+.transit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.75rem}
+.transit-card{border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.026);padding:.95rem;position:relative;overflow:hidden;transition:transform .25s var(--ease),border-color .25s,background .25s}
+.transit-card:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--pc) 34%,transparent);background:rgba(255,255,255,.038)}
+.transit-card::after{content:'';position:absolute;right:-38px;bottom:-42px;width:118px;height:118px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--pc) 18%,transparent),transparent 68%)}
+.transit-head{position:relative;z-index:1;display:flex;align-items:flex-start;gap:.75rem;margin-bottom:.7rem}
+.transit-badge{width:44px;height:44px;border-radius:15px;display:grid;place-items:center;background:color-mix(in srgb,var(--pc) 13%,transparent);border:1px solid color-mix(in srgb,var(--pc) 32%,transparent);color:var(--pc);font-size:1.18rem;font-weight:900;flex-shrink:0}
+.transit-title{font-weight:900;color:var(--text-bright);font-size:.95rem;line-height:1.25}
+.transit-meta{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.35rem}
+.cosmic-chip{display:inline-flex;align-items:center;gap:.25rem;border:1px solid var(--line);background:rgba(255,255,255,.035);border-radius:999px;padding:.18rem .52rem;font-size:.62rem;color:var(--text-mid)}
+.transit-text{position:relative;z-index:1;color:var(--text-mid);font-size:.78rem;line-height:1.55;margin-top:.55rem}
+.cosmic-section-title{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-dim);margin:1rem 0 .65rem}
+.cosmic-note{margin-top:.9rem;padding:.85rem 1rem;border-radius:16px;background:rgba(212,116,62,.055);border:1px solid rgba(212,116,62,.18);font-size:.76rem;color:var(--text-mid);line-height:1.65}
+.panchang-limb-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.75rem;margin-bottom:1rem}
+.panchang-limb{padding:1rem;border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.042),rgba(255,255,255,.018));border:1px solid var(--line);position:relative;overflow:hidden;transition:transform .25s var(--ease),border-color .25s}
+.panchang-limb:hover{transform:translateY(-2px);border-color:rgba(201,168,76,.25)}
+.panchang-limb .limb-icon{font-size:1.15rem;margin-bottom:.25rem}
+.panchang-limb .limb-label{font-family:var(--font-mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-dim);margin-bottom:.22rem}
+.panchang-limb .limb-value{font-family:var(--font-serif);font-size:1.35rem;line-height:1.15;color:var(--text-bright);font-weight:600}
+.panchang-limb .limb-sub{font-size:.7rem;color:var(--text-dim);margin-top:.35rem;line-height:1.35}
+.panchang-timeline{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.65rem;margin:.7rem 0 1rem}
+.panchang-time{padding:.85rem;border-radius:16px;background:rgba(255,255,255,.026);border:1px solid var(--line)}
+.panchang-time b{display:block;font-size:.82rem;color:var(--text-bright);margin-bottom:.25rem}
+.panchang-time span{display:block;color:var(--text-mid);font-size:.84rem}
+.panchang-time small{display:block;color:var(--text-dim);font-size:.66rem;margin-top:.25rem;line-height:1.35}
+.day-guidance-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem;margin-top:1rem}
+.day-guidance{padding:.85rem;border-radius:16px;border:1px solid var(--line);background:rgba(255,255,255,.026)}
+.day-guidance b{display:block;color:var(--ember-light);font-size:.8rem;margin-bottom:.25rem}
+.day-guidance span{display:block;color:var(--text-dim);font-size:.72rem;line-height:1.45}
+@media(max-width:780px){.cosmic-hero-inner{grid-template-columns:1fr}.cosmic-mandala{display:none}.cosmic-stat-grid{grid-template-columns:repeat(2,1fr)}.day-guidance-grid{grid-template-columns:1fr}}
+@media(max-width:460px){.cosmic-stat-grid{grid-template-columns:1fr}.transit-grid,.panchang-limb-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -840,10 +892,14 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
   <div class="fcard" id="fc-transits" style="--panel-art:url('assets/images/saturn-transit.webp')">
     <div class="loader" id="ld-transits"><div class="spinner"></div><div class="load-text">Tracking celestial movements...</div></div>
     <div class="fcard-title">🪐 Live Planetary Transits</div>
-    <div class="fcard-sub">Real-time positions of all 9 Vedic planets (Navagraha). See where each Graha stands in the cosmic wheel right now.</div>
+    <div class="fcard-sub">Beautiful live Navagraha positions with retrograde focus, Moon sign reference and practical guidance. For personal effects, combine this with your Kundli and Dasha.</div>
     <form onsubmit="genTransits(event)">
-      <div class="fg"><label class="fl">City</label><input class="fi" id="t-city" value="Delhi" required></div>
-      <button class="fbtn" type="submit" id="t-btn">🪐 Show Current Transits</button>
+      <div class="frow">
+        <div class="fg"><label class="fl">Reference City <small>(optional)</small></label><input class="fi" id="t-city" value="Delhi" placeholder="Delhi"></div>
+        <div class="fg"><label class="fl">Mode</label><select class="fsel" id="t-mode"><option value="current">Current Navagraha Positions</option><option value="learning">Current + User Guidance</option></select></div>
+      </div>
+      <button class="fbtn" type="submit" id="t-btn">🪐 Show Live Transit Weather</button>
+      <div class="match-mini-note"><strong>Tip:</strong> Transit shows the current sky. To understand personal impact, read it with your Moon sign, Lagna, active Dasha and birth chart strength.</div>
     </form>
   </div>
   <div class="results" id="res-transits"></div>
@@ -873,13 +929,17 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
      7. DAILY PANCHANG
      ════════════════════════════════════════════════ -->
 <div class="tool-panel" id="panel-panchang">
-  <div class="fcard" id="fc-panchang">
+  <div class="fcard" id="fc-panchang" style="--panel-art:url('assets/images/surya-panchang.webp')">
     <div class="loader" id="ld-panchang"><div class="spinner"></div><div class="load-text">Reading today's cosmic weather...</div></div>
     <div class="fcard-title">📅 Daily Panchang</div>
-    <div class="fcard-sub">Today's complete Panchang — Tithi, Nakshatra, Yoga, Karana, Vara, Sunrise/Sunset, Rahu Kaal and more.</div>
+    <div class="fcard-sub">A clearer daily cosmic weather report: five Panchang limbs, sunrise/sunset, Moon timing, Rahu Kaal, Gulika, Yamaganda and simple guidance for the day.</div>
     <form onsubmit="genPanchang(event)">
-      <div class="fg"><label class="fl">City</label><input class="fi" id="p-city" value="Delhi" required></div>
-      <button class="fbtn" type="submit" id="p-btn">📅 Show Today's Panchang</button>
+      <div class="frow">
+        <div class="fg"><label class="fl">Date</label><input class="fi" type="date" id="p-date"></div>
+        <div class="fg"><label class="fl">City</label><input class="fi" id="p-city" value="Delhi" required></div>
+      </div>
+      <button class="fbtn" type="submit" id="p-btn">📅 Show Daily Panchang</button>
+      <div class="match-mini-note"><strong>Use Panchang like weather:</strong> first see Tithi/Nakshatra/Yoga, then avoid Rahu Kaal for important beginnings, and use auspicious windows when available.</div>
     </form>
   </div>
   <div class="results" id="res-panchang"></div>
@@ -3387,73 +3447,114 @@ function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;',
 // ═══════════════════════════════════════════════════
 async function genTransits(e) {
   e.preventDefault();
-  const city = document.getElementById('t-city').value;
-  ld('transits',true);
+  ld('transits', true);
   try {
-    const data = await api(`/transits/current?city=${encodeURIComponent(city)}`);
-    renderTransits(data.data||data);
-  } catch(err) { console.error(err); alert('Could not connect. Please try again.'); }
-  ld('transits',false);
+    let data;
+    try { data = await api('/transits/current'); }
+    catch(firstErr) {
+      const city = document.getElementById('t-city')?.value || 'Delhi';
+      data = await api(`/transits/current?city=${encodeURIComponent(city)}`);
+    }
+    renderTransits(data.data || data);
+  } catch(err) {
+    console.error(err);
+    alert('Could not load current transits. Please check API and try again.');
+  }
+  ld('transits', false);
 }
 
-function renderTransits(data) {
-  const planets = data.planets||data.grahas||(Array.isArray(data)?data:[]);
-  const pArr = Array.isArray(planets)?planets:Object.entries(planets).map(([k,v])=>({name:k,...(typeof v==='object'?v:{sign:v})}));
-  const retros = [];
-
-  let tableHtml='<div style="overflow-x:auto;"><table style="width:100%;border-collapse:separate;border-spacing:0 5px;min-width:580px;"><thead><tr>';
-  ['Planet','Sign (Rashi)','Degree','Nakshatra','Speed','Status'].forEach(h=>tableHtml+=`<th style="font-size:.58rem;color:var(--text-dim);font-family:var(--font-mono);letter-spacing:.06em;text-transform:uppercase;padding:5px 6px;text-align:left;font-weight:600;">${h}</th>`);
-  tableHtml+='</tr></thead><tbody>';
-
-  pArr.forEach(p => {
-    const nm=cleanName(p);
-    const sign=p.sign||p.rashi||'';
-    const deg=typeof p.degree==='number'?p.degree.toFixed(2)+'°':(p.degree_formatted||p.degree_in_rashi?p.degree_in_rashi?.toFixed(2)+'°':'');
-    const nak=p.nakshatra||'';
-    const pada=p.nakshatra_pada?'P'+p.nakshatra_pada:(p.pada?'P'+p.pada:'');
-    const retro=retroFlag(p);
-    const speed=typeof p.speed==='number'?p.speed.toFixed(4)+'°/day':'';
-    const dignity=p.dignity||p.status||'';
-    const transitFrom=p.transit_start||p.entered||p.sign_entry||'';
-    const transitTo=p.transit_end||p.leaves||p.sign_exit||'';
-    const co=PCOL[nm]||'var(--text-dim)';
-    if(retro)retros.push(nm);
-
-    let statusBadges='';
-    if(retro) statusBadges+=`<span style="font-size:.58rem;padding:1px 5px;border-radius:3px;background:rgba(199,96,123,.12);color:var(--lotus-light);">Retrograde ℞</span> `;
-    if(p.is_exalted) statusBadges+=`<span style="font-size:.58rem;padding:1px 5px;border-radius:3px;background:rgba(107,155,125,.12);color:var(--sage-light);">Exalted ↑</span> `;
-    if(p.is_debilitated) statusBadges+=`<span style="font-size:.58rem;padding:1px 5px;border-radius:3px;background:rgba(199,96,123,.12);color:var(--lotus-light);">Debilitated ↓</span> `;
-    if(dignity && !p.is_exalted && !p.is_debilitated) statusBadges+=`<span style="font-size:.58rem;color:var(--text-dim);">${escapeHtml(dignity)}</span>`;
-
-    tableHtml+=`<tr style="background:var(--glass);${retro?'border-left:2px solid var(--lotus);':''}">
-      <td style="padding:7px 8px;border-radius:8px 0 0 8px;">
-        <div style="display:flex;align-items:center;gap:5px;">
-          <span style="color:${co};font-size:1.1rem;">${P[nm]||'★'}</span>
-          <div>
-            <div style="font-weight:600;font-size:.85rem;color:var(--text-bright);">${escapeHtml(nm)}</div>
-            <div style="font-size:.62rem;color:var(--text-dim);">${escapeHtml(p.sanskrit||'')}</div>
-          </div>
-        </div>
-      </td>
-      <td style="padding:7px 8px;">
-        <div style="font-size:.9rem;color:var(--text-bright);font-weight:500;">${escapeHtml(sign)}</div>
-        ${(transitFrom||transitTo)?`<div style="font-size:.6rem;color:var(--text-dim);margin-top:2px;">${transitFrom?escapeHtml(transitFrom):''}${transitTo?' → '+escapeHtml(transitTo):''}</div>`:''}
-      </td>
-      <td style="padding:7px 8px;font-size:.82rem;color:var(--text-mid);font-family:var(--font-mono);">${escapeHtml(deg)}</td>
-      <td style="padding:7px 8px;font-size:.78rem;color:var(--text-mid);">${escapeHtml(nak)}${pada?' '+escapeHtml(pada):''}</td>
-      <td style="padding:7px 8px;font-size:.7rem;color:var(--text-dim);font-family:var(--font-mono);">${escapeHtml(speed)}</td>
-      <td style="padding:7px 8px;border-radius:0 8px 8px 0;">${statusBadges}</td>
-    </tr>`;
+function transitText(v){
+  if(v===null || v===undefined || v==='') return '';
+  if(typeof v==='string' || typeof v==='number' || typeof v==='boolean') return String(v);
+  if(Array.isArray(v)) return v.map(transitText).filter(Boolean).join(', ');
+  if(typeof v==='object') return v.name || v.rashi || v.sign || v.value || v.formatted || v.text || '';
+  return String(v);
+}
+function transitDegree(p){
+  const d = p.degree ?? p.degrees ?? p.degree_in_rashi ?? p.longitude_in_sign ?? p.rashi_degree ?? p.longitude;
+  if(d===undefined || d===null || d==='') return '';
+  const n = Number(d);
+  if(!Number.isFinite(n)) return transitText(d);
+  return (Math.abs(n) > 30 ? (n % 30) : n).toFixed(2) + '°';
+}
+function transitSign(p){return transitText(p.rashi || p.sign || p.zodiac || p.current_sign || p.to_sign || p.rasi);}
+function transitNak(p){
+  const nak = transitText(p.nakshatra || p.star || p.nak);
+  const pada = p.nakshatra_pada || p.pada;
+  return nak ? `${nak}${pada ? ' P' + pada : ''}` : '';
+}
+function normalizeTransitPlanets(data){
+  const raw = data.planets || data.positions || data.current_positions || data.planetary_positions || data.transits || data;
+  let list=[];
+  if(Array.isArray(raw)) list = raw;
+  else if(raw && typeof raw === 'object'){
+    Object.entries(raw).forEach(([k,v])=>{
+      if(['status','cached','timestamp','ayanamsa','date','datetime','location','city','message','version'].includes(k)) return;
+      if(v && typeof v === 'object') list.push({name:k, ...v});
+    });
+  }
+  const order=['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn','Rahu','Ketu'];
+  list = list.map(p=>({ ...p, name: cleanName(p) })).filter(p=>p.name && p.name !== 'Planet');
+  list.sort((a,b)=>{
+    const ia=order.indexOf(a.name), ib=order.indexOf(b.name);
+    return (ia<0?99:ia)-(ib<0?99:ib);
   });
-  tableHtml+='</tbody></table></div>';
-
+  return list;
+}
+function transitMoodForPlanet(name, sign, retro){
+  const slow = ['Saturn','Jupiter','Rahu','Ketu'].includes(name);
+  if(retro) return `${name} is retrograde, so its results may feel more internal, delayed or karmic. Move with patience and review old patterns.`;
+  if(slow) return `${name} is a slow-moving influence. Its sign position shapes longer themes rather than only today's mood.`;
+  if(name==='Moon') return `Moon shows the immediate emotional weather. Use it for mood, sensitivity and daily rhythm.`;
+  if(name==='Sun') return `Sun shows vitality, authority and confidence for the current solar flow.`;
+  return `${name} in ${sign || 'current sign'} highlights its natural themes in the present sky.`;
+}
+function renderTransits(data) {
+  const planets = normalizeTransitPlanets(data);
   const el = document.getElementById('res-transits');
+  if(!planets.length){
+    el.innerHTML = `<div class="rcard"><div class="rcard-header"><div class="rcard-title">Live Transits</div><div class="rbadge rb-low">No data</div></div><div class="rcard-body"><div class="cosmic-note">Transit endpoint responded, but planet positions were not found in the response. Please check /transits/current API output.</div></div></div>`;
+    el.classList.add('show'); el.scrollIntoView({behavior:'smooth',block:'start'}); return;
+  }
+  const now = new Date();
+  const city = document.getElementById('t-city')?.value || 'Delhi';
+  const retroList = planets.filter(retroFlag).map(p=>p.name);
+  const moon = planets.find(p=>p.name==='Moon') || {};
+  const slow = planets.filter(p=>['Saturn','Jupiter','Rahu','Ketu'].includes(p.name));
+  const signs = Array.from(new Set(planets.map(transitSign).filter(Boolean)));
+  const heroLine = `Live sidereal Navagraha positions${city ? ' · reference city: '+escapeHtml(city) : ''}. Updated ${now.toLocaleString('en-IN',{dateStyle:'medium',timeStyle:'short'})}.`;
+  const stats = [
+    {label:'Moon now',value:transitSign(moon)||'—',sub:transitNak(moon)||'Daily emotional weather'},
+    {label:'Retrograde',value:retroList.length||'0',sub:retroList.length?retroList.join(', '):'No retrograde shown'},
+    {label:'Slow movers',value:slow.length,sub:slow.map(p=>`${p.name} in ${transitSign(p)||'—'}`).join(' · ')},
+    {label:'Signs active',value:signs.length,sub:signs.slice(0,5).join(', ') || 'Current rashi spread'}
+  ];
+  const cards = planets.map(p=>{
+    const nm=p.name, co=PCOL[nm]||'var(--ember-light)', sign=transitSign(p)||'—', deg=transitDegree(p), nak=transitNak(p), retro=retroFlag(p);
+    const dignity = transitText(p.dignity || p.status || p.state);
+    const speed = transitText(p.speed || p.motion_speed || p.daily_motion);
+    return `<div class="transit-card" style="--pc:${co}">
+      <div class="transit-head"><div class="transit-badge">${P[nm]||'🪐'}</div><div style="flex:1"><div class="transit-title">${escapeHtml(nm)} in ${escapeHtml(sign)}</div><div class="transit-meta">
+        ${deg?`<span class="cosmic-chip">Degree ${escapeHtml(deg)}</span>`:''}
+        ${nak?`<span class="cosmic-chip">⭐ ${escapeHtml(nak)}</span>`:''}
+        ${speed?`<span class="cosmic-chip">Speed ${escapeHtml(speed)}</span>`:''}
+        ${dignity?`<span class="cosmic-chip">${escapeHtml(dignity)}</span>`:''}
+        ${retro?`<span class="cosmic-chip" style="border-color:rgba(199,96,123,.3);color:var(--lotus-light);">Retrograde R</span>`:''}
+      </div></div></div>
+      <div class="transit-text">${escapeHtml(transitMoodForPlanet(nm,sign,retro))}</div>
+    </div>`;
+  }).join('');
+  const slowHtml = slow.map(p=>`<div class="panchang-time"><b>${P[p.name]||'🪐'} ${escapeHtml(p.name)}</b><span>${escapeHtml(transitSign(p)||'—')} ${transitDegree(p)?'· '+escapeHtml(transitDegree(p)):''}</span><small>${escapeHtml(transitNak(p)||'Long-term transit influence')}</small></div>`).join('');
   el.innerHTML = `
-    <div class="rcard"><div class="rcard-header"><div class="rcard-title">Navagraha — Current Positions</div><div class="rbadge rb-live">Live</div></div><div class="rcard-body">
-      ${tableHtml}
-      ${retros.length?`<div class="info-box" style="margin-top:1rem;border-color:rgba(199,96,123,0.2);"><div class="info-box-title" style="color:var(--lotus-light);">⟲ Retrograde Planets</div><div class="info-box-text">${retros.join(', ')} — currently in apparent backward motion. Retrogrades intensify the planet's inner effects and invite introspection.</div></div>`:''}
-    </div></div>
-    <div class="spirit"><div class="spirit-icon">🌌</div><div class="spirit-text">The planets are not doing things to you — they are mirrors reflecting the larger cosmic dance you are already part of. Understanding transits helps you flow with the rhythm rather than against it.</div><div class="spirit-attr">— Parashar Jyotisha</div><a href="index.html#contact" class="fbtn">Get Personal Transit Reading →</a></div>`;
+    <div class="rcard"><div class="rcard-header"><div class="rcard-title">Live Transit Weather</div><div class="rbadge rb-live">Navagraha</div></div><div class="rcard-body">
+      <div class="cosmic-hero" style="--hero-symbol:'♄'"><div class="cosmic-hero-inner"><div><div class="cosmic-overline">Current planetary movement</div><div class="cosmic-title">Navagraha in the <em>sky now</em></div><div class="cosmic-sub">${heroLine}</div></div><div class="cosmic-mandala"><span>🪐</span></div></div></div>
+      <div class="cosmic-stat-grid">${stats.map(s=>`<div class="cosmic-stat"><strong>${escapeHtml(s.value)}</strong><span>${escapeHtml(s.label)}</span><small>${escapeHtml(s.sub)}</small></div>`).join('')}</div>
+      <div class="cosmic-section-title">Planet-wise current positions</div>
+      <div class="transit-grid">${cards}</div>
+      ${slowHtml?`<div class="cosmic-section-title">Major slow-moving influences</div><div class="panchang-timeline">${slowHtml}</div>`:''}
+      ${retroList.length?`<div class="cosmic-note"><b style="color:var(--lotus-light);">Retrograde focus:</b> ${escapeHtml(retroList.join(', '))}. Retrograde planets often ask for review, patience, correction and inner work instead of hurried action.</div>`:''}
+      <div class="day-guidance-grid"><div class="day-guidance"><b>1. Read the Moon</b><span>Moon gives the current emotional and mental climate.</span></div><div class="day-guidance"><b>2. Watch slow movers</b><span>Saturn, Jupiter, Rahu and Ketu show longer life themes.</span></div><div class="day-guidance"><b>3. Combine with Kundli</b><span>Personal results need Lagna, Moon sign, Dasha and chart strength.</span></div></div>
+    </div></div>`;
   el.classList.add('show');
   el.scrollIntoView({behavior:'smooth',block:'start'});
 }
@@ -3505,45 +3606,88 @@ function renderSadeSati(data) {
 // ═══════════════════════════════════════════════════
 async function genPanchang(e){
   e.preventDefault();
-  const city=document.getElementById('p-city').value;
+  const city=document.getElementById('p-city').value || 'Delhi';
+  const dateInput=document.getElementById('p-date')?.value || new Date().toISOString().slice(0,10);
   ld('panchang',true);
   try{
-    const data=await api(`/today?city=${encodeURIComponent(city)}`);
-    renderPanchang(data.data||data);
-  }catch(err){console.error(err);alert('Could not load Panchang.');}
+    const todayIso = new Date().toISOString().slice(0,10);
+    let data;
+    if(dateInput === todayIso){
+      data=await api(`/today?city=${encodeURIComponent(city)}`);
+    } else {
+      try { data=await api(`/panchanga/daily?date=${encodeURIComponent(dateInput)}&city=${encodeURIComponent(city)}`); }
+      catch(firstErr){ data=await api(`/today?city=${encodeURIComponent(city)}`); }
+    }
+    renderPanchang(data.data||data, {city, date:dateInput});
+  }catch(err){console.error(err);alert('Could not load Panchang. Please check city/API and try again.');}
   ld('panchang',false);
 }
-function renderPanchang(data){
-  const p=data.panchanga||data;
-  const s=data.sun_moon||data.timings||p;
-  const inauspicious=data.inauspicious||p;
+function pText(v){
+  if(v===null || v===undefined || v==='') return '';
+  if(typeof v==='string' || typeof v==='number' || typeof v==='boolean') return String(v);
+  if(Array.isArray(v)) return v.map(pText).filter(Boolean).join(', ');
+  if(typeof v==='object') return v.name || v.name_en || v.value || v.formatted || v.display || v.time || v.start_end || v.start || '';
+  return String(v);
+}
+function firstVal(obj, keys){
+  for(const k of keys){
+    const parts=k.split('.'); let cur=obj;
+    for(const part of parts){ if(!cur || typeof cur!=='object'){cur=undefined;break;} cur=cur[part]; }
+    const val=pText(cur); if(val) return val;
+  }
+  return '';
+}
+function renderPanchang(data, ctx={}){
+  const p=data.panchanga||data.panchang||data.daily_panchanga||data;
+  const timings=data.sun_moon||data.timings||data.times||p;
+  const inauspicious=data.inauspicious||data.ashubh||p;
+  const auspicious=data.auspicious||data.shubh||p;
+  const location=data.location||data.location_used||data.city||ctx.city||'';
+  const dateRaw=data.date||p.date||ctx.date||new Date().toISOString().slice(0,10);
+  const dateObj = /^\d{4}-\d{2}-\d{2}$/.test(dateRaw) ? new Date(dateRaw+'T00:00:00') : new Date();
+  const dateStr=dateObj.toLocaleDateString('en-IN',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  const limbs=[
+    {label:'Tithi',value:firstVal(p,['tithi','tithi_at_sunrise','tithi_name']),sub:firstVal(p,['tithi_end','tithi_end_time','tithi_remaining']),icon:'🌙'},
+    {label:'Nakshatra',value:firstVal(p,['nakshatra','nakshatra_at_sunrise']),sub:firstVal(p,['nakshatra_end','nakshatra_end_time']),icon:'⭐'},
+    {label:'Yoga',value:firstVal(p,['yoga']),sub:firstVal(p,['yoga_end','yoga_end_time']),icon:'🔆'},
+    {label:'Karana',value:firstVal(p,['karana','karana_at_sunrise']),sub:firstVal(p,['karana_end','karana_end_time','karana_next']),icon:'📐'},
+    {label:'Vaara',value:firstVal(p,['vaara','vara','weekday']),sub:firstVal(p,['paksha']),icon:'📅'}
+  ].filter(x=>x.value);
+  const timeItems=[
+    {label:'Sunrise',value:firstVal(timings,['sunrise','sunrise_time']),note:'Start of Panchang day',icon:'🌅'},
+    {label:'Sunset',value:firstVal(timings,['sunset','sunset_time']),note:'Daylight ends',icon:'🌇'},
+    {label:'Moonrise',value:firstVal(timings,['moonrise','moonrise_time']),note:'Moon visibility',icon:'🌙'},
+    {label:'Moonset',value:firstVal(timings,['moonset','moonset_time']),note:'Moon setting',icon:'☽'},
+    {label:'Brahma Muhurta',value:firstVal(auspicious,['brahma_muhurat','brahma_muhurta']),note:'Best for sadhana',icon:'🕉️'},
+    {label:'Abhijit Muhurta',value:firstVal(auspicious,['abhijeet_muhurat','abhijit_muhurta','abhijit_muhurat']),note:'General auspicious window',icon:'✨'}
+  ].filter(x=>x.value);
+  const cautionItems=[
+    {label:'Rahu Kaal',value:firstVal(inauspicious,['rahu_kalam','rahu_kaal','rahukalam']),note:'Avoid fresh beginnings',icon:'⚠️'},
+    {label:'Gulika Kaal',value:firstVal(inauspicious,['gulika_kalam','gulika_kaal','gulikakalam']),note:'Use with care',icon:'♄'},
+    {label:'Yamaganda',value:firstVal(inauspicious,['yamaganda','yamagandam']),note:'Avoid travel/new work',icon:'⛔'},
+    {label:'Disha Shool',value:firstVal(p,['disha_shool','disha_shula']),note:'Travel caution direction',icon:'🧭'}
+  ].filter(x=>x.value);
+  const moonSign=firstVal(p,['moon_sign','chandra_rashi','moon_rashi']);
+  const sunSign=firstVal(p,['sun_sign','surya_rashi','sun_rashi']);
+  const paksha=firstVal(p,['paksha']);
   const el=document.getElementById('res-panchang');
-  
-  const items=[
-    {label:'Tithi',value:str(p.tithi),icon:'🌙'},
-    {label:'Nakshatra',value:str(p.nakshatra),icon:'⭐'},
-    {label:'Yoga',value:str(p.yoga),icon:'🔆'},
-    {label:'Karana',value:str(p.karana),icon:'📐'},
-    {label:'Vaara',value:str(p.vaara)||str(p.vara),icon:'📅'},
-    {label:'Paksha',value:str(p.paksha),icon:'🌓'},
-    {label:'Sunrise',value:s.sunrise||p.sunrise||'',icon:'🌅'},
-    {label:'Sunset',value:s.sunset||p.sunset||'',icon:'🌇'},
-    {label:'Moonrise',value:s.moonrise||p.moonrise||'',icon:'🌙'},
-    {label:'Rahu Kaal',value:str(inauspicious.rahu_kalam||inauspicious.rahu_kaal||p.rahu_kalam)||'',icon:'⚠️'},
-    {label:'Gulika Kaal',value:str(inauspicious.gulika_kalam||p.gulika_kalam)||'',icon:'⚠️'},
-    {label:'Yamaganda',value:str(inauspicious.yamaganda||p.yamaganda)||'',icon:'⚠️'},
-  ].filter(i=>i.value);
-
-  const today=new Date();
-  const dateStr=today.toLocaleDateString('en-IN',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
-
+  const statCards=[
+    {label:'City',value:location||'—',sub:'Location used'},
+    {label:'Paksha',value:paksha||'—',sub:'Lunar fortnight'},
+    {label:'Moon Sign',value:moonSign||'—',sub:'Chandra rashi'},
+    {label:'Sun Sign',value:sunSign||'—',sub:'Surya rashi'}
+  ];
   el.innerHTML=`
-    <div class="rcard"><div class="rcard-header"><div class="rcard-title">Panchang — ${escapeHtml(dateStr)}</div><div class="rbadge rb-live">Live</div></div><div class="rcard-body">
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.5rem;">
-        ${items.map(i=>`<div class="info-box" style="margin:0;"><div class="info-box-title">${i.icon} ${escapeHtml(i.label)}</div><div class="info-box-text">${escapeHtml(i.value)}</div></div>`).join('')}
-      </div>
-    </div></div>
-    <div class="spirit"><div class="spirit-icon">📅</div><div class="spirit-text">The Panchang is the breath of Vedic time — five limbs that reveal the quality of each moment. Check it daily before important decisions, rituals, or new beginnings.</div><div class="spirit-attr">— Parashar Jyotisha</div></div>`;
+    <div class="rcard"><div class="rcard-header"><div class="rcard-title">Daily Panchang — ${escapeHtml(dateStr)}</div><div class="rbadge rb-live">Cosmic Weather</div></div><div class="rcard-body">
+      <div class="cosmic-hero" style="--hero-symbol:'ॐ'"><div class="cosmic-hero-inner"><div><div class="cosmic-overline">Five limbs of Vedic time</div><div class="cosmic-title">Today’s <em>Panchang</em> at a glance</div><div class="cosmic-sub">Use this as your daily timing dashboard for ${escapeHtml(location||ctx.city||'your city')}. Check the five limbs first, then note caution windows before starting important work.</div></div><div class="cosmic-mandala"><span>📅</span></div></div></div>
+      <div class="cosmic-stat-grid">${statCards.map(s=>`<div class="cosmic-stat"><strong>${escapeHtml(s.value)}</strong><span>${escapeHtml(s.label)}</span><small>${escapeHtml(s.sub)}</small></div>`).join('')}</div>
+      <div class="cosmic-section-title">Panchang limbs</div>
+      <div class="panchang-limb-grid">${limbs.map(i=>`<div class="panchang-limb"><div class="limb-icon">${i.icon}</div><div class="limb-label">${escapeHtml(i.label)}</div><div class="limb-value">${escapeHtml(i.value)}</div>${i.sub?`<div class="limb-sub">Ends / note: ${escapeHtml(i.sub)}</div>`:''}</div>`).join('')}</div>
+      ${timeItems.length?`<div class="cosmic-section-title">Sun, Moon & auspicious windows</div><div class="panchang-timeline">${timeItems.map(i=>`<div class="panchang-time"><b>${i.icon} ${escapeHtml(i.label)}</b><span>${escapeHtml(i.value)}</span><small>${escapeHtml(i.note)}</small></div>`).join('')}</div>`:''}
+      ${cautionItems.length?`<div class="cosmic-section-title">Caution windows</div><div class="panchang-timeline">${cautionItems.map(i=>`<div class="panchang-time" style="border-color:rgba(199,96,123,.18);background:rgba(199,96,123,.035)"><b>${i.icon} ${escapeHtml(i.label)}</b><span>${escapeHtml(i.value)}</span><small>${escapeHtml(i.note)}</small></div>`).join('')}</div>`:''}
+      <div class="day-guidance-grid"><div class="day-guidance"><b>For worship</b><span>Brahma Muhurta and a calm mind are best for mantra, japa and study.</span></div><div class="day-guidance"><b>For new work</b><span>Avoid Rahu Kaal/Yamaganda for starting important actions when possible.</span></div><div class="day-guidance"><b>For travel</b><span>Check Disha Shool and combine with your personal chart if the journey is important.</span></div></div>
+      <div class="cosmic-note"><b>Reading note:</b> Panchang gives the quality of time. For a major decision, combine it with your own Kundli, Dasha, Gochar and practical circumstances.</div>
+    </div></div>`;
   el.classList.add('show');
   el.scrollIntoView({behavior:'smooth',block:'start'});
 }
@@ -3629,6 +3773,14 @@ window.addEventListener('hashchange', openTabFromHash);
 
 // Matching selector initialization
 document.addEventListener('DOMContentLoaded', initMatchingSelectors);
+
+
+// Set default Panchang date to today when the page loads
+try {
+  const pDate = document.getElementById('p-date');
+  if (pDate && !pDate.value) pDate.value = new Date().toISOString().slice(0,10);
+} catch(_) {}
+
 </script>
 </body>
 </html>
