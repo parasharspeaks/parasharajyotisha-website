@@ -211,6 +211,51 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
 .gochar-lesson span{display:block;color:var(--text-dim);font-size:.7rem;line-height:1.45;}
 @media(max-width:780px){.gochar-hero-inner{grid-template-columns:1fr}.gochar-mandala{display:none}.gochar-stat-grid{grid-template-columns:repeat(2,1fr)}.gochar-lesson{grid-template-columns:1fr}}
 
+
+
+/* Remedies / Upaya */
+.remedy-hero{position:relative;overflow:hidden;border-radius:22px;padding:1.25rem;background:linear-gradient(135deg,rgba(201,168,76,.13),rgba(212,116,62,.08),rgba(107,155,125,.07));border:1px solid rgba(201,168,76,.20);margin-bottom:1rem;}
+.remedy-hero::before{content:'';position:absolute;right:-70px;top:-90px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.22),transparent 64%);filter:blur(10px);}
+.remedy-hero::after{content:'ॐ';position:absolute;right:38px;top:10px;font-family:var(--font-serif);font-size:5.6rem;color:rgba(255,255,255,.04);line-height:1;}
+.remedy-hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center;}
+.remedy-overline{font-family:var(--font-mono);font-size:.62rem;color:var(--gold-light);letter-spacing:.18em;text-transform:uppercase;margin-bottom:.35rem;}
+.remedy-title{font-family:var(--font-serif);font-size:clamp(1.45rem,3vw,2.2rem);font-weight:400;color:var(--text-bright);line-height:1.1;margin-bottom:.35rem;}
+.remedy-title em{font-style:italic;color:var(--ember-light);}
+.remedy-sub{font-size:.84rem;color:var(--text-mid);line-height:1.65;max-width:760px;}
+.remedy-mandala{width:112px;height:112px;border-radius:50%;border:1px solid rgba(201,168,76,.28);display:grid;place-items:center;background:radial-gradient(circle,rgba(201,168,76,.17),rgba(10,10,15,.22));box-shadow:0 0 38px rgba(201,168,76,.13);position:relative;}
+.remedy-mandala::before,.remedy-mandala::after{content:'';position:absolute;border-radius:50%;border:1px dashed rgba(255,255,255,.13);inset:13px;animation:gocharSpin 22s linear infinite;}
+.remedy-mandala::after{inset:29px;animation-duration:34s;animation-direction:reverse;border-color:rgba(212,116,62,.18);}
+.remedy-mandala span{font-size:2.25rem;position:relative;z-index:1;filter:drop-shadow(0 0 14px rgba(201,168,76,.34));}
+.remedy-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem;margin-bottom:1rem;}
+.remedy-stat{padding:.9rem;border-radius:16px;background:rgba(255,255,255,.027);border:1px solid var(--line);position:relative;overflow:hidden;}
+.remedy-stat strong{display:block;font-family:var(--font-serif);font-size:1.35rem;font-weight:500;color:var(--text-bright);line-height:1.1;}
+.remedy-stat span{display:block;font-family:var(--font-mono);font-size:.56rem;letter-spacing:.11em;text-transform:uppercase;color:var(--text-dim);margin-top:.25rem;}
+.remedy-stat small{display:block;color:var(--text-dim);font-size:.67rem;line-height:1.35;margin-top:.3rem;}
+.remedy-focus-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.75rem;margin-bottom:1rem;}
+.remedy-focus{padding:.95rem;border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.04),rgba(255,255,255,.017));border:1px solid var(--line);position:relative;overflow:hidden;transition:transform .25s var(--ease),border-color .25s;}
+.remedy-focus:hover{transform:translateY(-3px);border-color:rgba(201,168,76,.25);}
+.remedy-focus b{display:block;font-family:var(--font-serif);font-size:1.02rem;color:var(--text-bright);margin-bottom:.25rem;}
+.remedy-focus span{display:block;font-size:.74rem;color:var(--text-mid);line-height:1.5;}
+.remedy-focus small{display:inline-flex;margin-top:.55rem;border-radius:999px;padding:.2rem .55rem;border:1px solid rgba(201,168,76,.20);background:rgba(201,168,76,.08);font-size:.62rem;color:var(--gold-light);}
+.remedy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:.75rem;}
+.remedy-card{border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.026);padding:.95rem;position:relative;overflow:hidden;transition:transform .25s var(--ease),border-color .25s,background .25s;}
+.remedy-card:hover{transform:translateY(-3px);border-color:rgba(212,116,62,.25);background:rgba(255,255,255,.038);}
+.remedy-card::after{content:'';position:absolute;right:-35px;bottom:-42px;width:110px;height:110px;border-radius:50%;background:radial-gradient(circle,var(--remGlow,rgba(201,168,76,.13)),transparent 68%);}
+.remedy-card-head{position:relative;z-index:1;display:flex;align-items:flex-start;gap:.75rem;margin-bottom:.62rem;}
+.remedy-icon{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:color-mix(in srgb,var(--remColor) 12%,transparent);border:1px solid color-mix(in srgb,var(--remColor) 30%,transparent);color:var(--remColor);font-size:1.16rem;flex-shrink:0;}
+.remedy-card-title{font-weight:800;color:var(--text-bright);font-size:.94rem;line-height:1.25;}
+.remedy-card-type{display:inline-flex;margin-top:.28rem;border-radius:999px;padding:.17rem .52rem;background:rgba(255,255,255,.035);border:1px solid var(--line);font-family:var(--font-mono);font-size:.55rem;text-transform:uppercase;letter-spacing:.07em;color:var(--text-dim);}
+.remedy-card-text{position:relative;z-index:1;color:var(--text-mid);font-size:.8rem;line-height:1.6;}
+.remedy-meta{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.55rem;}
+.remedy-chip{display:inline-flex;align-items:center;gap:.25rem;border:1px solid var(--line);background:rgba(255,255,255,.035);border-radius:999px;padding:.18rem .52rem;font-size:.62rem;color:var(--text-mid);}
+.gem-warning{margin-top:.75rem;padding:.75rem .85rem;border-radius:14px;background:rgba(199,96,123,.055);border:1px solid rgba(199,96,123,.16);font-size:.73rem;color:var(--text-mid);line-height:1.55;}
+.remedy-routine{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-top:1rem;}
+.remedy-routine div{border:1px solid var(--line);border-radius:14px;padding:.8rem;background:rgba(255,255,255,.024);}
+.remedy-routine b{display:block;color:var(--ember-light);font-size:.78rem;margin-bottom:.22rem;}
+.remedy-routine span{display:block;color:var(--text-dim);font-size:.7rem;line-height:1.45;}
+@media(max-width:780px){.remedy-hero-inner{grid-template-columns:1fr}.remedy-mandala{display:none}.remedy-stat-grid{grid-template-columns:repeat(2,1fr)}.remedy-routine{grid-template-columns:1fr}}
+@media(max-width:460px){.remedy-stat-grid{grid-template-columns:1fr}.remedy-grid{grid-template-columns:1fr}}
+
 /* ─── RESULTS ─── */
 .results{margin-top:1.5rem;display:none;animation:fadeUp .5s var(--ease) both;max-width:1120px;margin-left:auto;margin-right:auto;}
 .results.show{display:block;}
@@ -1437,10 +1482,176 @@ function renderGocharDetailed(raw,bc={},advanced={}){
   </div></div>`;
 }
 
+
+
+function unwrapAny(raw){ return dig(raw); }
+function asArray(v){
+  if(!v) return [];
+  if(Array.isArray(v)) return v;
+  if(typeof v==='object'){
+    if(Array.isArray(v.items)) return v.items;
+    if(Array.isArray(v.list)) return v.list;
+    if(Array.isArray(v.remedies)) return v.remedies;
+    if(Array.isArray(v.data)) return v.data;
+    return Object.entries(v).filter(([k,val])=>val!==null&&val!==undefined&&val!==''&&typeof val!=='function').map(([k,val])=>{
+      if(typeof val==='object') return Object.assign({key:k}, val);
+      return {key:k, value:val};
+    });
+  }
+  if(typeof v==='string') return v.split(/\n|;|\|/).map(x=>x.trim()).filter(Boolean);
+  return [v];
+}
+function remedyTypeIcon(type,title=''){
+  const t=(type+' '+title).toLowerCase();
+  if(t.includes('gem') || t.includes('stone') || t.includes('ruby') || t.includes('pearl') || t.includes('sapphire') || t.includes('emerald')) return ['💎','Gemstone','var(--sky-light)'];
+  if(t.includes('mantra') || t.includes('japa') || t.includes('chant')) return ['🕉️','Mantra','var(--gold)'];
+  if(t.includes('donat') || t.includes('daan') || t.includes('charity')) return ['🤲','Donation','var(--sage-light)'];
+  if(t.includes('fast') || t.includes('vrat')) return ['🌙','Vrat / Fasting','var(--lotus-light)'];
+  if(t.includes('puja') || t.includes('worship') || t.includes('shanti')) return ['🪔','Puja','var(--ember-light)'];
+  if(t.includes('yantra')) return ['🔯','Yantra','var(--gold-light)'];
+  if(t.includes('conduct') || t.includes('discipline') || t.includes('seva')) return ['🙏','Conduct','var(--sage)'];
+  return ['✨','Upaya','var(--ember-light)'];
+}
+function remedyPlanetFromText(txt){
+  const t=String(txt||'').toLowerCase();
+  for(const p of ['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn','Rahu','Ketu']) if(t.includes(p.toLowerCase())) return p;
+  return '';
+}
+function normalizeGem(g,label='Gemstone'){
+  if(!g) return null;
+  if(typeof g==='string' || typeof g==='number') return {title:String(g),type:label,text:'Gemstone suggestion received from API.',meta:[],isGem:true};
+  if(typeof g!=='object') return null;
+  const title=firstText(g,['gemstone','gem','stone','name','title','key','value']) || label;
+  const planet=firstText(g,['planet','graha','for_planet','lord']);
+  const text=firstText(g,['reason','description','meaning','effect','recommendation','why','note']) || 'Gemstone guidance received from API. Wear only after personal verification.';
+  const meta=[];
+  ['weight','metal','finger','day','time','mantra','quality'].forEach(k=>{ const v=firstText(g,[k]); if(v) meta.push(`${titleCase(k)}: ${v}`); });
+  if(planet) meta.unshift(`Planet: ${planet}`);
+  return {title,type:label,text,meta,isGem:true,planet};
+}
+function normalizeRemedyItem(x, fallbackType='Upaya'){
+  if(x===null || x===undefined || x==='') return null;
+  if(typeof x==='string' || typeof x==='number'){
+    const txt=String(x).trim(); if(!txt) return null;
+    const [icon,type,color]=remedyTypeIcon(fallbackType,txt);
+    return {title:type,type,icon,color,text:txt,meta:[],planet:remedyPlanetFromText(txt),source:'api'};
+  }
+  if(typeof x!=='object') return null;
+  const title=firstText(x,['title','name','remedy','upaya','key','category','type']) || fallbackType;
+  const type=firstText(x,['type','category','kind','group']) || fallbackType;
+  const text=firstText(x,['description','detail','details','text','instruction','instructions','advice','suggestion','value','remedy','upaya','meaning']) || title;
+  const planet=firstText(x,['planet','graha','for_planet','lord']) || remedyPlanetFromText(title+' '+text);
+  const meta=[];
+  ['day','weekday','time','duration','count','mantra','deity','material','color','direction','severity','priority','source','reason'].forEach(k=>{ const v=firstText(x,[k]); if(v && v!==title && v!==text) meta.push(`${titleCase(k)}: ${v}`); });
+  if(planet) meta.unshift(`Planet: ${planet}`);
+  const [icon,prettyType,color]=remedyTypeIcon(type,title+' '+text);
+  return {title,type:prettyType,icon,color,text,meta,planet,source:'api'};
+}
+function remediesFromQuickFlags(bc){
+  const qf=(bc&&typeof bc==='object')?(bc.quick_flags||bc.flags||bc.doshas||{}):{};
+  const out=[];
+  const md=qf.mangal_dosh||qf.mangal_dosha||qf.manglik||{};
+  if(md && typeof md==='object' && (md.present||md.is_present||md.active)){
+    out.push({title:'Mangal Dosha Upaya',type:'Dosha Remedy',icon:'🔥',color:'var(--lotus-light)',text:md.remedy||'For Mangal Dosha, use calm discipline, Hanuman worship, Tuesday charity and personal consultation before marriage decisions.',meta:['Source: Birth chart flag', md.severity?`Severity: ${md.severity}`:''].filter(Boolean),planet:'Mars',source:'birth'});
+  }
+  const ks=qf.kaal_sarp||qf.kaalsarp||qf.kaal_sarpa||{};
+  if(ks && typeof ks==='object' && (ks.present||ks.is_present||ks.active)){
+    out.push({title:ks.type||'Kaal Sarp Dosha Upaya',type:'Dosha Remedy',icon:'🐍',color:'var(--gold-light)',text:ks.remedy||'For Kaal Sarp combination, worship Shiva, perform Rahu-Ketu shanti as per tradition, and follow steady spiritual discipline.',meta:['Source: Birth chart flag',ks.severity?`Severity: ${ks.severity}`:'',ks.partial?'Partial indication':''].filter(Boolean),planet:'Rahu/Ketu',source:'birth'});
+  }
+  const ss=qf.sade_sati||qf.sadesati||{};
+  if(ss && typeof ss==='object' && (ss.active||ss.is_active)){
+    out.push({title:'Sade Sati Discipline',type:'Transit Remedy',icon:'⛰️',color:'var(--sky-light)',text:ss.remedy||'During Sade Sati, strengthen patience, service, humility, Saturday charity and regular Shani mantra or Hanuman Chalisa.',meta:['Source: Sade Sati flag', ss.phase?`Phase: ${ss.phase}`:''].filter(Boolean),planet:'Saturn',source:'birth'});
+  }
+  return out;
+}
+function remediesFromWeakPlanets(bc,advanced={}){
+  const out=[];
+  const planets=Array.isArray(bc.planets)?bc.planets:[];
+  const weak=planets.filter(p=>p&&typeof p==='object'&&(p.is_debilitated||p.debilitated||String(p.dignity||'').toLowerCase().includes('debilit')||p.is_combust||p.combust)).slice(0,3);
+  weak.forEach(p=>{
+    const name=p.name||p.planet||'Planet';
+    const reasons=[];
+    if(p.is_debilitated||p.debilitated||String(p.dignity||'').toLowerCase().includes('debilit')) reasons.push('Debilitated/weak dignity');
+    if(p.is_combust||p.combust) reasons.push('Combust');
+    out.push({title:`Support ${name}`,type:'Planet Support',icon:P[name]||'🪐',color:PCOL[name]||'var(--ember-light)',text:`Use gentle remedies to harmonise ${name}: mantra, right conduct, charity and patience. Do not use gemstones automatically without expert checking.`,meta:reasons.concat(p.house?`House: ${p.house}`:'').filter(Boolean),planet:name,source:'derived'});
+  });
+  return out;
+}
+function parseRemedies(raw,bc={},ygRaw=null,dsRaw=null,advanced={}){
+  const d=unwrapAny(raw)||{};
+  const items=[];
+  let primaryGem=null, secondary=[], avoid=[];
+  if(d && typeof d==='object'){
+    primaryGem=normalizeGem(d.primary_gemstone||d.primaryGemstone||d.primary||d.main_gemstone||d.gemstone,'Primary Gemstone');
+    secondary=asArray(d.secondary_gemstones||d.secondaryGemstones||d.secondary||d.supporting_gems).map(g=>normalizeGem(g,'Secondary Gemstone')).filter(Boolean);
+    avoid=asArray(d.gems_to_avoid||d.avoid_gems||d.avoid||d.gems_not_to_wear).map(g=>normalizeGem(g,'Avoid Gemstone')).filter(Boolean);
+    const buckets=[
+      ['remedies','Upaya'],['remedy_plan','Upaya'],['upayas','Upaya'],['mantras','Mantra'],['mantra','Mantra'],['donations','Donation'],['donation','Donation'],['fasting','Fasting'],['vrat','Fasting'],['puja','Puja'],['yantra','Yantra'],['lifestyle','Conduct'],['conduct','Conduct']
+    ];
+    buckets.forEach(([key,label])=>{ asArray(d[key]).forEach(x=>{ const it=normalizeRemedyItem(x,label); if(it) items.push(it); }); });
+    if(primaryGem) items.push(primaryGem);
+    secondary.forEach(x=>items.push(x));
+  }
+  items.push(...remediesFromQuickFlags(bc));
+  if(!items.length) items.push(...remediesFromWeakPlanets(bc,advanced));
+  // Universal safe remedies make section useful even if API is pending.
+  const universal=[
+    {title:'Daily Mantra Discipline',type:'Safe Routine',icon:'🕉️',color:'var(--gold)',text:'Choose one simple mantra and repeat it daily with sincerity. Consistency is more important than complexity.',meta:['Daily: 5–10 minutes','Safe general practice'],source:'universal'},
+    {title:'Daan & Seva',type:'Conduct',icon:'🤲',color:'var(--sage-light)',text:'Offer charity, food, service or educational help according to capacity. Remedies work best when they improve character and reduce ego.',meta:['Weekly practice','No risk'],source:'universal'},
+    {title:'Satvik Timing',type:'Lifestyle',icon:'🌅',color:'var(--ember-light)',text:'Use Panchang, Dasha and Gochar together. For important actions, prefer supportive timings rather than relying on one remedy alone.',meta:['Combine with Panchang','Practical guidance'],source:'universal'}
+  ];
+  const seen=new Set();
+  const clean=[];
+  [...items,...universal].forEach(it=>{
+    if(!it||!it.title) return;
+    const k=(it.title+'|'+it.text).toLowerCase().slice(0,160);
+    if(seen.has(k)) return;
+    seen.add(k); clean.push(it);
+  });
+  return {data:d,items:clean,primaryGem,secondary,avoid,apiHasData:!!(raw&&Object.keys(d||{}).length)};
+}
+function renderRemedyCard(it){
+  const co=it.color||'var(--ember-light)';
+  return `<div class="remedy-card" style="--remColor:${co};--remGlow:color-mix(in srgb,${co} 14%,transparent);">
+    <div class="remedy-card-head"><div class="remedy-icon">${escapeHtml(it.icon||'✨')}</div><div style="flex:1"><div class="remedy-card-title">${escapeHtml(it.title||'Remedy')}</div><div class="remedy-card-type">${escapeHtml(it.type||'Upaya')}</div></div></div>
+    <div class="remedy-card-text">${escapeHtml(it.text||'')}</div>
+    ${it.meta&&it.meta.length?`<div class="remedy-meta">${it.meta.slice(0,5).map(m=>`<span class="remedy-chip">${escapeHtml(m)}</span>`).join('')}</div>`:''}
+  </div>`;
+}
+function renderRemediesDetailed(raw,bc={},ygRaw=null,dsRaw=null,advanced={}){
+  const parsed=parseRemedies(raw,bc,ygRaw,dsRaw,advanced);
+  const items=parsed.items||[];
+  const mantraCount=items.filter(x=>String(x.type||'').toLowerCase().includes('mantra')).length;
+  const gemCount=items.filter(x=>x.isGem||String(x.type||'').toLowerCase().includes('gem')).length;
+  const doshaCount=items.filter(x=>String(x.type||'').toLowerCase().includes('dosha')||String(x.title||'').toLowerCase().includes('dosha')).length;
+  const priority=doshaCount?'Dosha first':(parsed.primaryGem?'Gem caution':'Daily routine');
+  const qf=bc.quick_flags||{};
+  const activeFlags=[];
+  if(qf.mangal_dosh&&(qf.mangal_dosh.present||qf.mangal_dosh.active)) activeFlags.push('Mangal');
+  if(qf.kaal_sarp&&(qf.kaal_sarp.present||qf.kaal_sarp.active)) activeFlags.push('Kaal Sarp');
+  if(qf.sade_sati&&(qf.sade_sati.active||qf.sade_sati.is_active)) activeFlags.push('Sade Sati');
+  const apiNote=parsed.apiHasData?'API + chart based':'Chart fallback';
+  const cards=items.slice(0,10).map(renderRemedyCard).join('');
+  const avoidHtml=parsed.avoid&&parsed.avoid.length?`<div class="gem-warning"><strong>Gemstones to avoid:</strong> ${parsed.avoid.map(x=>escapeHtml(x.title)).join(', ')}. Gemstones can intensify planetary energy; use only after proper consultation.</div>`:'';
+  const focusHtml=`<div class="remedy-focus-grid">
+    <div class="remedy-focus"><b>1. Correct priority</b><span>First handle active Dosha or difficult Dasha/Gochar. Do not start with expensive gemstones.</span><small>${escapeHtml(priority)}</small></div>
+    <div class="remedy-focus"><b>2. Safe remedies first</b><span>Mantra, daan, seva, discipline and satvik routine are safer for most users.</span><small>Low risk</small></div>
+    <div class="remedy-focus"><b>3. Gemstone caution</b><span>Gemstones should be used only after confirming Lagna, functional beneficence, Dasha and strength.</span><small>${gemCount?gemCount+' gem item(s)':'No forced gem'}</small></div>
+  </div>`;
+  return `<div class="rcard" id="result-remedies"><div class="rcard-header"><div class="rcard-title">Remedies / Upaya Guidance</div><div class="rbadge rb-good">${escapeHtml(apiNote)}</div></div><div class="rcard-body">
+    <div class="remedy-hero"><div class="remedy-hero-inner"><div><div class="remedy-overline">Practical spiritual correction</div><div class="remedy-title">From prediction to <em>right action</em></div><div class="remedy-sub">This section connects chart flags, Dasha/Gochar timing and available remedy API data into simple, user-friendly action steps. It avoids fear-based astrology and keeps gemstone advice cautious.</div></div><div class="remedy-mandala"><span>🪔</span></div></div></div>
+    <div class="remedy-stat-grid"><div class="remedy-stat"><strong>${escapeHtml(String(items.length))}</strong><span>Total suggestions</span><small>API + safe fallback</small></div><div class="remedy-stat"><strong>${escapeHtml(String(mantraCount))}</strong><span>Mantra</span><small>Japa / prayer items</small></div><div class="remedy-stat"><strong>${escapeHtml(String(doshaCount))}</strong><span>Dosha focus</span><small>${escapeHtml(activeFlags.join(', ')||'No major active flag')}</small></div><div class="remedy-stat"><strong>${escapeHtml(String(gemCount))}</strong><span>Gem items</span><small>Use with consultation</small></div></div>
+    ${focusHtml}
+    <div class="remedy-grid">${cards}</div>
+    ${avoidHtml}
+    <div class="remedy-routine"><div><b>Morning</b><span>Short mantra, gratitude and Sankalpa. Keep it simple and regular.</span></div><div><b>Weekly</b><span>Donation or seva connected to the planet/dosha, without show-off.</span></div><div><b>Before big decisions</b><span>Check Dasha, Gochar and Panchang together; then choose timing.</span></div></div>
+    <div class="strength-note"><strong>Important:</strong> Remedies are supportive practices, not a replacement for medical, legal, financial or psychological help. Gemstones and major pujas should be recommended only after full chart review.</div>
+  </div></div>`;
+}
+
 function renderAdvancedKundliCards(advanced={}){
   const strengthHtml = `${renderAshtakavargaDetailed(advanced.ashtakavarga)}${renderShadbalaDetailed(advanced.shadbala)}`;
   const otherCards=[
-    ['remedies','Remedies','Practical upaya, mantra and guidance'],
   ].map(([key,title,sub])=>{
     const summary=compactAdvancedSummary(advanced[key],key);
     if(!summary) return '';
@@ -1989,7 +2200,8 @@ function renderKundli(name,bcRaw,ygRaw,dsRaw,meta={},skipScroll=false){
   const planetWarning=planets.length?'':`<div class="info-box"><div class="info-box-title">Chart note</div><div class="info-box-text">The chart frame was created, but the API did not return planet positions in the expected format. Please share the API response if this appears after testing.</div></div>`;
   const advancedHtml=renderAdvancedKundliCards(advanced);
   const gocharHtml=renderGocharDetailed(advanced.gochar,bc,advanced);
-  const jumpbar=`<div class="result-jumpbar"><a href="#result-summary">Summary</a><a href="#result-chart">Chart</a><a href="#result-planets">Planets</a><a href="#result-dasha">Dasha</a><a href="#result-yogas">Yogas</a><a href="#result-houses">Houses</a>${advancedHtml?'<a href="#result-advanced">Strength</a>':''}<a href="#result-gochar">Transit</a></div>`;
+  const remediesHtml=renderRemediesDetailed(advanced.remedies,bc,yg,ds,advanced);
+  const jumpbar=`<div class="result-jumpbar"><a href="#result-summary">Summary</a><a href="#result-chart">Chart</a><a href="#result-planets">Planets</a><a href="#result-dasha">Dasha</a><a href="#result-yogas">Yogas</a><a href="#result-houses">Houses</a>${advancedHtml?'<a href="#result-advanced">Strength</a>':''}<a href="#result-gochar">Transit</a><a href="#result-remedies">Remedies</a></div>`;
 
   // ── ASSEMBLE ──
   el.innerHTML=`
@@ -2002,6 +2214,7 @@ function renderKundli(name,bcRaw,ygRaw,dsRaw,meta={},skipScroll=false){
     ${dh}${yh.replace('<div class="rcard"','<div class="rcard" id="result-yogas"')}${hh.replace('<div class="rcard"','<div class="rcard" id="result-houses"')}
     ${advancedHtml}
     ${gocharHtml}
+    ${remediesHtml}
     <div class="spirit"><div class="spirit-icon">☉</div><div class="spirit-text">Your birth chart is a sacred map — not of fate, but of potential. Start by reading the highlighted Lagna sign, then see where each planet name is placed. For deeper interpretation including Navamsa, Antardasha, remedies and life predictions — consider a personal reading.</div><div class="spirit-attr">— Parashar Jyotisha</div><a href="index.html#contact" class="fbtn">Book Personal Reading →</a></div>`;
   el.classList.add('show');
   if(!skipScroll) el.scrollIntoView({behavior:'smooth',block:'start'});
