@@ -508,6 +508,107 @@ body::after {
   .panchang-items{grid-template-columns:1fr 1fr;}
 }
 
+
+
+/* ─── ENHANCED HOMEPAGE PANCHANG TAB ─── */
+#panchang.panchang-section{
+  padding-top:5.8rem;
+  padding-bottom:6.2rem;
+  min-height:calc(100vh - 90px);
+}
+#panchang.panchang-section::before{
+  opacity:.62;
+  filter:saturate(1.08) contrast(1.05) brightness(.78);
+}
+#panchang.panchang-section::after{
+  background:
+    radial-gradient(circle at 50% 14%, rgba(232,149,95,.14), transparent 23%),
+    radial-gradient(circle at 12% 70%, rgba(91,141,184,.08), transparent 28%),
+    linear-gradient(to bottom, rgba(10,10,15,.28), rgba(10,10,15,.78) 48%, rgba(10,10,15,.94));
+}
+.panchang-live.upgraded{
+  max-width:1120px;
+  padding:0;
+  border-radius:28px;
+  background:linear-gradient(145deg,rgba(18,18,26,.82),rgba(18,18,26,.64));
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 34px 110px rgba(0,0,0,.52), inset 0 1px 0 rgba(255,255,255,.04);
+}
+.panchang-live.upgraded::before{
+  content:'';
+  position:absolute;
+  width:360px;height:360px;right:-110px;top:-120px;border-radius:50%;
+  background:radial-gradient(circle,rgba(244,184,122,.16),transparent 66%);
+  filter:blur(4px);
+  pointer-events:none;
+}
+.panchang-live.upgraded::after{
+  content:'ॐ';
+  position:absolute;
+  right:3.2rem;
+  bottom:1.2rem;
+  width:auto;height:auto;background:none;
+  font-family:var(--font-serif);
+  font-size:8rem;
+  line-height:1;
+  color:rgba(255,255,255,.035);
+  opacity:1;
+}
+.panchang-shell{position:relative;z-index:2;padding:2.1rem;}
+.panchang-topbar{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:1.1rem;}
+.panchang-kicker{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ember-glow);margin-bottom:.45rem;}
+.panchang-title-main{font-family:var(--font-serif);font-size:clamp(1.55rem,3vw,2.25rem);font-weight:400;color:var(--text-bright);line-height:1.08;}
+.panchang-title-main em{font-style:italic;color:var(--ember-light);}
+.panchang-subline{font-size:.86rem;color:var(--text-dim);margin-top:.45rem;line-height:1.55;}
+.panchang-live-badge.status-loading{background:rgba(201,168,76,.12);border-color:rgba(201,168,76,.25);color:var(--gold-light);}
+.panchang-live-badge.status-error{background:rgba(199,96,123,.13);border-color:rgba(199,96,123,.28);color:var(--lotus-light);}
+.panchang-controls{display:grid;grid-template-columns:1fr auto auto;gap:.65rem;margin:1.15rem 0 1.25rem;padding:.75rem;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.026);border-radius:18px;}
+.panchang-city-input{width:100%;border:1px solid rgba(255,255,255,.09);border-radius:999px;background:rgba(10,10,15,.36);color:var(--text-bright);padding:.76rem 1rem;font-family:var(--font-sans);font-size:.9rem;outline:none;}
+.panchang-city-input:focus{border-color:rgba(232,149,95,.42);box-shadow:0 0 0 3px rgba(232,149,95,.08);}
+.panchang-action{border:none;border-radius:999px;padding:.78rem 1.15rem;font-family:var(--font-sans);font-weight:800;font-size:.82rem;cursor:pointer;white-space:nowrap;transition:.25s var(--ease);}
+.panchang-action.primary{background:linear-gradient(135deg,var(--ember),#B85A2A);color:white;box-shadow:0 8px 28px rgba(212,116,62,.22);}
+.panchang-action.secondary{display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.09);color:var(--text-bright);text-decoration:none;}
+.panchang-action:hover{transform:translateY(-1px);}
+.panchang-mood-row{display:grid;grid-template-columns:1.1fr .9fr;gap:.85rem;margin-bottom:.95rem;}
+.panchang-mood-card,.panchang-mini-card{border:1px solid rgba(255,255,255,.08);border-radius:20px;background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.018));padding:1.05rem;position:relative;overflow:hidden;}
+.panchang-mood-card::after{content:'';position:absolute;right:-42px;bottom:-52px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.14),transparent 68%);}
+.pm-label{font-family:var(--font-mono);font-size:.56rem;color:var(--text-dim);letter-spacing:.13em;text-transform:uppercase;margin-bottom:.35rem;}
+.pm-title{font-family:var(--font-serif);font-size:1.35rem;color:var(--text-bright);font-weight:600;line-height:1.15;}
+.pm-text{font-size:.8rem;color:var(--text-mid);line-height:1.55;margin-top:.45rem;}
+.panchang-mini-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.65rem;}
+.panchang-mini-card{padding:.82rem;}
+.panchang-mini-card strong{display:block;font-family:var(--font-serif);font-size:1.05rem;color:var(--text-bright);line-height:1.2;}
+.panchang-mini-card span{display:block;font-size:.68rem;color:var(--text-dim);margin-top:.25rem;line-height:1.35;}
+.panchang-items.enhanced{grid-template-columns:repeat(5,1fr);gap:.75rem;margin-top:.65rem;}
+.panchang-el.enhanced{position:relative;text-align:left;padding:1rem;border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.05),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.09);min-height:136px;}
+.panchang-el.enhanced::before{content:attr(data-icon);display:inline-grid;place-items:center;width:34px;height:34px;border-radius:12px;background:rgba(232,149,95,.10);border:1px solid rgba(232,149,95,.18);margin-bottom:.65rem;font-size:1rem;}
+.panchang-el.enhanced .panchang-el-value{font-size:1.25rem;line-height:1.14;}
+.panchang-el.enhanced .panchang-el-sub{font-size:.72rem;line-height:1.42;margin-top:.45rem;}
+.panchang-el.enhanced.good{border-color:rgba(107,155,125,.30);background:linear-gradient(145deg,rgba(107,155,125,.075),rgba(255,255,255,.018));}
+.panchang-el.enhanced.warn{border-color:rgba(201,168,76,.28);background:linear-gradient(145deg,rgba(201,168,76,.070),rgba(255,255,255,.018));}
+.panchang-extras.enhanced{grid-template-columns:repeat(4,1fr);gap:.75rem;margin-top:.9rem;}
+.pe-item.enhanced{padding:.92rem;border-radius:16px;background:rgba(255,255,255,.032);border:1px solid rgba(255,255,255,.08);}
+.pe-item.enhanced.caution{border-color:rgba(199,96,123,.22);background:rgba(199,96,123,.045);}
+.pe-item.enhanced.good{border-color:rgba(107,155,125,.20);background:rgba(107,155,125,.045);}
+.panchang-guide{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-top:1rem;}
+.panchang-guide-card{border:1px solid rgba(255,255,255,.08);border-radius:16px;background:rgba(10,10,15,.28);padding:.9rem;}
+.panchang-guide-card b{display:block;color:var(--ember-light);font-size:.82rem;margin-bottom:.25rem;}
+.panchang-guide-card span{display:block;color:var(--text-dim);font-size:.72rem;line-height:1.45;}
+.panchang-foot{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-top:1.15rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,.07);font-size:.72rem;color:var(--text-dim);}
+.panchang-foot a{color:var(--ember-light);font-weight:700;}
+@media(max-width:920px){
+  .panchang-items.enhanced{grid-template-columns:repeat(2,1fr);}
+  .panchang-mood-row{grid-template-columns:1fr;}
+  .panchang-extras.enhanced{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:680px){
+  .panchang-shell{padding:1.25rem;}
+  .panchang-topbar{flex-direction:column;}
+  .panchang-controls{grid-template-columns:1fr;}
+  .panchang-items.enhanced,.panchang-extras.enhanced,.panchang-guide,.panchang-mini-grid{grid-template-columns:1fr;}
+  .panchang-foot{flex-direction:column;align-items:flex-start;}
+}
+
 /* ─── SERVICES / GUIDANCE ─── */
 .guidance-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
@@ -1002,80 +1103,74 @@ body::after {
 </section>
 
 <!-- ════════ DAILY PANCHANG ════════ -->
-<section class="section" id="panchang">
+<section class="section panchang-section" id="panchang">
   <div class="container">
     <div class="section-intro center reveal">
       <span class="label">Daily Panchang</span>
-      <h2 class="heading">Today's Cosmic <em>Weather</em></h2>
-      <p class="section-desc">
-        The five limbs of time — Tithi, Nakshatra, Yoga, Karana & Vara — 
-        reveal the quality of each moment. Live from Delhi.
+      <h2 class="heading">Today’s Cosmic <em>Weather</em></h2>
+      <p class="section-desc" id="panchangIntro">
+        Panchang is the living clock of Vedic time. See the five limbs, daily caution periods, sunrise/sunset and practical guidance for your city.
       </p>
     </div>
-    <div class="panchang-live reveal">
-      <div class="panchang-header">
-        <div>
-          <div style="font-family:var(--font-serif); font-size:1.4rem; color:var(--text-bright); font-weight:400;">
-            Panchang — <span id="panchangDate" style="color:var(--ember-light)"></span>
-          </div>
-          <div style="font-size:0.82rem; color:var(--text-dim); margin-top:0.3rem;">Delhi, India</div>
-        </div>
-        <div class="panchang-live-badge">Live Data</div>
-      </div>
-      <div class="panchang-items">
-        <div class="panchang-el">
-          <div class="panchang-el-label">Tithi</div>
-          <div class="panchang-el-value">Shukla Chaturthi</div>
-          <div class="panchang-el-sub">Waxing Fourth</div>
-        </div>
-        <div class="panchang-el">
-          <div class="panchang-el-label">Nakshatra</div>
-          <div class="panchang-el-value">Punarvasu</div>
-          <div class="panchang-el-sub">Aditi's Star</div>
-        </div>
-        <div class="panchang-el">
-          <div class="panchang-el-label">Yoga</div>
-          <div class="panchang-el-value">Shobhana</div>
-          <div class="panchang-el-sub">Auspicious</div>
-        </div>
-        <div class="panchang-el">
-          <div class="panchang-el-label">Karana</div>
-          <div class="panchang-el-value">Balava</div>
-          <div class="panchang-el-sub">Favorable</div>
-        </div>
-        <div class="panchang-el">
-          <div class="panchang-el-label">Vara</div>
-          <div class="panchang-el-value">Shanivara</div>
-          <div class="panchang-el-sub">Saturn's Day</div>
-        </div>
-      </div>
-      <div class="panchang-extras">
-        <div class="pe-item">
-          <div class="pe-icon">🌅</div>
+
+    <div class="panchang-live upgraded reveal" id="panchangCard">
+      <div class="panchang-shell">
+        <div class="panchang-topbar">
           <div>
-            <div class="pe-label">Sunrise</div>
-            <div class="pe-value">05:38 AM</div>
+            <div class="panchang-kicker">Live Panchang · Vedic Time Quality</div>
+            <div class="panchang-title-main">Panchang — <em id="panchangDate">Today</em></div>
+            <div class="panchang-subline"><span id="panchangCityLabel">Delhi</span>, India · updates from Parashar Jyotisha API</div>
+          </div>
+          <div class="panchang-live-badge" id="panchangStatus">Live Data</div>
+        </div>
+
+        <div class="panchang-controls" aria-label="Panchang city controls">
+          <input id="panchangCityInput" class="panchang-city-input" value="Delhi" placeholder="Enter city, e.g. Dehradun, Delhi, Varanasi" aria-label="City for Panchang">
+          <button class="panchang-action primary" id="panchangRefreshBtn" type="button">Show Panchang</button>
+          <a class="panchang-action secondary" href="tools.html#panchang">Open Full Tool →</a>
+        </div>
+
+        <div class="panchang-mood-row">
+          <div class="panchang-mood-card">
+            <div class="pm-label">Daily reading</div>
+            <div class="pm-title" id="panchangMoodTitle">Reading today’s time quality…</div>
+            <div class="pm-text" id="panchangMoodText">The day’s mood is built from Tithi, Nakshatra, Yoga, Karana and weekday. Use it for awareness, not fear.</div>
+          </div>
+          <div class="panchang-mini-grid">
+            <div class="panchang-mini-card"><div class="pm-label">Best use</div><strong id="panchangBestUse">Daily planning</strong><span>Choose calmer timing for important work.</span></div>
+            <div class="panchang-mini-card"><div class="pm-label">Care window</div><strong id="panchangCareWindow">Rahu Kaal</strong><span id="panchangCareText">Avoid new beginnings during caution periods.</span></div>
           </div>
         </div>
-        <div class="pe-item">
-          <div class="pe-icon">🌇</div>
-          <div>
-            <div class="pe-label">Sunset</div>
-            <div class="pe-value">06:56 PM</div>
-          </div>
+
+        <div class="panchang-items enhanced" id="panchangLimbs">
+          <div class="panchang-el enhanced" data-icon="🌙" id="limb-tithi"><div class="panchang-el-label">Tithi</div><div class="panchang-el-value">—</div><div class="panchang-el-sub">Lunar day</div></div>
+          <div class="panchang-el enhanced" data-icon="⭐" id="limb-nakshatra"><div class="panchang-el-label">Nakshatra</div><div class="panchang-el-value">—</div><div class="panchang-el-sub">Moon’s star</div></div>
+          <div class="panchang-el enhanced" data-icon="🔆" id="limb-yoga"><div class="panchang-el-label">Yoga</div><div class="panchang-el-value">—</div><div class="panchang-el-sub">Sun–Moon harmony</div></div>
+          <div class="panchang-el enhanced" data-icon="📐" id="limb-karana"><div class="panchang-el-label">Karana</div><div class="panchang-el-value">—</div><div class="panchang-el-sub">Half tithi action quality</div></div>
+          <div class="panchang-el enhanced" data-icon="📅" id="limb-vara"><div class="panchang-el-label">Vara</div><div class="panchang-el-value">—</div><div class="panchang-el-sub">Weekday lord</div></div>
         </div>
-        <div class="pe-item">
-          <div class="pe-icon">⚠️</div>
-          <div>
-            <div class="pe-label">Rahu Kaal</div>
-            <div class="pe-value">09:00 – 10:30 AM</div>
-          </div>
+
+        <div class="panchang-extras enhanced" id="panchangExtras">
+          <div class="pe-item enhanced good"><div class="pe-icon">🌅</div><div><div class="pe-label">Sunrise</div><div class="pe-value" id="pe-sunrise">—</div></div></div>
+          <div class="pe-item enhanced"><div class="pe-icon">🌇</div><div><div class="pe-label">Sunset</div><div class="pe-value" id="pe-sunset">—</div></div></div>
+          <div class="pe-item enhanced caution"><div class="pe-icon">⚠️</div><div><div class="pe-label">Rahu Kaal</div><div class="pe-value" id="pe-rahu">—</div></div></div>
+          <div class="pe-item enhanced caution"><div class="pe-icon">🧭</div><div><div class="pe-label">Disha Shool</div><div class="pe-value" id="pe-disha">—</div></div></div>
+          <div class="pe-item enhanced"><div class="pe-icon">🌙</div><div><div class="pe-label">Moonrise</div><div class="pe-value" id="pe-moonrise">—</div></div></div>
+          <div class="pe-item enhanced"><div class="pe-icon">🌘</div><div><div class="pe-label">Moonset</div><div class="pe-value" id="pe-moonset">—</div></div></div>
+          <div class="pe-item enhanced"><div class="pe-icon">🕉️</div><div><div class="pe-label">Abhijit</div><div class="pe-value" id="pe-abhijit">—</div></div></div>
+          <div class="pe-item enhanced"><div class="pe-icon">🌄</div><div><div class="pe-label">Brahma Muhurta</div><div class="pe-value" id="pe-brahma">—</div></div></div>
         </div>
-      </div>
-      <div style="text-align:center; margin-top:1.5rem;">
-        <span style="font-size:0.75rem; color:var(--text-dim); font-style:italic;">
-          Powered by Parashar Jyotisha API · Updates daily at sunrise
-        </span>
+
+        <div class="panchang-guide">
+          <div class="panchang-guide-card"><b>For worship</b><span>Use sunrise, Tithi and Nakshatra to understand the devotional tone of the day.</span></div>
+          <div class="panchang-guide-card"><b>For new work</b><span>Prefer supportive muhurta; avoid starting important work during Rahu Kaal.</span></div>
+          <div class="panchang-guide-card"><b>For travel</b><span>Check Disha Shool and combine it with your personal chart when the journey is important.</span></div>
+        </div>
+
+        <div class="panchang-foot">
+          <span id="panchangUpdated">Powered by Parashar Jyotisha API · Updates daily at sunrise</span>
+          <a href="tools.html#panchang">Need date selection or another city? Open full Panchang.</a>
+        </div>
       </div>
     </div>
   </div>
@@ -1546,79 +1641,127 @@ enableNativePickers();
 // ─── LIVE API — Parashar Jyotisha (Railway) ───
 const API = 'https://vedic-horoscope-api-production.up.railway.app/api/v1';
 
-async function loadPanchang() {
+function pFirst(v){ return Array.isArray(v) ? v[0] : v; }
+function pText(v){
+  v = pFirst(v);
+  if (v === null || v === undefined || v === '') return '';
+  if (typeof v === 'string' || typeof v === 'number') return String(v);
+  return v.name || v.name_en || v.tithi_name || v.nakshatra_name || v.yoga_name || v.karana_name || v.vaara || v.weekday || v.value || '';
+}
+function pEnd(v){
+  v = pFirst(v);
+  if (!v || typeof v === 'string') return '';
+  return v.end_time || v.end || v.until || v.ends_at || v.time || '';
+}
+function pCleanTime(v){
+  if (!v) return '';
+  v = String(v).trim();
+  if (!v) return '';
+  const m = v.match(/T(\d{2}):(\d{2})/);
+  if (m) return to12(`${m[1]}:${m[2]}`);
+  const hm = v.match(/(\d{1,2}):(\d{2})(?::\d{2})?/);
+  if (hm) return to12(`${hm[1].padStart(2,'0')}:${hm[2]}`);
+  return v.replace(/\+05:?30/g,' IST').replace(/\.\d+/g,'');
+}
+function to12(hm){
+  const m = String(hm||'').match(/^(\d{1,2}):(\d{2})/);
+  if(!m) return hm || '';
+  let h = parseInt(m[1],10); const min=m[2]; const ap=h>=12?'PM':'AM'; h=h%12; if(h===0) h=12;
+  return `${h}:${min} ${ap}`;
+}
+function pRange(v){
+  if(!v) return '';
+  if(typeof v === 'string') return v;
+  v = pFirst(v);
+  if(!v || typeof v !== 'object') return '';
+  const a = pCleanTime(v.start || v.from || v.start_time || '');
+  const b = pCleanTime(v.end || v.to || v.end_time || '');
+  return [a,b].filter(Boolean).join(' – ');
+}
+function pPick(obj, keys){
+  for(const k of keys){
+    if(obj && obj[k] !== undefined && obj[k] !== null && obj[k] !== '') return obj[k];
+  }
+  return '';
+}
+function updateLimb(id, label, val, fallback){
+  const el = document.getElementById(id); if(!el) return;
+  const name = pText(val) || '—';
+  const end = pEnd(val);
+  const raw = pFirst(val);
+  const nature = raw && typeof raw === 'object' ? (raw.paksha || raw.nature || raw.quality || raw.meaning || '') : '';
+  el.querySelector('.panchang-el-value').textContent = name;
+  el.querySelector('.panchang-el-sub').textContent = [nature, end ? 'until ' + pCleanTime(end) : ''].filter(Boolean).join(' · ') || fallback;
+  el.classList.toggle('good', /shobhana|siddhi|saubhagya|favorable|auspicious|balava|bava|gara/i.test([name,nature].join(' ')));
+  el.classList.toggle('warn', /vishti|bhadra|vyatipata|vaidhrti|avoid|caution/i.test([name,nature].join(' ')));
+}
+function pMood(p){
+  const t = pText(p.tithi || p.tithi_at_sunrise);
+  const n = pText(p.nakshatra);
+  const y = pText(p.yoga);
+  const k = pText(p.karana || p.karana_at_sunrise || p.karanas);
+  const avoid = /vishti|bhadra|rahu|vyatipata|vaidhrti/i.test([k,y].join(' '));
+  if(avoid) return {title:'Careful planning day', text:'The day has a caution signature. Good for routine, prayer, review and disciplined work; avoid impulsive new beginnings.'};
+  if(/revati|pushya|hasta|rohini|mrigashira|anuradha|uttara/i.test(n)) return {title:'Supportive and balanced day', text:`${n} gives a steadier emotional tone. Use the day for learning, worship, planning and constructive conversations.`};
+  if(/ekadashi|dwadashi|purnima|pratipada/i.test(t)) return {title:'Spiritual focus is strong', text:`${t} supports inner discipline, charity, mantra and self-control. Keep important decisions calm and sattvik.`};
+  return {title:'Mixed but usable time quality', text:'Read the five limbs together. Use supportive windows for important work and keep caution periods for routine tasks.'};
+}
+async function loadPanchang(city){
+  const input = document.getElementById('panchangCityInput');
+  const chosenCity = (city || (input && input.value) || 'Delhi').trim() || 'Delhi';
+  const status = document.getElementById('panchangStatus');
+  if(status){ status.textContent='Loading…'; status.className='panchang-live-badge status-loading'; }
   try {
-    const r = await fetch(`${API}/today?city=Delhi`);
+    const r = await fetch(`${API}/today?city=${encodeURIComponent(chosenCity)}`);
     const json = await r.json();
+    if(!r.ok || json.status === 'error') throw new Error(json.detail || json.message || 'API error');
     const data = json.data || json;
-    const p = data.panchanga || data;
+    const p = data.panchanga || data.panchang || data;
+    const sun = data.sun_moon || data.timings || data.sun || p;
+    const bad = data.inauspicious || data.caution || p;
+    const good = data.auspicious || data.muhurta || p;
 
-    // Helper to extract clean display text from API formats
-    const firstItem = (v) => Array.isArray(v) ? v[0] : v;
-    const str = (v) => {
-      if (!v) return null;
-      v = firstItem(v);
-      if (!v) return null;
-      if (typeof v === 'string' || typeof v === 'number') return String(v);
-      return v.name || v.name_en || v.tithi_name || v.nakshatra_name || v.yoga_name || v.karana_name || v.value || null;
-    };
-    const time = (v) => {
-      if (!v) return null;
-      v = firstItem(v);
-      if (!v || typeof v === 'string') return null;
-      return v.end_time || v.end || v.until || v.time || null;
-    };
+    const dateText = data.date_display || data.date || new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+    const loc = data.location_used || data.location || data.city || chosenCity;
+    document.getElementById('panchangDate').textContent = String(dateText).replace(/-/g,' ');
+    document.getElementById('panchangCityLabel').textContent = loc;
 
-    // Update Panchang elements
-    const els = document.querySelectorAll('.panchang-el');
-    const fields = [
-      {keys: ['tithi','tithi_at_sunrise'], sub: 'Tithi'},
-      {keys: ['nakshatra'], sub: 'Nakshatra'},
-      {keys: ['yoga'], sub: 'Yoga'},
-      {keys: ['karana','karanas','karana_at_sunrise'], sub: 'Karana'},
-      {keys: ['vaara','vara','weekday'], sub: 'Day'},
-    ];
-    fields.forEach((f, i) => {
-      if (els[i]) {
-        const val = f.keys.map(k => p[k] ?? data[k]).find(Boolean);
-        const name = str(val);
-        if (name) {
-          els[i].querySelector('.panchang-el-value').textContent = name;
-          // Update sub text
-          const sub = els[i].querySelector('.panchang-el-sub');
-          if (sub) {
-            if (val && typeof val === 'object') {
-              const cleanVal = firstItem(val);
-              const nature = (cleanVal && (cleanVal.nature || cleanVal.paksha || cleanVal.quality)) || '';
-              const endTime = time(val);
-              sub.textContent = [nature, endTime ? 'until ' + endTime : ''].filter(Boolean).join(' · ') || f.sub;
-            }
-          }
-        }
-      }
-    });
+    updateLimb('limb-tithi','Tithi', pPick(p,['tithi','tithi_at_sunrise']), 'Lunar day');
+    updateLimb('limb-nakshatra','Nakshatra', pPick(p,['nakshatra','nakshatra_at_sunrise']), 'Moon’s star');
+    updateLimb('limb-yoga','Yoga', pPick(p,['yoga','yoga_at_sunrise']), 'Sun–Moon harmony');
+    updateLimb('limb-karana','Karana', pPick(p,['karana','karana_at_sunrise','karanas']), 'Half tithi action quality');
+    updateLimb('limb-vara','Vara', pPick(p,['vaara','vara','weekday']), 'Weekday lord');
 
-    // Update extras (sunrise, sunset, rahu kaal)
-    const sun = data.sun_moon || data.timings || p;
-    const extras = document.querySelectorAll('.pe-value');
-    if (extras[0] && (sun.sunrise || p.sunrise)) extras[0].textContent = sun.sunrise || p.sunrise;
-    if (extras[1] && (sun.sunset || p.sunset)) extras[1].textContent = sun.sunset || p.sunset;
-    const rahu = data.inauspicious || p;
-    if (extras[2] && (rahu.rahu_kalam || rahu.rahu_kaal)) {
-      const rk = rahu.rahu_kalam || rahu.rahu_kaal;
-      extras[2].textContent = typeof rk === 'string' ? rk : (rk.start || '') + ' – ' + (rk.end || '');
-    }
+    document.getElementById('pe-sunrise').textContent = pCleanTime(sun.sunrise || p.sunrise) || '—';
+    document.getElementById('pe-sunset').textContent = pCleanTime(sun.sunset || p.sunset) || '—';
+    document.getElementById('pe-moonrise').textContent = pCleanTime(sun.moonrise || p.moonrise) || '—';
+    document.getElementById('pe-moonset').textContent = pCleanTime(sun.moonset || p.moonset) || '—';
+    document.getElementById('pe-rahu').textContent = pRange(bad.rahu_kalam || bad.rahu_kaal || p.rahu_kalam) || pText(bad.rahu_kalam || p.rahu_kalam) || '—';
+    document.getElementById('pe-disha').textContent = pText(p.disha_shool || p.disha_shula || bad.disha_shool) || '—';
+    document.getElementById('pe-abhijit').textContent = pRange(good.abhijeet_muhurat || good.abhijit_muhurta || p.abhijeet_muhurat || p.abhijit_muhurta) || pText(p.abhijeet_muhurat || p.abhijit_muhurta) || '—';
+    document.getElementById('pe-brahma').textContent = pRange(good.brahma_muhurat || p.brahma_muhurat) || pText(p.brahma_muhurat) || '—';
 
-    // Update live badge
-    const badge = document.querySelector('.panchang-live-badge');
-    if (badge) badge.innerHTML = '<span style="width:6px;height:6px;border-radius:50%;background:var(--sage);animation:pulse 2s infinite;"></span> Live Data';
+    const mood = pMood(p);
+    document.getElementById('panchangMoodTitle').textContent = mood.title;
+    document.getElementById('panchangMoodText').textContent = mood.text;
+    document.getElementById('panchangBestUse').textContent = /Careful/.test(mood.title) ? 'Routine + prayer' : 'Planning + worship';
+    const rahuText = document.getElementById('pe-rahu').textContent;
+    document.getElementById('panchangCareText').textContent = rahuText && rahuText !== '—' ? `Avoid new beginnings around ${rahuText}.` : 'Avoid caution periods for new beginnings.';
+    document.getElementById('panchangUpdated').textContent = `Live from ${loc} · updated ${new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})}`;
 
-    console.log('Panchang loaded from API');
+    if(status){ status.textContent='Live Data'; status.className='panchang-live-badge'; }
   } catch(e) {
-    console.log('API offline — showing demo data', e);
+    console.log('Panchang API offline — showing graceful fallback', e);
+    if(status){ status.textContent='Demo / API pending'; status.className='panchang-live-badge status-error'; }
+    document.getElementById('panchangMoodTitle').textContent = 'Live Panchang will appear here';
+    document.getElementById('panchangMoodText').textContent = 'The layout is ready. When the API responds, this card will show live Tithi, Nakshatra, Yoga, Karana, Vara and timings.';
   }
 }
-loadPanchang();
+const pBtn = document.getElementById('panchangRefreshBtn');
+if(pBtn) pBtn.addEventListener('click', () => loadPanchang());
+const pCity = document.getElementById('panchangCityInput');
+if(pCity) pCity.addEventListener('keydown', e => { if(e.key === 'Enter') loadPanchang(); });
+loadPanchang('Delhi');
 </script>
 </body>
 </html>
