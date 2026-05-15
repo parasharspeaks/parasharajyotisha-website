@@ -1715,6 +1715,39 @@ try {
   console.error('Firebase initialization failed:', err);
 }
 
+// ─── Email notification through Google Apps Script ───
+// STEP: After creating and deploying the Apps Script, paste its Web App URL below.
+const CONSULTATION_EMAIL_NOTIFY_URL = "https://script.google.com/macros/s/AKfycbwjiT-R1HI0WMbbpllfHladpv1iUN7_XpRi3-mO2e_fTfQci_vSP4jzvPbfu4YvkjhI/exec";
+const CONSULTATION_NOTIFY_TOKEN = "PJ_NOTIFY_2026_PARASHAR_JYOTISHA";
+
+function notifyConsultationByEmail(data) {
+  if (!CONSULTATION_EMAIL_NOTIFY_URL || CONSULTATION_EMAIL_NOTIFY_URL.includes('PASTE_YOUR')) {
+    console.warn('Email notification URL not configured yet. Firestore saving will still work.');
+    return Promise.resolve(false);
+  }
+
+  const emailPayload = {
+    token: CONSULTATION_NOTIFY_TOKEN,
+    submittedAtIST: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
+    ...data
+  };
+
+  // mode:no-cors is used so the static website can call Apps Script safely without blocking the form.
+  return fetch(CONSULTATION_EMAIL_NOTIFY_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {
+      'Content-Type': 'text/plain;charset=utf-8'
+    },
+    body: JSON.stringify(emailPayload)
+  })
+  .then(() => true)
+  .catch((err) => {
+    console.warn('Email notification failed, but Firestore save completed:', err);
+    return false;
+  });
+}
+
 // ─── Star field ───
 const starsEl = document.getElementById('stars');
 for (let i = 0; i < 80; i++) {
@@ -1852,6 +1885,22 @@ async function handleSubmit(e) {
 
     const docRef = await consultationDb.collection('consultations').add(payload);
     console.log('Consultation saved:', docRef.id);
+
+    notifyConsultationByEmail({
+      docId: docRef.id,
+      name,
+      phone,
+      email,
+      service,
+      dateOfBirth,
+      birthTime,
+      place,
+      district,
+      state,
+      country,
+      message,
+      pageUrl: window.location.href
+    });
 
     btn.textContent = '✓ Request Saved';
     btn.style.background = 'linear-gradient(135deg, #2E7D32, #1B5E20)';
