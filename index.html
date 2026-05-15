@@ -1706,8 +1706,29 @@ function pFirst(v){ return Array.isArray(v) ? v[0] : v; }
 function pText(v){
   v = pFirst(v);
   if (v === null || v === undefined || v === '') return '';
-  if (typeof v === 'string' || typeof v === 'number') return String(v);
-  return v.name || v.name_en || v.tithi_name || v.nakshatra_name || v.yoga_name || v.karana_name || v.vaara || v.weekday || v.value || '';
+  if (typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean') return String(v);
+  if (typeof v === 'object') {
+    return v.name || v.name_en || v.title || v.label || v.display || v.formatted ||
+           v.tithi_name || v.nakshatra_name || v.yoga_name || v.karana_name ||
+           v.vaara || v.vara || v.weekday || v.value || '';
+  }
+  return String(v);
+}
+function pCityText(v, fallback='Delhi'){
+  v = pFirst(v);
+  if (v === null || v === undefined || v === '') return fallback;
+  if (typeof v === 'string' || typeof v === 'number') {
+    const s = String(v).replace(/\[object Object\]/g, '').trim();
+    return s || fallback;
+  }
+  if (Array.isArray(v)) return pCityText(v[0], fallback);
+  if (typeof v === 'object') {
+    const city = v.city || v.city_name || v.name || v.name_en || v.location_name ||
+                 v.place || v.town || v.village || v.district || v.display || v.label || '';
+    const clean = String(city || '').replace(/\[object Object\]/g, '').trim();
+    return clean || fallback;
+  }
+  return fallback;
 }
 function pEnd(v){
   v = pFirst(v);
@@ -1783,7 +1804,7 @@ async function loadPanchang(city){
     const good = data.auspicious || data.muhurta || p;
 
     const dateText = data.date_display || data.date || new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-    const loc = data.location_used || data.location || data.city || chosenCity;
+    const loc = pCityText(data.location_used || data.location || data.city, chosenCity);
     document.getElementById('panchangDate').textContent = String(dateText).replace(/-/g,' ');
     document.getElementById('panchangCityLabel').textContent = loc;
 
