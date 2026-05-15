@@ -1551,7 +1551,7 @@ body::after {
       <div class="contact-form reveal reveal-d1">
         <h3>Book a Session</h3>
         <div class="sub">Fill in your details and we'll reach out within 24 hours.</div>
-        <form id="contactForm" onsubmit="handleSubmit(event)">
+        <form id="contactForm">
           <div class="f-row">
             <div class="f-group">
               <label class="f-label">Full Name</label>
@@ -1562,11 +1562,12 @@ body::after {
               <input class="f-input" id="cf-phone" name="phone" type="tel" placeholder="+91 XXXXX XXXXX" autocomplete="tel" required>
             </div>
           </div>
-          <div class="f-group">
-            <label class="f-label">Email</label>
-            <input class="f-input" id="cf-email" name="email" type="email" placeholder="your@email.com" autocomplete="email" required>
-          </div>
+
           <div class="f-row">
+            <div class="f-group">
+              <label class="f-label">Email</label>
+              <input class="f-input" id="cf-email" name="email" type="email" placeholder="your@email.com" autocomplete="email" required>
+            </div>
             <div class="f-group">
               <label class="f-label">Service</label>
               <select class="f-select" id="cf-service" name="service" required>
@@ -1582,16 +1583,46 @@ body::after {
                 <option>Other</option>
               </select>
             </div>
+          </div>
+
+          <div class="f-row">
             <div class="f-group">
               <label class="f-label">Date of Birth</label>
-              <input class="f-input" id="cf-dob" name="dateOfBirth" type="date">
+              <input class="f-input" id="cf-dob" name="dateOfBirth" type="date" required>
+            </div>
+            <div class="f-group">
+              <label class="f-label">Time of Birth</label>
+              <input class="f-input" id="cf-birth-time" name="birthTime" type="time">
             </div>
           </div>
-          <div class="f-group">
-            <label class="f-label">Your Message</label>
-            <textarea class="f-textarea" id="cf-message" name="message" placeholder="Tell us what guidance you're seeking..."></textarea>
+
+          <div class="f-row">
+            <div class="f-group">
+              <label class="f-label">Birth Place / City</label>
+              <input class="f-input" id="cf-place" name="place" type="text" placeholder="e.g. Bareilly" autocomplete="address-level2" required>
+            </div>
+            <div class="f-group">
+              <label class="f-label">District</label>
+              <input class="f-input" id="cf-district" name="district" type="text" placeholder="e.g. Bareilly" required>
+            </div>
           </div>
-          <button type="submit" class="f-submit">Send Message →</button>
+
+          <div class="f-row">
+            <div class="f-group">
+              <label class="f-label">State</label>
+              <input class="f-input" id="cf-state" name="state" type="text" placeholder="e.g. Uttar Pradesh" autocomplete="address-level1" required>
+            </div>
+            <div class="f-group">
+              <label class="f-label">Country</label>
+              <input class="f-input" id="cf-country" name="country" type="text" value="India" autocomplete="country-name" required>
+            </div>
+          </div>
+
+          <div class="f-group">
+            <label class="f-label">Your Question / Message</label>
+            <textarea class="f-textarea" id="cf-message" name="message" placeholder="Tell us what guidance you're seeking..." required></textarea>
+          </div>
+          <button type="submit" class="f-submit" id="contactSubmitBtn">Send Message →</button>
           <div id="contactFormStatus" class="form-status" aria-live="polite"></div>
           <div class="form-note">Your details are saved securely for consultation follow-up. Please avoid sharing passwords, OTPs, bank details, or highly sensitive information here.</div>
         </form>
@@ -1662,6 +1693,28 @@ body::after {
 <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
 <script>
 
+// ─── Firebase Init for website consultation form ───
+const firebaseConfig = {
+  apiKey: "AIzaSyAmTmvbM-XtsPb4O-luxNiqb1W9gyQ77As",
+  authDomain: "vedicpanchangaapp.firebaseapp.com",
+  projectId: "vedicpanchangaapp",
+  storageBucket: "vedicpanchangaapp.firebasestorage.app",
+  messagingSenderId: "767719116529",
+  appId: "1:767719116529:web:b8eff04f41df72ea602350"
+};
+
+let consultationDb = null;
+try {
+  if (window.firebase && !firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+  if (window.firebase) {
+    consultationDb = firebase.firestore();
+  }
+} catch (err) {
+  console.error('Firebase initialization failed:', err);
+}
+
 // ─── Star field ───
 const starsEl = document.getElementById('stars');
 for (let i = 0; i < 80; i++) {
@@ -1726,26 +1779,43 @@ function setFormStatus(message, type='') {
   box.className = 'form-status' + (message ? ' show' : '') + (type ? ' ' + type : '');
 }
 
+function getFormValue(form, fieldName) {
+  return (form.elements[fieldName]?.value || '').trim();
+}
+
 async function handleSubmit(e) {
   e.preventDefault();
+
   const form = e.target;
   const btn = form.querySelector('.f-submit');
 
-  const name = (form.name?.value || '').trim();
-  const phone = (form.phone?.value || '').trim();
-  const email = (form.email?.value || '').trim();
-  const service = (form.service?.value || '').trim();
-  const dateOfBirth = (form.dateOfBirth?.value || '').trim();
-  const message = (form.message?.value || '').trim();
+  const name = getFormValue(form, 'name');
+  const phone = getFormValue(form, 'phone');
+  const email = getFormValue(form, 'email');
+  const service = getFormValue(form, 'service');
+  const dateOfBirth = getFormValue(form, 'dateOfBirth');
+  const birthTime = getFormValue(form, 'birthTime');
+  const place = getFormValue(form, 'place');
+  const district = getFormValue(form, 'district');
+  const state = getFormValue(form, 'state');
+  const country = getFormValue(form, 'country') || 'India';
+  const message = getFormValue(form, 'message');
 
-  if (!name || !phone || !email || !service) {
-    setFormStatus('Please fill name, phone, email and service.', 'err');
+  if (!name || !phone || !email || !service || !dateOfBirth || !place || !district || !state || !country || !message) {
+    setFormStatus('Please fill all required fields: name, phone, email, service, birth date, birth place, district, state, country and message.', 'err');
     return;
   }
+
   if (phone.replace(/\D/g, '').length < 8) {
     setFormStatus('Please enter a valid phone / WhatsApp number.', 'err');
     return;
   }
+
+  if (message.length < 5) {
+    setFormStatus('Please write a short question/message of at least 5 characters.', 'err');
+    return;
+  }
+
   if (!consultationDb) {
     setFormStatus('Firebase is not ready. Please refresh the page and try again.', 'err');
     return;
@@ -1763,28 +1833,21 @@ async function handleSubmit(e) {
       email,
       emailLower: email.toLowerCase(),
       service,
-      consultationType: service,
-      dateOfBirth: dateOfBirth || null,
-      dob: dateOfBirth ? new Date(dateOfBirth + 'T00:00:00+05:30') : null,
-      birthTime: '',
-      place: '',
-      district: '',
-      country: 'India',
+      dateOfBirth,
+      birthTime,
+      place,
+      district,
+      state,
+      country,
       message,
-      query: message,
       status: 'new',
       source: 'website',
-      sourcePage: 'Parashar Jyotisha website consultation form',
-      pageUrl: window.location.href,
-      userAgent: navigator.userAgent,
-      paymentMode: 'website-form',
       paymentStatus: 'not_started',
-      amountPaid: null,
-      paymentId: null,
-      adminNotified: false,
-      notificationRead: false,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      createdAtLocal: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
+      pageUrl: window.location.href,
+      userAgent: navigator.userAgent || '',
+      adminNotified: false,
+      notificationRead: false
     };
 
     const docRef = await consultationDb.collection('consultations').add(payload);
@@ -1794,6 +1857,7 @@ async function handleSubmit(e) {
     btn.style.background = 'linear-gradient(135deg, #2E7D32, #1B5E20)';
     setFormStatus('Thank you. Your consultation request has been saved. We will contact you soon.', 'ok');
     form.reset();
+    form.elements.country.value = 'India';
 
     setTimeout(() => {
       btn.textContent = oldText;
@@ -1810,6 +1874,10 @@ async function handleSubmit(e) {
   }
 }
 
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+  contactForm.addEventListener('submit', handleSubmit);
+}
 
 // Improve date/time inputs on dark theme
 function enableNativePickers(){
