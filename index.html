@@ -917,6 +917,41 @@ body::after {
   transform: translateY(-1px);
 }
 
+.f-submit:disabled {
+  opacity: .72;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+.form-status {
+  display: none;
+  margin-top: .9rem;
+  padding: .8rem 1rem;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.035);
+  color: var(--text-mid);
+  font-size: .82rem;
+  line-height: 1.5;
+}
+.form-status.show { display: block; }
+.form-status.ok {
+  border-color: rgba(107,155,125,.35);
+  background: rgba(107,155,125,.10);
+  color: var(--sage-light);
+}
+.form-status.err {
+  border-color: rgba(199,96,123,.35);
+  background: rgba(199,96,123,.10);
+  color: var(--lotus-light);
+}
+.form-note {
+  margin-top: .8rem;
+  font-size: .72rem;
+  color: var(--text-dim);
+  line-height: 1.55;
+}
+
 /* ─── FOOTER ─── */
 .footer {
   border-top: 1px solid var(--line);
@@ -1520,21 +1555,21 @@ body::after {
           <div class="f-row">
             <div class="f-group">
               <label class="f-label">Full Name</label>
-              <input class="f-input" type="text" placeholder="Your name" required>
+              <input class="f-input" id="cf-name" name="name" type="text" placeholder="Your name" autocomplete="name" required>
             </div>
             <div class="f-group">
               <label class="f-label">Phone / WhatsApp</label>
-              <input class="f-input" type="tel" placeholder="+91 XXXXX XXXXX" required>
+              <input class="f-input" id="cf-phone" name="phone" type="tel" placeholder="+91 XXXXX XXXXX" autocomplete="tel" required>
             </div>
           </div>
           <div class="f-group">
             <label class="f-label">Email</label>
-            <input class="f-input" type="email" placeholder="your@email.com" required>
+            <input class="f-input" id="cf-email" name="email" type="email" placeholder="your@email.com" autocomplete="email" required>
           </div>
           <div class="f-row">
             <div class="f-group">
               <label class="f-label">Service</label>
-              <select class="f-select" required>
+              <select class="f-select" id="cf-service" name="service" required>
                 <option value="">Select a service...</option>
                 <option>Basic Consultation</option>
                 <option>Career Consultation</option>
@@ -1549,14 +1584,16 @@ body::after {
             </div>
             <div class="f-group">
               <label class="f-label">Date of Birth</label>
-              <input class="f-input" type="date">
+              <input class="f-input" id="cf-dob" name="dateOfBirth" type="date">
             </div>
           </div>
           <div class="f-group">
             <label class="f-label">Your Message</label>
-            <textarea class="f-textarea" placeholder="Tell us what guidance you're seeking..."></textarea>
+            <textarea class="f-textarea" id="cf-message" name="message" placeholder="Tell us what guidance you're seeking..."></textarea>
           </div>
           <button type="submit" class="f-submit">Send Message →</button>
+          <div id="contactFormStatus" class="form-status" aria-live="polite"></div>
+          <div class="form-note">Your details are saved securely for consultation follow-up. Please avoid sharing passwords, OTPs, bank details, or highly sensitive information here.</div>
         </form>
       </div>
     </div>
@@ -1620,7 +1657,11 @@ body::after {
    class="wa-float" target="_blank" title="Chat on WhatsApp">💬</a>
 
 <!-- ════════ SCRIPTS ════════ -->
+<!-- Firebase SDK: saves consultation requests to Cloud Firestore -->
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
 <script>
+
 // ─── Star field ───
 const starsEl = document.getElementById('stars');
 for (let i = 0; i < 80; i++) {
@@ -1677,13 +1718,96 @@ const months = ['January','February','March','April','May','June','July','August
 const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 document.getElementById('panchangDate').textContent = `${days[d.getDay()]}, ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
 
-// ─── Form ───
-function handleSubmit(e) {
+// ─── Form: save consultation request to Firebase Firestore ───
+function setFormStatus(message, type='') {
+  const box = document.getElementById('contactFormStatus');
+  if (!box) return;
+  box.textContent = message || '';
+  box.className = 'form-status' + (message ? ' show' : '') + (type ? ' ' + type : '');
+}
+
+async function handleSubmit(e) {
   e.preventDefault();
-  const btn = e.target.querySelector('.f-submit');
-  btn.textContent = '✓ Message Sent!';
-  btn.style.background = 'linear-gradient(135deg, #2E7D32, #1B5E20)';
-  setTimeout(() => { btn.textContent = 'Send Message →'; btn.style.background = ''; e.target.reset(); }, 3000);
+  const form = e.target;
+  const btn = form.querySelector('.f-submit');
+
+  const name = (form.name?.value || '').trim();
+  const phone = (form.phone?.value || '').trim();
+  const email = (form.email?.value || '').trim();
+  const service = (form.service?.value || '').trim();
+  const dateOfBirth = (form.dateOfBirth?.value || '').trim();
+  const message = (form.message?.value || '').trim();
+
+  if (!name || !phone || !email || !service) {
+    setFormStatus('Please fill name, phone, email and service.', 'err');
+    return;
+  }
+  if (phone.replace(/\D/g, '').length < 8) {
+    setFormStatus('Please enter a valid phone / WhatsApp number.', 'err');
+    return;
+  }
+  if (!consultationDb) {
+    setFormStatus('Firebase is not ready. Please refresh the page and try again.', 'err');
+    return;
+  }
+
+  const oldText = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = 'Saving request…';
+  setFormStatus('Saving your consultation request securely…');
+
+  try {
+    const payload = {
+      name,
+      phone,
+      email,
+      emailLower: email.toLowerCase(),
+      service,
+      consultationType: service,
+      dateOfBirth: dateOfBirth || null,
+      dob: dateOfBirth ? new Date(dateOfBirth + 'T00:00:00+05:30') : null,
+      birthTime: '',
+      place: '',
+      district: '',
+      country: 'India',
+      message,
+      query: message,
+      status: 'new',
+      source: 'website',
+      sourcePage: 'Parashar Jyotisha website consultation form',
+      pageUrl: window.location.href,
+      userAgent: navigator.userAgent,
+      paymentMode: 'website-form',
+      paymentStatus: 'not_started',
+      amountPaid: null,
+      paymentId: null,
+      adminNotified: false,
+      notificationRead: false,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      createdAtLocal: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
+    };
+
+    const docRef = await consultationDb.collection('consultations').add(payload);
+    console.log('Consultation saved:', docRef.id);
+
+    btn.textContent = '✓ Request Saved';
+    btn.style.background = 'linear-gradient(135deg, #2E7D32, #1B5E20)';
+    setFormStatus('Thank you. Your consultation request has been saved. We will contact you soon.', 'ok');
+    form.reset();
+
+    setTimeout(() => {
+      btn.textContent = oldText;
+      btn.style.background = '';
+      setFormStatus('');
+    }, 5000);
+  } catch (err) {
+    console.error('Consultation save failed:', err);
+    setFormStatus('Could not save the request. Please check Firebase rules or contact us on WhatsApp.', 'err');
+    btn.textContent = oldText;
+    btn.style.background = '';
+  } finally {
+    btn.disabled = false;
+  }
 }
 
 
