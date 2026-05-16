@@ -1519,18 +1519,18 @@ body::after {
     </div>
     <div class="contact-layout">
       <div class="contact-methods reveal">
-        <a href="https://wa.me/91XXXXXXXXXX" class="cm-card" target="_blank">
+        <a href="#contact" class="cm-card">
           <div class="cm-icon wa">💬</div>
           <div>
             <div class="cm-title">WhatsApp</div>
-            <div class="cm-value">+91 XXXXX XXXXX · Quick response</div>
+            <div class="cm-value">Use the booking form for WhatsApp callback</div>
           </div>
         </a>
-        <a href="mailto:your@email.com" class="cm-card">
+        <a href="mailto:su03may@gmail.com" class="cm-card">
           <div class="cm-icon email">✉️</div>
           <div>
             <div class="cm-title">Email</div>
-            <div class="cm-value">your@email.com</div>
+            <div class="cm-value">su03may@gmail.com</div>
           </div>
         </a>
         <div class="cm-card">
@@ -1544,7 +1544,7 @@ body::after {
           <div class="cm-icon hours">🕐</div>
           <div>
             <div class="cm-title">Consultation Hours</div>
-            <div class="cm-value">Mon–Sat · 10 AM – 8 PM IST</div>
+            <div class="cm-value">Mon–Sat · 12 PM – 9 PM IST</div>
           </div>
         </div>
       </div>
@@ -1559,14 +1559,14 @@ body::after {
             </div>
             <div class="f-group">
               <label class="f-label">Phone / WhatsApp</label>
-              <input class="f-input" id="cf-phone" name="phone" type="tel" placeholder="+91 XXXXX XXXXX" autocomplete="tel" required>
+              <input class="f-input" id="cf-phone" name="phone" type="tel" placeholder="Enter phone / WhatsApp number" autocomplete="tel" required>
             </div>
           </div>
 
           <div class="f-row">
             <div class="f-group">
               <label class="f-label">Email</label>
-              <input class="f-input" id="cf-email" name="email" type="email" placeholder="your@email.com" autocomplete="email" required>
+              <input class="f-input" id="cf-email" name="email" type="email" placeholder="Enter your email" autocomplete="email" required>
             </div>
             <div class="f-group">
               <label class="f-label">Service</label>
@@ -1667,8 +1667,8 @@ body::after {
     <div>
       <div class="footer-title">Connect</div>
       <ul class="footer-links">
-        <li><a href="https://wa.me/91XXXXXXXXXX">WhatsApp</a></li>
-        <li><a href="mailto:your@email.com">Email</a></li>
+        <li><a href="#contact">WhatsApp Callback</a></li>
+        <li><a href="mailto:su03may@gmail.com">Email</a></li>
         <li><a href="#">Instagram</a></li>
         <li><a href="#">YouTube</a></li>
         <li><a href="#">Parashar Jyotisha App</a></li>
@@ -1684,8 +1684,8 @@ body::after {
 </footer>
 
 <!-- WhatsApp Float -->
-<a href="https://wa.me/91XXXXXXXXXX?text=Namaste!%20I'd%20like%20to%20book%20a%20Jyotish%20consultation." 
-   class="wa-float" target="_blank" title="Chat on WhatsApp">💬</a>
+<a href="#contact" 
+   class="wa-float" title="Request WhatsApp callback">💬</a>
 
 <!-- ════════ SCRIPTS ════════ -->
 <!-- Firebase SDK: saves consultation requests to Cloud Firestore -->
@@ -1816,6 +1816,32 @@ function getFormValue(form, fieldName) {
   return (form.elements[fieldName]?.value || '').trim();
 }
 
+function generateConsultationRefId() {
+  const now = new Date();
+  const pad = (n) => String(n).padStart(2, '0');
+  const datePart = `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}`;
+  const randomPart = Math.random().toString(36).toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 5).padEnd(5, 'X');
+  return `PJ-${datePart}-${randomPart}`;
+}
+
+function addDays(date, days) {
+  const copy = new Date(date.getTime());
+  copy.setDate(copy.getDate() + days);
+  return copy;
+}
+
+function formatISTDateTime(date) {
+  return date.toLocaleString('en-IN', {
+    timeZone: 'Asia/Kolkata',
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: true
+  });
+}
+
 async function handleSubmit(e) {
   e.preventDefault();
 
@@ -1860,7 +1886,14 @@ async function handleSubmit(e) {
   setFormStatus('Saving your consultation request securely…');
 
   try {
+    const refId = generateConsultationRefId();
+    const submittedAtIST = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+    const dueDateObj = addDays(new Date(), 5);
+    const dueDateIST = formatISTDateTime(dueDateObj);
+    const slaText = '3 to 5 days';
+
     const payload = {
+      refId,
       name,
       phone,
       email,
@@ -1876,6 +1909,9 @@ async function handleSubmit(e) {
       status: 'new',
       source: 'website',
       paymentStatus: 'not_started',
+      slaText,
+      dueDate: firebase.firestore.Timestamp.fromDate(dueDateObj),
+      dueDateIST,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       pageUrl: window.location.href,
       userAgent: navigator.userAgent || '',
@@ -1888,6 +1924,10 @@ async function handleSubmit(e) {
 
     notifyConsultationByEmail({
       docId: docRef.id,
+      refId,
+      submittedAtIST,
+      dueDateIST,
+      slaText,
       name,
       phone,
       email,
@@ -1904,7 +1944,7 @@ async function handleSubmit(e) {
 
     btn.textContent = '✓ Request Saved';
     btn.style.background = 'linear-gradient(135deg, #2E7D32, #1B5E20)';
-    setFormStatus('Thank you. Your consultation request has been saved. We will contact you soon.', 'ok');
+    setFormStatus(`Thank you. Your consultation request has been saved. Reference ID: ${refId}. Expected response: within ${slaText}, target by ${dueDateIST}. A confirmation email will be sent to you.`, 'ok');
     form.reset();
     form.elements.country.value = 'India';
 
@@ -1915,7 +1955,7 @@ async function handleSubmit(e) {
     }, 5000);
   } catch (err) {
     console.error('Consultation save failed:', err);
-    setFormStatus('Could not save the request. Please check Firebase rules or contact us on WhatsApp.', 'err');
+    setFormStatus('Could not save the request. Please check Firebase rules or contact us by email.', 'err');
     btn.textContent = oldText;
     btn.style.background = '';
   } finally {
