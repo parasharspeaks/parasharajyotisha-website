@@ -1046,6 +1046,30 @@ body::after {
   .about-portrait { max-width: 300px; margin: 0 auto; }
 }
 </style>
+
+
+<!-- Quick engagement: feedback, share, bookmark -->
+<style>
+.pj-engage-section{padding:4.5rem 1.5rem;background:linear-gradient(180deg,rgba(255,255,255,.015),rgba(212,116,62,.035));border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);}
+.pj-engage-wrap{max-width:1100px;margin:0 auto;text-align:center;}
+.pj-engage-kicker{font-family:var(--font-mono,'Space Mono',monospace);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ember-light,#E8955F);margin-bottom:.8rem;}
+.pj-engage-title{font-family:var(--font-serif,'Cormorant Garamond',serif);font-size:clamp(1.8rem,3vw,2.7rem);font-weight:400;color:var(--text-bright,#F0EDE8);line-height:1.2;margin-bottom:.7rem;}
+.pj-engage-desc{max-width:720px;margin:0 auto 1.8rem;color:var(--text-mid,#A8A3B3);font-size:.98rem;line-height:1.8;}
+.pj-engage-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1.3rem;}
+.pj-engage-card{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:132px;padding:1.25rem;border-radius:20px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);color:var(--text-bright,#F0EDE8);cursor:pointer;transition:transform .25s ease,border-color .25s ease,background .25s ease;text-decoration:none;}
+.pj-engage-card:hover{transform:translateY(-3px);border-color:rgba(232,149,95,.38);background:rgba(255,255,255,.055);color:var(--ember-glow,#F4B87A);}
+.pj-engage-icon{font-size:1.8rem;margin-bottom:.55rem;}
+.pj-engage-card strong{font-size:.92rem;margin-bottom:.25rem;}
+.pj-engage-card span{font-size:.72rem;color:var(--text-dim,#6B6778);line-height:1.4;}
+.pj-toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);z-index:99999;max-width:92vw;padding:.8rem 1.1rem;border-radius:999px;background:rgba(18,18,26,.96);border:1px solid rgba(232,149,95,.32);color:var(--text-bright,#F0EDE8);font-size:.85rem;box-shadow:0 16px 45px rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:.3s ease;}
+.pj-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.pj-float-connect{position:fixed;right:18px;bottom:18px;z-index:9998;display:flex;flex-direction:column;gap:.55rem;}
+.pj-float-connect a,.pj-float-connect button{width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.12);background:rgba(18,18,26,.84);backdrop-filter:blur(16px);color:#F0EDE8;display:grid;place-items:center;font-size:1.15rem;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);transition:.25s ease;text-decoration:none;}
+.pj-float-connect a:hover,.pj-float-connect button:hover{transform:translateY(-2px);border-color:rgba(232,149,95,.45);color:#F4B87A;}
+@media(max-width:820px){.pj-engage-grid{grid-template-columns:repeat(2,1fr)}.pj-engage-card{min-height:120px}.pj-float-connect{right:12px;bottom:12px}}
+@media(max-width:460px){.pj-engage-grid{grid-template-columns:1fr}.pj-engage-section{padding:3.5rem 1rem}}
+</style>
+
 </head>
 <body>
 
@@ -1526,11 +1550,11 @@ body::after {
             <div class="cm-value">Use the booking form for WhatsApp callback</div>
           </div>
         </a>
-        <a href="mailto:su03may@gmail.com" class="cm-card">
+        <a href="mailto:support@parasharajyotisha.com" class="cm-card">
           <div class="cm-icon email">✉️</div>
           <div>
             <div class="cm-title">Email</div>
-            <div class="cm-value">su03may@gmail.com</div>
+            <div class="cm-value">support@parasharajyotisha.com</div>
           </div>
         </a>
         <div class="cm-card">
@@ -1631,6 +1655,31 @@ body::after {
   </div>
 </section>
 
+
+
+<!-- ════════ STAY CONNECTED / FEEDBACK ════════ -->
+<section class="pj-engage-section" id="connect-more">
+  <div class="pj-engage-wrap">
+    <div class="pj-engage-kicker">Stay Connected</div>
+    <h2 class="pj-engage-title">Help Parashar Jyotisha grow with your blessing and feedback</h2>
+    <p class="pj-engage-desc">Share your impression, suggest improvements, bookmark this website, or send it to friends who may benefit from Panchanga, Jyotisha tools, travel guidance and spiritual timing.</p>
+    <div class="pj-engage-grid">
+      <a class="pj-engage-card" href="mailto:support@parasharajyotisha.com?subject=Website%20Feedback%20for%20Parashar%20Jyotisha&body=Namaste%2C%0A%0AMy%20impression%20or%20suggestion%20about%20the%20website%20is%3A%0A%0A">
+        <div class="pj-engage-icon">💬</div><strong>Give Feedback</strong><span>Share impression or comment</span>
+      </a>
+      <button class="pj-engage-card pj-share-btn" type="button" data-share-title="Parashar Jyotisha" data-share-text="Explore authentic Vedic Panchanga, Jyotisha tools and consultations." data-share-url="https://parasharajyotisha.com/">
+        <div class="pj-engage-icon">🔗</div><strong>Share Website</strong><span>Send link to family or friends</span>
+      </button>
+      <button class="pj-engage-card pj-bookmark-btn" type="button">
+        <div class="pj-engage-icon">⭐</div><strong>Bookmark</strong><span>Save for daily Panchanga use</span>
+      </button>
+      <a class="pj-engage-card" href="tools.html">
+        <div class="pj-engage-icon">🕉️</div><strong>Use Free Tools</strong><span>Return frequently for Jyotisha tools</span>
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- ════════ FOOTER ════════ -->
 <footer class="footer">
   <div class="footer-grid">
@@ -1668,7 +1717,7 @@ body::after {
       <div class="footer-title">Connect</div>
       <ul class="footer-links">
         <li><a href="#contact">WhatsApp Callback</a></li>
-        <li><a href="mailto:su03may@gmail.com">Email</a></li>
+        <li><a href="mailto:support@parasharajyotisha.com">Email</a></li>
         <li><a href="#">Instagram</a></li>
         <li><a href="#">YouTube</a></li>
         <li><a href="#">Parashar Jyotisha App</a></li>
@@ -2147,7 +2196,7 @@ loadPanchang('Delhi');
       <a href="digital-delivery-policy.html">Digital Delivery</a>
       <a href="legal.html">Legal Center</a>
     </nav>
-    <p class="legal-copy">© <span id="legalYear"></span> Parashar Jyotisha. All rights reserved. Contact: <a href="mailto:su03may@gmail.com">su03may@gmail.com</a></p>
+    <p class="legal-copy">© <span id="legalYear"></span> Parashar Jyotisha. All rights reserved. Contact: <a href="mailto:support@parasharajyotisha.com">support@parasharajyotisha.com</a></p>
   </div>
 </footer>
 <script>document.querySelectorAll('#legalYear').forEach(el => el.textContent = new Date().getFullYear());</script>
@@ -2163,6 +2212,48 @@ loadPanchang('Delhi');
 .legal-copy{font-size:.78rem;color:#6B6778;margin-top:1rem;}
 .legal-copy a{color:#E8955F;text-decoration:none;}
 </style>
+
+
+
+<div class="pj-float-connect" aria-label="Quick connect">
+  <button class="pj-share-btn" type="button" title="Share website" data-share-title="Parashar Jyotisha" data-share-text="Explore Parashar Jyotisha — Vedic Panchanga, Jyotisha tools and consultations." data-share-url="https://parasharajyotisha.com/">🔗</button>
+  <a href="mailto:support@parasharajyotisha.com?subject=Parashar%20Jyotisha%20Query" title="Email support">✉️</a>
+</div>
+
+
+
+<script>
+(function(){
+  const supportEmail = 'support@parasharajyotisha.com';
+  function toast(message){
+    let el = document.querySelector('.pj-toast');
+    if(!el){
+      el = document.createElement('div');
+      el.className = 'pj-toast';
+      document.body.appendChild(el);
+    }
+    el.textContent = message;
+    el.classList.add('show');
+    clearTimeout(window.__pjToastTimer);
+    window.__pjToastTimer = setTimeout(()=>el.classList.remove('show'), 3200);
+  }
+  document.querySelectorAll('.pj-share-btn').forEach(btn=>{
+    btn.addEventListener('click', async ()=>{
+      const data = {title: btn.dataset.shareTitle || document.title, text: btn.dataset.shareText || 'Parashar Jyotisha', url: btn.dataset.shareUrl || location.href};
+      try {
+        if(navigator.share) await navigator.share(data);
+        else {
+          await navigator.clipboard.writeText(data.url);
+          toast('Website link copied. You can now share it.');
+        }
+      } catch(e) {}
+    });
+  });
+  document.querySelectorAll('.pj-bookmark-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>toast('Press Ctrl + D on Windows/Linux or ⌘ + D on Mac to bookmark this page.'));
+  });
+})();
+</script>
 
 </body>
 </html>
