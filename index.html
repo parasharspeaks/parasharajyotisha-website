@@ -293,62 +293,27 @@ body::after {
   gap: 1.5rem;
 }
 .tool-card {
-  background: linear-gradient(145deg, rgba(255,255,255,0.045), rgba(255,255,255,0.018));
-  border: 1px solid var(--line);
-  border-radius: 22px;
-  padding: 2.5rem;
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-  min-height: 330px;
+  background: var(--glass); border: 1px solid var(--line);
+  border-radius: 20px; padding: 2.5rem;
+  position: relative; overflow: hidden;
   transition: all 0.5s var(--ease);
-  cursor: pointer;
-  text-decoration: none;
-  display: block;
+  cursor: pointer; text-decoration: none; display: block;
 }
 .tool-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background:
-    radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(212,116,62,0.075) 0%, transparent 56%),
-    linear-gradient(105deg, rgba(10,10,15,0.98) 0%, rgba(18,18,26,0.94) 56%, rgba(18,18,26,0.70) 100%);
-  opacity: 1;
-  transition: opacity 0.5s;
-  pointer-events: none;
+  content: ''; position: absolute; inset: 0; z-index:1;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(212,116,62,0.06) 0%, transparent 60%);
+  opacity: 0; transition: opacity 0.5s;
 }
 .tool-card::after {
-  content:'';
-  position:absolute;
-  right:0;
-  bottom:0;
-  width:42%;
-  max-width:230px;
-  height:58%;
-  min-height:170px;
-  z-index:1;
-  background-image:var(--card-img);
-  background-size:cover;
-  background-repeat:no-repeat;
-  background-position:center;
-  opacity:.20;
-  filter:saturate(.95) contrast(1.05) brightness(.9);
-  border-top-left-radius:28px;
-  border-bottom-right-radius:22px;
-  -webkit-mask-image:linear-gradient(90deg, transparent 0%, #000 34%, #000 100%);
-  mask-image:linear-gradient(90deg, transparent 0%, #000 34%, #000 100%);
-  transition:opacity .4s var(--ease), transform .4s var(--ease), filter .4s var(--ease);
-  pointer-events:none;
+  content:''; position:absolute; right:-18px; bottom:-30px; width:190px; height:220px; z-index:0;
+  background-image:var(--card-img); background-size:contain; background-repeat:no-repeat; background-position:right bottom;
+  opacity:.09; filter:saturate(.85); transition:opacity .4s var(--ease), transform .4s var(--ease); pointer-events:none;
 }
-.tool-card:hover::after {
-  opacity:.28;
-  transform:translateY(-4px) scale(1.025);
-  filter:saturate(1.05) contrast(1.08) brightness(1);
-}
+.tool-card:hover::after { opacity:.16; transform:translateY(-6px) scale(1.03); }
 .tool-card > * { position:relative; z-index:2; }
+.tool-card:hover::before { opacity: 1; }
 .tool-card:hover {
-  border-color: rgba(212,116,62,0.25);
+  border-color: rgba(212,116,62,0.2);
   transform: translateY(-3px);
   box-shadow: 0 16px 48px rgba(0,0,0,0.3);
 }
@@ -368,17 +333,13 @@ body::after {
   font-family: var(--font-serif); font-size: 1.6rem;
   font-weight: 400; color: var(--text-bright);
   margin-bottom: 0.5rem;
-  max-width: 72%;
 }
 .tool-desc {
   font-size: 0.92rem; color: var(--text-dim);
   line-height: 1.7; margin-bottom: 1.5rem;
-  max-width: 74%;
 }
 .tool-features {
   display: flex; flex-wrap: wrap; gap: 0.5rem;
-  max-width: 74%;
-  padding-right: .35rem;
 }
 .tool-feat {
   padding: 0.3rem 0.8rem; border-radius: 100px;
@@ -393,31 +354,11 @@ body::after {
   display: flex; align-items: center; justify-content: center;
   color: var(--text-dim); font-size: 1.1rem;
   transition: all 0.3s var(--ease);
-  z-index: 3;
 }
 .tool-card:hover .tool-arrow {
   background: var(--ember); border-color: var(--ember);
   color: white; transform: translateX(3px);
 }
-
-@media (max-width: 768px) {
-  .tool-card {
-    min-height: 300px;
-    padding: 2rem;
-  }
-  .tool-card::after {
-    width: 58%;
-    height: 48%;
-    opacity: .13;
-  }
-  .tool-card:hover::after { opacity: .18; }
-  .tool-name,
-  .tool-desc,
-  .tool-features {
-    max-width: 100%;
-  }
-}
-
 
 
 /* ─── PANCHANG BACKGROUND IMAGE: GARUDA & GAJENDRA MOKSHA ─── */
@@ -917,41 +858,6 @@ body::after {
   transform: translateY(-1px);
 }
 
-.f-submit:disabled {
-  opacity: .72;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-}
-.form-status {
-  display: none;
-  margin-top: .9rem;
-  padding: .8rem 1rem;
-  border-radius: 14px;
-  border: 1px solid var(--line);
-  background: rgba(255,255,255,.035);
-  color: var(--text-mid);
-  font-size: .82rem;
-  line-height: 1.5;
-}
-.form-status.show { display: block; }
-.form-status.ok {
-  border-color: rgba(107,155,125,.35);
-  background: rgba(107,155,125,.10);
-  color: var(--sage-light);
-}
-.form-status.err {
-  border-color: rgba(199,96,123,.35);
-  background: rgba(199,96,123,.10);
-  color: var(--lotus-light);
-}
-.form-note {
-  margin-top: .8rem;
-  font-size: .72rem;
-  color: var(--text-dim);
-  line-height: 1.55;
-}
-
 /* ─── FOOTER ─── */
 .footer {
   border-top: 1px solid var(--line);
@@ -1046,30 +952,6 @@ body::after {
   .about-portrait { max-width: 300px; margin: 0 auto; }
 }
 </style>
-
-
-<!-- Quick engagement: feedback, share, bookmark -->
-<style>
-.pj-engage-section{padding:4.5rem 1.5rem;background:linear-gradient(180deg,rgba(255,255,255,.015),rgba(212,116,62,.035));border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);}
-.pj-engage-wrap{max-width:1100px;margin:0 auto;text-align:center;}
-.pj-engage-kicker{font-family:var(--font-mono,'Space Mono',monospace);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ember-light,#E8955F);margin-bottom:.8rem;}
-.pj-engage-title{font-family:var(--font-serif,'Cormorant Garamond',serif);font-size:clamp(1.8rem,3vw,2.7rem);font-weight:400;color:var(--text-bright,#F0EDE8);line-height:1.2;margin-bottom:.7rem;}
-.pj-engage-desc{max-width:720px;margin:0 auto 1.8rem;color:var(--text-mid,#A8A3B3);font-size:.98rem;line-height:1.8;}
-.pj-engage-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1.3rem;}
-.pj-engage-card{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:132px;padding:1.25rem;border-radius:20px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);color:var(--text-bright,#F0EDE8);cursor:pointer;transition:transform .25s ease,border-color .25s ease,background .25s ease;text-decoration:none;}
-.pj-engage-card:hover{transform:translateY(-3px);border-color:rgba(232,149,95,.38);background:rgba(255,255,255,.055);color:var(--ember-glow,#F4B87A);}
-.pj-engage-icon{font-size:1.8rem;margin-bottom:.55rem;}
-.pj-engage-card strong{font-size:.92rem;margin-bottom:.25rem;}
-.pj-engage-card span{font-size:.72rem;color:var(--text-dim,#6B6778);line-height:1.4;}
-.pj-toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);z-index:99999;max-width:92vw;padding:.8rem 1.1rem;border-radius:999px;background:rgba(18,18,26,.96);border:1px solid rgba(232,149,95,.32);color:var(--text-bright,#F0EDE8);font-size:.85rem;box-shadow:0 16px 45px rgba(0,0,0,.35);opacity:0;pointer-events:none;transition:.3s ease;}
-.pj-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
-.pj-float-connect{position:fixed;right:18px;bottom:18px;z-index:9998;display:flex;flex-direction:column;gap:.55rem;}
-.pj-float-connect a,.pj-float-connect button{width:46px;height:46px;border-radius:50%;border:1px solid rgba(255,255,255,.12);background:rgba(18,18,26,.84);backdrop-filter:blur(16px);color:#F0EDE8;display:grid;place-items:center;font-size:1.15rem;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);transition:.25s ease;text-decoration:none;}
-.pj-float-connect a:hover,.pj-float-connect button:hover{transform:translateY(-2px);border-color:rgba(232,149,95,.45);color:#F4B87A;}
-@media(max-width:820px){.pj-engage-grid{grid-template-columns:repeat(2,1fr)}.pj-engage-card{min-height:120px}.pj-float-connect{right:12px;bottom:12px}}
-@media(max-width:460px){.pj-engage-grid{grid-template-columns:1fr}.pj-engage-section{padding:3.5rem 1rem}}
-</style>
-
 </head>
 <body>
 
@@ -1319,36 +1201,29 @@ body::after {
         <ul class="services-list">
           <li>
             <div>
+              <div class="sl-name">Birth Chart Reading</div>
+              <div class="sl-type">Complete Kundli analysis · 60 min</div>
+            </div>
+            <div class="sl-price">₹ 2,100</div>
+          </li>
+          <li>
+            <div>
+              <div class="sl-name">Career & Finance Guidance</div>
+              <div class="sl-type">Dasha + Transit focused · 45 min</div>
+            </div>
+            <div class="sl-price">₹ 1,800</div>
+          </li>
+          <li>
+            <div>
+              <div class="sl-name">Relationship Consultation</div>
+              <div class="sl-type">Matching + Compatibility · 45 min</div>
+            </div>
+            <div class="sl-price">₹ 1,800</div>
+          </li>
+          <li>
+            <div>
               <div class="sl-name">Basic Consultation</div>
-              <div class="sl-type">General question guidance · PDF + audio summary</div>
-            </div>
-            <div class="sl-price">₹ 1,101</div>
-          </li>
-          <li>
-            <div>
-              <div class="sl-name">Career Consultation</div>
-              <div class="sl-type">Career, profession, Dasha + transit guidance</div>
-            </div>
-            <div class="sl-price">₹ 1,101</div>
-          </li>
-          <li>
-            <div>
-              <div class="sl-name">Health Consultation</div>
-              <div class="sl-type">Astrology-based health tendency guidance · not medical advice</div>
-            </div>
-            <div class="sl-price">₹ 1,101</div>
-          </li>
-          <li>
-            <div>
-              <div class="sl-name">Any Specific Question</div>
-              <div class="sl-type">One focused question · PDF + audio response</div>
-            </div>
-            <div class="sl-price">₹ 1,101</div>
-          </li>
-          <li>
-            <div>
-              <div class="sl-name">Marriage Matching Report</div>
-              <div class="sl-type">Gun Milan · Compatibility · Guidance</div>
+              <div class="sl-type">Question guidance · PDF + audio summary</div>
             </div>
             <div class="sl-price">₹ 1,101</div>
           </li>
@@ -1543,18 +1418,18 @@ body::after {
     </div>
     <div class="contact-layout">
       <div class="contact-methods reveal">
-        <a href="#contact" class="cm-card">
+        <a href="https://wa.me/91XXXXXXXXXX" class="cm-card" target="_blank">
           <div class="cm-icon wa">💬</div>
           <div>
             <div class="cm-title">WhatsApp</div>
-            <div class="cm-value">Use the booking form for WhatsApp callback</div>
+            <div class="cm-value">+91 XXXXX XXXXX · Quick response</div>
           </div>
         </a>
-        <a href="mailto:support@parasharajyotisha.com" class="cm-card">
+        <a href="mailto:your@email.com" class="cm-card">
           <div class="cm-icon email">✉️</div>
           <div>
             <div class="cm-title">Email</div>
-            <div class="cm-value">support@parasharajyotisha.com</div>
+            <div class="cm-value">your@email.com</div>
           </div>
         </a>
         <div class="cm-card">
@@ -1568,114 +1443,55 @@ body::after {
           <div class="cm-icon hours">🕐</div>
           <div>
             <div class="cm-title">Consultation Hours</div>
-            <div class="cm-value">Mon–Sat · 12 PM – 9 PM IST</div>
+            <div class="cm-value">Mon–Sat · 10 AM – 8 PM IST</div>
           </div>
         </div>
       </div>
       <div class="contact-form reveal reveal-d1">
         <h3>Book a Session</h3>
         <div class="sub">Fill in your details and we'll reach out within 24 hours.</div>
-        <form id="contactForm">
+        <form id="contactForm" onsubmit="handleSubmit(event)">
           <div class="f-row">
             <div class="f-group">
               <label class="f-label">Full Name</label>
-              <input class="f-input" id="cf-name" name="name" type="text" placeholder="Your name" autocomplete="name" required>
+              <input class="f-input" type="text" placeholder="Your name" required>
             </div>
             <div class="f-group">
               <label class="f-label">Phone / WhatsApp</label>
-              <input class="f-input" id="cf-phone" name="phone" type="tel" placeholder="Enter phone / WhatsApp number" autocomplete="tel" required>
+              <input class="f-input" type="tel" placeholder="+91 XXXXX XXXXX" required>
             </div>
           </div>
-
+          <div class="f-group">
+            <label class="f-label">Email</label>
+            <input class="f-input" type="email" placeholder="your@email.com" required>
+          </div>
           <div class="f-row">
             <div class="f-group">
-              <label class="f-label">Email</label>
-              <input class="f-input" id="cf-email" name="email" type="email" placeholder="Enter your email" autocomplete="email" required>
-            </div>
-            <div class="f-group">
               <label class="f-label">Service</label>
-              <select class="f-select" id="cf-service" name="service" required>
+              <select class="f-select" required>
                 <option value="">Select a service...</option>
-                <option>Basic Consultation</option>
-                <option>Career Consultation</option>
-                <option>Health Consultation</option>
-                <option>Any Specific Question</option>
-                <option>Marriage Matching Report</option>
-                <option>Detailed Kundli Report</option>
+                <option>Birth Chart Reading</option>
+                <option>Career & Finance Guidance</option>
+                <option>Relationship Consultation</option>
+                <option>Kundli Matching</option>
                 <option>Muhurat Selection</option>
                 <option>Remedies & Gemstones</option>
+                <option>Astrology Course</option>
                 <option>Other</option>
               </select>
             </div>
-          </div>
-
-          <div class="f-row">
             <div class="f-group">
               <label class="f-label">Date of Birth</label>
-              <input class="f-input" id="cf-dob" name="dateOfBirth" type="date" required>
-            </div>
-            <div class="f-group">
-              <label class="f-label">Time of Birth</label>
-              <input class="f-input" id="cf-birth-time" name="birthTime" type="time">
+              <input class="f-input" type="date">
             </div>
           </div>
-
-          <div class="f-row">
-            <div class="f-group">
-              <label class="f-label">Birth Place / City</label>
-              <input class="f-input" id="cf-place" name="place" type="text" placeholder="e.g. Bareilly" autocomplete="address-level2" required>
-            </div>
-            <div class="f-group">
-              <label class="f-label">District</label>
-              <input class="f-input" id="cf-district" name="district" type="text" placeholder="e.g. Bareilly" required>
-            </div>
-          </div>
-
-          <div class="f-row">
-            <div class="f-group">
-              <label class="f-label">State</label>
-              <input class="f-input" id="cf-state" name="state" type="text" placeholder="e.g. Uttar Pradesh" autocomplete="address-level1" required>
-            </div>
-            <div class="f-group">
-              <label class="f-label">Country</label>
-              <input class="f-input" id="cf-country" name="country" type="text" value="India" autocomplete="country-name" required>
-            </div>
-          </div>
-
           <div class="f-group">
-            <label class="f-label">Your Question / Message</label>
-            <textarea class="f-textarea" id="cf-message" name="message" placeholder="Tell us what guidance you're seeking..." required></textarea>
+            <label class="f-label">Your Message</label>
+            <textarea class="f-textarea" placeholder="Tell us what guidance you're seeking..."></textarea>
           </div>
-          <button type="submit" class="f-submit" id="contactSubmitBtn">Send Message →</button>
-          <div id="contactFormStatus" class="form-status" aria-live="polite"></div>
-          <div class="form-note">Your details are saved securely for consultation follow-up. Please avoid sharing passwords, OTPs, bank details, or highly sensitive information here.</div>
+          <button type="submit" class="f-submit">Send Message →</button>
         </form>
       </div>
-    </div>
-  </div>
-</section>
-
-
-
-<!-- ════════ STAY CONNECTED / FEEDBACK ════════ -->
-<section class="pj-engage-section" id="connect-more">
-  <div class="pj-engage-wrap">
-    <div class="pj-engage-kicker">Stay Connected</div>
-    <h2 class="pj-engage-title">Help Parashar Jyotisha grow with your blessing and feedback</h2>
-    <p class="pj-engage-desc">Share your impression, suggest improvements, bookmark this website, or send it to friends who may benefit from Panchanga, Jyotisha tools, travel guidance and spiritual timing.</p>
-    <div class="pj-engage-grid">
-      <a class="pj-engage-card" href="mailto:support@parasharajyotisha.com?subject=Website%20Feedback%20for%20Parashar%20Jyotisha&body=Namaste%2C%0A%0AMy%20impression%20or%20suggestion%20about%20the%20website%20is%3A%0A%0A">
-        <div class="pj-engage-icon">💬</div><strong>Give Feedback</strong><span>Share impression or comment</span>
-      </a>
-      <button class="pj-engage-card pj-share-btn" type="button" data-share-title="Parashar Jyotisha" data-share-text="Explore authentic Vedic Panchanga, Jyotisha tools and consultations." data-share-url="https://parasharajyotisha.com/">
-        <div class="pj-engage-icon">🔗</div><strong>Share Website</strong><span>Send link to family or friends</span>
-      </button>
-      <button class="pj-engage-card pj-bookmark-btn" type="button">
-        <div class="pj-engage-icon">⭐</div><strong>Bookmark</strong><span>Save for daily Panchanga use</span>
-      </button>
-      <a class="pj-engage-card" href="tools.html">
-        <div class="pj-engage-icon">🕉️</div><strong>Use Free Tools</strong><span>Return frequently for Jyotisha tools</span>
-      </a>
     </div>
   </div>
 </section>
@@ -1716,8 +1532,8 @@ body::after {
     <div>
       <div class="footer-title">Connect</div>
       <ul class="footer-links">
-        <li><a href="#contact">WhatsApp Callback</a></li>
-        <li><a href="mailto:support@parasharajyotisha.com">Email</a></li>
+        <li><a href="https://wa.me/91XXXXXXXXXX">WhatsApp</a></li>
+        <li><a href="mailto:your@email.com">Email</a></li>
         <li><a href="#">Instagram</a></li>
         <li><a href="#">YouTube</a></li>
         <li><a href="#">Parashar Jyotisha App</a></li>
@@ -1733,70 +1549,11 @@ body::after {
 </footer>
 
 <!-- WhatsApp Float -->
-<a href="#contact" 
-   class="wa-float" title="Request WhatsApp callback">💬</a>
+<a href="https://wa.me/91XXXXXXXXXX?text=Namaste!%20I'd%20like%20to%20book%20a%20Jyotish%20consultation." 
+   class="wa-float" target="_blank" title="Chat on WhatsApp">💬</a>
 
 <!-- ════════ SCRIPTS ════════ -->
-<!-- Firebase SDK: saves consultation requests to Cloud Firestore -->
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
 <script>
-
-// ─── Firebase Init for website consultation form ───
-const firebaseConfig = {
-  apiKey: "AIzaSyAmTmvbM-XtsPb4O-luxNiqb1W9gyQ77As",
-  authDomain: "vedicpanchangaapp.firebaseapp.com",
-  projectId: "vedicpanchangaapp",
-  storageBucket: "vedicpanchangaapp.firebasestorage.app",
-  messagingSenderId: "767719116529",
-  appId: "1:767719116529:web:b8eff04f41df72ea602350"
-};
-
-let consultationDb = null;
-try {
-  if (window.firebase && !firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-  }
-  if (window.firebase) {
-    consultationDb = firebase.firestore();
-  }
-} catch (err) {
-  console.error('Firebase initialization failed:', err);
-}
-
-// ─── Email notification through Google Apps Script ───
-// STEP: After creating and deploying the Apps Script, paste its Web App URL below.
-const CONSULTATION_EMAIL_NOTIFY_URL = "https://script.google.com/macros/s/AKfycbwjiT-R1HI0WMbbpllfHladpv1iUN7_XpRi3-mO2e_fTfQci_vSP4jzvPbfu4YvkjhI/exec";
-const CONSULTATION_NOTIFY_TOKEN = "PJ_NOTIFY_2026_PARASHAR_JYOTISHA";
-
-function notifyConsultationByEmail(data) {
-  if (!CONSULTATION_EMAIL_NOTIFY_URL || CONSULTATION_EMAIL_NOTIFY_URL.includes('PASTE_YOUR')) {
-    console.warn('Email notification URL not configured yet. Firestore saving will still work.');
-    return Promise.resolve(false);
-  }
-
-  const emailPayload = {
-    token: CONSULTATION_NOTIFY_TOKEN,
-    submittedAtIST: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
-    ...data
-  };
-
-  // mode:no-cors is used so the static website can call Apps Script safely without blocking the form.
-  return fetch(CONSULTATION_EMAIL_NOTIFY_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: {
-      'Content-Type': 'text/plain;charset=utf-8'
-    },
-    body: JSON.stringify(emailPayload)
-  })
-  .then(() => true)
-  .catch((err) => {
-    console.warn('Email notification failed, but Firestore save completed:', err);
-    return false;
-  });
-}
-
 // ─── Star field ───
 const starsEl = document.getElementById('stars');
 for (let i = 0; i < 80; i++) {
@@ -1853,169 +1610,15 @@ const months = ['January','February','March','April','May','June','July','August
 const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 document.getElementById('panchangDate').textContent = `${days[d.getDay()]}, ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
 
-// ─── Form: save consultation request to Firebase Firestore ───
-function setFormStatus(message, type='') {
-  const box = document.getElementById('contactFormStatus');
-  if (!box) return;
-  box.textContent = message || '';
-  box.className = 'form-status' + (message ? ' show' : '') + (type ? ' ' + type : '');
-}
-
-function getFormValue(form, fieldName) {
-  return (form.elements[fieldName]?.value || '').trim();
-}
-
-function generateConsultationRefId() {
-  const now = new Date();
-  const pad = (n) => String(n).padStart(2, '0');
-  const datePart = `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}`;
-  const randomPart = Math.random().toString(36).toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 5).padEnd(5, 'X');
-  return `PJ-${datePart}-${randomPart}`;
-}
-
-function addDays(date, days) {
-  const copy = new Date(date.getTime());
-  copy.setDate(copy.getDate() + days);
-  return copy;
-}
-
-function formatISTDateTime(date) {
-  return date.toLocaleString('en-IN', {
-    timeZone: 'Asia/Kolkata',
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: true
-  });
-}
-
-async function handleSubmit(e) {
+// ─── Form ───
+function handleSubmit(e) {
   e.preventDefault();
-
-  const form = e.target;
-  const btn = form.querySelector('.f-submit');
-
-  const name = getFormValue(form, 'name');
-  const phone = getFormValue(form, 'phone');
-  const email = getFormValue(form, 'email');
-  const service = getFormValue(form, 'service');
-  const dateOfBirth = getFormValue(form, 'dateOfBirth');
-  const birthTime = getFormValue(form, 'birthTime');
-  const place = getFormValue(form, 'place');
-  const district = getFormValue(form, 'district');
-  const state = getFormValue(form, 'state');
-  const country = getFormValue(form, 'country') || 'India';
-  const message = getFormValue(form, 'message');
-
-  if (!name || !phone || !email || !service || !dateOfBirth || !place || !district || !state || !country || !message) {
-    setFormStatus('Please fill all required fields: name, phone, email, service, birth date, birth place, district, state, country and message.', 'err');
-    return;
-  }
-
-  if (phone.replace(/\D/g, '').length < 8) {
-    setFormStatus('Please enter a valid phone / WhatsApp number.', 'err');
-    return;
-  }
-
-  if (message.length < 5) {
-    setFormStatus('Please write a short question/message of at least 5 characters.', 'err');
-    return;
-  }
-
-  if (!consultationDb) {
-    setFormStatus('Firebase is not ready. Please refresh the page and try again.', 'err');
-    return;
-  }
-
-  const oldText = btn.textContent;
-  btn.disabled = true;
-  btn.textContent = 'Saving request…';
-  setFormStatus('Saving your consultation request securely…');
-
-  try {
-    const refId = generateConsultationRefId();
-    const submittedAtIST = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
-    const dueDateObj = addDays(new Date(), 5);
-    const dueDateIST = formatISTDateTime(dueDateObj);
-    const slaText = '3 to 5 days';
-
-    const payload = {
-      refId,
-      name,
-      phone,
-      email,
-      emailLower: email.toLowerCase(),
-      service,
-      dateOfBirth,
-      birthTime,
-      place,
-      district,
-      state,
-      country,
-      message,
-      status: 'new',
-      source: 'website',
-      paymentStatus: 'not_started',
-      slaText,
-      dueDate: firebase.firestore.Timestamp.fromDate(dueDateObj),
-      dueDateIST,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      pageUrl: window.location.href,
-      userAgent: navigator.userAgent || '',
-      adminNotified: false,
-      notificationRead: false
-    };
-
-    const docRef = await consultationDb.collection('consultations').add(payload);
-    console.log('Consultation saved:', docRef.id);
-
-    notifyConsultationByEmail({
-      docId: docRef.id,
-      refId,
-      submittedAtIST,
-      dueDateIST,
-      slaText,
-      name,
-      phone,
-      email,
-      service,
-      dateOfBirth,
-      birthTime,
-      place,
-      district,
-      state,
-      country,
-      message,
-      pageUrl: window.location.href
-    });
-
-    btn.textContent = '✓ Request Saved';
-    btn.style.background = 'linear-gradient(135deg, #2E7D32, #1B5E20)';
-    setFormStatus(`Thank you. Your consultation request has been saved. Reference ID: ${refId}. Expected response: within ${slaText}, target by ${dueDateIST}. A confirmation email will be sent to you.`, 'ok');
-    form.reset();
-    form.elements.country.value = 'India';
-
-    setTimeout(() => {
-      btn.textContent = oldText;
-      btn.style.background = '';
-      setFormStatus('');
-    }, 5000);
-  } catch (err) {
-    console.error('Consultation save failed:', err);
-    setFormStatus('Could not save the request. Please check Firebase rules or contact us by email.', 'err');
-    btn.textContent = oldText;
-    btn.style.background = '';
-  } finally {
-    btn.disabled = false;
-  }
+  const btn = e.target.querySelector('.f-submit');
+  btn.textContent = '✓ Message Sent!';
+  btn.style.background = 'linear-gradient(135deg, #2E7D32, #1B5E20)';
+  setTimeout(() => { btn.textContent = 'Send Message →'; btn.style.background = ''; e.target.reset(); }, 3000);
 }
 
-const contactForm = document.getElementById('contactForm');
-if (contactForm) {
-  contactForm.addEventListener('submit', handleSubmit);
-}
 
 // Improve date/time inputs on dark theme
 function enableNativePickers(){
@@ -2036,29 +1639,8 @@ function pFirst(v){ return Array.isArray(v) ? v[0] : v; }
 function pText(v){
   v = pFirst(v);
   if (v === null || v === undefined || v === '') return '';
-  if (typeof v === 'string' || typeof v === 'number' || typeof v === 'boolean') return String(v);
-  if (typeof v === 'object') {
-    return v.name || v.name_en || v.title || v.label || v.display || v.formatted ||
-           v.tithi_name || v.nakshatra_name || v.yoga_name || v.karana_name ||
-           v.vaara || v.vara || v.weekday || v.value || '';
-  }
-  return String(v);
-}
-function pCityText(v, fallback='Delhi'){
-  v = pFirst(v);
-  if (v === null || v === undefined || v === '') return fallback;
-  if (typeof v === 'string' || typeof v === 'number') {
-    const s = String(v).replace(/\[object Object\]/g, '').trim();
-    return s || fallback;
-  }
-  if (Array.isArray(v)) return pCityText(v[0], fallback);
-  if (typeof v === 'object') {
-    const city = v.city || v.city_name || v.name || v.name_en || v.location_name ||
-                 v.place || v.town || v.village || v.district || v.display || v.label || '';
-    const clean = String(city || '').replace(/\[object Object\]/g, '').trim();
-    return clean || fallback;
-  }
-  return fallback;
+  if (typeof v === 'string' || typeof v === 'number') return String(v);
+  return v.name || v.name_en || v.tithi_name || v.nakshatra_name || v.yoga_name || v.karana_name || v.vaara || v.weekday || v.value || '';
 }
 function pEnd(v){
   v = pFirst(v);
@@ -2090,6 +1672,41 @@ function pRange(v){
   const b = pCleanTime(v.end || v.to || v.end_time || '');
   return [a,b].filter(Boolean).join(' – ');
 }
+
+const WEEKDAY_SA = ['Ravivara','Somavara','Mangalavara','Budhavara','Guruvara','Shukravara','Shanivara'];
+const WEEKDAY_EN = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+function pParseDateAny(raw){
+  if(!raw) return null;
+  let v = String(raw).trim();
+  // YYYY-MM-DD or YYYY/MM/DD
+  let m = v.match(/(\d{4})[-\/](\d{1,2})[-\/](\d{1,2})/);
+  if(m) return new Date(Number(m[1]), Number(m[2])-1, Number(m[3]));
+  // DD-MM-YYYY or DD/MM/YYYY
+  m = v.match(/(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})/);
+  if(m) return new Date(Number(m[3]), Number(m[2])-1, Number(m[1]));
+  // Text like Sunday, 17 May 2026
+  m = v.match(/(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})/);
+  if(m){
+    const monthsMap = {january:0,february:1,march:2,april:3,may:4,june:5,july:6,august:7,september:8,october:9,november:10,december:11};
+    const mi = monthsMap[m[2].toLowerCase()];
+    if(mi !== undefined) return new Date(Number(m[3]), mi, Number(m[1]));
+  }
+  return null;
+}
+function pWeekdayFromApiData(data){
+  const raw = data.date_iso || data.date || data.date_display || data.panchanga_date || data.day;
+  const dt = pParseDateAny(raw);
+  if(!dt || Number.isNaN(dt.getTime())) return null;
+  const i = dt.getDay();
+  return { index:i, en:WEEKDAY_EN[i], sa:WEEKDAY_SA[i] };
+}
+function pDisplayDateFromApiData(data){
+  const wd = pWeekdayFromApiData(data);
+  const dt = pParseDateAny(data.date_iso || data.date || data.date_display || data.panchanga_date || data.day);
+  if(dt && !Number.isNaN(dt.getTime())) return `${WEEKDAY_EN[dt.getDay()]}, ${dt.getDate()} ${months[dt.getMonth()]} ${dt.getFullYear()}`;
+  return data.date_display || data.date || new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+}
+
 function pPick(obj, keys){
   for(const k of keys){
     if(obj && obj[k] !== undefined && obj[k] !== null && obj[k] !== '') return obj[k];
@@ -2133,8 +1750,9 @@ async function loadPanchang(city){
     const bad = data.inauspicious || data.caution || p;
     const good = data.auspicious || data.muhurta || p;
 
-    const dateText = data.date_display || data.date || new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-    const loc = pCityText(data.location_used || data.location || data.city, chosenCity);
+    const dateText = pDisplayDateFromApiData(data);
+    const apiWeekday = pWeekdayFromApiData(data);
+    const loc = data.location_used || data.location || data.city || chosenCity;
     document.getElementById('panchangDate').textContent = String(dateText).replace(/-/g,' ');
     document.getElementById('panchangCityLabel').textContent = loc;
 
@@ -2142,7 +1760,9 @@ async function loadPanchang(city){
     updateLimb('limb-nakshatra','Nakshatra', pPick(p,['nakshatra','nakshatra_at_sunrise']), 'Moon’s star');
     updateLimb('limb-yoga','Yoga', pPick(p,['yoga','yoga_at_sunrise']), 'Sun–Moon harmony');
     updateLimb('limb-karana','Karana', pPick(p,['karana','karana_at_sunrise','karanas']), 'Half tithi action quality');
-    updateLimb('limb-vara','Vara', pPick(p,['vaara','vara','weekday']), 'Weekday lord');
+    // Vara must match the displayed civil date. Some API responses may contain a stale/alternate `vaara` field,
+    // so we calculate weekday from the returned date first, then fall back to API weekday text.
+    updateLimb('limb-vara','Vara', apiWeekday ? apiWeekday.sa : pPick(p,['vaara','vara','weekday']), 'Weekday lord');
 
     document.getElementById('pe-sunrise').textContent = pCleanTime(sun.sunrise || p.sunrise) || '—';
     document.getElementById('pe-sunset').textContent = pCleanTime(sun.sunset || p.sunset) || '—';
@@ -2196,7 +1816,7 @@ loadPanchang('Delhi');
       <a href="digital-delivery-policy.html">Digital Delivery</a>
       <a href="legal.html">Legal Center</a>
     </nav>
-    <p class="legal-copy">© <span id="legalYear"></span> Parashar Jyotisha. All rights reserved. Contact: <a href="mailto:support@parasharajyotisha.com">support@parasharajyotisha.com</a></p>
+    <p class="legal-copy">© <span id="legalYear"></span> Parashar Jyotisha. All rights reserved. Contact: <a href="mailto:su03may@gmail.com">su03may@gmail.com</a></p>
   </div>
 </footer>
 <script>document.querySelectorAll('#legalYear').forEach(el => el.textContent = new Date().getFullYear());</script>
@@ -2212,48 +1832,6 @@ loadPanchang('Delhi');
 .legal-copy{font-size:.78rem;color:#6B6778;margin-top:1rem;}
 .legal-copy a{color:#E8955F;text-decoration:none;}
 </style>
-
-
-
-<div class="pj-float-connect" aria-label="Quick connect">
-  <button class="pj-share-btn" type="button" title="Share website" data-share-title="Parashar Jyotisha" data-share-text="Explore Parashar Jyotisha — Vedic Panchanga, Jyotisha tools and consultations." data-share-url="https://parasharajyotisha.com/">🔗</button>
-  <a href="mailto:support@parasharajyotisha.com?subject=Parashar%20Jyotisha%20Query" title="Email support">✉️</a>
-</div>
-
-
-
-<script>
-(function(){
-  const supportEmail = 'support@parasharajyotisha.com';
-  function toast(message){
-    let el = document.querySelector('.pj-toast');
-    if(!el){
-      el = document.createElement('div');
-      el.className = 'pj-toast';
-      document.body.appendChild(el);
-    }
-    el.textContent = message;
-    el.classList.add('show');
-    clearTimeout(window.__pjToastTimer);
-    window.__pjToastTimer = setTimeout(()=>el.classList.remove('show'), 3200);
-  }
-  document.querySelectorAll('.pj-share-btn').forEach(btn=>{
-    btn.addEventListener('click', async ()=>{
-      const data = {title: btn.dataset.shareTitle || document.title, text: btn.dataset.shareText || 'Parashar Jyotisha', url: btn.dataset.shareUrl || location.href};
-      try {
-        if(navigator.share) await navigator.share(data);
-        else {
-          await navigator.clipboard.writeText(data.url);
-          toast('Website link copied. You can now share it.');
-        }
-      } catch(e) {}
-    });
-  });
-  document.querySelectorAll('.pj-bookmark-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=>toast('Press Ctrl + D on Windows/Linux or ⌘ + D on Mac to bookmark this page.'));
-  });
-})();
-</script>
 
 </body>
 </html>
