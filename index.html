@@ -1677,8 +1677,21 @@ const WEEKDAY_SA = ['Ravivara','Somavara','Mangalavara','Budhavara','Guruvara','
 const WEEKDAY_EN = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 function pParseDateAny(raw){
   if(!raw) return null;
+  // Some API responses send date/location as an object. Never stringify an object into "[object Object]";
+  // instead inspect known date keys and use the first parseable value.
+  if(typeof raw === 'object'){
+    const keys = ['date_iso','iso_date','gregorian_date','date_display','panchanga_date','civil_date','local_date','date','day'];
+    for(const k of keys){
+      if(raw[k]){
+        const dt = pParseDateAny(raw[k]);
+        if(dt && !Number.isNaN(dt.getTime())) return dt;
+      }
+    }
+    return null;
+  }
   let v = String(raw).trim();
-  // YYYY-MM-DD or YYYY/MM/DD
+  if(!v || v === '[object Object]') return null;
+  // YYYY-MM-DD or YYYY/MM/DD, including ISO datetime prefix
   let m = v.match(/(\d{4})[-\/](\d{1,2})[-\/](\d{1,2})/);
   if(m) return new Date(Number(m[1]), Number(m[2])-1, Number(m[3]));
   // DD-MM-YYYY or DD/MM/YYYY
@@ -1693,18 +1706,46 @@ function pParseDateAny(raw){
   }
   return null;
 }
+function pFindDateInApiData(data){
+  const p = data.panchanga || data.panchang || {};
+  const candidates = [
+    data.date_iso, data.iso_date, data.gregorian_date, data.date_display, data.panchanga_date, data.civil_date, data.local_date, data.date, data.day,
+    p.date_iso, p.iso_date, p.gregorian_date, p.date_display, p.panchanga_date, p.civil_date, p.local_date, p.date, p.day
+  ];
+  for(const c of candidates){
+    const dt = pParseDateAny(c);
+    if(dt && !Number.isNaN(dt.getTime())) return dt;
+  }
+  // /today endpoint fallback: use the user's civil date rather than any stale weekday text.
+  const today = new Date();
+  return new Date(today.getFullYear(), today.getMonth(), today.getDate());
+}
 function pWeekdayFromApiData(data){
-  const raw = data.date_iso || data.date || data.date_display || data.panchanga_date || data.day;
-  const dt = pParseDateAny(raw);
+  const dt = pFindDateInApiData(data);
   if(!dt || Number.isNaN(dt.getTime())) return null;
   const i = dt.getDay();
   return { index:i, en:WEEKDAY_EN[i], sa:WEEKDAY_SA[i] };
 }
 function pDisplayDateFromApiData(data){
-  const wd = pWeekdayFromApiData(data);
-  const dt = pParseDateAny(data.date_iso || data.date || data.date_display || data.panchanga_date || data.day);
+  const dt = pFindDateInApiData(data);
   if(dt && !Number.isNaN(dt.getTime())) return `${WEEKDAY_EN[dt.getDay()]}, ${dt.getDate()} ${months[dt.getMonth()]} ${dt.getFullYear()}`;
-  return data.date_display || data.date || new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  const fallback = data.date_display || data.date;
+  return (typeof fallback === 'string' ? fallback : '') || new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+}
+function pLocationText(loc, fallback){
+  if(!loc) return fallback || '';
+  if(typeof loc === 'string' || typeof loc === 'number') return String(loc);
+  if(typeof loc === 'object'){
+    const parts = [];
+    const city = loc.city || loc.name || loc.place || loc.location || loc.locality;
+    const state = loc.state || loc.region || loc.admin1;
+    const country = loc.country;
+    if(city) parts.push(city);
+    if(state && String(state).toLowerCase() !== String(city||'').toLowerCase()) parts.push(state);
+    if(country && !parts.some(x => String(x).toLowerCase() === String(country).toLowerCase())) parts.push(country);
+    return parts.filter(Boolean).join(', ') || fallback || '';
+  }
+  return fallback || '';
 }
 
 function pPick(obj, keys){
@@ -1752,7 +1793,7 @@ async function loadPanchang(city){
 
     const dateText = pDisplayDateFromApiData(data);
     const apiWeekday = pWeekdayFromApiData(data);
-    const loc = data.location_used || data.location || data.city || chosenCity;
+    const loc = pLocationText(data.location_used || data.location || data.city, chosenCity);
     document.getElementById('panchangDate').textContent = String(dateText).replace(/-/g,' ');
     document.getElementById('panchangCityLabel').textContent = loc;
 
