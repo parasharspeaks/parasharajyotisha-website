@@ -3,8 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Parashar Jyotisha — Decode Your Inner Universe</title>
-<meta name="description" content="Jyotish — Vedic Astrology for the modern seeker. Free Kundli, Panchang, Kundli Matching, Numerology & personal consultations rooted in ancient wisdom.">
+<title>Vedic Panchanga & Jyotisha Tools — Parashar Jyotisha</title>
+<meta name="description" content="Official home of Vedic Panchanga by Parashar Jyotisha. Explore daily Panchanga, Tithi, Nakshatra, Yoga, Karana, Muhurta and free Vedic astrology tools.">
+<link rel="canonical" href="https://parasharajyotisha.com/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#0A0A0F">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Parashar Jyotisha">
+<meta property="og:title" content="Vedic Panchanga &amp; Jyotisha Tools — Parashar Jyotisha">
+<meta property="og:description" content="Official home of Vedic Panchanga by Parashar Jyotisha. Explore daily Panchanga, Tithi, Nakshatra, Yoga, Karana, Muhurta and free Vedic astrology tools.">
+<meta property="og:url" content="https://parasharajyotisha.com/">
+<meta name="twitter:card" content="summary">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -893,12 +903,12 @@ body::after {
 .wa-float {
   position: fixed; bottom: 24px; right: 24px; z-index: 99;
   width: 56px; height: 56px; border-radius: 50%;
-  background: #25D366; display: flex; align-items: center;
+  background: linear-gradient(135deg,var(--ember),#A64D2A); display: flex; align-items: center;
   justify-content: center; font-size: 1.6rem;
   box-shadow: 0 4px 20px rgba(37,211,102,0.35);
   transition: all 0.3s; text-decoration: none; color: white;
 }
-.wa-float:hover { transform: scale(1.08); color: white; box-shadow: 0 6px 28px rgba(37,211,102,0.45); }
+.wa-float:hover { transform: scale(1.08); color: white; box-shadow: 0 6px 28px rgba(212,116,62,0.35); }
 
 /* ─── SCROLL REVEAL ─── */
 .reveal {
@@ -951,7 +961,44 @@ body::after {
   .guidance-image { display: none; }
   .about-portrait { max-width: 300px; margin: 0 auto; }
 }
+
+
+/* ─── VEDIC PANCHANGA APP SPOTLIGHT ─── */
+.app-spotlight{padding:4.5rem 2rem;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:linear-gradient(180deg,rgba(201,168,76,.035),rgba(212,116,62,.025));}
+.app-spotlight-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:center;}
+.app-kicker{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-light);margin-bottom:.8rem;}
+.app-title{font-family:var(--font-serif);font-size:clamp(2.1rem,4vw,3.7rem);font-weight:300;line-height:1.05;color:var(--text-bright);}
+.app-title em{color:var(--ember-light);font-style:italic;}
+.app-copy{max-width:680px;margin:1rem 0 1.4rem;color:var(--text-mid);}
+.app-feature-pills{display:flex;flex-wrap:wrap;gap:.55rem;margin:1.1rem 0 1.5rem;}
+.app-feature-pills span{border:1px solid var(--line-hover);background:var(--glass);padding:.48rem .75rem;border-radius:999px;font-size:.78rem;color:var(--text-mid);}
+.app-status{display:inline-flex;align-items:center;gap:.55rem;margin-top:1rem;font-family:var(--font-mono);font-size:.7rem;letter-spacing:.08em;color:var(--sage);}
+.app-status::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--sage);box-shadow:0 0 16px rgba(107,155,125,.55);}
+.app-phone{max-width:360px;margin:0 auto;border:1px solid var(--line-hover);border-radius:34px;padding:12px;background:#08080D;box-shadow:0 30px 80px rgba(0,0,0,.45);}
+.app-phone-screen{min-height:500px;border-radius:25px;padding:1.2rem;background:radial-gradient(circle at 50% 0,rgba(212,116,62,.16),transparent 36%),var(--night);display:flex;flex-direction:column;}
+.app-phone-top{display:flex;align-items:center;justify-content:space-between;color:var(--text-dim);font-size:.7rem;}
+.app-phone-brand{font-family:var(--font-serif);font-size:1.45rem;color:var(--text-bright);margin:1.7rem 0 .25rem;}
+.app-phone-sub{font-size:.72rem;color:var(--text-dim);margin-bottom:1rem;}
+.app-wheel{width:210px;height:210px;margin:1.2rem auto;border-radius:50%;border:1px solid rgba(224,200,114,.28);box-shadow:inset 0 0 0 28px rgba(201,168,76,.035),inset 0 0 0 58px rgba(212,116,62,.035);display:grid;place-items:center;text-align:center;color:var(--text-bright);font-family:var(--font-serif);}
+.app-wheel b{display:block;color:var(--gold-light);font-size:1.1rem;font-weight:500;}
+.app-mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:.55rem;margin-top:auto;}
+.app-mini{border:1px solid var(--line);background:var(--glass);border-radius:13px;padding:.7rem;}
+.app-mini small{display:block;color:var(--text-dim);font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;}
+.app-mini strong{display:block;color:var(--text-bright);font-size:.78rem;margin-top:.2rem;font-weight:500;}
+@media(max-width:900px){.app-spotlight-inner{grid-template-columns:1fr}.app-spotlight{text-align:center}.app-copy{margin-left:auto;margin-right:auto}.app-feature-pills,.app-spotlight .hero-actions{justify-content:center}}
+
 </style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Parashar Jyotisha",
+  "url": "https://parasharajyotisha.com/",
+  "email": "mailto:su03may@gmail.com",
+  "brand": {"@type":"Brand","name":"Parashar Jyotisha"}
+}
+</script>
 </head>
 <body>
 
@@ -960,12 +1007,13 @@ body::after {
 <!-- ════════ NAV ════════ -->
 <nav class="nav" id="nav">
   <div class="nav-inner">
-    <a href="#" class="nav-logo">
+    <a href="index.html" class="nav-logo">
       <span class="nav-logo-mark">Parashar Jyotisha</span>
       <span class="nav-logo-dot"></span>
     </a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="#tools" class="active">Free Tools</a></li>
+      <li><a href="vedic-panchanga.html" class="active">Android App</a></li>
+      <li><a href="#tools">Free Tools</a></li>
       <li><a href="#panchang">Panchang</a></li>
       <li><a href="#guidance">Guidance</a></li>
       <li><a href="#about">About</a></li>
@@ -984,26 +1032,25 @@ body::after {
   <div class="hero-glow"></div>
   <div class="hero-art"><img src="assets/images/ganesha-dark.jpg" alt="Lord Ganesha - auspicious beginning"></div>
   <div class="hero-content">
-    <div class="hero-overline">Vedic Astrology for the Modern Seeker</div>
+    <div class="hero-overline">Vedic Panchanga · Jyotisha · Modern Precision</div>
     <h1 class="hero-title">
-      Decode Your<br><em>Inner Universe</em>
+      Your Daily Vedic<br><em>Panchanga</em>
     </h1>
-    <p class="hero-sub">The stars left you a message. Learn to read it.</p>
+    <p class="hero-sub">Understand the quality of time — wherever you are.</p>
     <p class="hero-desc">
-      Jyotish is the ancient eye of the Vedas — a sacred science that maps the cosmic 
-      forces shaping your life. Through authentic Panchang, birth chart analysis, and 
-      personal guidance, we help you navigate your journey with clarity and purpose.
+      Explore Tithi, Nakshatra, Yoga, Karana, Vara, Muhurta and daily Jyotisha guidance,
+      supported by location-aware calculations and the wider Parashar Jyotisha toolkit.
     </p>
     <div class="hero-actions">
-      <a href="tools.html#kundli" class="btn btn-ember">Generate Free Kundli</a>
-      <a href="#contact" class="btn btn-ghost">Book Consultation</a>
+      <a href="#panchang" class="btn btn-ember">View Today’s Panchanga</a>
+      <a href="vedic-panchanga.html" class="btn btn-ghost">Explore Android App</a>
     </div>
-    <div class="hero-proof" aria-label="Core website tools">
-      <span class="proof-pill"><strong>Free</strong> Kundli</span>
-      <span class="proof-pill">Daily Panchang</span>
-      <span class="proof-pill">Dasha & Yogas</span>
-      <span class="proof-pill"><strong>Free</strong> Matching</span>
-      <span class="proof-pill">Live Transits</span>
+    <div class="hero-proof" aria-label="Core website and app features">
+      <span class="proof-pill"><strong>5 Angas</strong> Panchanga</span>
+      <span class="proof-pill">Daily Muhurta</span>
+      <span class="proof-pill">Astro Weather</span>
+      <span class="proof-pill">Travel Guidance</span>
+      <span class="proof-pill"><strong>Free</strong> Jyotisha Tools</span>
     </div>
   </div>
 </section>
@@ -1016,6 +1063,43 @@ body::after {
   </p>
   <div class="philosophy-attr">— Ancient Vedic Wisdom</div>
 </div>
+
+<!-- ════════ VEDIC PANCHANGA APP ════════ -->
+<section class="app-spotlight" id="app">
+  <div class="app-spotlight-inner">
+    <div class="reveal">
+      <div class="app-kicker">Official Android App</div>
+      <h2 class="app-title">Vedic Panchanga — <em>your day in one view</em></h2>
+      <p class="app-copy">
+        A focused Panchanga experience for daily use: the five Angas, important time windows,
+        Astro Weather and travel guidance presented in a clean mobile interface.
+      </p>
+      <div class="app-feature-pills">
+        <span>Tithi</span><span>Nakshatra</span><span>Yoga</span><span>Karana</span><span>Vara</span>
+        <span>Rahu Kaal</span><span>Astro Weather</span><span>Travel Guidance</span>
+      </div>
+      <div class="hero-actions">
+        <a href="vedic-panchanga.html" class="btn btn-ember">View App Details</a>
+        <a href="privacy-policy.html" class="btn btn-ghost">Privacy & Data</a>
+      </div>
+      <div class="app-status">Google Play listing in preparation</div>
+    </div>
+    <div class="app-phone reveal reveal-d1" aria-label="Stylized preview of Vedic Panchanga app">
+      <div class="app-phone-screen">
+        <div class="app-phone-top"><span>Vedic Panchanga</span><span>ॐ</span></div>
+        <div class="app-phone-brand">Today’s Panchanga</div>
+        <div class="app-phone-sub">Location-aware daily timing</div>
+        <div class="app-wheel"><div><b>5 Angas</b>Tithi · Nakshatra<br>Yoga · Karana · Vara</div></div>
+        <div class="app-mini-grid">
+          <div class="app-mini"><small>Muhurta</small><strong>Daily windows</strong></div>
+          <div class="app-mini"><small>Astro Weather</small><strong>Day guidance</strong></div>
+          <div class="app-mini"><small>Travel</small><strong>Disha guidance</strong></div>
+          <div class="app-mini"><small>Sun & Moon</small><strong>Local timings</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ════════ FREE TOOLS ════════ -->
 <section class="section" id="tools">
@@ -1199,48 +1283,13 @@ body::after {
           </p>
         </div>
         <ul class="services-list">
-          <li>
-            <div>
-              <div class="sl-name">Birth Chart Reading</div>
-              <div class="sl-type">Complete Kundli analysis · 60 min</div>
-            </div>
-            <div class="sl-price">₹ 2,100</div>
-          </li>
-          <li>
-            <div>
-              <div class="sl-name">Career & Finance Guidance</div>
-              <div class="sl-type">Dasha + Transit focused · 45 min</div>
-            </div>
-            <div class="sl-price">₹ 1,800</div>
-          </li>
-          <li>
-            <div>
-              <div class="sl-name">Relationship Consultation</div>
-              <div class="sl-type">Matching + Compatibility · 45 min</div>
-            </div>
-            <div class="sl-price">₹ 1,800</div>
-          </li>
-          <li>
-            <div>
-              <div class="sl-name">Basic Consultation</div>
-              <div class="sl-type">Question guidance · PDF + audio summary</div>
-            </div>
-            <div class="sl-price">₹ 1,101</div>
-          </li>
-          <li>
-            <div>
-              <div class="sl-name">Detailed Kundli Report</div>
-              <div class="sl-type">Birth chart · Dasha · Yogas · Remedies</div>
-            </div>
-            <div class="sl-price">₹ 2,100</div>
-          </li>
-          <li>
-            <div>
-              <div class="sl-name">Delivery</div>
-              <div class="sl-type">Generally 3–7 working days depending on query complexity</div>
-            </div>
-            <div class="sl-price">Digital</div>
-          </li>
+          <li><div><div class="sl-name">Basic Consultation</div><div class="sl-type">Focused question guidance · PDF + audio summary</div></div><div class="sl-price">₹ 1,101</div></li>
+          <li><div><div class="sl-name">Career Consultation</div><div class="sl-type">Career, profession, Dasha + transit guidance</div></div><div class="sl-price">₹ 1,101</div></li>
+          <li><div><div class="sl-name">Health Consultation</div><div class="sl-type">Astrology-based tendencies and remedial guidance</div></div><div class="sl-price">₹ 1,101</div></li>
+          <li><div><div class="sl-name">Any Specific Question</div><div class="sl-type">One focused life-area question</div></div><div class="sl-price">₹ 1,101</div></li>
+          <li><div><div class="sl-name">Marriage Matching Report</div><div class="sl-type">Compatibility / Gun Milan report</div></div><div class="sl-price">₹ 1,101</div></li>
+          <li><div><div class="sl-name">Detailed Kundli Report</div><div class="sl-type">Birth chart · Dasha · Yogas · Remedies</div></div><div class="sl-price">₹ 2,100</div></li>
+          <li><div><div class="sl-name">Delivery</div><div class="sl-type">Generally 3–7 working days depending on query complexity</div></div><div class="sl-price">Digital</div></li>
         </ul>
       </div>
     </div>
@@ -1357,7 +1406,7 @@ body::after {
       </p>
     </div>
     <div class="blog-grid">
-      <a class="blog-card reveal" href="#">
+      <article class="blog-card reveal">
         <div class="blog-thumb">
           🌙
           <span class="blog-tag">Panchang</span>
@@ -1371,8 +1420,8 @@ body::after {
           </p>
           <div class="blog-meta">Coming Soon · 10 min read</div>
         </div>
-      </a>
-      <a class="blog-card reveal reveal-d1" href="#">
+      </article>
+      <article class="blog-card reveal reveal-d1">
         <div class="blog-thumb">
           ⭐
           <span class="blog-tag">Nakshatras</span>
@@ -1385,8 +1434,8 @@ body::after {
           </p>
           <div class="blog-meta">Coming Soon · 15 min read</div>
         </div>
-      </a>
-      <a class="blog-card reveal reveal-d2" href="#">
+      </article>
+      <article class="blog-card reveal reveal-d2">
         <div class="blog-thumb">
           🪐
           <span class="blog-tag">Transits</span>
@@ -1399,7 +1448,7 @@ body::after {
           </p>
           <div class="blog-meta">Coming Soon · 12 min read</div>
         </div>
-      </a>
+      </article>
     </div>
   </div>
 </section>
@@ -1418,78 +1467,61 @@ body::after {
     </div>
     <div class="contact-layout">
       <div class="contact-methods reveal">
-        <a href="https://wa.me/91XXXXXXXXXX" class="cm-card" target="_blank">
-          <div class="cm-icon wa">💬</div>
-          <div>
-            <div class="cm-title">WhatsApp</div>
-            <div class="cm-value">+91 XXXXX XXXXX · Quick response</div>
-          </div>
+        <a href="mailto:su03may@gmail.com?subject=Parashar%20Jyotisha%20Support" class="cm-card">
+          <div class="cm-icon email">✉️</div><div><div class="cm-title">Email Support</div><div class="cm-value">su03may@gmail.com</div></div>
         </a>
-        <a href="mailto:your@email.com" class="cm-card">
-          <div class="cm-icon email">✉️</div>
-          <div>
-            <div class="cm-title">Email</div>
-            <div class="cm-value">your@email.com</div>
-          </div>
+        <a href="vedic-panchanga.html" class="cm-card">
+          <div class="cm-icon app">📱</div><div><div class="cm-title">Vedic Panchanga App</div><div class="cm-value">Official Android app · Google Play listing in preparation</div></div>
+        </a>
+        <a href="data-deletion.html#request-deletion" class="cm-card">
+          <div class="cm-icon hours">🛡️</div><div><div class="cm-title">Privacy & Data Requests</div><div class="cm-value">Access the privacy policy and data-deletion pathway</div></div>
         </a>
         <div class="cm-card">
-          <div class="cm-icon app">📱</div>
-          <div>
-            <div class="cm-title">Parashar Jyotisha App</div>
-            <div class="cm-value">Free Panchang, Kundli & Numerology · Coming to Play Store</div>
-          </div>
-        </div>
-        <div class="cm-card">
-          <div class="cm-icon hours">🕐</div>
-          <div>
-            <div class="cm-title">Consultation Hours</div>
-            <div class="cm-value">Mon–Sat · 10 AM – 8 PM IST</div>
-          </div>
+          <div class="cm-icon hours">🕐</div><div><div class="cm-title">Support / Consultation Hours</div><div class="cm-value">12:00 PM–9:00 PM IST, or as per available consultation slot</div></div>
         </div>
       </div>
       <div class="contact-form reveal reveal-d1">
         <h3>Book a Session</h3>
-        <div class="sub">Fill in your details and we'll reach out within 24 hours.</div>
+        <div class="sub">Fill in your details. Submit will open your email app with a pre-filled message to su03may@gmail.com.</div>
         <form id="contactForm" onsubmit="handleSubmit(event)">
           <div class="f-row">
             <div class="f-group">
               <label class="f-label">Full Name</label>
-              <input class="f-input" type="text" placeholder="Your name" required>
+              <input class="f-input" type="text" name="fullName" placeholder="Your name" required>
             </div>
             <div class="f-group">
-              <label class="f-label">Phone / WhatsApp</label>
-              <input class="f-input" type="tel" placeholder="+91 XXXXX XXXXX" required>
+              <label class="f-label">Phone (optional)</label>
+              <input class="f-input" type="tel" name="phone" placeholder="Your contact number">
             </div>
           </div>
           <div class="f-group">
             <label class="f-label">Email</label>
-            <input class="f-input" type="email" placeholder="your@email.com" required>
+            <input class="f-input" type="email" name="email" placeholder="name@example.com" required>
           </div>
           <div class="f-row">
             <div class="f-group">
               <label class="f-label">Service</label>
-              <select class="f-select" required>
+              <select class="f-select" name="service" required>
                 <option value="">Select a service...</option>
-                <option>Birth Chart Reading</option>
-                <option>Career & Finance Guidance</option>
-                <option>Relationship Consultation</option>
-                <option>Kundli Matching</option>
-                <option>Muhurat Selection</option>
-                <option>Remedies & Gemstones</option>
-                <option>Astrology Course</option>
+                <option>Basic Consultation</option>
+                <option>Career Consultation</option>
+                <option>Health Consultation</option>
+                <option>Any Specific Question</option>
+                <option>Marriage Matching Report</option>
+                <option>Detailed Kundli Report</option>
                 <option>Other</option>
               </select>
             </div>
             <div class="f-group">
               <label class="f-label">Date of Birth</label>
-              <input class="f-input" type="date">
+              <input class="f-input" type="date" name="dob">
             </div>
           </div>
           <div class="f-group">
             <label class="f-label">Your Message</label>
-            <textarea class="f-textarea" placeholder="Tell us what guidance you're seeking..."></textarea>
+            <textarea class="f-textarea" name="message" placeholder="Tell us what guidance you're seeking..."></textarea>
           </div>
-          <button type="submit" class="f-submit">Send Message →</button>
+          <button type="submit" class="f-submit">Send by Email →</button>
         </form>
       </div>
     </div>
@@ -1500,7 +1532,7 @@ body::after {
 <footer class="footer">
   <div class="footer-grid">
     <div>
-      <a href="#" class="nav-logo" style="margin-bottom:0.5rem;">
+      <a href="index.html" class="nav-logo" style="margin-bottom:0.5rem;">
         <span class="nav-logo-mark">Parashar Jyotisha</span>
         <span class="nav-logo-dot"></span>
       </a>
@@ -1532,11 +1564,11 @@ body::after {
     <div>
       <div class="footer-title">Connect</div>
       <ul class="footer-links">
-        <li><a href="https://wa.me/91XXXXXXXXXX">WhatsApp</a></li>
-        <li><a href="mailto:your@email.com">Email</a></li>
-        <li><a href="#">Instagram</a></li>
-        <li><a href="#">YouTube</a></li>
-        <li><a href="#">Parashar Jyotisha App</a></li>
+        <li><a href="vedic-panchanga.html">Vedic Panchanga App</a></li>
+        <li><a href="mailto:su03may@gmail.com">Email Support</a></li>
+        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+        <li><a href="data-deletion.html">Data Deletion</a></li>
+        <li><a href="legal.html">Legal Center</a></li>
       </ul>
     </div>
   </div>
@@ -1548,9 +1580,8 @@ body::after {
   </div>
 </footer>
 
-<!-- WhatsApp Float -->
-<a href="https://wa.me/91XXXXXXXXXX?text=Namaste!%20I'd%20like%20to%20book%20a%20Jyotish%20consultation." 
-   class="wa-float" target="_blank" title="Chat on WhatsApp">💬</a>
+<!-- Support Float -->
+<a href="mailto:su03may@gmail.com?subject=Parashar%20Jyotisha%20Query" class="wa-float" title="Email Parashar Jyotisha">✉️</a>
 
 <!-- ════════ SCRIPTS ════════ -->
 <script>
@@ -1613,10 +1644,23 @@ document.getElementById('panchangDate').textContent = `${days[d.getDay()]}, ${d.
 // ─── Form ───
 function handleSubmit(e) {
   e.preventDefault();
-  const btn = e.target.querySelector('.f-submit');
-  btn.textContent = '✓ Message Sent!';
-  btn.style.background = 'linear-gradient(135deg, #2E7D32, #1B5E20)';
-  setTimeout(() => { btn.textContent = 'Send Message →'; btn.style.background = ''; e.target.reset(); }, 3000);
+  const form = e.target;
+  const fd = new FormData(form);
+  const subject = `Consultation enquiry — ${fd.get('service') || 'Parashar Jyotisha'}`;
+  const body = [
+    `Name: ${fd.get('fullName') || ''}`,
+    `Email: ${fd.get('email') || ''}`,
+    `Phone: ${fd.get('phone') || 'Not provided'}`,
+    `Service: ${fd.get('service') || ''}`,
+    `Date of birth: ${fd.get('dob') || 'Not provided'}`,
+    '',
+    'Message:',
+    `${fd.get('message') || ''}`
+  ].join('\n');
+  const btn = form.querySelector('.f-submit');
+  btn.textContent = 'Opening email app…';
+  window.location.href = `mailto:su03may@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  setTimeout(() => { btn.textContent = 'Send by Email →'; }, 1800);
 }
 
 
@@ -1846,6 +1890,7 @@ loadPanchang('Delhi');
       <span>Vedic Panchanga and Joytisha • Guidance by M. Sharma</span>
     </div>
     <nav class="legal-links" aria-label="Legal links">
+      <a href="vedic-panchanga.html">Vedic Panchanga App</a>
       <a href="about-us.html">About Us</a>
       <a href="contact-us.html">Contact Us</a>
       <a href="privacy-policy.html">Privacy Policy</a>
