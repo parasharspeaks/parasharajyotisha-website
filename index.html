@@ -936,6 +936,27 @@ body::after {
   line-height: 1.55;
 }
 
+/* Anti-spam fields: honeypot stays invisible to real visitors */
+.hp-field {
+  position: absolute !important;
+  left: -10000px !important;
+  top: auto !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+.turnstile-wrap {
+  margin: 1rem 0 .35rem;
+  min-height: 65px;
+}
+.security-note {
+  margin-top: .35rem;
+  font-size: .7rem;
+  color: var(--text-dim);
+}
+
 
 /* ─── FOOTER ─── */
 .footer {
@@ -1031,6 +1052,8 @@ body::after {
   .about-portrait { max-width: 300px; margin: 0 auto; }
 }
 </style>
+<!-- Cloudflare Turnstile: bot protection for consultation form -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
 
@@ -1529,21 +1552,27 @@ body::after {
         <h3>Request Free Guidance</h3>
         <div class="sub">Consultation requests are currently free. Fill in your details and we will respond as availability permits.</div>
         <form id="contactForm">
+          <!-- Anti-spam honeypot: real users never see or fill this field -->
+          <div class="hp-field" aria-hidden="true">
+            <label for="cf-company-site">Company website</label>
+            <input id="cf-company-site" name="companyWebsite" type="text" tabindex="-1" autocomplete="off">
+          </div>
+          <input id="cf-form-started-at" name="formStartedAt" type="hidden" value="">
           <div class="f-row">
             <div class="f-group">
               <label class="f-label">Full Name</label>
-              <input class="f-input" id="cf-name" name="name" type="text" placeholder="Your name" autocomplete="name" required>
+              <input class="f-input" id="cf-name" name="name" type="text" maxlength="80" placeholder="Your name" autocomplete="name" required>
             </div>
             <div class="f-group">
               <label class="f-label">Phone / WhatsApp</label>
-              <input class="f-input" id="cf-phone" name="phone" type="tel" placeholder="Enter phone / WhatsApp number" autocomplete="tel" required>
+              <input class="f-input" id="cf-phone" name="phone" type="tel" maxlength="20" inputmode="tel" placeholder="Enter phone / WhatsApp number" autocomplete="tel" required>
             </div>
           </div>
 
           <div class="f-row">
             <div class="f-group">
               <label class="f-label">Email</label>
-              <input class="f-input" id="cf-email" name="email" type="email" placeholder="Enter your email" autocomplete="email" required>
+              <input class="f-input" id="cf-email" name="email" type="email" maxlength="120" placeholder="Enter your email" autocomplete="email" required>
             </div>
             <div class="f-group">
               <label class="f-label">Service</label>
@@ -1576,29 +1605,38 @@ body::after {
           <div class="f-row">
             <div class="f-group">
               <label class="f-label">Birth Place / City</label>
-              <input class="f-input" id="cf-place" name="place" type="text" placeholder="e.g. Bareilly" autocomplete="address-level2" required>
+              <input class="f-input" id="cf-place" name="place" type="text" maxlength="80" placeholder="e.g. Bareilly" autocomplete="address-level2" required>
             </div>
             <div class="f-group">
               <label class="f-label">District</label>
-              <input class="f-input" id="cf-district" name="district" type="text" placeholder="e.g. Bareilly" required>
+              <input class="f-input" id="cf-district" name="district" type="text" maxlength="80" placeholder="e.g. Bareilly" required>
             </div>
           </div>
 
           <div class="f-row">
             <div class="f-group">
               <label class="f-label">State</label>
-              <input class="f-input" id="cf-state" name="state" type="text" placeholder="e.g. Uttar Pradesh" autocomplete="address-level1" required>
+              <input class="f-input" id="cf-state" name="state" type="text" maxlength="80" placeholder="e.g. Uttar Pradesh" autocomplete="address-level1" required>
             </div>
             <div class="f-group">
               <label class="f-label">Country</label>
-              <input class="f-input" id="cf-country" name="country" type="text" value="India" autocomplete="country-name" required>
+              <input class="f-input" id="cf-country" name="country" type="text" maxlength="80" value="India" autocomplete="country-name" required>
             </div>
           </div>
 
           <div class="f-group">
             <label class="f-label">Your Question / Message</label>
-            <textarea class="f-textarea" id="cf-message" name="message" placeholder="Tell us what guidance you're seeking..." required></textarea>
+            <textarea class="f-textarea" id="cf-message" name="message" maxlength="1200" placeholder="Tell us what guidance you're seeking..." required></textarea>
           </div>
+          <div class="turnstile-wrap">
+            <div class="cf-turnstile"
+                 data-sitekey="0x4AAAAAAEmFmvVjBbo4kgwd"
+                 data-action="consultation_submit"
+                 data-theme="dark"
+                 data-retry="auto"
+                 data-refresh-expired="auto"></div>
+          </div>
+          <div class="security-note">Protected against automated submissions. Most visitors will not need to solve a puzzle.</div>
           <button type="submit" class="f-submit" id="contactSubmitBtn">Submit Free Request →</button>
           <div id="contactFormStatus" class="form-status" aria-live="polite"></div>
           <div class="form-note">Your details are saved securely for consultation follow-up. No payment is required. Please avoid sharing passwords, OTPs, bank details, or highly sensitive information here.</div>
@@ -1664,66 +1702,14 @@ body::after {
 <a href="#contact" class="wa-float" title="Request WhatsApp callback">💬</a>
 
 <!-- ════════ SCRIPTS ════════ -->
-<!-- Firebase SDK: saves consultation requests to Cloud Firestore -->
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+<!-- Website consultation submissions now go through a protected Firebase HTTPS Function. -->
 <script>
 
-// ─── Firebase Init for website consultation form ───
-const firebaseConfig = {
-  apiKey: "AIzaSyAmTmvbM-XtsPb4O-luxNiqb1W9gyQ77As",
-  authDomain: "vedicpanchangaapp.firebaseapp.com",
-  projectId: "vedicpanchangaapp",
-  storageBucket: "vedicpanchangaapp.firebasestorage.app",
-  messagingSenderId: "767719116529",
-  appId: "1:767719116529:web:b8eff04f41df72ea602350"
-};
-
-let consultationDb = null;
-try {
-  if (window.firebase && !firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-  }
-  if (window.firebase) {
-    consultationDb = firebase.firestore();
-  }
-} catch (err) {
-  console.error('Firebase initialization failed:', err);
-}
-
-// ─── Email notification through Google Apps Script ───
-// STEP: After creating and deploying the Apps Script, paste its Web App URL below.
-const CONSULTATION_EMAIL_NOTIFY_URL = "https://script.google.com/macros/s/AKfycbwjiT-R1HI0WMbbpllfHladpv1iUN7_XpRi3-mO2e_fTfQci_vSP4jzvPbfu4YvkjhI/exec";
-const CONSULTATION_NOTIFY_TOKEN = "PJ_NOTIFY_2026_PARASHAR_JYOTISHA";
-
-function notifyConsultationByEmail(data) {
-  if (!CONSULTATION_EMAIL_NOTIFY_URL || CONSULTATION_EMAIL_NOTIFY_URL.includes('PASTE_YOUR')) {
-    console.warn('Email notification URL not configured yet. Firestore saving will still work.');
-    return Promise.resolve(false);
-  }
-
-  const emailPayload = {
-    token: CONSULTATION_NOTIFY_TOKEN,
-    submittedAtIST: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }),
-    ...data
-  };
-
-  // mode:no-cors is used so the static website can call Apps Script safely without blocking the form.
-  return fetch(CONSULTATION_EMAIL_NOTIFY_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: {
-      'Content-Type': 'text/plain;charset=utf-8'
-    },
-    body: JSON.stringify(emailPayload)
-  })
-  .then(() => true)
-  .catch((err) => {
-    console.warn('Email notification failed, but Firestore save completed:', err);
-    return false;
-  });
-}
-
+// ─── Protected website consultation endpoint ───
+// The server verifies Cloudflare Turnstile, validates inputs, rate-limits abuse,
+// then writes to Firestore with the Admin SDK. No website visitor writes directly to Firestore.
+const CONSULTATION_SUBMIT_URL =
+  "https://asia-south2-vedicpanchangaapp.cloudfunctions.net/submitWebsiteConsultation";
 
 // ─── Star field ───
 const starsEl = document.getElementById('stars');
@@ -1781,7 +1767,7 @@ const months = ['January','February','March','April','May','June','July','August
 const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 document.getElementById('panchangDate').textContent = `${days[d.getDay()]}, ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
 
-// ─── Form: save consultation request to Firebase Firestore ───
+// ─── Form: submit through protected server endpoint ───
 function setFormStatus(message, type='') {
   const box = document.getElementById('contactFormStatus');
   if (!box) return;
@@ -1793,30 +1779,19 @@ function getFormValue(form, fieldName) {
   return (form.elements[fieldName]?.value || '').trim();
 }
 
-function generateConsultationRefId() {
-  const now = new Date();
-  const pad = (n) => String(n).padStart(2, '0');
-  const datePart = `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}`;
-  const randomPart = Math.random().toString(36).toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 5).padEnd(5, 'X');
-  return `PJ-${datePart}-${randomPart}`;
+function resetTurnstileWidget() {
+  if (window.turnstile && typeof window.turnstile.reset === 'function') {
+    try { window.turnstile.reset(); } catch (e) {}
+  }
 }
 
-function addDays(date, days) {
-  const copy = new Date(date.getTime());
-  copy.setDate(copy.getDate() + days);
-  return copy;
-}
-
-function formatISTDateTime(date) {
-  return date.toLocaleString('en-IN', {
-    timeZone: 'Asia/Kolkata',
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: true
-  });
+function looksUnsafeShortField(value) {
+  const s = String(value || '').trim();
+  if (!s) return false;
+  if (/<\/?(?:script|iframe|object|embed|style|svg)\b/i.test(s)) return true;
+  if (/javascript\s*:/i.test(s)) return true;
+  if (/(?:https?:\/\/|www\.)/i.test(s)) return true;
+  return false;
 }
 
 async function handleSubmit(e) {
@@ -1836,112 +1811,133 @@ async function handleSubmit(e) {
   const state = getFormValue(form, 'state');
   const country = getFormValue(form, 'country') || 'India';
   const message = getFormValue(form, 'message');
+  const companyWebsite = getFormValue(form, 'companyWebsite');
+  const formStartedAt = Number(getFormValue(form, 'formStartedAt') || 0);
+  const turnstileToken = getFormValue(form, 'cf-turnstile-response');
 
   if (!name || !phone || !email || !service || !dateOfBirth || !place || !district || !state || !country || !message) {
     setFormStatus('Please fill all required fields: name, phone, email, service, birth date, birth place, district, state, country and message.', 'err');
     return;
   }
 
-  if (phone.replace(/\D/g, '').length < 8) {
+  if (companyWebsite) {
+    setFormStatus('Could not verify this submission. Please refresh the page and try again.', 'err');
+    return;
+  }
+
+  if (name.length < 2 || name.length > 80 || /\d/.test(name)) {
+    setFormStatus('Please enter a valid name.', 'err');
+    return;
+  }
+
+  if (phone.replace(/\D/g, '').length < 8 || phone.replace(/\D/g, '').length > 15) {
     setFormStatus('Please enter a valid phone / WhatsApp number.', 'err');
     return;
   }
 
-  if (message.length < 5) {
-    setFormStatus('Please write a short question/message of at least 5 characters.', 'err');
+  if (message.length < 5 || message.length > 1200) {
+    setFormStatus('Please write a clear question/message between 5 and 1200 characters.', 'err');
     return;
   }
 
-  if (!consultationDb) {
-    setFormStatus('Firebase is not ready. Please refresh the page and try again.', 'err');
+  if ([name, place, district, state, country].some(looksUnsafeShortField)) {
+    setFormStatus('Please remove website links or HTML/code from the name and location fields.', 'err');
+    return;
+  }
+
+  if (!turnstileToken) {
+    setFormStatus('Please wait for the security check to complete, then submit again.', 'err');
     return;
   }
 
   const oldText = btn.textContent;
   btn.disabled = true;
-  btn.textContent = 'Saving free request…';
-  setFormStatus('Saving your free consultation request securely…');
+  btn.textContent = 'Verifying & saving…';
+  setFormStatus('Verifying your request and saving it securely…');
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 25000);
 
   try {
-    const refId = generateConsultationRefId();
-    const submittedAtIST = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
-    const dueDateObj = addDays(new Date(), 5);
-    const dueDateIST = formatISTDateTime(dueDateObj);
-    const slaText = '3 to 5 days';
-
-    const payload = {
-      refId,
-      name,
-      phone,
-      email,
-      emailLower: email.toLowerCase(),
-      service,
-      dateOfBirth,
-      birthTime,
-      place,
-      district,
-      state,
-      country,
-      message,
-      status: 'new',
-      source: 'website',
-      paymentStatus: 'not_started', // legacy Firestore-rule compatibility; no payment is collected
-      slaText,
-      dueDate: firebase.firestore.Timestamp.fromDate(dueDateObj),
-      dueDateIST,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      pageUrl: window.location.href,
-      userAgent: navigator.userAgent || '',
-      adminNotified: false,
-      notificationRead: false
-    };
-
-    const docRef = await consultationDb.collection('consultations').add(payload);
-    console.log('Consultation saved:', docRef.id);
-
-    notifyConsultationByEmail({
-      docId: docRef.id,
-      refId,
-      submittedAtIST,
-      dueDateIST,
-      slaText,
-      name,
-      phone,
-      email,
-      service,
-      dateOfBirth,
-      birthTime,
-      place,
-      district,
-      state,
-      country,
-      message,
-      pageUrl: window.location.href
+    const response = await fetch(CONSULTATION_SUBMIT_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      credentials: 'omit',
+      signal: controller.signal,
+      body: JSON.stringify({
+        name,
+        phone,
+        email,
+        service,
+        dateOfBirth,
+        birthTime,
+        place,
+        district,
+        state,
+        country,
+        message,
+        companyWebsite,
+        formStartedAt,
+        turnstileToken,
+        pageUrl: window.location.href
+      })
     });
+
+    let result = {};
+    try { result = await response.json(); } catch (e) {}
+
+    if (!response.ok || !result.ok) {
+      const msg = result && result.message
+        ? result.message
+        : (response.status === 429
+          ? 'Too many requests were submitted from this connection. Please wait and try again later.'
+          : 'Could not verify or save the request. Please try again.');
+      throw new Error(msg);
+    }
+
+    const refId = result.refId || 'Saved';
+    const slaText = result.slaText || '3 to 5 days';
+    const dueDateIST = result.dueDateIST || '';
 
     btn.textContent = '✓ Request Saved';
     btn.style.background = 'linear-gradient(135deg, #2E7D32, #1B5E20)';
-    setFormStatus(`Thank you. Your consultation request has been saved. Reference ID: ${refId}. Expected response: within ${slaText}, target by ${dueDateIST}. A confirmation email will be sent to you. No payment is required.`, 'ok');
+    setFormStatus(
+      `Thank you. Your consultation request has been saved. Reference ID: ${refId}. Expected response: within ${slaText}${dueDateIST ? `, target by ${dueDateIST}` : ''}. A confirmation email will be sent to you. No payment is required.`,
+      'ok'
+    );
+
     form.reset();
-    form.elements.country.value = 'India';
+    if (form.elements.country) form.elements.country.value = 'India';
+    if (form.elements.formStartedAt) form.elements.formStartedAt.value = String(Date.now());
+    resetTurnstileWidget();
 
     setTimeout(() => {
       btn.textContent = oldText;
       btn.style.background = '';
-      setFormStatus('');
     }, 5000);
   } catch (err) {
-    console.error('Consultation save failed:', err);
-    setFormStatus('Could not save the request. Please check Firebase rules or contact us by email.', 'err');
+    console.error('Consultation submission failed:', err);
+    const msg = err && err.name === 'AbortError'
+      ? 'The request timed out. Please check your connection and try again.'
+      : (err && err.message ? err.message : 'Could not save the request. Please try again.');
+    setFormStatus(msg, 'err');
     btn.textContent = oldText;
     btn.style.background = '';
+    resetTurnstileWidget();
   } finally {
+    clearTimeout(timer);
     btn.disabled = false;
   }
 }
 
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
+  if (contactForm.elements.formStartedAt) {
+    contactForm.elements.formStartedAt.value = String(Date.now());
+  }
   contactForm.addEventListener('submit', handleSubmit);
 }
 
