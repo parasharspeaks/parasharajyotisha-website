@@ -1053,313 +1053,6 @@ body::after {
 </style>
 <!-- Cloudflare Turnstile: bot protection for consultation form -->
 <script async="" defer="" src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>
-
-<style id="spiritual-visual-refinement-step7">
-/* =====================================================================
-   STEP 7 — SPIRITUAL VISUAL REFINEMENT
-   Purpose: reveal existing sacred artwork without changing site structure.
-   ===================================================================== */
-
-/* Tool cards: reserve a clean text zone and let the artwork breathe on right. */
-@media (min-width: 821px){
-  #tools .tool-card{
-    min-height:340px;
-    padding:2.35rem 36% 2.35rem 2.35rem;
-    background:
-      radial-gradient(circle at 88% 48%, rgba(201,168,76,.075), transparent 29%),
-      linear-gradient(105deg, rgba(20,20,30,.96) 0%, rgba(18,18,26,.94) 54%, rgba(18,18,26,.74) 76%, rgba(18,18,26,.58) 100%);
-    border-color:rgba(255,255,255,.085);
-  }
-  #tools .tool-card::after{
-    right:-1%;
-    bottom:0;
-    width:43%;
-    height:100%;
-    background-size:auto 92%;
-    background-position:right 52% center;
-    opacity:.34;
-    filter:saturate(1.08) contrast(1.06) brightness(.98) drop-shadow(0 0 28px rgba(201,168,76,.10));
-    transform:none;
-    -webkit-mask-image:linear-gradient(to right, transparent 0%, rgba(0,0,0,.20) 16%, rgba(0,0,0,.82) 44%, #000 72%, #000 100%);
-    mask-image:linear-gradient(to right, transparent 0%, rgba(0,0,0,.20) 16%, rgba(0,0,0,.82) 44%, #000 72%, #000 100%);
-  }
-  #tools .tool-card:hover::after{
-    opacity:.47;
-    transform:translateY(-3px) scale(1.018);
-    filter:saturate(1.13) contrast(1.07) brightness(1.04) drop-shadow(0 0 34px rgba(232,149,95,.16));
-  }
-  #tools .tool-card:hover{
-    border-color:rgba(201,168,76,.24);
-    box-shadow:0 20px 56px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.035);
-  }
-  #tools .tool-name,
-  #tools .tool-desc,
-  #tools .tool-features,
-  #tools .tool-icon,
-  #tools .tool-badge{position:relative;z-index:3;}
-  #tools .tool-arrow{z-index:4;right:1.45rem;bottom:1.45rem;}
-}
-
-/* Give each sacred card a restrained, different luminous character. */
-#tools .tool-card:nth-child(1){box-shadow:inset -1px 0 0 rgba(125,180,220,.035);}
-#tools .tool-card:nth-child(2){box-shadow:inset -1px 0 0 rgba(224,135,160,.04);}
-#tools .tool-card:nth-child(3){box-shadow:inset -1px 0 0 rgba(224,200,114,.045);}
-#tools .tool-card:nth-child(4){box-shadow:inset -1px 0 0 rgba(125,180,220,.035);}
-
-/* Panchang/Gajendra Moksha scene: show the complete sacred composition rather
-   than cropping it as a generic cover background. */
-#panchang.panchang-section::before{
-  inset:0;
-  opacity:1;
-  transform:none;
-  filter:none;
-  background:
-    linear-gradient(90deg,
-      rgba(10,10,15,.98) 0%,
-      rgba(10,10,15,.94) 27%,
-      rgba(10,10,15,.78) 48%,
-      rgba(10,10,15,.36) 68%,
-      rgba(10,10,15,.14) 100%),
-    url('assets/images/garuda-elephant.png') right center / contain no-repeat,
-    linear-gradient(180deg,#0b0b11,#12121a);
-}
-#panchang.panchang-section::after{
-  background:
-    radial-gradient(circle at 82% 38%, rgba(244,184,122,.19), transparent 24%),
-    radial-gradient(circle at 69% 63%, rgba(201,168,76,.09), transparent 24%),
-    linear-gradient(to bottom, rgba(10,10,15,.15), rgba(10,10,15,.42) 48%, rgba(10,10,15,.84));
-}
-#panchang .section-intro{
-  position:relative;
-  z-index:2;
-  max-width:780px;
-  margin-left:auto;
-  margin-right:auto;
-  text-shadow:0 2px 24px rgba(0,0,0,.72);
-}
-#panchang .panchang-live.upgraded{
-  background:linear-gradient(145deg,rgba(18,18,26,.80),rgba(14,14,21,.69));
-  border-color:rgba(244,184,122,.15);
-  box-shadow:0 34px 110px rgba(0,0,0,.52), 0 0 0 1px rgba(201,168,76,.025), inset 0 1px 0 rgba(255,255,255,.045);
-}
-
-/* Hero deity: keep Ganesha crisp and dignified while preserving current layout. */
-.hero-art{
-  opacity:.96;
-  filter:drop-shadow(0 0 52px rgba(232,149,95,.30)) saturate(1.06) contrast(1.045);
-}
-.hero-art img{
-  -webkit-mask-image:linear-gradient(to bottom, transparent 0%, #000 9%, #000 84%, transparent 100%);
-  mask-image:linear-gradient(to bottom, transparent 0%, #000 9%, #000 84%, transparent 100%);
-}
-
-/* Mobile: artwork remains present but never competes with text. */
-@media (max-width:820px){
-  #tools .tool-card{
-    min-height:300px;
-    padding:2rem;
-    padding-right:2rem;
-    background:
-      linear-gradient(100deg, rgba(18,18,26,.97) 0%, rgba(18,18,26,.91) 67%, rgba(18,18,26,.72) 100%);
-  }
-  #tools .tool-card::after{
-    right:-6%;
-    bottom:-3%;
-    width:57%;
-    height:92%;
-    background-size:contain;
-    background-position:right bottom;
-    opacity:.20;
-    filter:saturate(1.06) contrast(1.04);
-    -webkit-mask-image:linear-gradient(to right, transparent 0%, rgba(0,0,0,.42) 32%, #000 72%);
-    mask-image:linear-gradient(to right, transparent 0%, rgba(0,0,0,.42) 32%, #000 72%);
-  }
-  #tools .tool-card:hover::after{opacity:.25;transform:none;}
-  #panchang.panchang-section::before{
-    background:
-      linear-gradient(180deg, rgba(10,10,15,.72) 0%, rgba(10,10,15,.88) 44%, rgba(10,10,15,.97) 100%),
-      linear-gradient(90deg, rgba(10,10,15,.68), rgba(10,10,15,.20)),
-      url('assets/images/garuda-elephant.png') right -55px top 18px / auto 54% no-repeat,
-      #0b0b11;
-  }
-  #panchang.panchang-section::after{
-    background:radial-gradient(circle at 82% 18%, rgba(244,184,122,.13), transparent 22%);
-  }
-  .hero-art{opacity:.72;right:-4rem;width:min(64vw,420px);}
-}
-
-@media (prefers-reduced-motion:reduce){
-  #tools .tool-card::after,.hero-art{transition:none!important;animation:none!important;}
-}
-</style>
-
-
-<style id="balanced-panchang-step7b">
-/* =====================================================================
-   STEP 7B — BALANCED PANCHANG + SACRED ART
-   Keeps the sacred artwork as a separate, equal visual panel instead of
-   a full-section background. No Panchang/API logic is changed.
-   ===================================================================== */
-#panchang.panchang-section{
-  min-height:auto;
-  padding-top:5rem;
-  padding-bottom:5.4rem;
-  background:
-    radial-gradient(circle at 50% 8%, rgba(232,149,95,.075), transparent 28%),
-    linear-gradient(180deg,#0b0b11 0%,#0d0d14 58%,#0a0a0f 100%);
-}
-#panchang.panchang-section::before,
-#panchang.panchang-section::after{
-  content:none!important;
-  display:none!important;
-}
-#panchang.panchang-section .container{
-  max-width:1480px;
-  width:min(1480px,calc(100% - 48px));
-}
-#panchang .section-intro{
-  max-width:860px;
-  margin:0 auto 2.35rem;
-  text-shadow:none;
-}
-.panchang-visual-grid{
-  display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
-  gap:1.4rem;
-  align-items:stretch;
-}
-#panchang .panchang-live.upgraded{
-  max-width:none;
-  width:100%;
-  height:100%;
-  margin:0;
-  border-radius:28px;
-  background:linear-gradient(145deg,rgba(18,18,26,.94),rgba(12,12,19,.88));
-  border-color:rgba(255,255,255,.105);
-  box-shadow:0 30px 90px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.045);
-}
-#panchang .panchang-live.upgraded::before{
-  width:300px;height:300px;right:-105px;top:-105px;
-  background:radial-gradient(circle,rgba(244,184,122,.10),transparent 68%);
-}
-#panchang .panchang-live.upgraded::after{opacity:.7;font-size:6.8rem;}
-#panchang .panchang-shell{padding:1.55rem;}
-#panchang .panchang-controls{grid-template-columns:minmax(0,1fr) auto;align-items:center;}
-#panchang .panchang-controls .secondary{grid-column:1/-1;justify-self:flex-start;padding:.58rem .9rem;}
-#panchang .panchang-mood-row{grid-template-columns:1fr;}
-#panchang .panchang-mini-grid{grid-template-columns:1fr 1fr;}
-#panchang .panchang-items.enhanced{grid-template-columns:repeat(3,minmax(0,1fr));}
-#panchang .panchang-el.enhanced{min-height:126px;padding:.88rem;}
-#panchang .panchang-extras.enhanced{grid-template-columns:repeat(2,minmax(0,1fr));}
-#panchang .panchang-guide{grid-template-columns:1fr 1fr 1fr;}
-#panchang .panchang-guide-card{padding:.8rem;}
-#panchang .panchang-foot{align-items:flex-start;}
-
-.panchang-sacred-panel{
-  position:relative;
-  min-width:0;
-  min-height:100%;
-  overflow:hidden;
-  border-radius:28px;
-  border:1px solid rgba(244,184,122,.18);
-  background:
-    radial-gradient(circle at 50% 34%,rgba(244,184,122,.13),transparent 31%),
-    linear-gradient(145deg,#18161a,#0d0d14);
-  box-shadow:0 30px 90px rgba(0,0,0,.40), inset 0 1px 0 rgba(255,255,255,.05);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  isolation:isolate;
-}
-.panchang-sacred-panel::before{
-  content:'';
-  position:absolute;
-  inset:0;
-  z-index:2;
-  pointer-events:none;
-  background:
-    linear-gradient(to top,rgba(8,8,12,.82) 0%,rgba(8,8,12,.18) 24%,transparent 48%),
-    radial-gradient(circle at 50% 42%,transparent 48%,rgba(7,7,11,.28) 100%);
-}
-.panchang-sacred-aura{
-  position:absolute;
-  width:68%;
-  aspect-ratio:1;
-  left:16%;
-  top:8%;
-  border-radius:50%;
-  background:radial-gradient(circle,rgba(224,200,114,.14),rgba(232,149,95,.07) 38%,transparent 70%);
-  filter:blur(12px);
-  z-index:0;
-}
-.panchang-sacred-panel img{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  padding:.55rem;
-  object-fit:contain;
-  object-position:center center;
-  z-index:1;
-  opacity:.93;
-  filter:saturate(1.04) contrast(1.035) brightness(.98);
-}
-.panchang-sacred-panel figcaption{
-  position:absolute;
-  left:1.35rem;
-  right:1.35rem;
-  bottom:1.2rem;
-  z-index:3;
-  padding-top:2.1rem;
-  color:var(--text-bright);
-  text-shadow:0 2px 16px rgba(0,0,0,.78);
-}
-.panchang-sacred-panel figcaption span{
-  display:block;
-  font-family:var(--font-serif);
-  font-size:1.38rem;
-  color:var(--gold-light);
-}
-.panchang-sacred-panel figcaption small{
-  display:block;
-  margin-top:.2rem;
-  font-family:var(--font-mono);
-  font-size:.62rem;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-  color:rgba(240,237,232,.72);
-}
-@media (max-width:1180px){
-  #panchang.panchang-section .container{width:min(1120px,calc(100% - 36px));}
-  .panchang-visual-grid{grid-template-columns:1fr;}
-  .panchang-sacred-panel{min-height:520px;aspect-ratio:16/9;}
-  #panchang .panchang-items.enhanced{grid-template-columns:repeat(5,minmax(0,1fr));}
-  #panchang .panchang-extras.enhanced{grid-template-columns:repeat(4,minmax(0,1fr));}
-  #panchang .panchang-mood-row{grid-template-columns:1.1fr .9fr;}
-  #panchang .panchang-controls{grid-template-columns:1fr auto auto;}
-  #panchang .panchang-controls .secondary{grid-column:auto;justify-self:auto;padding:.78rem 1.15rem;}
-}
-@media (max-width:920px){
-  .panchang-sacred-panel{min-height:430px;}
-  #panchang .panchang-items.enhanced{grid-template-columns:repeat(2,1fr);}
-  #panchang .panchang-extras.enhanced{grid-template-columns:repeat(2,1fr);}
-  #panchang .panchang-mood-row{grid-template-columns:1fr;}
-}
-@media (max-width:680px){
-  #panchang.panchang-section{padding-top:4rem;padding-bottom:4rem;}
-  #panchang.panchang-section .container{width:min(100% - 24px,1120px);}
-  .panchang-visual-grid{gap:1rem;}
-  .panchang-sacred-panel{min-height:360px;border-radius:22px;}
-  .panchang-sacred-panel img{padding:.25rem;}
-  #panchang .panchang-live.upgraded{border-radius:22px;}
-  #panchang .panchang-controls{grid-template-columns:1fr;}
-  #panchang .panchang-controls .secondary{grid-column:auto;justify-self:stretch;}
-  #panchang .panchang-mini-grid,
-  #panchang .panchang-items.enhanced,
-  #panchang .panchang-extras.enhanced,
-  #panchang .panchang-guide{grid-template-columns:1fr;}
-}
-</style>
 </head>
 <body>
 <div class="cosmos-bg"></div>
@@ -1370,7 +1063,7 @@ body::after {
 <span class="nav-logo-mark">Parashar Jyotisha</span>
 <span class="nav-logo-dot"></span>
 </a>
-<ul class="nav-links" id="navLinks"><li><a href="panchang.html">Today’s Panchang</a></li><li><a href="#tools">Free Tools</a></li><li><a href="learn.html">Learn</a></li><li><a href="vedic-panchanga.html">Panchanga App</a></li><li><a href="#about">About</a></li><li><a class="nav-cta-btn" href="#contact">Free Guidance</a></li></ul>
+<ul class="nav-links" id="navLinks"><li><a href="#panchang">Today’s Panchang</a></li><li><a href="#tools">Free Tools</a></li><li><a href="#wisdom">Learn</a></li><li><a href="vedic-panchanga.html">Panchanga App</a></li><li><a href="#about">About</a></li><li><a class="nav-cta-btn" href="#contact">Free Guidance</a></li></ul>
 <button class="hamburger" id="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
 <span></span><span></span><span></span>
 </button>
@@ -1386,10 +1079,10 @@ body::after {
 <h1 class="hero-title">Understand Your Chart. <br/><em>Choose Better Timing.</em></h1>
 <p class="hero-sub">Kundli, Panchang, Matching, Dasha and planetary transits — in one clear Vedic astrology toolkit.</p>
 <p class="hero-desc">Start with a free calculation or check today’s Panchang for your city. No sign-up is required for the core tools.</p>
-<div class="hero-actions"><a class="btn btn-ember" href="panchang.html">Check Today’s Panchang</a><a class="btn btn-ghost" href="free-kundli.html">Generate Free Kundli</a></div>
+<div class="hero-actions"><a class="btn btn-ember" href="#panchang">Check Today’s Panchang</a><a class="btn btn-ghost" href="tools.html#kundli">Generate Free Kundli</a></div>
 <div aria-label="Core website tools" class="hero-proof"><span class="proof-pill"><strong>No signup</strong></span><span class="proof-pill"><strong>Free</strong> core tools</span><span class="proof-pill">City-based Panchang</span><span class="proof-pill">Vedic / Sidereal</span></div>
 </div>
-</section><section class="section start-here-section" id="start-here"><div class="container"><div class="section-intro center reveal"><span class="label">Start Here</span><h2 class="heading">What would you like to <em>check today?</em></h2><p class="section-desc">Choose one clear path. You can explore the deeper tools after you get your first result.</p></div><div class="quick-start-grid"><a class="quick-start-card reveal primary" href="panchang.html"><div class="quick-start-icon">📅</div><h3>Today’s Panchang</h3><p>Tithi, Nakshatra, Rahu Kaal, sunrise and daily timing for your city.</p><span class="quick-start-cta">Check today →</span></a><a class="quick-start-card reveal" href="free-kundli.html"><div class="quick-start-icon">📜</div><h3>Free Kundli</h3><p>Generate your Vedic birth chart, planetary positions, Dasha and Yogas.</p><span class="quick-start-cta">Generate Kundli →</span></a><a class="quick-start-card reveal" href="kundli-matching.html"><div class="quick-start-icon">💑</div><h3>Kundli Matching</h3><p>Check Ashtakoota Gun Milan and compatibility from birth details.</p><span class="quick-start-cta">Match Kundli →</span></a><a class="quick-start-card reveal" href="sade-sati-calculator.html"><div class="quick-start-icon">🪐</div><h3>Sade Sati &amp; Transits</h3><p>See current planetary movement and explore Saturn / Sade Sati.</p><span class="quick-start-cta">Check Sade Sati →</span></a></div><div class="trust-strip"><div class="trust-item"><span class="trust-icon">✓</span><div><strong>No unnecessary signup</strong><span>Use the core calculators directly.</span></div></div><div class="trust-item"><span class="trust-icon">⌖</span><div><strong>Location-aware Panchang</strong><span>Daily timings adapt to the selected city.</span></div></div><div class="trust-item"><span class="trust-icon">☉</span><div><strong>Traditional calculation focus</strong><span>Built around Vedic / sidereal Jyotisha methods.</span></div></div><div class="trust-item"><span class="trust-icon">🔒</span><div><strong>Privacy-conscious</strong><span>Do not share passwords, OTPs or banking details.</span></div></div></div></div></section>
+</section><section class="section start-here-section" id="start-here"><div class="container"><div class="section-intro center reveal"><span class="label">Start Here</span><h2 class="heading">What would you like to <em>check today?</em></h2><p class="section-desc">Choose one clear path. You can explore the deeper tools after you get your first result.</p></div><div class="quick-start-grid"><a class="quick-start-card reveal primary" href="#panchang"><div class="quick-start-icon">📅</div><h3>Today’s Panchang</h3><p>Tithi, Nakshatra, Rahu Kaal, sunrise and daily timing for your city.</p><span class="quick-start-cta">Check today →</span></a><a class="quick-start-card reveal" href="tools.html#kundli"><div class="quick-start-icon">📜</div><h3>Free Kundli</h3><p>Generate your Vedic birth chart, planetary positions, Dasha and Yogas.</p><span class="quick-start-cta">Generate Kundli →</span></a><a class="quick-start-card reveal" href="tools.html#matching"><div class="quick-start-icon">💑</div><h3>Kundli Matching</h3><p>Check Ashtakoota Gun Milan and compatibility from birth details.</p><span class="quick-start-cta">Match Kundli →</span></a><a class="quick-start-card reveal" href="tools.html#transits"><div class="quick-start-icon">🪐</div><h3>Sade Sati &amp; Transits</h3><p>See current planetary movement and explore Saturn / Sade Sati.</p><span class="quick-start-cta">Check transits →</span></a></div><div class="trust-strip"><div class="trust-item"><span class="trust-icon">✓</span><div><strong>No unnecessary signup</strong><span>Use the core calculators directly.</span></div></div><div class="trust-item"><span class="trust-icon">⌖</span><div><strong>Location-aware Panchang</strong><span>Daily timings adapt to the selected city.</span></div></div><div class="trust-item"><span class="trust-icon">☉</span><div><strong>Traditional calculation focus</strong><span>Built around Vedic / sidereal Jyotisha methods.</span></div></div><div class="trust-item"><span class="trust-icon">🔒</span><div><strong>Privacy-conscious</strong><span>Do not share passwords, OTPs or banking details.</span></div></div></div></div></section>
 <!-- ════════ PHILOSOPHY STRIP ════════ -->
 <div class="philosophy">
 <p class="philosophy-quote">
@@ -1407,7 +1100,7 @@ body::after {
 <p class="section-desc">After your first check, explore detailed Kundli, matching, numerology, Gochar, Dasha, Yogas, Shadbala and Ashtakavarga.</p>
 </div>
 <div class="tools-grid">
-<a class="tool-card reveal reveal-d1" href="free-kundli.html" style="--card-img:url('assets/images/hero-chandra.webp')">
+<a class="tool-card reveal reveal-d1" href="tools.html#kundli" style="--card-img:url('assets/images/hero-chandra.webp')">
 <span class="tool-badge badge-free">Free</span>
 <span class="tool-icon">📜</span>
 <div class="tool-name">Kundli — Birth Chart</div>
@@ -1425,7 +1118,7 @@ body::after {
 </div>
 <div class="tool-arrow">→</div>
 </a>
-<a class="tool-card reveal reveal-d2" href="kundli-matching.html" style="--card-img:url('assets/images/krishna-govardhan.webp')">
+<a class="tool-card reveal reveal-d2" href="tools.html#matching" style="--card-img:url('assets/images/krishna-govardhan.webp')">
 <span class="tool-badge badge-free">Free</span>
 <span class="tool-icon">💑</span>
 <div class="tool-name">Kundli Matching</div>
@@ -1442,7 +1135,7 @@ body::after {
 </div>
 <div class="tool-arrow">→</div>
 </a>
-<a class="tool-card reveal reveal-d3" href="tools.html#numerology" style="--card-img:url('assets/images/guru-jupiter.webp')">
+<a class="tool-card reveal reveal-d3" href="tools.html#numerology" style="--card-img:url('assets/images/surya-panchang.webp')">
 <span class="tool-badge badge-free">Free</span>
 <span class="tool-icon">🔢</span>
 <div class="tool-name">Numerology</div>
@@ -1459,7 +1152,7 @@ body::after {
 </div>
 <div class="tool-arrow">→</div>
 </a>
-<a class="tool-card reveal reveal-d4" href="planetary-transits.html" style="--card-img:url('assets/images/saturn-transit.webp')">
+<a class="tool-card reveal reveal-d4" href="tools.html#transits" style="--card-img:url('assets/images/saturn-transit.webp')">
 <span class="tool-badge badge-live">Live</span>
 <span class="tool-icon">🪐</span>
 <div class="tool-name">Planetary Transits</div>
@@ -1489,7 +1182,6 @@ body::after {
         Panchang is the living clock of Vedic time. See the five limbs, daily caution periods, sunrise/sunset and practical guidance for your city.
       </p>
 </div>
-<div class="panchang-visual-grid">
 <div class="panchang-live upgraded reveal" id="panchangCard">
 <div class="panchang-shell">
 <div class="panchang-topbar">
@@ -1503,7 +1195,7 @@ body::after {
 <div aria-label="Panchang city controls" class="panchang-controls">
 <input aria-label="City for Panchang" class="panchang-city-input" id="panchangCityInput" placeholder="Enter city, e.g. Dehradun, Delhi, Varanasi" value="Delhi"/>
 <button class="panchang-action primary" id="panchangRefreshBtn" type="button">Show Panchang</button>
-<a class="panchang-action secondary" href="panchang.html">Open Full Tool →</a>
+<a class="panchang-action secondary" href="tools.html#panchang">Open Full Tool →</a>
 </div>
 <div class="panchang-mood-row">
 <div class="panchang-mood-card">
@@ -1540,15 +1232,9 @@ body::after {
 </div>
 <div class="panchang-foot">
 <span id="panchangUpdated">Powered by Parashar Jyotisha API · Updates daily at sunrise</span>
-<a href="panchang.html">Need date selection or another city? Open full Panchang.</a>
+<a href="tools.html#panchang">Need date selection or another city? Open full Panchang.</a>
 </div>
 </div>
-</div>
-<figure class="panchang-sacred-panel reveal reveal-d1" aria-label="Gajendra Moksha sacred artwork">
-  <div class="panchang-sacred-aura" aria-hidden="true"></div>
-  <img src="assets/images/garuda-elephant.png" alt="Gajendra Moksha sacred artwork with Lord Vishnu and Gajendra" loading="lazy"/>
-  <figcaption><span>Gajendra Moksha</span><small>Grace · surrender · divine protection</small></figcaption>
-</figure>
 </div>
 </div>
 </section>
@@ -1656,7 +1342,6 @@ body::after {
 <span class="about-tag">App Developer</span>
 <span class="about-tag">Spiritual Guide</span>
 </div>
-<div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.3rem"><a class="btn btn-ember" href="about-us.html">About &amp; Author →</a><a class="btn btn-ghost" href="how-we-calculate-panchang.html">How We Calculate →</a></div>
 </div>
 </div>
 </div>
@@ -1724,9 +1409,56 @@ body::after {
 <div class="section-intro center reveal">
 <span class="label">Vedic Wisdom</span>
 <h2 class="heading">Explore the <em>Sacred Sciences</em></h2>
-<p class="section-desc">Move from live daily Panchang to deeper Jyotisha concepts with structured guides connected to the calculators.</p>
+<p class="section-desc">
+        Deepen your understanding of Vedic Astrology through articles, guides, 
+        and explorations of ancient knowledge.
+      </p>
 </div>
-<div class="blog-grid"><a class="blog-card reveal" href="today-tithi.html"><div class="blog-thumb">🌙<span class="blog-tag">Tithi</span></div><div class="blog-body"><h3 class="blog-title">Today’s Tithi — Lunar Day &amp; Transition</h3><p class="blog-excerpt">Check the live Tithi for your city and understand why the lunar day can change at any clock time.</p><div class="blog-meta">Live guide · City based</div></div></a><a class="blog-card reveal" href="nakshatras-27-guide.html"><div class="blog-thumb">⭐<span class="blog-tag">Nakshatras</span></div><div class="blog-body"><h3 class="blog-title">27 Nakshatras — Names, Rulers &amp; Padas</h3><p class="blog-excerpt">Learn the complete 27-Nakshatra sequence and how it connects Panchang, Dasha and matching.</p><div class="blog-meta">Evergreen guide · M. Sharma</div></div></a><a class="blog-card reveal" href="vimshottari-dasha-guide.html"><div class="blog-thumb">⏳<span class="blog-tag">Dasha</span></div><div class="blog-body"><h3 class="blog-title">Vimshottari Dasha — The 120-Year Cycle</h3><p class="blog-excerpt">Understand Mahadasha, Antardasha, the nine-planet sequence and birth balance.</p><div class="blog-meta">Evergreen guide · M. Sharma</div></div></a><a class="blog-card reveal" href="sade-sati-guide.html"><div class="blog-thumb">🪐<span class="blog-tag">Saturn</span></div><div class="blog-body"><h3 class="blog-title">Sade Sati — Three Phases Explained</h3><p class="blog-excerpt">A non-fear-based guide to Saturn’s three transit phases around the natal Moon.</p><div class="blog-meta">Evergreen guide · M. Sharma</div></div></a><a class="blog-card reveal" href="ashtakoota-guna-milan.html"><div class="blog-thumb">💑<span class="blog-tag">Matching</span></div><div class="blog-body"><h3 class="blog-title">Ashtakoota — Understand All 36 Points</h3><p class="blog-excerpt">See where the eight Kootas and their point weights come from before using the matching tool.</p><div class="blog-meta">Evergreen guide · M. Sharma</div></div></a></div><div style="text-align:center;margin-top:1.8rem"><a class="btn btn-ghost" href="learn.html">Browse the Complete Learn Library →</a></div>
+<div class="blog-grid">
+<a class="blog-card reveal" href="#">
+<div class="blog-thumb">
+          🌙
+          <span class="blog-tag">Panchang</span>
+</div>
+<div class="blog-body">
+<h3 class="blog-title">The Five Limbs of Time — Understanding Panchang</h3>
+<p class="blog-excerpt">
+            Tithi, Nakshatra, Yoga, Karana, and Vara — the five pillars that 
+            define every moment's quality. A deep dive into the most 
+            fundamental tool of Vedic timekeeping.
+          </p>
+<div class="blog-meta">Coming Soon · 10 min read</div>
+</div>
+</a>
+<a class="blog-card reveal reveal-d1" href="#">
+<div class="blog-thumb">
+          ⭐
+          <span class="blog-tag">Nakshatras</span>
+</div>
+<div class="blog-body">
+<h3 class="blog-title">27 Nakshatras — Celestial Mansions of the Soul</h3>
+<p class="blog-excerpt">
+            Each Nakshatra reflects a different deity and stage of the 
+            soul's journey toward self-discovery.
+          </p>
+<div class="blog-meta">Coming Soon · 15 min read</div>
+</div>
+</a>
+<a class="blog-card reveal reveal-d2" href="#">
+<div class="blog-thumb">
+          🪐
+          <span class="blog-tag">Transits</span>
+</div>
+<div class="blog-body">
+<h3 class="blog-title">Saturn's Transit — Navigating Sade Sati</h3>
+<p class="blog-excerpt">
+            Understanding the most feared — and misunderstood — 
+            transit in Vedic astrology.
+          </p>
+<div class="blog-meta">Coming Soon · 12 min read</div>
+</div>
+</a>
+</div>
 </div>
 </section>
 <!-- ════════ CONTACT ════════ -->
@@ -1876,20 +1608,20 @@ body::after {
 <div class="footer-title">Navigate</div>
 <ul class="footer-links">
 <li><a href="#tools">Free Tools</a></li>
-<li><a href="panchang.html">Daily Panchang</a></li>
+<li><a href="#panchang">Daily Panchang</a></li>
 <li><a href="#guidance">Consultations</a></li>
 <li><a href="#about">About</a></li>
-<li><a href="learn.html">Learn Library</a></li>
+<li><a href="#wisdom">Wisdom Blog</a></li>
 </ul>
 </div>
 <div>
 <div class="footer-title">Free Tools</div>
 <ul class="footer-links">
-<li><a href="free-kundli.html">Kundli Generator</a></li>
-<li><a href="kundli-matching.html">Kundli Matching</a></li>
+<li><a href="tools.html">Kundli Generator</a></li>
+<li><a href="tools.html">Kundli Matching</a></li>
 <li><a href="tools.html">Numerology</a></li>
-<li><a href="planetary-transits.html">Planet Transits</a></li>
-<li><a href="panchang.html">Daily Panchang</a></li>
+<li><a href="tools.html">Planet Transits</a></li>
+<li><a href="#panchang">Daily Panchang</a></li>
 </ul>
 </div>
 <div>
@@ -1899,7 +1631,7 @@ body::after {
 <li><a href="mailto:support@parasharajyotisha.com">Email</a></li>
 <li><a href="#">Instagram</a></li>
 <li><a href="#">YouTube</a></li>
-<li><a href="vedic-panchanga.html">Vedic Panchanga App</a></li>
+<li><a href="#">Vedic Panchanga App</a></li>
 </ul>
 </div>
 </div>
@@ -2377,8 +2109,6 @@ loadPanchang('Delhi');
 </div>
 <nav aria-label="Legal links" class="legal-links">
 <a href="about-us.html">About Us</a>
-<a href="how-we-calculate-panchang.html">Panchang Method</a>
-<a href="how-we-calculate-kundli.html">Kundli Method</a>
 <a href="contact-us.html">Contact Us</a>
 <a href="privacy-policy.html">Privacy Policy</a>
 <a href="terms-and-conditions.html">Terms &amp; Conditions</a>
