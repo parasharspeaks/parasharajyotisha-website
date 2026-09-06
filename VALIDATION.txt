@@ -1,0 +1,39 @@
+STEP 5 STATIC VALIDATION PASSED
+{
+  "how-we-calculate-panchang.html": {
+    "title": true,
+    "canonical": true,
+    "h1": true,
+    "html_close": true
+  },
+  "index_step5_authority_links.html": {
+    "title": true,
+    "canonical": true,
+    "h1": true,
+    "html_close": true
+  },
+  "free-kundli_step5_authority.html": {
+    "title": true,
+    "canonical": true,
+    "h1": true,
+    "html_close": true
+  },
+  "panchang_step5_authority.html": {
+    "title": true,
+    "canonical": true,
+    "h1": true,
+    "html_close": true
+  },
+  "how-we-calculate-kundli.html": {
+    "title": true,
+    "canonical": true,
+    "h1": true,
+    "html_close": true
+  },
+  "about-us.html": {
+    "title": true,
+    "canonical": true,
+    "h1": true,
+    "html_close": true
+  }
+}
