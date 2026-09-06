@@ -1193,6 +1193,173 @@ body::after {
 }
 </style>
 
+
+<style id="balanced-panchang-step7b">
+/* =====================================================================
+   STEP 7B — BALANCED PANCHANG + SACRED ART
+   Keeps the sacred artwork as a separate, equal visual panel instead of
+   a full-section background. No Panchang/API logic is changed.
+   ===================================================================== */
+#panchang.panchang-section{
+  min-height:auto;
+  padding-top:5rem;
+  padding-bottom:5.4rem;
+  background:
+    radial-gradient(circle at 50% 8%, rgba(232,149,95,.075), transparent 28%),
+    linear-gradient(180deg,#0b0b11 0%,#0d0d14 58%,#0a0a0f 100%);
+}
+#panchang.panchang-section::before,
+#panchang.panchang-section::after{
+  content:none!important;
+  display:none!important;
+}
+#panchang.panchang-section .container{
+  max-width:1480px;
+  width:min(1480px,calc(100% - 48px));
+}
+#panchang .section-intro{
+  max-width:860px;
+  margin:0 auto 2.35rem;
+  text-shadow:none;
+}
+.panchang-visual-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:1.4rem;
+  align-items:stretch;
+}
+#panchang .panchang-live.upgraded{
+  max-width:none;
+  width:100%;
+  height:100%;
+  margin:0;
+  border-radius:28px;
+  background:linear-gradient(145deg,rgba(18,18,26,.94),rgba(12,12,19,.88));
+  border-color:rgba(255,255,255,.105);
+  box-shadow:0 30px 90px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.045);
+}
+#panchang .panchang-live.upgraded::before{
+  width:300px;height:300px;right:-105px;top:-105px;
+  background:radial-gradient(circle,rgba(244,184,122,.10),transparent 68%);
+}
+#panchang .panchang-live.upgraded::after{opacity:.7;font-size:6.8rem;}
+#panchang .panchang-shell{padding:1.55rem;}
+#panchang .panchang-controls{grid-template-columns:minmax(0,1fr) auto;align-items:center;}
+#panchang .panchang-controls .secondary{grid-column:1/-1;justify-self:flex-start;padding:.58rem .9rem;}
+#panchang .panchang-mood-row{grid-template-columns:1fr;}
+#panchang .panchang-mini-grid{grid-template-columns:1fr 1fr;}
+#panchang .panchang-items.enhanced{grid-template-columns:repeat(3,minmax(0,1fr));}
+#panchang .panchang-el.enhanced{min-height:126px;padding:.88rem;}
+#panchang .panchang-extras.enhanced{grid-template-columns:repeat(2,minmax(0,1fr));}
+#panchang .panchang-guide{grid-template-columns:1fr 1fr 1fr;}
+#panchang .panchang-guide-card{padding:.8rem;}
+#panchang .panchang-foot{align-items:flex-start;}
+
+.panchang-sacred-panel{
+  position:relative;
+  min-width:0;
+  min-height:100%;
+  overflow:hidden;
+  border-radius:28px;
+  border:1px solid rgba(244,184,122,.18);
+  background:
+    radial-gradient(circle at 50% 34%,rgba(244,184,122,.13),transparent 31%),
+    linear-gradient(145deg,#18161a,#0d0d14);
+  box-shadow:0 30px 90px rgba(0,0,0,.40), inset 0 1px 0 rgba(255,255,255,.05);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  isolation:isolate;
+}
+.panchang-sacred-panel::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+  background:
+    linear-gradient(to top,rgba(8,8,12,.82) 0%,rgba(8,8,12,.18) 24%,transparent 48%),
+    radial-gradient(circle at 50% 42%,transparent 48%,rgba(7,7,11,.28) 100%);
+}
+.panchang-sacred-aura{
+  position:absolute;
+  width:68%;
+  aspect-ratio:1;
+  left:16%;
+  top:8%;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(224,200,114,.14),rgba(232,149,95,.07) 38%,transparent 70%);
+  filter:blur(12px);
+  z-index:0;
+}
+.panchang-sacred-panel img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  padding:.55rem;
+  object-fit:contain;
+  object-position:center center;
+  z-index:1;
+  opacity:.93;
+  filter:saturate(1.04) contrast(1.035) brightness(.98);
+}
+.panchang-sacred-panel figcaption{
+  position:absolute;
+  left:1.35rem;
+  right:1.35rem;
+  bottom:1.2rem;
+  z-index:3;
+  padding-top:2.1rem;
+  color:var(--text-bright);
+  text-shadow:0 2px 16px rgba(0,0,0,.78);
+}
+.panchang-sacred-panel figcaption span{
+  display:block;
+  font-family:var(--font-serif);
+  font-size:1.38rem;
+  color:var(--gold-light);
+}
+.panchang-sacred-panel figcaption small{
+  display:block;
+  margin-top:.2rem;
+  font-family:var(--font-mono);
+  font-size:.62rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:rgba(240,237,232,.72);
+}
+@media (max-width:1180px){
+  #panchang.panchang-section .container{width:min(1120px,calc(100% - 36px));}
+  .panchang-visual-grid{grid-template-columns:1fr;}
+  .panchang-sacred-panel{min-height:520px;aspect-ratio:16/9;}
+  #panchang .panchang-items.enhanced{grid-template-columns:repeat(5,minmax(0,1fr));}
+  #panchang .panchang-extras.enhanced{grid-template-columns:repeat(4,minmax(0,1fr));}
+  #panchang .panchang-mood-row{grid-template-columns:1.1fr .9fr;}
+  #panchang .panchang-controls{grid-template-columns:1fr auto auto;}
+  #panchang .panchang-controls .secondary{grid-column:auto;justify-self:auto;padding:.78rem 1.15rem;}
+}
+@media (max-width:920px){
+  .panchang-sacred-panel{min-height:430px;}
+  #panchang .panchang-items.enhanced{grid-template-columns:repeat(2,1fr);}
+  #panchang .panchang-extras.enhanced{grid-template-columns:repeat(2,1fr);}
+  #panchang .panchang-mood-row{grid-template-columns:1fr;}
+}
+@media (max-width:680px){
+  #panchang.panchang-section{padding-top:4rem;padding-bottom:4rem;}
+  #panchang.panchang-section .container{width:min(100% - 24px,1120px);}
+  .panchang-visual-grid{gap:1rem;}
+  .panchang-sacred-panel{min-height:360px;border-radius:22px;}
+  .panchang-sacred-panel img{padding:.25rem;}
+  #panchang .panchang-live.upgraded{border-radius:22px;}
+  #panchang .panchang-controls{grid-template-columns:1fr;}
+  #panchang .panchang-controls .secondary{grid-column:auto;justify-self:stretch;}
+  #panchang .panchang-mini-grid,
+  #panchang .panchang-items.enhanced,
+  #panchang .panchang-extras.enhanced,
+  #panchang .panchang-guide{grid-template-columns:1fr;}
+}
+</style>
 </head>
 <body>
 <div class="cosmos-bg"></div>
@@ -1322,6 +1489,7 @@ body::after {
         Panchang is the living clock of Vedic time. See the five limbs, daily caution periods, sunrise/sunset and practical guidance for your city.
       </p>
 </div>
+<div class="panchang-visual-grid">
 <div class="panchang-live upgraded reveal" id="panchangCard">
 <div class="panchang-shell">
 <div class="panchang-topbar">
@@ -1375,6 +1543,12 @@ body::after {
 <a href="panchang.html">Need date selection or another city? Open full Panchang.</a>
 </div>
 </div>
+</div>
+<figure class="panchang-sacred-panel reveal reveal-d1" aria-label="Gajendra Moksha sacred artwork">
+  <div class="panchang-sacred-aura" aria-hidden="true"></div>
+  <img src="assets/images/garuda-elephant.png" alt="Gajendra Moksha sacred artwork with Lord Vishnu and Gajendra" loading="lazy"/>
+  <figcaption><span>Gajendra Moksha</span><small>Grace · surrender · divine protection</small></figcaption>
+</figure>
 </div>
 </div>
 </section>
