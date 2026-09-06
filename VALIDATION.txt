@@ -1,39 +1,20 @@
-STEP 5 STATIC VALIDATION PASSED
-{
-  "how-we-calculate-panchang.html": {
-    "title": true,
-    "canonical": true,
-    "h1": true,
-    "html_close": true
-  },
-  "index_step5_authority_links.html": {
-    "title": true,
-    "canonical": true,
-    "h1": true,
-    "html_close": true
-  },
-  "free-kundli_step5_authority.html": {
-    "title": true,
-    "canonical": true,
-    "h1": true,
-    "html_close": true
-  },
-  "panchang_step5_authority.html": {
-    "title": true,
-    "canonical": true,
-    "h1": true,
-    "html_close": true
-  },
-  "how-we-calculate-kundli.html": {
-    "title": true,
-    "canonical": true,
-    "h1": true,
-    "html_close": true
-  },
-  "about-us.html": {
-    "title": true,
-    "canonical": true,
-    "h1": true,
-    "html_close": true
-  }
-}
+ashtakavarga.html: OK
+ashtakoota-guna-milan.html: OK
+free-kundli_step6_learning.html: OK
+index_step6_learn.html: OK (existing homepage Turnstile preserved)
+kundli-matching_step6_learning.html: OK
+learn.html: OK
+mangal-dosha.html: OK
+nakshatras-27-guide.html: OK
+sade-sati-calculator_step6_learning.html: OK
+sade-sati-guide.html: OK
+shadbala.html: OK
+vimshottari-dasha-guide.html: OK
+vimshottari-dasha_step6_learning.html: OK
+nakshatras-27-guide.html visible word count: 904
+vimshottari-dasha-guide.html visible word count: 773
+sade-sati-guide.html visible word count: 781
+ashtakoota-guna-milan.html visible word count: 701
+mangal-dosha.html visible word count: 706
+shadbala.html visible word count: 714
+ashtakavarga.html visible word count: 713
