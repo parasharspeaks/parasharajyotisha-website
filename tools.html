@@ -961,6 +961,185 @@ html[data-theme="light"] .navlinks .cta{
 }
 
 </style>
+
+<style id="pj-kundli-chart-visual-v11">
+/* ============================================================
+   STEP 11 — KUNDLI CHART VISUAL / MOBILE READABILITY
+   Only chart presentation is changed. Calculation logic stays intact.
+   ============================================================ */
+:root{
+  --kc-bg:#12121A;
+  --kc-cell:#1A1921;
+  --kc-cell-2:#211C1B;
+  --kc-grid:rgba(232,149,95,.35);
+  --kc-label:#C8B7AA;
+  --kc-muted:#8F8078;
+  --kc-title:#F1C08E;
+  --kc-center-1:#35231D;
+  --kc-center-2:#17151B;
+  --kc-lagna-1:#4C2B20;
+  --kc-lagna-2:#21191A;
+  --kc-lagna:#F4B87A;
+  --kc-outline:rgba(10,10,15,.90);
+  --kc-card-shadow:0 18px 48px rgba(0,0,0,.22);
+}
+html[data-theme="light"]{
+  --kc-bg:#F7D9A5;
+  --kc-cell:#FFF8EA;
+  --kc-cell-2:#FFF0D2;
+  --kc-grid:#D79B54;
+  --kc-label:#654232;
+  --kc-muted:#896A58;
+  --kc-title:#9E2028;
+  --kc-center-1:#FFE3A8;
+  --kc-center-2:#FFF8E9;
+  --kc-lagna-1:#FFD38D;
+  --kc-lagna-2:#FFF1D0;
+  --kc-lagna:#9E2028;
+  --kc-outline:rgba(255,250,239,.98);
+  --kc-card-shadow:0 18px 46px rgba(117,71,32,.13);
+}
+
+/* Common chart frame */
+.kundli-shell{max-width:680px;margin:0 auto;}
+.kundli-chart{
+  gap:1px!important;
+  border:2px solid var(--kc-grid)!important;
+  background:var(--kc-grid)!important;
+  border-radius:20px!important;
+  box-shadow:var(--kc-card-shadow)!important;
+}
+.kundli-cell{
+  background:linear-gradient(145deg,var(--kc-cell),var(--kc-cell-2))!important;
+  min-height:112px;
+  padding:10px;
+}
+.kundli-cell.lagna-cell{
+  background:linear-gradient(135deg,var(--kc-lagna-1),var(--kc-lagna-2))!important;
+  box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--kc-lagna) 55%,transparent)!important;
+}
+.kundli-sign{font-size:.70rem!important;font-weight:850!important;color:var(--kc-label)!important;letter-spacing:.055em!important;}
+.lagna-cell .kundli-sign{color:var(--kc-lagna)!important;}
+.kundli-num{font-size:.57rem!important;color:var(--kc-muted)!important;opacity:.78!important;}
+.empty-house{color:var(--kc-muted)!important;opacity:.48!important;}
+
+/* Planet pills: readable text first, planet color as identity marker */
+.planet-name-tag{
+  color:var(--text-bright)!important;
+  background:color-mix(in srgb,var(--pc) 10%,var(--kc-cell))!important;
+  border:1px solid color-mix(in srgb,var(--pc) 45%,var(--kc-grid))!important;
+  border-left:4px solid var(--pc)!important;
+  padding:5px 8px!important;
+  font-size:.72rem!important;
+  font-weight:850!important;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+html[data-theme="light"] .planet-name-tag{
+  color:#35231E!important;
+  background:rgba(255,253,247,.94)!important;
+  box-shadow:0 2px 8px rgba(102,63,30,.08);
+}
+.planet-name-tag sup{color:#A51E2A!important;font-weight:900!important;}
+
+/* South Indian centre */
+.kundli-center{
+  background:radial-gradient(circle at 50% 42%,var(--kc-center-1),var(--kc-center-2) 72%)!important;
+  border:1px solid color-mix(in srgb,var(--kc-grid) 65%,transparent)!important;
+}
+.kundli-center-title{color:var(--kc-title)!important;font-size:1.9rem!important;font-weight:550!important;}
+.kundli-center-sub{color:var(--kc-muted)!important;font-weight:800!important;}
+.kundli-center-line{color:var(--kc-label)!important;font-size:.80rem!important;}
+.kundli-center-line strong{color:var(--text-bright)!important;font-weight:800!important;}
+html[data-theme="light"] .kundli-center-line strong{color:#6F251F!important;}
+.kundli-center-name{color:var(--kc-muted)!important;}
+
+/* Chart style controls */
+.chart-style-tabs{margin:.65rem 0 .55rem!important;}
+.kundli-chart-explainer{
+  max-width:650px;margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;
+  gap:.45rem .8rem;flex-wrap:wrap;color:var(--text-mid);font-size:.70rem;line-height:1.35;text-align:center;
+}
+.kundli-chart-explainer span{display:inline-flex;align-items:center;gap:.32rem;}
+.kundli-chart-explainer i{width:10px;height:10px;border-radius:3px;display:inline-block;background:#F0A23A;border:1px solid #B66C1F;}
+.kundli-chart-explainer i.lagna{background:#FFD38D;border:2px solid #9E2028;}
+.kundli-chart-explainer b{color:#A51E2A;font-size:.72rem;}
+html[data-theme="light"] .chart-style-btn{background:#FFF9EF!important;color:#604437!important;border-color:rgba(132,83,43,.22)!important;}
+html[data-theme="light"] .chart-style-btn.active{background:linear-gradient(135deg,#A51E2A,#C13B31)!important;color:#fff!important;border-color:#A51E2A!important;}
+
+/* North Indian chart — same warm Vedic surface */
+.north-chart-wrap{max-width:680px!important;margin:0 auto;}
+.north-chart-svg{
+  background:var(--kc-cell)!important;
+  border:2px solid var(--kc-grid)!important;
+  border-radius:20px!important;
+  box-shadow:var(--kc-card-shadow)!important;
+}
+.north-house-label{font-size:10.8px!important;fill:var(--kc-label)!important;font-weight:900!important;letter-spacing:.045em!important;}
+.north-house-label.lagna{fill:var(--kc-lagna)!important;font-weight:950!important;}
+.north-planet-text{
+  font-size:13px!important;font-weight:950!important;
+  stroke:var(--kc-outline)!important;stroke-width:3.6px!important;
+  paint-order:stroke fill!important;stroke-linejoin:round!important;
+}
+.north-center-title{font-size:21px!important;fill:var(--kc-title)!important;font-weight:650!important;}
+.north-center-sub{font-size:10px!important;fill:var(--kc-muted)!important;font-weight:800!important;}
+
+/* Help box belongs visually with the chart */
+.kundli-help{
+  max-width:650px!important;background:color-mix(in srgb,var(--kc-cell) 88%,transparent)!important;
+  border-color:color-mix(in srgb,var(--kc-grid) 45%,transparent)!important;
+  color:var(--text-mid)!important;padding:.85rem 1rem!important;
+}
+.kundli-help strong{color:var(--kc-lagna)!important;}
+
+/* Light theme chart summary feels like the same Kundli document */
+html[data-theme="light"] .chart-summary-item{
+  background:linear-gradient(145deg,#FFF9EE,#FFEBC8)!important;
+  border-color:rgba(151,94,42,.18)!important;
+}
+html[data-theme="light"] .chart-summary-item span{color:#7B5A49!important;}
+html[data-theme="light"] .chart-summary-item strong{color:#3A251E!important;}
+
+/* Planet table labels are easier to scan in light mode */
+html[data-theme="light"] .planet-table-name{
+  color:#35231E!important;background:rgba(255,255,255,.90)!important;
+  border-color:color-mix(in srgb,var(--pc) 45%,#D9B98E)!important;
+  border-left:4px solid var(--pc)!important;font-weight:850!important;
+}
+
+@media(max-width:768px){
+  .kundli-shell{max-width:100%!important;overflow:visible!important;padding-bottom:0!important;}
+  .kundli-chart{min-width:0!important;width:100%!important;border-radius:15px!important;}
+  .kundli-cell{min-height:88px!important;padding:6px 5px!important;}
+  .kundli-sign-row{gap:3px!important;margin-bottom:5px!important;}
+  .kundli-sign{font-size:.57rem!important;letter-spacing:.025em!important;}
+  .kundli-num{font-size:.48rem!important;}
+  .kundli-planets{gap:3px!important;}
+  .planet-name-tag{font-size:.60rem!important;padding:3px 5px!important;border-left-width:3px!important;}
+  .kundli-center{padding:.55rem!important;}
+  .kundli-center-title{font-size:1.35rem!important;}
+  .kundli-center-sub{font-size:.48rem!important;margin-top:.25rem!important;}
+  .kundli-center-line{font-size:.63rem!important;margin-top:.30rem!important;}
+  .kundli-center-name{font-size:.55rem!important;}
+  .north-chart-wrap{max-width:100%!important;overflow:hidden!important;}
+  .north-chart-svg{width:100%!important;min-width:0!important;border-radius:15px!important;}
+  .north-house-label{font-size:12px!important;}
+  .north-planet-text{font-size:14.5px!important;stroke-width:4px!important;}
+  .north-center-title{font-size:22px!important;}
+  .north-center-sub{font-size:10.5px!important;}
+  .kundli-chart-explainer{font-size:.64rem!important;margin-bottom:.75rem!important;gap:.35rem .55rem!important;}
+  .kundli-help{font-size:.70rem!important;padding:.70rem .78rem!important;}
+}
+@media(max-width:390px){
+  .kundli-cell{min-height:82px!important;padding:5px 4px!important;}
+  .kundli-sign{font-size:.53rem!important;}
+  .planet-name-tag{font-size:.56rem!important;padding:3px 4px!important;}
+  .kundli-center-title{font-size:1.22rem!important;}
+  .north-house-label{font-size:12.5px!important;}
+  .north-planet-text{font-size:15px!important;}
+}
+</style>
+
 </head>
 <body>
 
@@ -1437,9 +1616,10 @@ function signText(p){
   return raw || (RF[rashiNum(p)] || '');
 }
 function planetByName(planets, name){return planets.find(p => cleanName(p).toLowerCase() === name.toLowerCase());}
-function planetTag(name, ret=false){
+function planetTag(name, ret=false, degree=''){
   const co = PCOL[name] || 'var(--text-dim)';
-  return `<span class="planet-name-tag" style="--pc:${co};">${escapeHtml(name)}${ret?'<sup>R</sup>':''}</span>`;
+  const tip = `${name}${degree ? ' · '+degree : ''}${ret ? ' · Retrograde' : ''}`;
+  return `<span class="planet-name-tag" style="--pc:${co};" title="${escapeHtml(tip)}">${escapeHtml(name)}${ret?'<sup>R</sup>':''}</span>`;
 }
 function signForHouse(lagnaNum, houseNo){
   if(!lagnaNum) return 0;
@@ -1467,12 +1647,12 @@ function renderNorthChart(cells, lagN, safeName, lagDisplay){
   };
   let s=`<div class="north-chart-wrap"><svg class="north-chart-svg" viewBox="0 0 500 500" role="img" aria-label="North Indian Rashi chart">
     <defs>
-      <radialGradient id="ngClean" cx="50%" cy="50%" r="70%"><stop offset="0%" stop-color="rgba(212,116,62,.10)"/><stop offset="100%" stop-color="rgba(18,18,26,.96)"/></radialGradient>
+      <radialGradient id="ngClean" cx="50%" cy="50%" r="70%"><stop offset="0%" stop-color="var(--kc-center-1)"/><stop offset="100%" stop-color="var(--kc-center-2)"/></radialGradient>
     </defs>
-    <rect x="8" y="8" width="484" height="484" rx="22" fill="url(#ngClean)" stroke="rgba(255,255,255,.16)"/>
-    <path d="M250 8 L492 250 L250 492 L8 250 Z" fill="none" stroke="rgba(255,255,255,.20)" stroke-width="1.1"/>
-    <path d="M8 8 L492 492 M492 8 L8 492" stroke="rgba(255,255,255,.14)" stroke-width="1"/>
-    <circle cx="250" cy="250" r="2" fill="rgba(232,149,95,.6)"/>
+    <rect x="8" y="8" width="484" height="484" rx="22" fill="url(#ngClean)" stroke="var(--kc-grid)"/>
+    <path d="M250 8 L492 250 L250 492 L8 250 Z" fill="none" stroke="var(--kc-grid)" stroke-width="1.35"/>
+    <path d="M8 8 L492 492 M492 8 L8 492" stroke="var(--kc-grid)" stroke-width="1.15"/>
+    <circle cx="250" cy="250" r="2" fill="var(--kc-lagna)"/>
     <text x="250" y="244" text-anchor="middle" class="north-center-title">North Indian Chart</text>
     <text x="250" y="260" text-anchor="middle" class="north-center-sub">Fixed Houses</text>
     <text x="250" y="276" text-anchor="middle" fill="var(--text-mid)" style="font-size:10px;">Lagna: ${escapeHtml(lagDisplay||RF[lagN]||'—')}</text>`;
@@ -2711,7 +2891,7 @@ function renderKundli(name,bcRaw,ygRaw,dsRaw,meta={},skipScroll=false){
     const rn=cell.r,isL=rn===lagN,pp=cells[rn]||[];
     south+=`<div class="kundli-cell ${isL?'lagna-cell':''}">
       <div class="kundli-sign-row"><span class="kundli-sign">${escapeHtml(RF[rn])}${isL?' · Lagna':''}</span><span class="kundli-num">${rn}</span></div>
-      <div class="kundli-planets">${pp.length?pp.map(p=>planetTag(p.nm,p.ret)).join(''):'<span class="empty-house">—</span>'}</div>
+      <div class="kundli-planets">${pp.length?pp.map(p=>planetTag(p.nm,p.ret,p.degree)).join(''):'<span class="empty-house">—</span>'}</div>
     </div>`;
   }
   south+='</div><div class="kundli-help"><strong>How to read:</strong> This is a fixed South Indian chart. Signs stay fixed; the highlighted box is your Lagna/Ascendant. Planet names are placed inside their signs. <strong>R</strong> means retrograde.</div></div>';
@@ -2720,6 +2900,7 @@ function renderKundli(name,bcRaw,ygRaw,dsRaw,meta={},skipScroll=false){
     <button class="chart-style-btn active" data-kundli-btn="south" onclick="showKundliChartStyle('south')">South Indian</button>
     <button class="chart-style-btn" data-kundli-btn="north" onclick="showKundliChartStyle('north')">North Indian</button>
   </div>
+  <div class="kundli-chart-explainer" aria-label="Kundli chart legend"><span><i class="lagna"></i>Lagna highlighted</span><span><b>R</b> Retrograde</span><span><i></i>Planet colour marker</span><span>Same birth data · two traditional layouts</span></div>
   <div class="kundli-chart-style active" data-kundli-style="south">${south}</div>
   <div class="kundli-chart-style" data-kundli-style="north">${north}</div>`;
 
