@@ -1066,7 +1066,7 @@ html[data-theme="light"] .kundli-center-line strong{color:#6F251F!important;}
 html[data-theme="light"] .chart-style-btn{background:#FFF9EF!important;color:#604437!important;border-color:rgba(132,83,43,.22)!important;}
 html[data-theme="light"] .chart-style-btn.active{background:linear-gradient(135deg,#A51E2A,#C13B31)!important;color:#fff!important;border-color:#A51E2A!important;}
 
-/* North Indian chart — same warm Vedic surface */
+/* North Indian chart — clean fixed-house layout */
 .north-chart-wrap{max-width:680px!important;margin:0 auto;}
 .north-chart-svg{
   background:var(--kc-cell)!important;
@@ -1074,15 +1074,29 @@ html[data-theme="light"] .chart-style-btn.active{background:linear-gradient(135d
   border-radius:20px!important;
   box-shadow:var(--kc-card-shadow)!important;
 }
-.north-house-label{font-size:10.8px!important;fill:var(--kc-label)!important;font-weight:900!important;letter-spacing:.045em!important;}
-.north-house-label.lagna{fill:var(--kc-lagna)!important;font-weight:950!important;}
-.north-planet-text{
-  font-size:13px!important;font-weight:950!important;
-  stroke:var(--kc-outline)!important;stroke-width:3.6px!important;
-  paint-order:stroke fill!important;stroke-linejoin:round!important;
+.north-sign-text{
+  font-size:12.2px!important;
+  fill:var(--kc-label)!important;
+  font-weight:950!important;
+  letter-spacing:.035em!important;
+  paint-order:stroke fill!important;
+  stroke:var(--kc-outline)!important;
+  stroke-width:2.2px!important;
+  stroke-linejoin:round!important;
 }
-.north-center-title{font-size:21px!important;fill:var(--kc-title)!important;font-weight:650!important;}
-.north-center-sub{font-size:10px!important;fill:var(--kc-muted)!important;font-weight:800!important;}
+.north-sign-text.lagna{fill:var(--kc-lagna)!important;font-weight:1000!important;}
+.north-planet-text{
+  font-size:14.2px!important;
+  font-weight:950!important;
+  stroke:var(--kc-outline)!important;
+  stroke-width:3.2px!important;
+  paint-order:stroke fill!important;
+  stroke-linejoin:round!important;
+}
+.north-planet-text.dense{font-size:12.4px!important;stroke-width:2.8px!important;}
+html[data-theme="light"] .north-sign-text{fill:#694736!important;stroke:#FFF7E8!important;}
+html[data-theme="light"] .north-sign-text.lagna{fill:#A51E2A!important;}
+html[data-theme="light"] .north-planet-text{stroke:#FFF6E4!important;}
 
 /* Help box belongs visually with the chart */
 .kundli-help{
@@ -1123,10 +1137,9 @@ html[data-theme="light"] .planet-table-name{
   .kundli-center-name{font-size:.55rem!important;}
   .north-chart-wrap{max-width:100%!important;overflow:hidden!important;}
   .north-chart-svg{width:100%!important;min-width:0!important;border-radius:15px!important;}
-  .north-house-label{font-size:12px!important;}
-  .north-planet-text{font-size:14.5px!important;stroke-width:4px!important;}
-  .north-center-title{font-size:22px!important;}
-  .north-center-sub{font-size:10.5px!important;}
+  .north-sign-text{font-size:13px!important;}
+  .north-planet-text{font-size:15px!important;stroke-width:3.4px!important;}
+  .north-planet-text.dense{font-size:12.8px!important;}
   .kundli-chart-explainer{font-size:.64rem!important;margin-bottom:.75rem!important;gap:.35rem .55rem!important;}
   .kundli-help{font-size:.70rem!important;padding:.70rem .78rem!important;}
 }
@@ -1135,8 +1148,9 @@ html[data-theme="light"] .planet-table-name{
   .kundli-sign{font-size:.53rem!important;}
   .planet-name-tag{font-size:.56rem!important;padding:3px 4px!important;}
   .kundli-center-title{font-size:1.22rem!important;}
-  .north-house-label{font-size:12.5px!important;}
-  .north-planet-text{font-size:15px!important;}
+  .north-sign-text{font-size:13.4px!important;}
+  .north-planet-text{font-size:15.4px!important;}
+  .north-planet-text.dense{font-size:13px!important;}
 }
 </style>
 
@@ -1638,12 +1652,22 @@ function showKundliChartStyle(style){
   if(btn)btn.classList.add('active');
 }
 function renderNorthChart(cells, lagN, safeName, lagDisplay){
-  // Clean North Indian chart: fixed houses, signs calculated from Lagna.
-  // Standard reading flow is anti-clockwise from the Lagna house.
+  // North Indian chart is a frontend drawing only. The API remains the source
+  // for Lagna, sign and planet data; this renderer only controls placement.
+  // Each fixed house gets a dedicated safe zone so labels never sit on borders.
   const pos={
-    1:{x:250,y:78},  2:{x:150,y:72},  3:{x:72,y:150},  4:{x:104,y:250},
-    5:{x:72,y:350},  6:{x:150,y:428}, 7:{x:250,y:422}, 8:{x:350,y:428},
-    9:{x:428,y:350}, 10:{x:396,y:250}, 11:{x:428,y:150}, 12:{x:350,y:72}
+    1:{x:250,signY:36,planetY:66,dir:1},
+    2:{x:145,signY:38,planetY:66,dir:1},
+    3:{x:66, signY:118,planetY:148,dir:1},
+    4:{x:118,signY:218,planetY:250,dir:1},
+    5:{x:66, signY:338,planetY:368,dir:1},
+    6:{x:145,signY:406,planetY:434,dir:1},
+    7:{x:250,signY:406,planetY:434,dir:1},
+    8:{x:355,signY:406,planetY:434,dir:1},
+    9:{x:434,signY:338,planetY:368,dir:1},
+    10:{x:382,signY:218,planetY:250,dir:1},
+    11:{x:434,signY:118,planetY:148,dir:1},
+    12:{x:355,signY:38,planetY:66,dir:1}
   };
   let s=`<div class="north-chart-wrap"><svg class="north-chart-svg" viewBox="0 0 500 500" role="img" aria-label="North Indian Rashi chart">
     <defs>
@@ -1651,35 +1675,34 @@ function renderNorthChart(cells, lagN, safeName, lagDisplay){
     </defs>
     <rect x="8" y="8" width="484" height="484" rx="22" fill="url(#ngClean)" stroke="var(--kc-grid)"/>
     <path d="M250 8 L492 250 L250 492 L8 250 Z" fill="none" stroke="var(--kc-grid)" stroke-width="1.35"/>
-    <path d="M8 8 L492 492 M492 8 L8 492" stroke="var(--kc-grid)" stroke-width="1.15"/>
-    <circle cx="250" cy="250" r="2" fill="var(--kc-lagna)"/>
-    <text x="250" y="244" text-anchor="middle" class="north-center-title">North Indian Chart</text>
-    <text x="250" y="260" text-anchor="middle" class="north-center-sub">Fixed Houses</text>
-    <text x="250" y="276" text-anchor="middle" fill="var(--text-mid)" style="font-size:10px;">Lagna: ${escapeHtml(lagDisplay||RF[lagN]||'—')}</text>`;
+    <path d="M8 8 L492 492 M492 8 L8 492" stroke="var(--kc-grid)" stroke-width="1.15"/>`;
+
   for(let h=1;h<=12;h++){
     const p=pos[h];
     const sign=signForHouse(lagN,h);
     const isL=h===1;
     const pp=cells[sign]||[];
+    const signName=RF[sign]||'—';
+    const signLabel=isL?`${signName} · Lagna`:signName;
     s+=`<g class="north-house-group ${isL?'north-lagna-group':''}">`;
-    s+=`<text x="${p.x}" y="${p.y-20}" text-anchor="middle" class="north-house-label ${isL?'lagna':''}">H${h} • ${escapeHtml(RS[sign]||'—')}${isL?' • Lagna':''}</text>`;
+    s+=`<text x="${p.x}" y="${p.signY}" text-anchor="middle" class="north-sign-text ${isL?'lagna':''}">${escapeHtml(signLabel)}</text>`;
+
     if(pp.length){
-      const max=pp.length>4?4:pp.length;
-      for(let i=0;i<max;i++){
-        const pl=pp[i];
+      // Compact only when many grahas share one house; never hide a planet.
+      const dense=pp.length>=5;
+      const gap=pp.length>=7?9.5:pp.length>=6?10.5:pp.length>=5?11.5:pp.length===4?13.5:16;
+      pp.forEach((pl,i)=>{
         const co=PCOL[pl.nm]||'var(--text-mid)';
-        s+=`<text x="${p.x}" y="${p.y + (i*13)}" text-anchor="middle" class="north-planet-text" fill="${co}">${escapeHtml(pl.nm)}${pl.ret?' R':''}</text>`;
-      }
-      if(pp.length>4)s+=`<text x="${p.x}" y="${p.y+52}" text-anchor="middle" fill="var(--text-dim)" style="font-size:9px;">+${pp.length-4} more</text>`;
-    }else{
-      s+=`<text x="${p.x}" y="${p.y}" text-anchor="middle" fill="var(--text-dim)" opacity=".32" style="font-size:11px;">—</text>`;
+        const y=p.planetY + (p.dir*i*gap);
+        const title=[pl.nm,pl.degree||'',pl.ret?'Retrograde':''].filter(Boolean).join(' · ');
+        s+=`<text x="${p.x}" y="${y}" text-anchor="middle" class="north-planet-text ${dense?'dense':''}" fill="${co}"><title>${escapeHtml(title)}</title>${escapeHtml(pl.nm)}${pl.ret?' R':''}</text>`;
+      });
     }
     s+=`</g>`;
   }
-  s+=`</svg><div class="kundli-help"><strong>How to read:</strong> North Indian style keeps houses fixed. H1 is Lagna; signs move according to the Lagna, and planets are placed from the exact rashi data used in the table below.</div></div>`;
+  s+=`</svg><div class="kundli-help"><strong>How to read:</strong> North Indian style keeps the houses fixed. The sign name is shown inside each house, Lagna is highlighted, and every planet is stacked inside its own house. <strong>R</strong> means retrograde.</div></div>`;
   return s;
 }
-
 
 function primitiveEntries(obj, limit=6){
   if(!obj || typeof obj!=='object') return [];
