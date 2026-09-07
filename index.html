@@ -1672,6 +1672,133 @@ html[data-theme="light"] .pj-engage{background:linear-gradient(145deg,#FFF4DE,#F
 }
 </style>
 
+
+<style id="pj-step10-light-polish">
+
+/* ================================================================
+   STEP 10 — VEDIC LIGHT VISUAL POLISH
+   Keeps Cosmic Dark unchanged. Refines only the Light theme.
+   ================================================================ */
+html[data-theme="light"] .nav{
+  background:rgba(236,220,198,.965)!important;
+  border-bottom:1px solid rgba(91,56,33,.18)!important;
+  box-shadow:0 8px 28px rgba(80,48,28,.075)!important;
+}
+html[data-theme="light"] .nav.scrolled{
+  background:rgba(232,214,190,.985)!important;
+  box-shadow:0 10px 30px rgba(80,48,28,.095)!important;
+}
+html[data-theme="light"] .nav-links a,
+html[data-theme="light"] .navlinks a,
+html[data-theme="light"] .nav-back{
+  color:#4C382F!important;
+}
+html[data-theme="light"] .nav-links a:hover,
+html[data-theme="light"] .navlinks a:hover,
+html[data-theme="light"] .nav-back:hover{
+  color:#98232B!important;
+  background:rgba(158,32,40,.065)!important;
+}
+html[data-theme="light"] .nav-links a.active,
+html[data-theme="light"] .navlinks a.active{
+  color:#98232B!important;
+}
+html[data-theme="light"] .nav-logo-mark,
+html[data-theme="light"] .brand,
+html[data-theme="light"] .logo{
+  color:#9E2028!important;
+}
+html[data-theme="light"] .pj-theme-toggle{
+  background:rgba(255,250,242,.72)!important;
+  border-color:rgba(91,56,33,.18)!important;
+  color:#3F2C25!important;
+  box-shadow:0 3px 10px rgba(80,48,28,.045)!important;
+}
+html[data-theme="light"] .nav-cta-btn,
+html[data-theme="light"] .navlinks .cta{
+  background:linear-gradient(135deg,#A31F2A,#B92C36)!important;
+  color:#FFFFFF!important;
+  -webkit-text-fill-color:#FFFFFF!important;
+  border-color:rgba(128,20,29,.18)!important;
+  text-shadow:0 1px 0 rgba(90,0,8,.08)!important;
+  box-shadow:0 8px 22px rgba(158,32,40,.16)!important;
+}
+@media(max-width:768px){
+  html[data-theme="light"] .nav-links{
+    background:rgba(240,225,204,.99)!important;
+    border-color:rgba(91,56,33,.16)!important;
+  }
+}
+
+/* Homepage-only light hero polish */
+html[data-theme="light"] .hero{
+  background:
+    radial-gradient(circle at 86% 16%,rgba(212,139,16,.10),transparent 29%),
+    radial-gradient(circle at 12% 48%,rgba(158,32,40,.025),transparent 25%),
+    linear-gradient(180deg,#FFF9EF 0%,#FFF4E3 100%)!important;
+}
+html[data-theme="light"] .hero::after{
+  background:linear-gradient(90deg,
+    rgba(255,249,239,.985) 0%,
+    rgba(255,249,239,.95) 42%,
+    rgba(255,249,239,.68) 58%,
+    rgba(255,249,239,.06) 82%,
+    rgba(255,249,239,.015) 100%)!important;
+}
+html[data-theme="light"] .hero-art{
+  opacity:.84!important;
+  filter:saturate(1.03) contrast(1.055) brightness(1.015) drop-shadow(0 16px 38px rgba(119,73,36,.16))!important;
+  mix-blend-mode:normal!important;
+}
+html[data-theme="light"] .hero-art img{
+  border-radius:26px!important;
+  -webkit-mask-image:linear-gradient(to left,#000 0%,#000 88%,rgba(0,0,0,.82) 93%,transparent 100%)!important;
+  mask-image:linear-gradient(to left,#000 0%,#000 88%,rgba(0,0,0,.82) 93%,transparent 100%)!important;
+}
+html[data-theme="light"] .hero-title{
+  font-size:clamp(2.7rem,6.55vw,5.15rem)!important;
+  line-height:1.08!important;
+}
+html[data-theme="light"] .hero-sub{
+  color:#68493D!important;
+  font-size:1.22rem!important;
+}
+html[data-theme="light"] .hero-desc{
+  color:#543F37!important;
+}
+html[data-theme="light"] .hero-overline{
+  color:#A52830!important;
+}
+html[data-theme="light"] .proof-pill{
+  background:rgba(255,255,255,.58)!important;
+  border-color:rgba(91,56,33,.14)!important;
+  color:#5F4940!important;
+}
+/* Barely visible sacred geometry texture on the reading side. */
+html[data-theme="light"] .hero-content::before{
+  content:"";
+  position:absolute;
+  width:330px;height:330px;
+  left:-110px;top:35%;
+  transform:translateY(-50%);
+  border-radius:50%;
+  pointer-events:none;
+  opacity:.22;
+  background:
+    radial-gradient(circle at center,transparent 0 21%,rgba(158,32,40,.045) 21.5% 22%,transparent 22.5% 37%,rgba(212,139,16,.05) 37.5% 38%,transparent 38.5% 54%,rgba(158,32,40,.035) 54.5% 55%,transparent 55.5%),
+    repeating-conic-gradient(from 0deg,rgba(158,32,40,.025) 0deg 1deg,transparent 1deg 30deg);
+  z-index:-1;
+}
+@media(max-width:820px){
+  html[data-theme="light"] .hero-art{opacity:.38!important;filter:saturate(.96) contrast(1.03)!important;}
+  html[data-theme="light"] .hero-art img{
+    -webkit-mask-image:linear-gradient(to left,#000 0%,rgba(0,0,0,.75) 54%,transparent 100%)!important;
+    mask-image:linear-gradient(to left,#000 0%,rgba(0,0,0,.75) 54%,transparent 100%)!important;
+  }
+  html[data-theme="light"] .hero-content::before{display:none!important;}
+}
+
+</style>
 </head>
 <body>
 <div class="cosmos-bg"></div>
@@ -1693,7 +1820,7 @@ html[data-theme="light"] .pj-engage{background:linear-gradient(145deg,#FFF4DE,#F
 <section class="hero" id="home">
 <div class="hero-stars" id="stars"></div>
 <div class="hero-glow"></div>
-<div class="hero-art"><img alt="Lord Ganesha - auspicious beginning" src="assets/images/ganesha-dark.jpg"/ loading="eager" fetchpriority="high"></div>
+<div class="hero-art"><img alt="Lord Ganesha - auspicious beginning" src="assets/images/ganesha-dark.jpg" loading="eager" fetchpriority="high" decoding="async"/></div>
 <div class="hero-content">
 <div class="hero-overline">Free Vedic Astrology Tools · Daily Panchang</div>
 <h1 class="hero-title">Understand Your Chart. <br/><em>Choose Better Timing.</em></h1>
