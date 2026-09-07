@@ -1074,29 +1074,38 @@ html[data-theme="light"] .chart-style-btn.active{background:linear-gradient(135d
   border-radius:20px!important;
   box-shadow:var(--kc-card-shadow)!important;
 }
-.north-sign-text{
-  font-size:12.2px!important;
+.north-house-no{
+  font-size:12px!important;
   fill:var(--kc-label)!important;
-  font-weight:950!important;
-  letter-spacing:.035em!important;
+  font-weight:1000!important;
   paint-order:stroke fill!important;
   stroke:var(--kc-outline)!important;
-  stroke-width:2.2px!important;
+  stroke-width:2px!important;
   stroke-linejoin:round!important;
 }
-.north-sign-text.lagna{fill:var(--kc-lagna)!important;font-weight:1000!important;}
+.north-house-no.lagna{fill:var(--kc-lagna)!important;font-size:13.2px!important;}
 .north-planet-text{
-  font-size:14.2px!important;
+  font-size:13.8px!important;
   font-weight:950!important;
   stroke:var(--kc-outline)!important;
-  stroke-width:3.2px!important;
+  stroke-width:3px!important;
   paint-order:stroke fill!important;
   stroke-linejoin:round!important;
 }
-.north-planet-text.dense{font-size:12.4px!important;stroke-width:2.8px!important;}
-html[data-theme="light"] .north-sign-text{fill:#694736!important;stroke:#FFF7E8!important;}
-html[data-theme="light"] .north-sign-text.lagna{fill:#A51E2A!important;}
-html[data-theme="light"] .north-planet-text{stroke:#FFF6E4!important;}
+.north-planet-text.dense{font-size:11.9px!important;stroke-width:2.6px!important;}
+.north-planet-degree{
+  font-size:9.4px!important;
+  font-weight:900!important;
+  fill:var(--kc-muted)!important;
+  stroke:var(--kc-outline)!important;
+  stroke-width:2px!important;
+  paint-order:stroke fill!important;
+}
+html[data-theme="light"] .north-house-no{fill:#6C4938!important;stroke:#FFF7E8!important;}
+html[data-theme="light"] .north-house-no.lagna{fill:#A51E2A!important;}
+html[data-theme="light"] .north-planet-text,
+html[data-theme="light"] .north-planet-degree{stroke:#FFF6E4!important;}
+html[data-theme="light"] .north-planet-degree{fill:#7A5947!important;}
 
 /* Help box belongs visually with the chart */
 .kundli-help{
@@ -1137,9 +1146,11 @@ html[data-theme="light"] .planet-table-name{
   .kundli-center-name{font-size:.55rem!important;}
   .north-chart-wrap{max-width:100%!important;overflow:hidden!important;}
   .north-chart-svg{width:100%!important;min-width:0!important;border-radius:15px!important;}
-  .north-sign-text{font-size:13px!important;}
-  .north-planet-text{font-size:15px!important;stroke-width:3.4px!important;}
-  .north-planet-text.dense{font-size:12.8px!important;}
+  .north-house-no{font-size:13px!important;}
+  .north-house-no.lagna{font-size:14px!important;}
+  .north-planet-text{font-size:14.4px!important;stroke-width:3.2px!important;}
+  .north-planet-text.dense{font-size:12.2px!important;}
+  .north-planet-degree{font-size:9.6px!important;}
   .kundli-chart-explainer{font-size:.64rem!important;margin-bottom:.75rem!important;gap:.35rem .55rem!important;}
   .kundli-help{font-size:.70rem!important;padding:.70rem .78rem!important;}
 }
@@ -1148,9 +1159,11 @@ html[data-theme="light"] .planet-table-name{
   .kundli-sign{font-size:.53rem!important;}
   .planet-name-tag{font-size:.56rem!important;padding:3px 4px!important;}
   .kundli-center-title{font-size:1.22rem!important;}
-  .north-sign-text{font-size:13.4px!important;}
-  .north-planet-text{font-size:15.4px!important;}
-  .north-planet-text.dense{font-size:13px!important;}
+  .north-house-no{font-size:13.4px!important;}
+  .north-house-no.lagna{font-size:14.2px!important;}
+  .north-planet-text{font-size:14.1px!important;}
+  .north-planet-text.dense{font-size:11.8px!important;}
+  .north-planet-degree{font-size:9.4px!important;}
 }
 </style>
 
@@ -1625,6 +1638,24 @@ function degText(p){
   const n = Number(d);
   return Number.isFinite(n) ? n.toFixed(2) + '°' : String(d);
 }
+function chartDegreeText(p){
+  // Prefer degree within the current sign. If the backend only returns a full
+  // 0–360 longitude, convert it to 0–30 degrees for chart display.
+  let d = p?.degree ?? p?.degrees ?? p?.longitude_in_sign ?? p?.degree_in_sign ?? p?.degree_in_rashi ?? p?.rashi_degree ?? p?.sign_degree;
+  if(d === undefined || d === null || d === ''){
+    d = p?.longitude ?? p?.sidereal_longitude ?? p?.planet_longitude ?? p?.absolute_longitude;
+  }
+  if(d === undefined || d === null || d === '') return '';
+  const n = Number(d);
+  if(Number.isFinite(n)){
+    const v = (n >= 30 || n < 0) ? ((n % 30) + 30) % 30 : n;
+    const deg = Math.floor(v);
+    const min = Math.round((v - deg) * 60);
+    if(min === 60) return `${deg+1}°00′`;
+    return `${deg}°${String(min).padStart(2,'0')}′`;
+  }
+  return String(d).trim();
+}
 function signText(p){
   const raw=textFromAny(p?.sign || p?.rashi || p?.zodiac || p?.sign_name || p?.rashi_name || p?.signName || p?.rashiName);
   return raw || (RF[rashiNum(p)] || '');
@@ -1652,22 +1683,22 @@ function showKundliChartStyle(style){
   if(btn)btn.classList.add('active');
 }
 function renderNorthChart(cells, lagN, safeName, lagDisplay){
-  // North Indian chart is a frontend drawing only. The API remains the source
-  // for Lagna, sign and planet data; this renderer only controls placement.
-  // Each fixed house gets a dedicated safe zone so labels never sit on borders.
+  // North Indian chart: houses are fixed. Visible numbering is House 1–12,
+  // starting from Lagna. Sign names remain available in SVG tooltips so the
+  // chart stays informative without crowding the house interiors.
   const pos={
-    1:{x:250,signY:36,planetY:66,dir:1},
-    2:{x:145,signY:38,planetY:66,dir:1},
-    3:{x:66, signY:118,planetY:148,dir:1},
-    4:{x:118,signY:218,planetY:250,dir:1},
-    5:{x:66, signY:338,planetY:368,dir:1},
-    6:{x:145,signY:406,planetY:434,dir:1},
-    7:{x:250,signY:406,planetY:434,dir:1},
-    8:{x:355,signY:406,planetY:434,dir:1},
-    9:{x:434,signY:338,planetY:368,dir:1},
-    10:{x:382,signY:218,planetY:250,dir:1},
-    11:{x:434,signY:118,planetY:148,dir:1},
-    12:{x:355,signY:38,planetY:66,dir:1}
+    1:{numX:250,numY:34,x:250,y:74,dir:1},
+    2:{numX:145,numY:34,x:145,y:76,dir:1},
+    3:{numX:42, numY:128,x:82, y:160,dir:1},
+    4:{numX:42, numY:250,x:112,y:246,dir:1},
+    5:{numX:42, numY:372,x:82, y:340,dir:-1},
+    6:{numX:145,numY:466,x:145,y:424,dir:-1},
+    7:{numX:250,numY:466,x:250,y:424,dir:-1},
+    8:{numX:355,numY:466,x:355,y:424,dir:-1},
+    9:{numX:458,numY:372,x:418,y:340,dir:-1},
+    10:{numX:458,numY:250,x:388,y:246,dir:1},
+    11:{numX:458,numY:128,x:418,y:160,dir:1},
+    12:{numX:355,numY:34,x:355,y:76,dir:1}
   };
   let s=`<div class="north-chart-wrap"><svg class="north-chart-svg" viewBox="0 0 500 500" role="img" aria-label="North Indian Rashi chart">
     <defs>
@@ -1680,27 +1711,28 @@ function renderNorthChart(cells, lagN, safeName, lagDisplay){
   for(let h=1;h<=12;h++){
     const p=pos[h];
     const sign=signForHouse(lagN,h);
+    const signName=RF[sign]||'—';
     const isL=h===1;
     const pp=cells[sign]||[];
-    const signName=RF[sign]||'—';
-    const signLabel=isL?`${signName} · Lagna`:signName;
+    const houseTitle=`House ${h}${isL?' · Lagna':''} · ${signName}`;
     s+=`<g class="north-house-group ${isL?'north-lagna-group':''}">`;
-    s+=`<text x="${p.x}" y="${p.signY}" text-anchor="middle" class="north-sign-text ${isL?'lagna':''}">${escapeHtml(signLabel)}</text>`;
+    s+=`<text x="${p.numX}" y="${p.numY}" text-anchor="middle" class="north-house-no ${isL?'lagna':''}"><title>${escapeHtml(houseTitle)}</title>${h}</text>`;
 
     if(pp.length){
-      // Compact only when many grahas share one house; never hide a planet.
+      // Keep every graha inside the house. Dense houses use tighter spacing.
       const dense=pp.length>=5;
-      const gap=pp.length>=7?9.5:pp.length>=6?10.5:pp.length>=5?11.5:pp.length===4?13.5:16;
+      const gap=pp.length>=7?10:pp.length>=6?11:pp.length>=5?12:pp.length===4?14:17;
       pp.forEach((pl,i)=>{
         const co=PCOL[pl.nm]||'var(--text-mid)';
-        const y=p.planetY + (p.dir*i*gap);
-        const title=[pl.nm,pl.degree||'',pl.ret?'Retrograde':''].filter(Boolean).join(' · ');
-        s+=`<text x="${p.x}" y="${y}" text-anchor="middle" class="north-planet-text ${dense?'dense':''}" fill="${co}"><title>${escapeHtml(title)}</title>${escapeHtml(pl.nm)}${pl.ret?' R':''}</text>`;
+        const y=p.y + (p.dir*i*gap);
+        const title=[pl.nm,pl.degree||'',pl.ret?'Retrograde':'',signName,`House ${h}`].filter(Boolean).join(' · ');
+        const degree=pl.degree?` <tspan class="north-planet-degree">${escapeHtml(pl.degree)}</tspan>`:'';
+        s+=`<text x="${p.x}" y="${y}" text-anchor="middle" class="north-planet-text ${dense?'dense':''}" fill="${co}"><title>${escapeHtml(title)}</title>${escapeHtml(pl.nm)}${pl.ret?' R':''}${degree}</text>`;
       });
     }
     s+=`</g>`;
   }
-  s+=`</svg><div class="kundli-help"><strong>How to read:</strong> North Indian style keeps the houses fixed. The sign name is shown inside each house, Lagna is highlighted, and every planet is stacked inside its own house. <strong>R</strong> means retrograde.</div></div>`;
+  s+=`</svg><div class="kundli-help"><strong>How to read:</strong> House <strong>1</strong> is the Lagna/Ascendant, followed by Houses 2–12 in fixed North Indian positions. Planet degree is shown when returned by the birth-chart data. <strong>R</strong> means retrograde. Hover a house number to see its zodiac sign.</div></div>`;
   return s;
 }
 
@@ -2892,7 +2924,7 @@ function renderKundli(name,bcRaw,ygRaw,dsRaw,meta={},skipScroll=false){
     const rn=rashiNum(p);
     if(rn>=1&&rn<=12){
       const nm=cleanName(p);
-      cells[rn].push({nm,ret:retroFlag(p),degree:degText(p)});
+      cells[rn].push({nm,ret:retroFlag(p),degree:chartDegreeText(p)});
     }
   });
 
@@ -2923,7 +2955,7 @@ function renderKundli(name,bcRaw,ygRaw,dsRaw,meta={},skipScroll=false){
     <button class="chart-style-btn active" data-kundli-btn="south" onclick="showKundliChartStyle('south')">South Indian</button>
     <button class="chart-style-btn" data-kundli-btn="north" onclick="showKundliChartStyle('north')">North Indian</button>
   </div>
-  <div class="kundli-chart-explainer" aria-label="Kundli chart legend"><span><i class="lagna"></i>Lagna highlighted</span><span><b>R</b> Retrograde</span><span><i></i>Planet colour marker</span><span>Same birth data · two traditional layouts</span></div>
+  <div class="kundli-chart-explainer" aria-label="Kundli chart legend"><span><i class="lagna"></i>House 1 = Lagna</span><span><b>R</b> Retrograde</span><span><i></i>Planet colour marker</span><span>Degrees shown when available</span></div>
   <div class="kundli-chart-style active" data-kundli-style="south">${south}</div>
   <div class="kundli-chart-style" data-kundli-style="north">${north}</div>`;
 
