@@ -2550,13 +2550,13 @@ async function handleSubmit(e) {
     }
 
     const refId = result.refId || 'Saved';
-    const slaText = result.slaText || '3 to 5 days';
-    const dueDateIST = result.dueDateIST || '';
+    const verificationHours = Number(result.verificationExpiresHours || 24);
+    const maskedEmail = email.replace(/^(.{1,2})(.*)(@.*)$/, (m, a, b, c) => a + '•'.repeat(Math.min(Math.max(b.length, 2), 8)) + c);
 
-    btn.textContent = '✓ Request Saved';
+    btn.textContent = '✓ Check Your Email';
     btn.style.background = 'linear-gradient(135deg, #2E7D32, #1B5E20)';
     setFormStatus(
-      `Thank you. Your consultation request has been saved. Reference ID: ${refId}. Expected response: within ${slaText}${dueDateIST ? `, target by ${dueDateIST}` : ''}. A confirmation email will be sent to you. No payment is required.`,
+      `Almost done. Reference ID: ${refId}. We sent a verification email to ${maskedEmail}. Please open it and confirm your request within ${verificationHours} hours. Your consultation enters our review queue only after email verification. No payment is required.`,
       'ok'
     );
 
