@@ -1799,6 +1799,184 @@ html[data-theme="light"] .hero-content::before{
 }
 
 </style>
+
+<style id="pj-consultation-form-redesign">
+/* ================================================================
+   CONSULTATION FORM — UX REDESIGN
+   Visual-only enhancement. Field IDs/names, Turnstile and JS flow unchanged.
+   ================================================================ */
+#contact .contact-layout{
+  grid-template-columns:minmax(280px,.82fr) minmax(560px,1.48fr);
+  gap:3rem;align-items:start;
+}
+#contact .contact-methods{position:sticky;top:106px;}
+#contact .contact-form{
+  position:relative;overflow:hidden;
+  padding:2.25rem 2.35rem 2rem;
+  border-radius:28px;
+  background:linear-gradient(145deg,rgba(18,18,26,.94),rgba(26,22,31,.88));
+  border:1px solid rgba(212,116,62,.22);
+  box-shadow:0 28px 70px rgba(0,0,0,.26),inset 0 1px 0 rgba(255,255,255,.045);
+}
+#contact .contact-form::before{
+  content:"";position:absolute;width:260px;height:260px;border-radius:50%;
+  right:-110px;top:-115px;pointer-events:none;
+  background:radial-gradient(circle,rgba(212,116,62,.16),transparent 68%);
+}
+#contact .consultation-form-head{position:relative;z-index:1;margin-bottom:1.55rem;}
+#contact .consultation-kicker{
+  display:inline-flex;align-items:center;gap:.45rem;margin-bottom:.75rem;
+  padding:.38rem .68rem;border-radius:999px;
+  background:rgba(212,116,62,.10);border:1px solid rgba(212,116,62,.22);
+  color:var(--ember-light);font:700 .68rem/1 var(--font-sans);
+  letter-spacing:.08em;text-transform:uppercase;
+}
+#contact .consultation-kicker .spark{font-size:.78rem;}
+#contact .contact-form h3{font-size:2rem;line-height:1.12;margin:0 0 .6rem;}
+#contact .contact-form .sub{
+  max-width:650px;margin:0;color:var(--text-mid);font-size:.9rem;line-height:1.65;
+}
+#contact .consultation-steps{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:.55rem;
+  margin-top:1.15rem;
+}
+#contact .consultation-step{
+  display:flex;align-items:center;gap:.55rem;min-width:0;
+  padding:.65rem .72rem;border-radius:12px;
+  background:rgba(255,255,255,.035);border:1px solid var(--line);
+  color:var(--text-dim);font-size:.72rem;line-height:1.25;
+}
+#contact .consultation-step b{
+  display:grid;place-items:center;flex:0 0 24px;width:24px;height:24px;border-radius:50%;
+  background:rgba(212,116,62,.14);color:var(--ember-light);font-size:.68rem;
+}
+#contact .consultation-step span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+#contact .consultation-section-title{
+  display:flex;align-items:center;gap:.75rem;margin:1.45rem 0 .85rem;
+  color:var(--text-bright);font-size:.82rem;font-weight:800;letter-spacing:.02em;
+}
+#contact .consultation-section-title::after{
+  content:"";height:1px;flex:1;background:linear-gradient(90deg,var(--line),transparent);
+}
+#contact .consultation-section-title .n{
+  display:grid;place-items:center;width:26px;height:26px;border-radius:8px;
+  background:rgba(212,116,62,.12);border:1px solid rgba(212,116,62,.22);
+  color:var(--ember-light);font-size:.68rem;font-family:var(--font-mono);
+}
+#contact .f-group{margin-bottom:1rem;}
+#contact .f-label{
+  margin-bottom:.48rem;color:var(--text-mid);font-size:.76rem;font-weight:750;
+  letter-spacing:.02em;
+}
+#contact .f-input,#contact .f-textarea,#contact .f-select{
+  min-height:48px;padding:.82rem .95rem;border-radius:12px;
+  background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.105);
+}
+#contact .f-textarea{min-height:124px;line-height:1.55;}
+#contact .f-input:hover,#contact .f-textarea:hover,#contact .f-select:hover{border-color:rgba(212,116,62,.28);}
+#contact .f-input:focus,#contact .f-textarea:focus,#contact .f-select:focus{
+  border-color:rgba(212,116,62,.62);box-shadow:0 0 0 3px rgba(212,116,62,.10);
+}
+#contact .verification-box{
+  display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center;
+  margin:1.1rem 0 .85rem;padding:.9rem 1rem;border-radius:15px;
+  background:rgba(107,155,125,.06);border:1px solid rgba(107,155,125,.20);
+}
+#contact .verification-copy{display:flex;gap:.7rem;align-items:flex-start;}
+#contact .verification-icon{
+  display:grid;place-items:center;flex:0 0 34px;width:34px;height:34px;border-radius:10px;
+  background:rgba(107,155,125,.13);color:var(--sage-light);font-size:1rem;
+}
+#contact .verification-title{color:var(--text-bright);font-size:.78rem;font-weight:800;margin-bottom:.18rem;}
+#contact .verification-text{color:var(--text-dim);font-size:.7rem;line-height:1.45;}
+#contact .turnstile-wrap{margin:0;min-height:65px;}
+#contact .security-note{display:none;}
+#contact .f-submit{
+  min-height:51px;margin-top:.35rem;border-radius:14px;
+  background:linear-gradient(135deg,#D4743E,#B85A2A);
+  box-shadow:0 12px 28px rgba(212,116,62,.20);
+  font-size:.92rem;font-weight:800;letter-spacing:.01em;
+}
+#contact .f-submit:hover{transform:translateY(-2px);box-shadow:0 16px 32px rgba(212,116,62,.29);}
+#contact .form-note{
+  margin-top:.85rem;text-align:center;font-size:.68rem;line-height:1.55;color:var(--text-dim);
+}
+#contact .form-status{margin-top:1rem;border-radius:12px;font-size:.8rem;}
+
+/* Vedic Light: warm, clear and reassuring instead of a dark slab */
+html[data-theme="light"] #contact .contact-form{
+  background:linear-gradient(145deg,#FFFDF8 0%,#FFF4E2 100%)!important;
+  border-color:rgba(158,32,40,.16)!important;
+  box-shadow:0 26px 70px rgba(91,56,33,.11),inset 0 1px 0 #fff!important;
+}
+html[data-theme="light"] #contact .contact-form::before{
+  background:radial-gradient(circle,rgba(212,139,16,.13),transparent 68%);
+}
+html[data-theme="light"] #contact .consultation-kicker{
+  background:rgba(158,32,40,.055);border-color:rgba(158,32,40,.14);color:#9E2028;
+}
+html[data-theme="light"] #contact .consultation-step{
+  background:rgba(255,255,255,.70);border-color:rgba(92,58,38,.12);color:#725D54;
+}
+html[data-theme="light"] #contact .consultation-step b{background:rgba(158,32,40,.07);color:#9E2028;}
+html[data-theme="light"] #contact .consultation-section-title{color:#3C2A23;}
+html[data-theme="light"] #contact .consultation-section-title .n{
+  background:rgba(212,139,16,.10);border-color:rgba(212,139,16,.22);color:#9A6200;
+}
+html[data-theme="light"] #contact .f-label{color:#624C43!important;}
+html[data-theme="light"] #contact .f-input,
+html[data-theme="light"] #contact .f-textarea,
+html[data-theme="light"] #contact .f-select{
+  background:#FFFFFF!important;color:#35251F!important;
+  border-color:rgba(92,58,38,.16)!important;
+  box-shadow:0 2px 6px rgba(91,56,33,.025),inset 0 1px 0 #fff!important;
+}
+html[data-theme="light"] #contact .f-input:hover,
+html[data-theme="light"] #contact .f-textarea:hover,
+html[data-theme="light"] #contact .f-select:hover{border-color:rgba(158,32,40,.28)!important;}
+html[data-theme="light"] #contact .f-input:focus,
+html[data-theme="light"] #contact .f-textarea:focus,
+html[data-theme="light"] #contact .f-select:focus{
+  border-color:rgba(158,32,40,.52)!important;box-shadow:0 0 0 3px rgba(158,32,40,.065)!important;
+}
+html[data-theme="light"] #contact .f-input[type="date"],
+html[data-theme="light"] #contact .f-input[type="time"]{color-scheme:light;}
+html[data-theme="light"] #contact .f-input[type="date"]::-webkit-calendar-picker-indicator,
+html[data-theme="light"] #contact .f-input[type="time"]::-webkit-calendar-picker-indicator{filter:none;}
+html[data-theme="light"] #contact .verification-box{
+  background:rgba(79,134,98,.055);border-color:rgba(79,134,98,.18);
+}
+html[data-theme="light"] #contact .verification-icon{background:rgba(79,134,98,.10);color:#3F7853;}
+html[data-theme="light"] #contact .verification-title{color:#3A2A23;}
+html[data-theme="light"] #contact .verification-text{color:#725D54;}
+html[data-theme="light"] #contact .f-submit{
+  background:linear-gradient(135deg,#9E2028,#B82B35)!important;color:#fff!important;
+  box-shadow:0 12px 28px rgba(158,32,40,.18)!important;
+}
+html[data-theme="light"] #contact .f-submit:hover{box-shadow:0 16px 34px rgba(158,32,40,.25)!important;}
+html[data-theme="light"] #contact .form-note{color:#806A60;}
+html[data-theme="light"] #contact .cm-card{
+  background:linear-gradient(145deg,rgba(255,255,255,.86),rgba(255,246,231,.78))!important;
+  border-color:rgba(92,58,38,.12)!important;box-shadow:0 10px 28px rgba(91,56,33,.045);
+}
+
+@media(max-width:1050px){
+  #contact .contact-layout{grid-template-columns:1fr;gap:1.6rem;}
+  #contact .contact-methods{position:static;display:grid;grid-template-columns:1fr 1fr;}
+}
+@media(max-width:720px){
+  #contact .contact-form{padding:1.45rem 1rem 1.25rem;border-radius:20px;}
+  #contact .contact-form h3{font-size:1.65rem;}
+  #contact .consultation-steps{grid-template-columns:1fr;gap:.4rem;}
+  #contact .consultation-step{padding:.55rem .65rem;}
+  #contact .consultation-step span{white-space:normal;}
+  #contact .f-row{grid-template-columns:1fr;gap:0;}
+  #contact .verification-box{grid-template-columns:1fr;}
+  #contact .turnstile-wrap{overflow-x:auto;}
+  #contact .contact-methods{grid-template-columns:1fr;}
+}
+</style>
+
 </head>
 <body>
 <div class="cosmos-bg"></div>
@@ -2213,8 +2391,16 @@ html[data-theme="light"] .hero-content::before{
 </div>
 </div>
 <div class="contact-form reveal reveal-d1">
-<h3>Request Free Guidance</h3>
-<div class="sub">Consultation requests are currently free. Fill in your details and we will respond as availability permits.</div>
+<div class="consultation-form-head">
+<div class="consultation-kicker"><span class="spark">✦</span> Free personal guidance</div>
+<h3>Request Personal Guidance</h3>
+<div class="sub">Share one clear question and your birth details. We will first verify your email, then place your request in the consultation queue.</div>
+<div class="consultation-steps" aria-label="Consultation request process">
+<div class="consultation-step"><b>1</b><span>Send request</span></div>
+<div class="consultation-step"><b>2</b><span>Verify your email</span></div>
+<div class="consultation-step"><b>3</b><span>We review &amp; respond</span></div>
+</div>
+</div>
 <form id="contactForm">
 <!-- Anti-spam honeypot: real users never see or fill this field -->
 <div aria-hidden="true" class="hp-field">
@@ -2222,6 +2408,7 @@ html[data-theme="light"] .hero-content::before{
 <input autocomplete="off" id="cf-company-site" name="companyWebsite" tabindex="-1" type="text"/>
 </div>
 <input id="cf-form-started-at" name="formStartedAt" type="hidden" value=""/>
+<div class="consultation-section-title"><span class="n">01</span><span>Contact details</span></div>
 <div class="f-row">
 <div class="f-group">
 <label class="f-label">Full Name</label>
@@ -2253,6 +2440,7 @@ html[data-theme="light"] .hero-content::before{
 </select>
 </div>
 </div>
+<div class="consultation-section-title"><span class="n">02</span><span>Birth details</span></div>
 <div class="f-row">
 <div class="f-group">
 <label class="f-label">Date of Birth</label>
@@ -2283,17 +2471,26 @@ html[data-theme="light"] .hero-content::before{
 <input autocomplete="country-name" class="f-input" id="cf-country" maxlength="80" name="country" required="" type="text" value="India"/>
 </div>
 </div>
+<div class="consultation-section-title"><span class="n">03</span><span>Your guidance request</span></div>
 <div class="f-group">
 <label class="f-label">Your Question / Message</label>
 <textarea class="f-textarea" id="cf-message" maxlength="1200" name="message" placeholder="Tell us what guidance you're seeking..." required=""></textarea>
 </div>
-<div class="turnstile-wrap">
-<div class="cf-turnstile" data-action="consultation_submit" data-refresh-expired="auto" data-retry="auto" data-sitekey="0x4AAAAAAEmFmvVjBbo4kgwd" data-theme="dark"></div>
+<div class="verification-box">
+<div class="verification-copy">
+<div class="verification-icon" aria-hidden="true">✓</div>
+<div>
+<div class="verification-title">Secure email verification</div>
+<div class="verification-text">We send a confirmation link before your request enters the consultation queue. This helps prevent spam and protects the free service.</div>
 </div>
-<div class="security-note">Protected against automated submissions. Most visitors will not need to solve a puzzle.</div>
-<button class="f-submit" id="contactSubmitBtn" type="submit">Submit Free Request →</button>
+</div>
+<div class="turnstile-wrap">
+<div class="cf-turnstile" data-action="consultation_submit" data-refresh-expired="auto" data-retry="auto" data-sitekey="0x4AAAAAAEmFmvVjBbo4kgwd" data-theme="auto"></div>
+</div>
+</div>
+<button class="f-submit" id="contactSubmitBtn" type="submit">Send Verification Email →</button>
 <div aria-live="polite" class="form-status" id="contactFormStatus"></div>
-<div class="form-note">Your details are saved securely for consultation follow-up. No payment is required. Please avoid sharing passwords, OTPs, bank details, or highly sensitive information here.</div>
+<div class="form-note">Free consultation • No payment required • Your details are used only for consultation follow-up. Never share passwords, OTPs or banking credentials.</div>
 </form>
 </div>
 </div>
