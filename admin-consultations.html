@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>Parashar Jyotisha — Consultation Console</title>
+<style>
+:root{
+  --bg:#f7f0e4;--paper:#fffaf0;--paper2:#fffdf8;--ink:#2d241d;--muted:#7b6a5b;
+  --line:#ead7b8;--maroon:#8b1e2d;--maroon2:#a92b3d;--gold:#a66324;--green:#27734a;
+  --orange:#b66717;--red:#a83232;--shadow:0 12px 34px rgba(92,57,27,.10)
+}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#f3e7d3 0,#fbf7ef 35%,#f7f0e4 100%);color:var(--ink);font:14px/1.45 Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;min-height:100vh}
+button,input,textarea,select{font:inherit}.hidden{display:none!important}
+.topbar{height:68px;padding:0 22px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(166,99,36,.18);background:rgba(255,250,240,.92);backdrop-filter:blur(14px);position:sticky;top:0;z-index:30}
+.brand{font-family:Georgia,serif;color:var(--maroon);font-size:23px}.brand small{font-family:Inter,sans-serif;font-size:11px;color:var(--muted);margin-left:10px;letter-spacing:.08em;text-transform:uppercase}
+.btn{border:0;border-radius:10px;padding:10px 14px;font-weight:750;cursor:pointer;transition:.18s}.btn:hover{transform:translateY(-1px)}.btn:disabled{opacity:.48;cursor:not-allowed;transform:none}
+.btn-primary{background:var(--maroon);color:white}.btn-soft{background:#f4e5cc;color:#6f3a18;border:1px solid #e7c99f}.btn-green{background:var(--green);color:#fff}.btn-danger{background:#f7dddd;color:#8e2222;border:1px solid #efc0c0}.btn-link{background:transparent;color:var(--maroon);padding:7px 9px}
+.login-wrap{min-height:calc(100vh - 68px);display:grid;place-items:center;padding:28px}.login-card{width:min(440px,100%);background:var(--paper2);border:1px solid var(--line);border-radius:20px;padding:28px;box-shadow:var(--shadow)}
+.login-card h1{font-family:Georgia,serif;color:var(--maroon);margin:0 0 8px;font-size:30px}.sub{color:var(--muted);margin:0 0 22px}.field{margin-bottom:14px}.field label{display:block;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#7f5d42;margin-bottom:6px}.input,.textarea,.select{width:100%;border:1px solid #dcc39f;background:#fffdf9;color:var(--ink);border-radius:11px;padding:11px 12px;outline:none}.input:focus,.textarea:focus,.select:focus{border-color:#b77a43;box-shadow:0 0 0 3px rgba(183,122,67,.12)}.textarea{min-height:190px;resize:vertical}
+.app{display:grid;grid-template-columns:380px minmax(0,1fr);min-height:calc(100vh - 68px)}.sidebar{border-right:1px solid var(--line);background:rgba(255,250,240,.82);padding:16px;min-width:0}.main{padding:20px;min-width:0}
+.toolbar{display:grid;grid-template-columns:1fr 130px;gap:9px;margin-bottom:12px}.stats{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 14px}.chip{font-size:11px;padding:5px 8px;border-radius:999px;border:1px solid var(--line);background:#fffaf1;color:#6e5846;font-weight:750}
+.list{display:flex;flex-direction:column;gap:8px;max-height:calc(100vh - 205px);overflow:auto;padding-right:2px}.item{background:#fffdf8;border:1px solid #ead8bd;border-radius:13px;padding:12px;cursor:pointer;box-shadow:0 4px 13px rgba(81,49,20,.04)}.item:hover{border-color:#d8ae78}.item.active{border-color:var(--maroon);box-shadow:0 0 0 2px rgba(139,30,45,.08)}.item-top{display:flex;align-items:center;justify-content:space-between;gap:8px}.ref{font-weight:850;color:#4a3528;font-size:12px}.name{font-weight:800;margin-top:5px}.q{color:var(--muted);font-size:12px;margin-top:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.status{font-size:10px;padding:4px 7px;border-radius:999px;font-weight:850;text-transform:uppercase;letter-spacing:.04em}.s-pending{background:#fff0d4;color:#8a5412}.s-in_progress{background:#e3efff;color:#245b92}.s-replied{background:#dff2e8;color:#286442}.s-scheduled_call{background:#eee5ff;color:#6648a1}
+.empty{display:grid;place-items:center;min-height:65vh;text-align:center;color:var(--muted)}.panel{background:var(--paper2);border:1px solid var(--line);border-radius:17px;box-shadow:var(--shadow);margin-bottom:14px;overflow:hidden}.panel-head{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px;background:linear-gradient(180deg,#fff9ee,#fffdf8)}.panel-title{font-family:Georgia,serif;font-size:19px;color:var(--maroon)}.panel-body{padding:16px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 18px}.kv{min-width:0}.k{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#967356;font-weight:800}.v{font-size:13px;margin-top:3px;word-break:break-word}.question{white-space:pre-wrap;background:#fff8e9;border:1px solid #ecd6b0;border-radius:12px;padding:14px;line-height:1.6}
+.reply-grid{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px}.sidebox{background:#fff8eb;border:1px solid #ead1a5;border-radius:13px;padding:13px}.sidebox h3{margin:0 0 10px;font-size:13px;color:#6c401e}.upload{border:1px dashed #cda878;background:#fffdf8;border-radius:10px;padding:11px;margin-bottom:10px}.upload small{color:var(--muted);display:block;margin-top:5px}.progress{height:7px;background:#eee0c9;border-radius:999px;overflow:hidden;margin-top:8px}.progress>div{height:100%;background:var(--maroon);width:0}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.msg{padding:10px 12px;border-radius:10px;margin:10px 0;font-size:12px}.msg.ok{background:#e4f3e9;color:#285d3c;border:1px solid #b9dec6}.msg.err{background:#f9e5e5;color:#862a2a;border:1px solid #efbebe}.note{font-size:11px;color:var(--muted);margin-top:8px}.email-state{font-size:11px;font-weight:800}.righttop{display:flex;align-items:center;gap:8px}.signed{font-size:12px;color:var(--muted)}
+@media(max-width:1050px){.app{grid-template-columns:320px minmax(0,1fr)}.reply-grid{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){.topbar{height:auto;min-height:64px;padding:12px 14px}.brand small{display:none}.app{display:block}.sidebar{border-right:0;border-bottom:1px solid var(--line)}.list{max-height:320px}.main{padding:13px}.grid{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr 120px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">Parashar Jyotisha <small>Consultation Console</small></div>
+  <div id="signedBar" class="righttop hidden"><span id="signedEmail" class="signed"></span><button id="logoutBtn" class="btn btn-soft">Sign out</button></div>
+</header>
+
+<section id="loginView" class="login-wrap">
+  <form id="loginForm" class="login-card">
+    <h1>Admin Console</h1>
+    <p class="sub">Private consultation workspace. Sign in with an approved Firebase administrator account.</p>
+    <div id="loginMsg"></div>
+    <div class="field"><label>Email</label><input id="loginEmail" class="input" type="email" autocomplete="username" required></div>
+    <div class="field"><label>Password</label><input id="loginPassword" class="input" type="password" autocomplete="current-password" required></div>
+    <button id="loginBtn" class="btn btn-primary" type="submit" style="width:100%">Sign in securely</button>
+    <p class="note">The password is handled by Firebase Authentication and is never stored in this page.</p>
+  </form>
+</section>
+
+<section id="consoleView" class="app hidden">
+  <aside class="sidebar">
+    <div class="toolbar">
+      <input id="searchBox" class="input" placeholder="Search name, email, ref...">
+      <select id="statusFilter" class="select"><option value="all">All status</option><option value="pending">Pending</option><option value="in_progress">In progress</option><option value="replied">Replied</option><option value="scheduled_call">Call</option></select>
+    </div>
+    <div id="stats" class="stats"></div>
+    <div id="consultationList" class="list"><div class="note">Loading consultations…</div></div>
+  </aside>
+  <main class="main">
+    <div id="emptyState" class="empty"><div><div style="font-family:Georgia,serif;font-size:28px;color:#8b1e2d">Consultation Desk</div><p>Select a consultation from the left to review and reply.</p></div></div>
+    <div id="detailView" class="hidden">
+      <section class="panel">
+        <div class="panel-head"><div><div id="detailRef" class="panel-title"></div><div id="detailStatus" style="margin-top:5px"></div></div><button id="refreshBtn" class="btn btn-soft">Refresh</button></div>
+        <div class="panel-body">
+          <div id="metaGrid" class="grid"></div>
+          <div style="margin-top:14px"><div class="k">Question / Message</div><div id="questionBox" class="question" style="margin-top:6px"></div></div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head"><div class="panel-title">Compose Reply</div><div id="replyEmailState" class="email-state"></div></div>
+        <div class="panel-body">
+          <div id="actionMsg"></div>
+          <div class="reply-grid">
+            <div>
+              <div class="field"><label>Written answer</label><textarea id="replyText" class="textarea" placeholder="Type your consultation response here…"></textarea></div>
+              <div class="field"><label>PDF / Report link</label><input id="pdfUrl" class="input" type="url" placeholder="https://drive.google.com/... or uploaded file URL"></div>
+              <div class="field"><label>Audio / Voice link</label><input id="audioUrl" class="input" type="url" placeholder="https://drive.google.com/... or uploaded file URL"></div>
+              <div class="actions">
+                <button id="inProgressBtn" class="btn btn-soft" type="button">Mark in progress</button>
+                <button id="saveDraftBtn" class="btn btn-soft" type="button">Save draft</button>
+                <button id="sendReplyBtn" class="btn btn-primary" type="button">Send final reply</button>
+              </div>
+              <p class="note">Sending final reply marks the consultation as <strong>replied</strong> and triggers the customer email. If the item is already replied, updating it changes the tracking response but does not send another automatic email.</p>
+            </div>
+            <div>
+              <div class="sidebox">
+                <h3>Attach PDF</h3>
+                <div class="upload"><input id="pdfFile" type="file" accept="application/pdf,.pdf"><small>PDF up to 20 MB. Uploads to Firebase Storage and fills the PDF link automatically.</small><div class="progress"><div id="pdfProgress"></div></div></div>
+                <button id="uploadPdfBtn" class="btn btn-soft" type="button" style="width:100%">Upload PDF</button>
+              </div>
+              <div class="sidebox" style="margin-top:12px">
+                <h3>Attach voice / audio</h3>
+                <div class="upload"><input id="audioFile" type="file" accept="audio/*,.mp3,.m4a,.aac,.wav,.ogg"><small>Audio up to 50 MB. Uploads to Firebase Storage and fills the audio link automatically.</small><div class="progress"><div id="audioProgress"></div></div></div>
+                <button id="uploadAudioBtn" class="btn btn-soft" type="button" style="width:100%">Upload audio</button>
+              </div>
+              <div class="sidebox" style="margin-top:12px">
+                <h3>Google Drive option</h3>
+                <div class="note">You can skip Firebase upload and paste a Drive share link above. Set Drive sharing to <strong>Anyone with the link → Viewer</strong>.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</section>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-storage-compat.js"></script>
+<script>
+const firebaseConfig={apiKey:"AIzaSyAmTmvbM-XtsPb4O-luxNiqb1W9gyQ77As",authDomain:"vedicpanchangaapp.firebaseapp.com",projectId:"vedicpanchangaapp",storageBucket:"vedicpanchangaapp.firebasestorage.app",messagingSenderId:"767719116529",appId:"1:767719116529:web:b8eff04f41df72ea602350"};
+firebase.initializeApp(firebaseConfig);
+const auth=firebase.auth(); const db=firebase.firestore(); const storage=firebase.storage(); const FV=firebase.firestore.FieldValue;
+const APPROVED=new Set(["su03may@gmail.com","support@parasharajyotisha.com"]);
+let docs=[],selected=null,selectedTrack=null,unsubscribe=null,busy=false;
+const $=id=>document.getElementById(id);
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));}
+function showMsg(el,msg,type="ok"){el.innerHTML=msg?`<div class="msg ${type}">${esc(msg)}</div>`:"";}
+function ts(v){try{return v&&v.toDate?v.toDate():null}catch(_){return null}}
+function fmtDate(v){const d=ts(v);return d?d.toLocaleString("en-IN",{dateStyle:"medium",timeStyle:"short"}):"—"}
+function fmtDob(v){const d=ts(v);return d?d.toLocaleDateString("en-IN",{day:"2-digit",month:"short",year:"numeric"}):String(v||"—")}
+function statusHtml(st){const s=String(st||"pending").toLowerCase();return `<span class="status s-${esc(s)}">${esc(s.replaceAll("_"," "))}</span>`}
+function setBusy(v){busy=v;["inProgressBtn","saveDraftBtn","sendReplyBtn","uploadPdfBtn","uploadAudioBtn"].forEach(id=>$(id).disabled=v)}
+function isHttps(v){return !v||/^https:\/\//i.test(v)}
+
+loginForm.addEventListener("submit",async e=>{e.preventDefault();showMsg(loginMsg,"");loginBtn.disabled=true;try{await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);const cred=await auth.signInWithEmailAndPassword(loginEmail.value.trim(),loginPassword.value);const email=(cred.user.email||"").toLowerCase();if(!APPROVED.has(email)){await auth.signOut();throw new Error("This account is not an approved administrator.")}loginPassword.value="";}catch(err){showMsg(loginMsg,err.message||String(err),"err")}finally{loginBtn.disabled=false}});
+logoutBtn.onclick=()=>auth.signOut();
+
+auth.onAuthStateChanged(user=>{const email=(user&&user.email||"").toLowerCase();const ok=!!user&&APPROVED.has(email);loginView.classList.toggle("hidden",ok);consoleView.classList.toggle("hidden",!ok);signedBar.classList.toggle("hidden",!ok);signedEmail.textContent=ok?email:"";if(ok)startLive();else{if(unsubscribe){unsubscribe();unsubscribe=null}docs=[];selected=null;renderList();}});
+
+function startLive(){if(unsubscribe)unsubscribe();unsubscribe=db.collection("consultations").orderBy("createdAt","desc").limit(150).onSnapshot(s=>{docs=s.docs.map(d=>({id:d.id,...d.data()}));renderList();if(selected){const hit=docs.find(x=>x.id===selected.id);if(hit){selected=hit;renderDetail(false)}}},err=>{consultationList.innerHTML=`<div class="msg err">${esc(err.message)}</div>`})}
+function filtered(){const q=searchBox.value.trim().toLowerCase(),st=statusFilter.value;return docs.filter(d=>{const hay=[d.id,d.refId,d.name,d.emailLower,d.email,d.topic,d.question,d.phone].join(" ").toLowerCase();return(!q||hay.includes(q))&&(st==="all"||String(d.status||"pending").toLowerCase()===st)})}
+function renderStats(){const counts={pending:0,in_progress:0,replied:0,scheduled_call:0};docs.forEach(d=>{const s=String(d.status||"pending");if(s in counts)counts[s]++});stats.innerHTML=`<span class="chip">Total ${docs.length}</span><span class="chip">Pending ${counts.pending}</span><span class="chip">In progress ${counts.in_progress}</span><span class="chip">Replied ${counts.replied}</span>`}
+function renderList(){renderStats();const arr=filtered();if(!arr.length){consultationList.innerHTML='<div class="note">No matching consultations.</div>';return}consultationList.innerHTML=arr.map(d=>`<div class="item ${selected&&selected.id===d.id?'active':''}" data-id="${esc(d.id)}"><div class="item-top"><span class="ref">${esc(d.refId||d.id)}</span>${statusHtml(d.status)}</div><div class="name">${esc(d.name||"Seeker")}</div><div class="q">${esc(d.topic||"General")} · ${esc(d.question||"")}</div><div class="note">${esc(fmtDate(d.createdAt))}</div></div>`).join("");consultationList.querySelectorAll(".item").forEach(el=>el.onclick=()=>selectConsult(el.dataset.id))}
+searchBox.oninput=renderList;statusFilter.onchange=renderList;
+async function selectConsult(id){selected=docs.find(d=>d.id===id)||null;if(!selected)return;renderList();await renderDetail(true)}
+async function renderDetail(loadTrack){emptyState.classList.add("hidden");detailView.classList.remove("hidden");if(loadTrack){try{const t=await db.collection("consultation_tracks").doc(selected.id).get();selectedTrack=t.exists?t.data():null}catch(_){selectedTrack=null}}
+ detailRef.textContent=selected.refId||selected.id;detailStatus.innerHTML=statusHtml(selected.status);
+ const rows=[["Name",selected.name],["Email",selected.emailLower||selected.email],["Phone",selected.phone],["Topic / Service",selected.topic||selected.service],["Source",selected.source||"app"],["Created",fmtDate(selected.createdAt)],["DOB",fmtDob(selected.dob||selected.dateOfBirth)],["Birth time",selected.birthTime],["Birth place",[selected.place,selected.district,selected.state,selected.country].filter(Boolean).join(", ")],["Email verified",selected.emailVerified===true?"Yes":(selected.source==="website"?"No / legacy":"App submission")]];
+ metaGrid.innerHTML=rows.map(([k,v])=>`<div class="kv"><div class="k">${esc(k)}</div><div class="v">${esc(v||"—")}</div></div>`).join("");questionBox.textContent=selected.question||selected.message||"—";
+ replyText.value=selected.replyDraft??selected.finalReplyText??selectedTrack?.replyText??"";pdfUrl.value=selected.replyDraftPdfUrl??selected.replyPdfUrl??selectedTrack?.replyPdfUrl??"";audioUrl.value=selected.replyDraftAudioUrl??selected.replyAudioUrl??selectedTrack?.replyAudioUrl??"";
+ const es=selected.replyReadyEmailStatus||"not sent";replyEmailState.textContent=`Reply email: ${es}`;replyEmailState.style.color=es==="sent"?"#27734a":es==="failed"?"#a83232":"#7b6a5b";showMsg(actionMsg,"");}
+refreshBtn.onclick=async()=>{if(!selected)return;const s=await db.collection("consultations").doc(selected.id).get();selected={id:s.id,...s.data()};await renderDetail(true)};
+
+async function ensureTrack(){const ref=db.collection("consultation_tracks").doc(selected.id);const snap=await ref.get();if(!snap.exists)throw new Error("Tracking record not found for this consultation.");return ref}
+inProgressBtn.onclick=async()=>{if(!selected||busy)return;setBusy(true);try{const cr=db.collection("consultations").doc(selected.id),tr=await ensureTrack(),b=db.batch();b.update(cr,{status:"in_progress"});b.update(tr,{status:"in_progress"});await b.commit();showMsg(actionMsg,"Marked in progress.");}catch(e){showMsg(actionMsg,e.message||String(e),"err")}finally{setBusy(false)}};
+saveDraftBtn.onclick=async()=>{if(!selected||busy)return;const txt=replyText.value.trim(),pdf=pdfUrl.value.trim(),audio=audioUrl.value.trim();if(!isHttps(pdf)||!isHttps(audio)){showMsg(actionMsg,"Links must begin with https://","err");return}setBusy(true);try{await db.collection("consultations").doc(selected.id).update({replyDraft:txt,replyDraftPdfUrl:pdf,replyDraftAudioUrl:audio,draftUpdatedAt:FV.serverTimestamp()});showMsg(actionMsg,"Draft saved privately.");}catch(e){showMsg(actionMsg,e.message||String(e),"err")}finally{setBusy(false)}};
+sendReplyBtn.onclick=async()=>{if(!selected||busy)return;const txt=replyText.value.trim(),pdf=pdfUrl.value.trim(),audio=audioUrl.value.trim();if(!txt&&!pdf&&!audio){showMsg(actionMsg,"Type an answer or add at least one PDF/audio link.","err");return}if(!isHttps(pdf)||!isHttps(audio)){showMsg(actionMsg,"Links must begin with https://","err");return}const already=String(selected.status||"").toLowerCase()==="replied";if(!confirm(already?"Update the customer-visible reply? No new automatic email will be sent because this consultation is already marked replied.":"Send this as the FINAL reply? The customer will be emailed and the consultation will be marked replied."))return;setBusy(true);try{const cr=db.collection("consultations").doc(selected.id),tr=await ensureTrack(),b=db.batch();b.update(cr,{status:"replied",finalReplyText:txt||null,replyPdfUrl:pdf||null,replyAudioUrl:audio||null,repliedAt:FV.serverTimestamp(),replyDraft:FV.delete(),replyDraftPdfUrl:FV.delete(),replyDraftAudioUrl:FV.delete(),draftUpdatedAt:FV.delete()});b.update(tr,{status:"replied",replyText:txt||null,replyPdfUrl:pdf||null,replyAudioUrl:audio||null,repliedAt:FV.serverTimestamp()});await b.commit();showMsg(actionMsg,already?"Reply updated. Tracking data changed; no duplicate email was sent.":"Final reply sent. Customer email is now being processed.");}catch(e){showMsg(actionMsg,e.message||String(e),"err")}finally{setBusy(false)}};
+
+function safeFileName(n){return String(n||"file").replace(/[^A-Za-z0-9._-]+/g,"_").slice(-100)}
+function mimeFor(file,kind){if(file.type)return file.type;const ext=(file.name.split('.').pop()||'').toLowerCase();if(kind==='pdf')return'application/pdf';const m={mp3:'audio/mpeg',m4a:'audio/mp4',aac:'audio/aac',wav:'audio/wav',ogg:'audio/ogg'};return m[ext]||'application/octet-stream'}
+async function upload(kind){if(!selected||busy)return;const input=kind==='pdf'?pdfFile:audioFile,file=input.files[0];if(!file){showMsg(actionMsg,`Choose a ${kind==='pdf'?'PDF':'voice/audio'} file first.`,`err`);return}const max=kind==='pdf'?20*1024*1024:50*1024*1024;if(file.size>max){showMsg(actionMsg,`File is too large. Maximum ${kind==='pdf'?'20':'50'} MB.`,`err`);return}const ct=mimeFor(file,kind);if(kind==='pdf'&&ct!=='application/pdf'){showMsg(actionMsg,'Only PDF files are allowed in the PDF uploader.','err');return}if(kind==='audio'&&!ct.startsWith('audio/')){showMsg(actionMsg,'Choose a valid audio file.','err');return}setBusy(true);const bar=kind==='pdf'?pdfProgress:audioProgress;bar.style.width='0%';try{const path=`consultation_replies/${selected.refId||selected.id}/${Date.now()}_${safeFileName(file.name)}`;const task=storage.ref(path).put(file,{contentType:ct});await new Promise((resolve,reject)=>task.on('state_changed',s=>bar.style.width=`${Math.round(s.bytesTransferred/s.totalBytes*100)}%`,reject,resolve));const url=await task.snapshot.ref.getDownloadURL();if(kind==='pdf')pdfUrl.value=url;else audioUrl.value=url;showMsg(actionMsg,`${kind==='pdf'?'PDF':'Audio'} uploaded. The download link has been filled automatically.`);}catch(e){showMsg(actionMsg,e.message||String(e),'err')}finally{setBusy(false)}}
+uploadPdfBtn.onclick=()=>upload('pdf');uploadAudioBtn.onclick=()=>upload('audio');
+</script>
+</body>
+</html>
