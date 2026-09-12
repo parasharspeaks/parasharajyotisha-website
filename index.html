@@ -1987,7 +1987,7 @@ html[data-theme="light"] #contact .cm-card{
 <span class="nav-logo-mark">Parashar Jyotisha</span>
 <span class="nav-logo-dot"></span>
 </a>
-<ul class="nav-links" id="navLinks"><li><a href="panchang.html">Today’s Panchang</a></li><li><a href="#tools">Free Tools</a></li><li><a href="learn.html">Learn</a></li><li><a href="vedic-panchanga.html">Panchanga App</a></li><li><a href="#about">About</a></li><li class="pj-theme-item"><button class="pj-theme-toggle" type="button" aria-label="Switch colour theme" title="Switch colour theme"><span class="pj-theme-icon" aria-hidden="true">☾</span><span class="pj-theme-label">Dark</span></button></li><li><a class="nav-cta-btn" href="#contact">Free Guidance</a></li></ul>
+<ul class="nav-links" id="navLinks"><li><a href="panchang.html">Today’s Panchang</a></li><li><a href="#tools">Free Tools</a></li><li><a href="learn.html">Learn</a></li><li><a href="vedic-panchanga.html">Panchanga App</a></li><li><a href="#reviews">Reviews</a></li><li><a href="#about">About</a></li><li class="pj-theme-item"><button class="pj-theme-toggle" type="button" aria-label="Switch colour theme" title="Switch colour theme"><span class="pj-theme-icon" aria-hidden="true">☾</span><span class="pj-theme-label">Dark</span></button></li><li><a class="nav-cta-btn" href="#contact">Free Guidance</a></li></ul>
 <button class="pj-theme-toggle pj-theme-mobile" type="button" aria-label="Switch colour theme" title="Switch colour theme"><span class="pj-theme-icon" aria-hidden="true">☾</span></button>
 <button class="hamburger" id="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Open navigation menu">
 <span></span><span></span><span></span>
@@ -2236,6 +2236,11 @@ html[data-theme="light"] #contact .cm-card{
 <div class="sl-price">Digital</div>
 </li>
 </ul>
+<div style="display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.35rem;">
+<a class="btn btn-ember" href="#contact">Request Free Guidance</a>
+<a class="btn btn-outline" href="track-consultation.html">Track Consultation</a>
+<a class="btn btn-ghost" href="reviews.html">Read Verified Reviews</a>
+</div>
 </div>
 </div>
 </div>
@@ -2279,60 +2284,19 @@ html[data-theme="light"] #contact .cm-card{
 </div>
 </div>
 </section>
-<!-- ════════ TESTIMONIALS ════════ -->
-<section class="section">
+<!-- ════════ VERIFIED REVIEWS ════════ -->
+<section class="section" id="reviews">
 <div class="section-line"></div>
 <div class="container" style="margin-top:5rem;">
 <div class="section-intro center reveal">
-<span class="label">Experiences</span>
-<h2 class="heading">Words from <em>Seekers</em></h2>
+<span class="label">Verified Experiences</span>
+<h2 class="heading">Words from <em>Consultation Seekers</em></h2>
+<p class="section-desc">These reviews are linked to completed consultations, published only with the customer’s permission, and moderated for privacy.</p>
 </div>
-<div class="testi-track">
-<div class="testi-card reveal reveal-d1">
-<div class="testi-stars">★ ★ ★ ★ ★</div>
-<p class="testi-text">
-          "The birth chart reading was unlike anything I've experienced. 
-          It wasn't just about predictions — it was a mirror that helped me 
-          understand patterns I'd been blind to for years."
-        </p>
-<div class="testi-author">
-<div class="testi-avatar">R</div>
-<div>
-<div class="testi-name">Rahul S.</div>
-<div class="testi-loc">New Delhi</div>
+<div id="verifiedReviewsHome" class="testi-track">
+<div class="testi-card reveal"><div class="testi-stars">★</div><p class="testi-text">Loading verified consultation reviews…</p></div>
 </div>
-</div>
-</div>
-<div class="testi-card reveal reveal-d2">
-<div class="testi-stars">★ ★ ★ ★ ★</div>
-<p class="testi-text">
-          "The free Kundli matching tool is incredibly detailed — clear and detailed. It helped us understand the matching factors better. When we followed up with a consultation, 
-          the remedies genuinely transformed our relationship."
-        </p>
-<div class="testi-author">
-<div class="testi-avatar">P</div>
-<div>
-<div class="testi-name">Priya &amp; Amit</div>
-<div class="testi-loc">Mumbai</div>
-</div>
-</div>
-</div>
-<div class="testi-card reveal reveal-d3">
-<div class="testi-stars">★ ★ ★ ★ ★</div>
-<p class="testi-text">
-          "What sets this apart is the blend of deep Vedic knowledge with 
-          modern tools. The Panchang app is my daily companion, and the 
-          career guidance session was exactly what I needed."
-        </p>
-<div class="testi-author">
-<div class="testi-avatar">A</div>
-<div>
-<div class="testi-name">Ananya K.</div>
-<div class="testi-loc">Bangalore</div>
-</div>
-</div>
-</div>
-</div>
+<div style="text-align:center;margin-top:2rem"><a class="btn btn-outline" href="reviews.html">View all verified reviews →</a></div>
 </div>
 </section>
 <!-- ════════ WISDOM / BLOG ════════ -->
@@ -2373,6 +2337,13 @@ html[data-theme="light"] #contact .cm-card{
 <div>
 <div class="cm-title">Email</div>
 <div class="cm-value">support@parasharajyotisha.com</div>
+</div>
+</a>
+<a class="cm-card" href="track-consultation.html">
+<div class="cm-icon app">🔎</div>
+<div>
+<div class="cm-title">Track Consultation</div>
+<div class="cm-value">Check status using your Reference ID + registered email</div>
 </div>
 </a>
 <div class="cm-card">
@@ -2515,6 +2486,8 @@ html[data-theme="light"] #contact .cm-card{
 <li><a href="#tools">Free Tools</a></li>
 <li><a href="panchang.html">Daily Panchang</a></li>
 <li><a href="#guidance">Consultations</a></li>
+<li><a href="track-consultation.html">Track Consultation</a></li>
+<li><a href="reviews.html">Verified Reviews</a></li>
 <li><a href="#about">About</a></li>
 <li><a href="learn.html">Learn Library</a></li>
 </ul>
@@ -3091,6 +3064,28 @@ loadPanchang('Delhi');
     apply(current()==='light'?'dark':'light',true);
   });
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',syncButtons);else syncButtons();
+})();
+</script>
+
+
+<script id="pj-verified-reviews-home">
+(function(){
+  const root=document.getElementById('verifiedReviewsHome');
+  if(!root)return;
+  const API='https://asia-south2-vedicpanchangaapp.cloudfunctions.net/getPublicReviews';
+  const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+  fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'})
+    .then(r=>r.json().then(j=>({ok:r.ok,j})))
+    .then(({ok,j})=>{
+      if(!ok||!j.ok)throw new Error(j.message||'Could not load reviews.');
+      const arr=(j.reviews||[]).slice(0,3);
+      if(!arr.length){
+        root.innerHTML='<div class="testi-card reveal"><div class="testi-stars">★</div><p class="testi-text">Verified customer reviews will appear here as consultation seekers choose to share their experience.</p><div class="testi-author"><div class="testi-avatar">✓</div><div><div class="testi-name">Verified Consultation Reviews</div><div class="testi-loc">Privacy-first moderation</div></div></div></div>';
+        return;
+      }
+      root.innerHTML=arr.map((r,i)=>`<div class="testi-card reveal reveal-d${Math.min(i+1,3)}"><div class="testi-stars">${'★ '.repeat(Math.max(1,Math.min(5,Number(r.rating)||0))).trim()}</div><p class="testi-text">“${esc(r.reviewText)}”</p><div class="testi-author"><div class="testi-avatar">${esc((r.displayName||'V').charAt(0).toUpperCase())}</div><div><div class="testi-name">${esc(r.displayName||'Verified Seeker')} <span style="font-size:.7em;color:#3b7a57">✓ Verified</span></div><div class="testi-loc">${esc(r.publicLocation||r.topic||'Consultation')}</div></div></div></div>`).join('');
+    })
+    .catch(()=>{root.innerHTML='<div class="testi-card reveal"><div class="testi-stars">★</div><p class="testi-text">Verified reviews are temporarily unavailable.</p></div>'});
 })();
 </script>
 
