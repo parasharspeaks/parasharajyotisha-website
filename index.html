@@ -1977,6 +1977,433 @@ html[data-theme="light"] #contact .cm-card{
 }
 </style>
 
+
+<style id="pj-mobile-only-hotfix-v42">
+/* ==============================================================
+   MOBILE-ONLY HOTFIX FOR V4.2
+   Desktop/tablet >= 769px is untouched.
+   ============================================================== */
+.pjm-quick,.pjm-scrim{display:none}
+
+@media (max-width:768px){
+  /* --- compact one-row header --- */
+  .nav{
+    padding:.60rem .78rem!important;
+    min-height:66px!important;
+    height:66px!important;
+    background:rgba(255,249,239,.975)!important;
+    backdrop-filter:blur(20px)!important;
+    -webkit-backdrop-filter:blur(20px)!important;
+    box-shadow:0 4px 20px rgba(92,58,38,.07)!important;
+  }
+  html[data-theme="dark"] .nav{
+    background:rgba(12,11,16,.97)!important;
+    box-shadow:0 4px 22px rgba(0,0,0,.28)!important;
+  }
+  .nav.scrolled{padding:.60rem .78rem!important}
+  .nav-inner{
+    width:100%!important;
+    max-width:none!important;
+    min-height:0!important;
+    gap:.50rem!important;
+    align-items:center!important;
+  }
+  .nav-logo{
+    flex:1 1 auto!important;
+    min-width:0!important;
+    margin:0!important;
+  }
+  .nav-logo-mark{
+    font-size:clamp(1.38rem,6.8vw,1.72rem)!important;
+    line-height:1!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+  }
+  .nav-logo-surya{
+    right:-.62rem!important;
+    top:-.34rem!important;
+    width:.80rem!important;height:.80rem!important;
+    font-size:.72rem!important;
+  }
+  .pj-theme-mobile{
+    display:grid!important;
+    place-items:center!important;
+    width:40px!important;height:40px!important;
+    min-width:40px!important;min-height:40px!important;
+    flex:0 0 40px!important;
+    padding:0!important;margin:0!important;
+    border-radius:50%!important;
+  }
+  .hamburger{
+    display:flex!important;
+    flex-direction:column!important;
+    justify-content:center!important;
+    align-items:center!important;
+    gap:5px!important;
+    width:42px!important;height:42px!important;
+    min-width:42px!important;
+    padding:8px!important;margin:0!important;
+    border-radius:11px!important;
+  }
+  .hamburger span{
+    width:23px!important;height:2px!important;
+    margin:0!important;
+    transition:transform .22s ease,opacity .18s ease!important;
+    transform-origin:center!important;
+  }
+  .hamburger.is-open span:nth-child(1){transform:translateY(7px) rotate(45deg)!important}
+  .hamburger.is-open span:nth-child(2){opacity:0!important}
+  .hamburger.is-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)!important}
+
+  /* --- drawer overlays page instead of pushing it down --- */
+  body.pjm-open{overflow:hidden!important}
+  .pjm-scrim{
+    position:fixed!important;
+    inset:66px 0 0 0!important;
+    z-index:998!important;
+    background:rgba(49,32,22,.24)!important;
+    backdrop-filter:blur(2px)!important;
+    -webkit-backdrop-filter:blur(2px)!important;
+  }
+  body.pjm-open .pjm-scrim{display:block!important}
+
+  .nav-links,
+  html[data-theme="light"] .nav-links{
+    display:none!important;
+    position:fixed!important;
+    top:72px!important;
+    left:10px!important;
+    right:10px!important;
+    bottom:auto!important;
+    width:auto!important;
+    max-height:calc(100dvh - 86px)!important;
+    overflow:auto!important;
+    overscroll-behavior:contain!important;
+    flex-direction:column!important;
+    align-items:stretch!important;
+    gap:.30rem!important;
+    padding:.66rem!important;
+    margin:0!important;
+    border:1px solid rgba(92,58,38,.13)!important;
+    border-radius:18px!important;
+    background:rgba(255,249,239,.99)!important;
+    box-shadow:0 24px 60px rgba(66,39,24,.22)!important;
+    z-index:999!important;
+    list-style:none!important;
+  }
+  html[data-theme="dark"] .nav-links{
+    background:rgba(14,13,19,.99)!important;
+    border-color:rgba(255,255,255,.09)!important;
+    box-shadow:0 24px 60px rgba(0,0,0,.52)!important;
+  }
+  .nav-links.open{display:flex!important}
+  .nav-links>li{
+    width:100%!important;
+    margin:0!important;
+    list-style:none!important;
+  }
+  .nav-links>li::marker{content:""!important}
+
+  /* quick choices first */
+  .pjm-quick{
+    display:grid!important;
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    gap:.38rem!important;
+    padding:0 0 .50rem 0!important;
+    margin:0 0 .12rem 0!important;
+    border-bottom:1px solid rgba(92,58,38,.10)!important;
+  }
+  html[data-theme="dark"] .pjm-quick{border-color:rgba(255,255,255,.08)!important}
+  .pjm-quick a{
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:center!important;
+    justify-content:center!important;
+    min-height:64px!important;
+    padding:.45rem .16rem!important;
+    gap:.22rem!important;
+    border:1px solid rgba(92,58,38,.10)!important;
+    border-radius:12px!important;
+    background:rgba(255,255,255,.52)!important;
+    color:var(--text-bright)!important;
+    text-align:center!important;
+  }
+  html[data-theme="dark"] .pjm-quick a{
+    background:rgba(255,255,255,.035)!important;
+    border-color:rgba(255,255,255,.07)!important;
+  }
+  .pjm-quick a span{font-size:1rem!important;color:var(--gold)!important}
+  .pjm-quick a b{font-size:.63rem!important;line-height:1.1!important;white-space:nowrap!important}
+
+  /* menu rows */
+  .nav-links>li>a:not(.nav-cta-btn),
+  .pj-nav-menu-btn,
+  .pj-nav-find{
+    min-height:44px!important;
+    width:100%!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:space-between!important;
+    padding:.60rem .72rem!important;
+    margin:0!important;
+    border-radius:10px!important;
+    font-size:.88rem!important;
+    font-weight:600!important;
+    text-align:left!important;
+    color:var(--text-bright)!important;
+    background:transparent!important;
+  }
+  .pj-nav-menu-btn:hover,
+  .pj-nav-find:hover,
+  .nav-links>li>a:not(.nav-cta-btn):hover{
+    background:rgba(158,32,40,.05)!important;
+  }
+  .pj-nav-menu{width:100%!important}
+  .pj-nav-menu-btn span{font-size:.68rem!important;transition:transform .18s!important}
+  .pj-nav-menu.open>.pj-nav-menu-btn span{transform:rotate(180deg)!important}
+
+  .pj-nav-dropdown,
+  .pj-nav-dropdown-wide,
+  .pj-nav-dropdown-right{
+    position:static!important;
+    display:none!important;
+    width:100%!important;
+    min-width:0!important;
+    grid-template-columns:1fr!important;
+    opacity:1!important;
+    visibility:visible!important;
+    transform:none!important;
+    padding:.26rem!important;
+    margin:.08rem 0 .28rem!important;
+    border:1px solid rgba(92,58,38,.10)!important;
+    border-radius:11px!important;
+    background:rgba(255,255,255,.36)!important;
+    box-shadow:none!important;
+  }
+  html[data-theme="dark"] .pj-nav-dropdown{
+    background:rgba(255,255,255,.025)!important;
+    border-color:rgba(255,255,255,.07)!important;
+  }
+  .pj-nav-menu.open>.pj-nav-dropdown,
+  .pj-nav-menu.open>.pj-nav-dropdown-wide{display:grid!important}
+  .pj-nav-col-title{
+    padding:.48rem .62rem .18rem!important;
+    font-size:.56rem!important;
+  }
+  .pj-nav-dropdown a{
+    padding:.56rem .64rem!important;
+    border-radius:8px!important;
+  }
+  .pj-nav-dropdown strong{font-size:.78rem!important}
+  .pj-nav-dropdown small{font-size:.64rem!important;line-height:1.28!important}
+  .pj-nav-find{justify-content:flex-start!important;gap:.38rem!important}
+  .pj-nav-find span{display:inline!important}
+  .nav-cta-btn{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    min-height:46px!important;
+    margin-top:.08rem!important;
+    font-size:.88rem!important;
+  }
+
+  /* --- homepage hero: less vertical waste --- */
+  .hero{
+    min-height:auto!important;
+    padding:5.4rem .95rem 2.3rem!important;
+    justify-content:flex-start!important;
+    text-align:left!important;
+  }
+  .hero-content{
+    width:100%!important;
+    max-width:100%!important;
+  }
+  .hero-overline{
+    margin-bottom:.75rem!important;
+    font-size:.58rem!important;
+    letter-spacing:.14em!important;
+  }
+  .hero-title{
+    font-size:clamp(2.15rem,10.7vw,3.05rem)!important;
+    line-height:1.0!important;
+    letter-spacing:-.03em!important;
+  }
+  .hero-sub{
+    margin-top:.78rem!important;
+    font-size:.98rem!important;
+    line-height:1.48!important;
+  }
+  .hero-desc{
+    margin:1rem 0 1.1rem!important;
+    font-size:.88rem!important;
+    line-height:1.56!important;
+  }
+  .hero-actions{
+    width:100%!important;
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:.55rem!important;
+  }
+  .hero-actions .btn{
+    width:100%!important;
+    min-height:48px!important;
+    justify-content:center!important;
+  }
+  .hero-proof{
+    margin-top:.85rem!important;
+    justify-content:flex-start!important;
+    flex-wrap:nowrap!important;
+    overflow-x:auto!important;
+    scrollbar-width:none!important;
+    padding-bottom:.15rem!important;
+  }
+  .hero-proof::-webkit-scrollbar{display:none!important}
+  .proof-pill{white-space:nowrap!important;font-size:.62rem!important}
+  .hero-art{
+    width:90vw!important;
+    right:-50vw!important;
+    bottom:.4rem!important;
+    opacity:.12!important;
+    pointer-events:none!important;
+  }
+
+  /* --- Panchang: nearly full width and much less tall --- */
+  #panchang.panchang-section{
+    padding:2.4rem .45rem 3rem!important;
+  }
+  #panchang .container{
+    width:100%!important;
+    max-width:none!important;
+    margin:0!important;
+    padding:0!important;
+  }
+  #panchang .section-intro{
+    padding:0 .65rem!important;
+    margin:0 auto 1rem!important;
+  }
+  #panchang .panchang-grid,
+  #panchang .panchang-layout,
+  #panchang .panchang-wrap{
+    gap:.72rem!important;
+  }
+  #panchang .panchang-live.upgraded{
+    width:100%!important;
+    border-radius:18px!important;
+  }
+  #panchang .panchang-shell{
+    padding:.86rem!important;
+  }
+  #panchang .panchang-topbar{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) auto!important;
+    align-items:start!important;
+    gap:.48rem!important;
+    margin-bottom:.65rem!important;
+  }
+  #panchang .panchang-kicker{
+    font-size:.54rem!important;
+    letter-spacing:.13em!important;
+    margin-bottom:.26rem!important;
+  }
+  #panchang .panchang-title-main{
+    font-size:clamp(1.48rem,7.9vw,1.86rem)!important;
+    line-height:1.07!important;
+  }
+  #panchang .panchang-subline{
+    margin-top:.33rem!important;
+    font-size:.73rem!important;
+    line-height:1.38!important;
+  }
+  #panchang .panchang-live-badge{
+    padding:.42rem .54rem!important;
+    font-size:.63rem!important;
+    white-space:nowrap!important;
+  }
+  #panchang .panchang-controls{
+    grid-template-columns:1fr 1fr!important;
+    gap:.48rem!important;
+    margin:.72rem 0 .78rem!important;
+    padding:.50rem!important;
+    border-radius:13px!important;
+  }
+  #panchang .panchang-city-input{
+    grid-column:1/-1!important;
+    min-height:46px!important;
+    padding:.55rem .72rem!important;
+    font-size:.84rem!important;
+  }
+  #panchang .panchang-action{
+    min-height:44px!important;
+    padding:.50rem .48rem!important;
+    font-size:.77rem!important;
+  }
+  #panchang .panchang-action.secondary{
+    justify-self:stretch!important;
+  }
+  #panchang .panchang-mood-card,
+  #panchang .panchang-mini-card{
+    padding:.76rem!important;
+    border-radius:14px!important;
+  }
+  #panchang .panchang-mini-grid,
+  #panchang .panchang-items.enhanced,
+  #panchang .panchang-extras.enhanced{
+    grid-template-columns:1fr 1fr!important;
+    gap:.46rem!important;
+  }
+  #panchang .panchang-el.enhanced{
+    min-height:104px!important;
+    padding:.68rem!important;
+    border-radius:13px!important;
+  }
+  #panchang .panchang-el.enhanced::before{
+    width:27px!important;
+    height:27px!important;
+    margin-bottom:.40rem!important;
+  }
+  #panchang .panchang-el.enhanced .panchang-el-value{
+    font-size:.98rem!important;
+  }
+  #panchang .panchang-extras .pe-item{
+    padding:.66rem!important;
+    border-radius:13px!important;
+  }
+  #panchang .panchang-guide{
+    grid-template-columns:1fr!important;
+    gap:.42rem!important;
+  }
+  .panchang-sacred-panel{
+    border-radius:18px!important;
+  }
+
+  /* remove duplicate floating navigation button on mobile */
+  .pj-quick-find{display:none!important}
+  .wa-float{
+    width:48px!important;
+    height:48px!important;
+    right:12px!important;
+    bottom:12px!important;
+    font-size:1.25rem!important;
+  }
+
+  /* keep general mobile sections from being over-padded */
+  .section{
+    padding-left:.85rem!important;
+    padding-right:.85rem!important;
+  }
+}
+
+@media (max-width:390px){
+  .nav{padding-left:.66rem!important;padding-right:.66rem!important}
+  .nav-logo-mark{font-size:1.34rem!important}
+  .pj-theme-mobile{width:38px!important;height:38px!important;min-width:38px!important}
+  .hamburger{width:40px!important;height:40px!important;min-width:40px!important}
+  .pjm-quick a b{font-size:.59rem!important}
+  #panchang .panchang-shell{padding:.74rem!important}
+}
+</style>
+
 </head>
 <body>
 <div class="cosmos-bg"></div>
@@ -1988,6 +2415,12 @@ html[data-theme="light"] #contact .cm-card{
 <span class="nav-logo-surya" aria-hidden="true">☼</span>
 </a>
 <ul class="nav-links" id="navLinks">
+<li class="pjm-quick" aria-label="Mobile quick access">
+  <a href="panchang.html"><span>☀</span><b>Panchang</b></a>
+  <a href="free-kundli.html"><span>⌘</span><b>Kundli</b></a>
+  <a href="kundli-matching.html"><span>♡</span><b>Matching</b></a>
+  <a href="track-consultation.html"><span>✓</span><b>Track</b></a>
+</li>
 <li><a href="panchang.html">Today</a></li>
 <li class="pj-nav-menu">
   <button class="pj-nav-menu-btn" type="button" aria-expanded="false">Calculators <span aria-hidden="true">⌄</span></button>
@@ -2038,11 +2471,12 @@ html[data-theme="light"] #contact .cm-card{
 <li><a class="nav-cta-btn" href="#contact">Free Guidance</a></li>
 </ul>
 <button class="pj-theme-toggle pj-theme-mobile" type="button" aria-label="Switch colour theme" title="Switch colour theme"><span class="pj-theme-icon" aria-hidden="true">☾</span></button>
-<button class="hamburger" id="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Open navigation menu">
+<button class="hamburger" id="hamburger" type="button" aria-label="Open navigation menu" aria-controls="navLinks" aria-expanded="false">
 <span></span><span></span><span></span>
 </button>
 </div>
 </nav>
+<div class="pjm-scrim" id="pjmScrim" aria-hidden="true"></div>
 <!-- ════════ HERO ════════ -->
 <section class="hero" id="home">
 <div class="hero-stars" id="stars"></div>
@@ -3428,6 +3862,43 @@ html[data-theme="light"] .pj-quick-find{background:rgba(255,249,239,.96);color:#
       root.innerHTML=arr.map((r,i)=>`<div class="testi-card reveal reveal-d${Math.min(i+1,3)}"><div class="testi-stars">${'★ '.repeat(Math.max(1,Math.min(5,Number(r.rating)||0))).trim()}</div><p class="testi-text">“${esc(r.reviewText)}”</p><div class="testi-author"><div class="testi-avatar">${esc((r.displayName||'V').charAt(0).toUpperCase())}</div><div><div class="testi-name">${esc(r.displayName||'Verified Seeker')} <span style="font-size:.7em;color:#3b7a57">✓ Verified</span></div><div class="testi-loc">${esc(r.publicLocation||r.topic||'Consultation')}</div></div></div></div>`).join('');
     })
     .catch(()=>{root.innerHTML='<div class="testi-card reveal"><div class="testi-stars">★</div><p class="testi-text">Verified reviews are temporarily unavailable.</p></div>'});
+})();
+</script>
+
+
+<script id="pj-mobile-hotfix-v42-runtime">
+(function(){
+  const links = document.getElementById('navLinks');
+  const btn = document.getElementById('hamburger');
+  const scrim = document.getElementById('pjmScrim');
+  if(!links || !btn) return;
+
+  function closeSubmenus(){
+    links.querySelectorAll('.pj-nav-menu.open').forEach(m=>{
+      m.classList.remove('open');
+      m.querySelector('.pj-nav-menu-btn')?.setAttribute('aria-expanded','false');
+    });
+  }
+  function setOpen(open){
+    links.classList.toggle('open', open);
+    btn.classList.toggle('is-open', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+    document.body.classList.toggle('pjm-open', open);
+    if(!open) closeSubmenus();
+  }
+  btn.addEventListener('click', e=>{
+    e.preventDefault(); e.stopPropagation();
+    setOpen(!links.classList.contains('open'));
+  });
+  scrim?.addEventListener('click', ()=>setOpen(false));
+  links.querySelectorAll('a').forEach(a=>a.addEventListener('click', ()=>setOpen(false)));
+  document.addEventListener('keydown', e=>{
+    if(e.key==='Escape' && links.classList.contains('open')) setOpen(false);
+  });
+  window.addEventListener('resize', ()=>{
+    if(window.innerWidth>768 && links.classList.contains('open')) setOpen(false);
+  });
 })();
 </script>
 
