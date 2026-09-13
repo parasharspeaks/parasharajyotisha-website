@@ -2674,100 +2674,6 @@ html[data-theme="light"] #contact .cm-card{
 }
 </style>
 
-
-<style id="pj-panchang-context-fix">
-.panchang-context-grid{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:.78rem;
-  margin:.82rem 0;
-}
-.panchang-context-card{
-  min-width:0;
-  display:grid;
-  grid-template-columns:38px minmax(0,1fr);
-  align-items:center;
-  gap:.68rem;
-  padding:.82rem .86rem;
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:15px;
-  background:rgba(255,255,255,.035);
-}
-.panchang-context-card .pc-icon{
-  width:36px;height:36px;
-  display:grid;place-items:center;
-  border-radius:11px;
-  background:rgba(201,168,76,.10);
-  color:var(--gold);
-  font-size:1.05rem;
-}
-.panchang-context-card .pc-label{
-  font-family:var(--font-mono);
-  font-size:.60rem;
-  letter-spacing:.09em;
-  text-transform:uppercase;
-  color:var(--text-dim);
-  margin-bottom:.16rem;
-}
-.panchang-context-card .pc-value{
-  font-family:var(--font-serif);
-  font-size:1.08rem;
-  line-height:1.15;
-  color:var(--text-bright);
-  overflow-wrap:anywhere;
-}
-.panchang-context-card .pc-sub{
-  margin-top:.12rem;
-  font-size:.65rem;
-  line-height:1.3;
-  color:var(--text-dim);
-}
-html[data-theme="light"] .panchang-context-card{
-  background:rgba(255,255,255,.46);
-  border-color:rgba(92,58,38,.12);
-}
-@media(max-width:768px){
-  .panchang-context-grid{
-    grid-template-columns:repeat(3,minmax(0,1fr));
-    gap:.42rem;
-    margin:.62rem 0;
-  }
-  .panchang-context-card{
-    display:flex;
-    flex-direction:column;
-    align-items:flex-start;
-    gap:.38rem;
-    padding:.62rem .56rem;
-    border-radius:13px;
-  }
-  .panchang-context-card .pc-icon{
-    width:28px;height:28px;
-    border-radius:9px;
-    font-size:.88rem;
-  }
-  .panchang-context-card .pc-label{
-    font-size:.51rem;
-    letter-spacing:.07em;
-  }
-  .panchang-context-card .pc-value{
-    font-size:.90rem;
-    line-height:1.12;
-  }
-  .panchang-context-card .pc-sub{
-    font-size:.56rem;
-  }
-}
-@media(max-width:370px){
-  .panchang-context-grid{grid-template-columns:1fr 1fr;}
-  .panchang-context-card:first-child{grid-column:1/-1;}
-  .panchang-context-card:first-child{
-    display:grid;
-    grid-template-columns:30px minmax(0,1fr);
-    align-items:center;
-  }
-}
-</style>
-
 </head>
 <body>
 <div class="cosmos-bg"></div>
@@ -3101,20 +3007,6 @@ html[data-theme="light"] .panchang-context-card{
 <div class="panchang-el enhanced" data-icon="🔆" id="limb-yoga"><div class="panchang-el-label">Yoga</div><div class="panchang-el-value">—</div><div class="panchang-el-sub">Sun–Moon harmony</div></div>
 <div class="panchang-el enhanced" data-icon="📐" id="limb-karana"><div class="panchang-el-label">Karana</div><div class="panchang-el-value">—</div><div class="panchang-el-sub">Half tithi action quality</div></div>
 <div class="panchang-el enhanced" data-icon="📅" id="limb-vara"><div class="panchang-el-label">Vara</div><div class="panchang-el-value">—</div><div class="panchang-el-sub">Weekday lord</div></div>
-</div>
-<div class="panchang-context-grid" id="panchangContext" aria-label="Paksha and zodiac signs">
-  <div class="panchang-context-card">
-    <span class="pc-icon" aria-hidden="true">◐</span>
-    <div><div class="pc-label">Paksha</div><div class="pc-value" id="pc-paksha">—</div><div class="pc-sub">Lunar fortnight</div></div>
-  </div>
-  <div class="panchang-context-card">
-    <span class="pc-icon" aria-hidden="true">☾</span>
-    <div><div class="pc-label">Moon Sign</div><div class="pc-value" id="pc-moon-sign">—</div><div class="pc-sub">Chandra Rashi</div></div>
-  </div>
-  <div class="panchang-context-card">
-    <span class="pc-icon" aria-hidden="true">☀</span>
-    <div><div class="pc-label">Sun Sign</div><div class="pc-value" id="pc-sun-sign">—</div><div class="pc-sub">Surya Rashi</div></div>
-  </div>
 </div>
 <div class="panchang-extras enhanced" id="panchangExtras">
 <div class="pe-item enhanced good"><div class="pe-icon">🌅</div><div><div class="pe-label">Sunrise</div><div class="pe-value" id="pe-sunrise">—</div></div></div>
@@ -3919,30 +3811,6 @@ async function loadPanchang(city){
     // Vara must match the displayed civil date. Some API responses may contain a stale/alternate `vaara` field,
     // so we calculate weekday from the returned date first, then fall back to API weekday text.
     updateLimb('limb-vara','Vara', apiWeekday ? apiWeekday.sa : pPick(p,['vaara','vara','weekday']), 'Weekday lord');
-
-    // Panchang context returned by the same API and already used by the full Panchang/tool page.
-    const paksha = pText(pPick(p,['paksha','paksha_name','lunar_fortnight']))
-      || pText(pPick(data,['paksha','paksha_name','lunar_fortnight']));
-    const moonSign = pText(pPick(p,['moon_sign','chandra_rashi','moon_rashi','moon_sign_name']))
-      || pText(pPick(data,['moon_sign','chandra_rashi','moon_rashi','moon_sign_name']));
-    const sunSign = pText(pPick(p,['sun_sign','surya_rashi','sun_rashi','sun_sign_name']))
-      || pText(pPick(data,['sun_sign','surya_rashi','sun_rashi','sun_sign_name']));
-
-    const pakshaEl = document.getElementById('pc-paksha');
-    const moonSignEl = document.getElementById('pc-moon-sign');
-    const sunSignEl = document.getElementById('pc-sun-sign');
-    if(pakshaEl) pakshaEl.textContent = paksha || '—';
-    if(moonSignEl) moonSignEl.textContent = moonSign || '—';
-    if(sunSignEl) sunSignEl.textContent = sunSign || '—';
-
-    // Also make Paksha visible next to Tithi when it is returned separately.
-    const tithiCard = document.getElementById('limb-tithi');
-    if(tithiCard && paksha){
-      const sub = tithiCard.querySelector('.panchang-el-sub');
-      if(sub && !sub.textContent.toLowerCase().includes(String(paksha).toLowerCase())){
-        sub.textContent = [paksha, sub.textContent].filter(Boolean).join(' · ');
-      }
-    }
 
     document.getElementById('pe-sunrise').textContent = pCleanTime(sun.sunrise || p.sunrise) || '—';
     document.getElementById('pe-sunset').textContent = pCleanTime(sun.sunset || p.sunset) || '—';
