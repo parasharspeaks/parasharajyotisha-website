@@ -1988,6 +1988,8 @@ html[data-theme="light"] #contact .cm-card{
 @media (max-width:768px){
   /* --- compact one-row header --- */
   .nav{
+    z-index:1000!important;
+    overflow:visible!important;
     padding:.60rem .78rem!important;
     min-height:66px!important;
     height:66px!important;
@@ -2061,7 +2063,7 @@ html[data-theme="light"] #contact .cm-card{
   .pjm-scrim{
     position:fixed!important;
     inset:66px 0 0 0!important;
-    z-index:998!important;
+    z-index:90!important;
     background:rgba(49,32,22,.24)!important;
     backdrop-filter:blur(2px)!important;
     -webkit-backdrop-filter:blur(2px)!important;
@@ -2087,13 +2089,13 @@ html[data-theme="light"] #contact .cm-card{
     margin:0!important;
     border:1px solid rgba(92,58,38,.13)!important;
     border-radius:18px!important;
-    background:rgba(255,249,239,.99)!important;
-    box-shadow:0 24px 60px rgba(66,39,24,.22)!important;
-    z-index:999!important;
+    background:#fff9ef!important;
+    box-shadow:0 24px 60px rgba(66,39,24,.28)!important;
+    z-index:1010!important;
     list-style:none!important;
   }
   html[data-theme="dark"] .nav-links{
-    background:rgba(14,13,19,.99)!important;
+    background:#0e0d13!important;
     border-color:rgba(255,255,255,.09)!important;
     box-shadow:0 24px 60px rgba(0,0,0,.52)!important;
   }
