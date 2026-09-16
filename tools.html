@@ -6,22 +6,11 @@
 <title>Free Vedic Astrology Tools — Parashar Jyotisha</title>
 <meta name="description" content="Free Vedic tools for Kundli, Kundli Matching, Numerology, transits and Panchanga by Parashar Jyotisha.">
 <link rel="canonical" href="https://parasharajyotisha.com/tools.html">
+<link rel="alternate" hreflang="en" href="https://parasharajyotisha.com/tools.html">
+<link rel="alternate" hreflang="hi" href="https://parasharajyotisha.com/hi/tools.html">
+<link rel="alternate" hreflang="x-default" href="https://parasharajyotisha.com/tools.html">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="theme-color" content="#0A0A0F">
-<script id="pj-theme-boot">
-(function(){
-  try{
-    var saved=localStorage.getItem('pj-theme');
-    var theme=(saved==='dark'||saved==='light')?saved:'light';
-    document.documentElement.setAttribute('data-theme',theme);
-    document.documentElement.style.colorScheme=theme;
-  }catch(e){
-    document.documentElement.setAttribute('data-theme','light');
-    document.documentElement.style.colorScheme='light';
-  }
-})();
-</script>
-
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Parashar Jyotisha">
 <meta property="og:title" content="Free Vedic Astrology Tools — Parashar Jyotisha">
@@ -749,430 +738,11 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
 .pj-float-connect a:hover,.pj-float-connect button:hover{transform:translateY(-2px);border-color:rgba(232,149,95,.45);color:#F4B87A;}
 @media(max-width:820px){.pj-engage-grid{grid-template-columns:repeat(2,1fr)}.pj-engage-card{min-height:120px}.pj-float-connect{right:12px;bottom:12px}}
 @media(max-width:460px){.pj-engage-grid{grid-template-columns:1fr}.pj-engage-section{padding:3.5rem 1rem}}
+
+.pj-lang-switch{display:inline-flex;align-items:center;gap:2px;padding:3px;border:1px solid var(--line);border-radius:999px;background:var(--glass);white-space:nowrap;margin-left:auto}.pj-lang-switch a,.pj-lang-switch span{display:inline-flex;align-items:center;justify-content:center;min-height:28px;padding:.25rem .55rem;border-radius:999px;font-size:.68rem;font-weight:800;color:var(--text-mid);text-decoration:none}.pj-lang-switch .active{background:var(--ember);color:#fff}.pj-lang-switch a:hover{background:rgba(255,255,255,.06);color:var(--ember-light)}
+@media(max-width:600px){.nav-inner{gap:.55rem}.pj-lang-switch a,.pj-lang-switch span{padding:.22rem .46rem;font-size:.64rem}}
 </style>
 
-
-<style id="pj-vedic-theme-system">
-/* ================================================================
-   PARASHAR JYOTISHA — VEDIC LIGHT + COSMIC DARK THEME SYSTEM
-   Default for new visitors: Vedic Light. User choice is remembered.
-   Existing dark design remains the Cosmic Dark theme.
-   ================================================================ */
-html[data-theme="light"]{
-  color-scheme:light;
-  --void:#FFF9EF;
-  --night:#FFF3DD;
-  --cosmos:#F9E8C9;
-  --nebula:#F0D8AB;
-  --stardust:#E4C38A;
-  --ember:#9E2028;
-  --ember-light:#B42A33;
-  --ember-glow:#C94746;
-  --gold:#D48B10;
-  --gold-light:#E6A92E;
-  --lotus:#B53C52;
-  --lotus-light:#C95B6E;
-  --sage:#4F8662;
-  --sage-light:#659E76;
-  --sky:#5E88A8;
-  --sky-light:#769DB8;
-  --text:#35251F;
-  --mid:#655149;
-  --dim:#8A7167;
-  --text-bright:#35251F;
-  --text-mid:#655149;
-  --text-dim:#8A7167;
-  --line:rgba(92,58,38,.14);
-  --line-hover:rgba(158,32,40,.28);
-  --glass:rgba(255,255,255,.58);
-  --glass-hover:rgba(255,255,255,.82);
-}
-html[data-theme="dark"]{color-scheme:dark;}
-
-/* Theme control */
-.pj-theme-toggle{
-  appearance:none;-webkit-appearance:none;border:1px solid var(--line);
-  display:inline-flex;align-items:center;justify-content:center;gap:.42rem;
-  min-height:36px;padding:.42rem .72rem;border-radius:999px;cursor:pointer;
-  background:var(--glass);color:var(--text-bright);font:700 .72rem/1 var(--font-sans, var(--sans, sans-serif));
-  letter-spacing:.02em;box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
-  transition:transform .2s ease,background .2s ease,border-color .2s ease,color .2s ease;
-}
-.pj-theme-toggle:hover{transform:translateY(-1px);border-color:var(--line-hover);background:var(--glass-hover);}
-.pj-theme-icon{font-size:1rem;line-height:1}.pj-theme-label{white-space:nowrap}.pj-theme-mobile{display:none;}
-.pj-nav-actions{display:flex;align-items:center;gap:.7rem;}
-@media(max-width:768px){
-  .pj-theme-label{display:none}.pj-theme-toggle{width:38px;height:38px;padding:0}.pj-theme-mobile{display:inline-flex;margin-left:auto;margin-right:.4rem;}
-  .nav-links .pj-theme-item{display:none!important;}
-}
-
-/* Vedic Light base */
-html[data-theme="light"] body{background:#FFF9EF!important;color:var(--text-mid)!important;}
-html[data-theme="light"] body::after{opacity:.010!important;mix-blend-mode:multiply;}
-html[data-theme="light"] .cosmos-bg{background:radial-gradient(ellipse 70% 55% at 18% 8%,rgba(212,139,16,.08),transparent 62%),radial-gradient(ellipse 55% 65% at 90% 70%,rgba(158,32,40,.035),transparent 62%),#FFF9EF!important;}
-html[data-theme="light"] ::selection{background:rgba(212,139,16,.23);color:#35251F;}
-
-/* Navigation */
-html[data-theme="light"] .nav{background:rgba(255,249,239,.92)!important;border-bottom-color:rgba(92,58,38,.13)!important;box-shadow:0 8px 28px rgba(91,56,33,.045);}
-html[data-theme="light"] .nav.scrolled{background:rgba(255,249,239,.975)!important;}
-html[data-theme="light"] .nav-links,html[data-theme="light"] .navlinks{color:var(--text-mid);}
-html[data-theme="light"] .nav-links a,html[data-theme="light"] .navlinks a,html[data-theme="light"] .nav-back{color:var(--text-mid)!important;}
-html[data-theme="light"] .nav-links a:hover,html[data-theme="light"] .navlinks a:hover,html[data-theme="light"] .nav-back:hover{color:var(--ember)!important;background:rgba(158,32,40,.055)!important;}
-html[data-theme="light"] .nav-cta-btn,html[data-theme="light"] .navlinks .cta{background:linear-gradient(135deg,#9E2028,#B72D35)!important;color:#fff!important;border-color:rgba(158,32,40,.22)!important;box-shadow:0 7px 20px rgba(158,32,40,.14)!important;}
-html[data-theme="light"] .hamburger span{background:#4B332C!important;}
-@media(max-width:768px){html[data-theme="light"] .nav-links{background:rgba(255,249,239,.985)!important;}}
-
-/* Hero / reading surfaces */
-html[data-theme="light"] .hero{background:radial-gradient(circle at 84% 15%,rgba(212,139,16,.12),transparent 28%),linear-gradient(180deg,#FFF9EF 0%,#FFF4E3 100%)!important;}
-html[data-theme="light"] .hero::after{background:linear-gradient(90deg,rgba(255,249,239,.97) 0%,rgba(255,249,239,.87) 52%,rgba(255,249,239,.28) 100%)!important;}
-html[data-theme="light"] .hero-stars{display:none!important;}
-html[data-theme="light"] .hero-glow{background:radial-gradient(circle,rgba(212,139,16,.12),transparent 70%)!important;}
-html[data-theme="light"] .hero-art{opacity:.24!important;filter:saturate(.82) contrast(.94) brightness(1.2)!important;mix-blend-mode:multiply;}
-html[data-theme="light"] .hero-title,html[data-theme="light"] .hero h1,html[data-theme="light"] .heading,html[data-theme="light"] h1,html[data-theme="light"] h2,html[data-theme="light"] h3{color:var(--text-bright);}
-html[data-theme="light"] .hero-title em,html[data-theme="light"] .heading em,html[data-theme="light"] h1 em{color:var(--ember);}
-html[data-theme="light"] .hero-sub,html[data-theme="light"] .hero-desc,html[data-theme="light"] .lead,html[data-theme="light"] .section-desc{color:var(--text-mid)!important;}
-html[data-theme="light"] .btn-ghost,html[data-theme="light"] .btn.secondary{background:rgba(255,255,255,.62)!important;color:var(--text-bright)!important;border-color:rgba(92,58,38,.17)!important;}
-html[data-theme="light"] .btn-ember,html[data-theme="light"] .btn.primary{background:linear-gradient(135deg,#9E2028,#B92C35)!important;color:#fff!important;border-color:rgba(158,32,40,.28)!important;box-shadow:0 10px 28px rgba(158,32,40,.15)!important;}
-
-/* Sections, cards, knowledge pages */
-html[data-theme="light"] .section,html[data-theme="light"] section{border-color:var(--line);}
-html[data-theme="light"] .card,html[data-theme="light"] .hubcard,html[data-theme="light"] .mini,html[data-theme="light"] .step,html[data-theme="light"] .related a,html[data-theme="light"] .toolbox,html[data-theme="light"] .live-toolbox,html[data-theme="light"] .byline,html[data-theme="light"] .faq-item,html[data-theme="light"] details{background:linear-gradient(145deg,rgba(255,255,255,.78),rgba(255,243,221,.72))!important;border-color:rgba(92,58,38,.14)!important;box-shadow:0 14px 42px rgba(91,56,33,.055);}
-html[data-theme="light"] .hubcard:hover,html[data-theme="light"] .card:hover{border-color:rgba(212,139,16,.38)!important;box-shadow:0 18px 48px rgba(91,56,33,.09);}
-html[data-theme="light"] .note,html[data-theme="light"] .notice{background:rgba(212,139,16,.08)!important;border-color:var(--gold)!important;}
-html[data-theme="light"] .tablewrap,html[data-theme="light"] .table-wrap{background:rgba(255,255,255,.68)!important;border-color:var(--line)!important;}
-html[data-theme="light"] table th{color:#6D5146!important;background:rgba(212,139,16,.065);} 
-html[data-theme="light"] table td{color:var(--text-mid)!important;border-color:var(--line)!important;}
-html[data-theme="light"] .footer,html[data-theme="light"] footer{border-color:var(--line)!important;}
-
-/* Inputs */
-html[data-theme="light"] input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]):not([type="button"]),
-html[data-theme="light"] select,html[data-theme="light"] textarea,html[data-theme="light"] .f-input,html[data-theme="light"] .f-select{background:rgba(255,255,255,.78)!important;color:#35251F!important;border-color:rgba(92,58,38,.18)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.8);}
-html[data-theme="light"] input::placeholder,html[data-theme="light"] textarea::placeholder{color:#9B8176!important;}
-html[data-theme="light"] input:focus,html[data-theme="light"] select:focus,html[data-theme="light"] textarea:focus{border-color:rgba(158,32,40,.45)!important;box-shadow:0 0 0 3px rgba(158,32,40,.07)!important;outline:none;}
-
-/* Homepage tool cards */
-html[data-theme="light"] #tools .tool-card{background:radial-gradient(circle at 90% 50%,rgba(212,139,16,.09),transparent 30%),linear-gradient(105deg,rgba(255,255,255,.94) 0%,rgba(255,246,228,.94) 58%,rgba(255,240,210,.80) 100%)!important;border-color:rgba(92,58,38,.15)!important;box-shadow:0 18px 48px rgba(91,56,33,.065)!important;}
-html[data-theme="light"] #tools .tool-card::after{opacity:.40!important;filter:saturate(1.03) contrast(.98) brightness(1.06) drop-shadow(0 0 24px rgba(212,139,16,.10))!important;}
-html[data-theme="light"] #tools .tool-card:hover::after{opacity:.50!important;}
-html[data-theme="light"] #tools .tool-card:hover{border-color:rgba(212,139,16,.38)!important;box-shadow:0 20px 54px rgba(91,56,33,.10)!important;}
-html[data-theme="light"] .tool-feat,html[data-theme="light"] .proof-pill,html[data-theme="light"] .pill{background:rgba(255,255,255,.65)!important;border-color:rgba(92,58,38,.14)!important;color:var(--text-mid)!important;}
-
-/* Homepage Panchang — parchment utility surface + sacred artwork */
-html[data-theme="light"] #panchang.panchang-section{background:linear-gradient(180deg,#FFF8EC 0%,#FFF1D8 54%,#FFF9EF 100%)!important;}
-html[data-theme="light"] #panchang.panchang-section::before,html[data-theme="light"] #panchang.panchang-section::after{display:none!important;}
-html[data-theme="light"] #panchang .panchang-live.upgraded{background:linear-gradient(145deg,rgba(255,255,255,.93),rgba(255,239,208,.90))!important;border-color:rgba(92,58,38,.16)!important;box-shadow:0 28px 76px rgba(91,56,33,.11),inset 0 1px 0 #fff!important;}
-html[data-theme="light"] #panchang .panchang-live.upgraded::after{color:rgba(158,32,40,.035)!important;}
-html[data-theme="light"] #panchang .panchang-controls{background:rgba(255,255,255,.58)!important;border-color:rgba(92,58,38,.13)!important;}
-html[data-theme="light"] #panchang .panchang-city-input{background:rgba(255,255,255,.80)!important;color:#35251F!important;border-color:rgba(92,58,38,.18)!important;}
-html[data-theme="light"] #panchang .panchang-action.primary{background:linear-gradient(135deg,#9E2028,#B72D35)!important;color:#fff!important;box-shadow:0 9px 24px rgba(158,32,40,.16)!important;}
-html[data-theme="light"] #panchang .panchang-action.secondary{background:rgba(255,255,255,.66)!important;color:#35251F!important;border-color:rgba(92,58,38,.16)!important;}
-html[data-theme="light"] #panchang .panchang-mood-card,html[data-theme="light"] #panchang .panchang-mini-card,html[data-theme="light"] #panchang .panchang-el,html[data-theme="light"] #panchang .pe-item,html[data-theme="light"] #panchang .panchang-guide-card{background:rgba(255,255,255,.62)!important;border-color:rgba(92,58,38,.13)!important;box-shadow:inset 0 1px 0 #fff!important;}
-html[data-theme="light"] #panchang .panchang-el.enhanced.good,html[data-theme="light"] #panchang .pe-item.enhanced.good{background:rgba(79,134,98,.075)!important;border-color:rgba(79,134,98,.22)!important;}
-html[data-theme="light"] #panchang .panchang-el.enhanced.warn{background:rgba(212,139,16,.075)!important;border-color:rgba(212,139,16,.24)!important;}
-html[data-theme="light"] #panchang .pe-item.enhanced.caution{background:rgba(181,60,82,.055)!important;border-color:rgba(181,60,82,.20)!important;}
-html[data-theme="light"] .panchang-sacred-panel{background:#FFF3DC!important;border-color:rgba(212,139,16,.25)!important;box-shadow:0 28px 76px rgba(91,56,33,.11)!important;}
-html[data-theme="light"] .panchang-sacred-panel img{filter:saturate(1.02) contrast(1.01) brightness(1.03)!important;border-bottom-color:rgba(92,58,38,.12)!important;}
-html[data-theme="light"] .panchang-sacred-panel figcaption{background:linear-gradient(180deg,#FFF4DE,#FFF9EF)!important;}
-
-/* Standalone Panchang / article pages */
-html[data-theme="light"] .live-panchang-section,html[data-theme="light"] .live-section{background:#FFF9EF!important;}
-html[data-theme="light"] .live-toolbox,html[data-theme="light"] .results,html[data-theme="light"] .result-grid{background:rgba(255,255,255,.66)!important;}
-html[data-theme="light"] .result-card,html[data-theme="light"] .result-item{background:rgba(255,255,255,.78)!important;border-color:rgba(92,58,38,.14)!important;}
-
-/* Main calculator workspace (tools.html) */
-html[data-theme="light"] .tools-hero{background:linear-gradient(180deg,#FFF9EF,#FFF3DE)!important;}
-html[data-theme="light"] .tools-hero::before{background:radial-gradient(circle,rgba(212,139,16,.12),transparent 70%)!important;}
-html[data-theme="light"] .tools-hero::after{opacity:.11!important;filter:saturate(.75) brightness(1.2);mix-blend-mode:multiply;}
-html[data-theme="light"] .tool-nav{background:rgba(255,249,239,.96)!important;border-color:var(--line)!important;}
-html[data-theme="light"] .tool-tab{color:var(--text-mid)!important;}
-html[data-theme="light"] .tool-tab.active{background:rgba(158,32,40,.08)!important;border-color:rgba(158,32,40,.18)!important;color:var(--ember)!important;}
-html[data-theme="light"] .fcard,html[data-theme="light"] .rcard,html[data-theme="light"] .advanced-card,html[data-theme="light"] .info-box{background:linear-gradient(145deg,rgba(255,255,255,.90),rgba(255,242,218,.80))!important;border-color:rgba(92,58,38,.14)!important;box-shadow:0 18px 48px rgba(91,56,33,.065)!important;}
-html[data-theme="light"] .fcard::after{opacity:.10!important;}
-html[data-theme="light"] .fcard::before{opacity:.45!important;}
-html[data-theme="light"] .form-input,html[data-theme="light"] .form-select{background:#FFFDF8!important;color:#35251F!important;border-color:rgba(92,58,38,.18)!important;}
-html[data-theme="light"] .fbtn{background:linear-gradient(135deg,#9E2028,#B72D35)!important;color:#fff!important;box-shadow:0 9px 24px rgba(158,32,40,.15)!important;}
-html[data-theme="light"] .spirit{background:linear-gradient(145deg,rgba(212,139,16,.08),rgba(255,255,255,.68))!important;border-color:rgba(212,139,16,.22)!important;}
-html[data-theme="light"] .pj-engage{background:linear-gradient(145deg,#FFF4DE,#FFF9EF)!important;border-color:var(--line)!important;}
-
-/* Softer light-mode shadows and sensible mobile art */
-@media(max-width:820px){
-  html[data-theme="light"] #tools .tool-card{background:linear-gradient(105deg,rgba(255,255,255,.96),rgba(255,244,220,.90))!important;}
-  html[data-theme="light"] #tools .tool-card::after{opacity:.23!important;}
-  html[data-theme="light"] .hero-art{opacity:.12!important;}
-}
-</style>
-
-
-<style id="pj-step10-light-polish">
-
-/* ================================================================
-   STEP 10 — VEDIC LIGHT VISUAL POLISH
-   Keeps Cosmic Dark unchanged. Refines only the Light theme.
-   ================================================================ */
-html[data-theme="light"] .nav{
-  background:rgba(236,220,198,.965)!important;
-  border-bottom:1px solid rgba(91,56,33,.18)!important;
-  box-shadow:0 8px 28px rgba(80,48,28,.075)!important;
-}
-html[data-theme="light"] .nav.scrolled{
-  background:rgba(232,214,190,.985)!important;
-  box-shadow:0 10px 30px rgba(80,48,28,.095)!important;
-}
-html[data-theme="light"] .nav-links a,
-html[data-theme="light"] .navlinks a,
-html[data-theme="light"] .nav-back{
-  color:#4C382F!important;
-}
-html[data-theme="light"] .nav-links a:hover,
-html[data-theme="light"] .navlinks a:hover,
-html[data-theme="light"] .nav-back:hover{
-  color:#98232B!important;
-  background:rgba(158,32,40,.065)!important;
-}
-html[data-theme="light"] .nav-links a.active,
-html[data-theme="light"] .navlinks a.active{
-  color:#98232B!important;
-}
-html[data-theme="light"] .nav-logo-mark,
-html[data-theme="light"] .brand,
-html[data-theme="light"] .logo{
-  color:#9E2028!important;
-}
-html[data-theme="light"] .pj-theme-toggle{
-  background:rgba(255,250,242,.72)!important;
-  border-color:rgba(91,56,33,.18)!important;
-  color:#3F2C25!important;
-  box-shadow:0 3px 10px rgba(80,48,28,.045)!important;
-}
-html[data-theme="light"] .nav-cta-btn,
-html[data-theme="light"] .navlinks .cta{
-  background:linear-gradient(135deg,#A31F2A,#B92C36)!important;
-  color:#FFFFFF!important;
-  -webkit-text-fill-color:#FFFFFF!important;
-  border-color:rgba(128,20,29,.18)!important;
-  text-shadow:0 1px 0 rgba(90,0,8,.08)!important;
-  box-shadow:0 8px 22px rgba(158,32,40,.16)!important;
-}
-@media(max-width:768px){
-  html[data-theme="light"] .nav-links{
-    background:rgba(240,225,204,.99)!important;
-    border-color:rgba(91,56,33,.16)!important;
-  }
-}
-
-</style>
-
-<style id="pj-kundli-chart-visual-v11">
-/* ============================================================
-   STEP 11 — KUNDLI CHART VISUAL / MOBILE READABILITY
-   Only chart presentation is changed. Calculation logic stays intact.
-   ============================================================ */
-:root{
-  --kc-bg:#12121A;
-  --kc-cell:#1A1921;
-  --kc-cell-2:#211C1B;
-  --kc-grid:rgba(232,149,95,.35);
-  --kc-label:#C8B7AA;
-  --kc-muted:#8F8078;
-  --kc-title:#F1C08E;
-  --kc-center-1:#35231D;
-  --kc-center-2:#17151B;
-  --kc-lagna-1:#4C2B20;
-  --kc-lagna-2:#21191A;
-  --kc-lagna:#F4B87A;
-  --kc-outline:rgba(10,10,15,.90);
-  --kc-card-shadow:0 18px 48px rgba(0,0,0,.22);
-}
-html[data-theme="light"]{
-  --kc-bg:#F7D9A5;
-  --kc-cell:#FFF8EA;
-  --kc-cell-2:#FFF0D2;
-  --kc-grid:#D79B54;
-  --kc-label:#654232;
-  --kc-muted:#896A58;
-  --kc-title:#9E2028;
-  --kc-center-1:#FFE3A8;
-  --kc-center-2:#FFF8E9;
-  --kc-lagna-1:#FFD38D;
-  --kc-lagna-2:#FFF1D0;
-  --kc-lagna:#9E2028;
-  --kc-outline:rgba(255,250,239,.98);
-  --kc-card-shadow:0 18px 46px rgba(117,71,32,.13);
-}
-
-/* Common chart frame */
-.kundli-shell{max-width:680px;margin:0 auto;}
-.kundli-chart{
-  gap:1px!important;
-  border:2px solid var(--kc-grid)!important;
-  background:var(--kc-grid)!important;
-  border-radius:20px!important;
-  box-shadow:var(--kc-card-shadow)!important;
-}
-.kundli-cell{
-  background:linear-gradient(145deg,var(--kc-cell),var(--kc-cell-2))!important;
-  min-height:112px;
-  padding:10px;
-}
-.kundli-cell.lagna-cell{
-  background:linear-gradient(135deg,var(--kc-lagna-1),var(--kc-lagna-2))!important;
-  box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--kc-lagna) 55%,transparent)!important;
-}
-.kundli-sign{font-size:.70rem!important;font-weight:850!important;color:var(--kc-label)!important;letter-spacing:.055em!important;}
-.lagna-cell .kundli-sign{color:var(--kc-lagna)!important;}
-.kundli-num{font-size:.57rem!important;color:var(--kc-muted)!important;opacity:.78!important;}
-.empty-house{color:var(--kc-muted)!important;opacity:.48!important;}
-
-/* Planet pills: readable text first, planet color as identity marker */
-.planet-name-tag{
-  color:var(--text-bright)!important;
-  background:color-mix(in srgb,var(--pc) 10%,var(--kc-cell))!important;
-  border:1px solid color-mix(in srgb,var(--pc) 45%,var(--kc-grid))!important;
-  border-left:4px solid var(--pc)!important;
-  padding:5px 8px!important;
-  font-size:.72rem!important;
-  font-weight:850!important;
-  box-shadow:0 2px 8px rgba(0,0,0,.08);
-}
-html[data-theme="light"] .planet-name-tag{
-  color:#35231E!important;
-  background:rgba(255,253,247,.94)!important;
-  box-shadow:0 2px 8px rgba(102,63,30,.08);
-}
-.planet-name-tag sup{color:#A51E2A!important;font-weight:900!important;}
-
-/* South Indian centre */
-.kundli-center{
-  background:radial-gradient(circle at 50% 42%,var(--kc-center-1),var(--kc-center-2) 72%)!important;
-  border:1px solid color-mix(in srgb,var(--kc-grid) 65%,transparent)!important;
-}
-.kundli-center-title{color:var(--kc-title)!important;font-size:1.9rem!important;font-weight:550!important;}
-.kundli-center-sub{color:var(--kc-muted)!important;font-weight:800!important;}
-.kundli-center-line{color:var(--kc-label)!important;font-size:.80rem!important;}
-.kundli-center-line strong{color:var(--text-bright)!important;font-weight:800!important;}
-html[data-theme="light"] .kundli-center-line strong{color:#6F251F!important;}
-.kundli-center-name{color:var(--kc-muted)!important;}
-
-/* Chart style controls */
-.chart-style-tabs{margin:.65rem 0 .55rem!important;}
-.kundli-chart-explainer{
-  max-width:650px;margin:0 auto 1rem;display:flex;align-items:center;justify-content:center;
-  gap:.45rem .8rem;flex-wrap:wrap;color:var(--text-mid);font-size:.70rem;line-height:1.35;text-align:center;
-}
-.kundli-chart-explainer span{display:inline-flex;align-items:center;gap:.32rem;}
-.kundli-chart-explainer i{width:10px;height:10px;border-radius:3px;display:inline-block;background:#F0A23A;border:1px solid #B66C1F;}
-.kundli-chart-explainer i.lagna{background:#FFD38D;border:2px solid #9E2028;}
-.kundli-chart-explainer b{color:#A51E2A;font-size:.72rem;}
-html[data-theme="light"] .chart-style-btn{background:#FFF9EF!important;color:#604437!important;border-color:rgba(132,83,43,.22)!important;}
-html[data-theme="light"] .chart-style-btn.active{background:linear-gradient(135deg,#A51E2A,#C13B31)!important;color:#fff!important;border-color:#A51E2A!important;}
-
-/* North Indian chart — clean fixed-house layout */
-.north-chart-wrap{max-width:680px!important;margin:0 auto;}
-.north-chart-svg{
-  background:var(--kc-cell)!important;
-  border:2px solid var(--kc-grid)!important;
-  border-radius:20px!important;
-  box-shadow:var(--kc-card-shadow)!important;
-}
-.north-house-no{
-  font-size:12px!important;
-  fill:var(--kc-label)!important;
-  font-weight:1000!important;
-  paint-order:stroke fill!important;
-  stroke:var(--kc-outline)!important;
-  stroke-width:2px!important;
-  stroke-linejoin:round!important;
-}
-.north-house-no.lagna{fill:var(--kc-lagna)!important;font-size:13.2px!important;}
-.north-planet-text{
-  font-size:13.8px!important;
-  font-weight:950!important;
-  stroke:var(--kc-outline)!important;
-  stroke-width:3px!important;
-  paint-order:stroke fill!important;
-  stroke-linejoin:round!important;
-}
-.north-planet-text.dense{font-size:11.9px!important;stroke-width:2.6px!important;}
-.north-planet-degree{
-  font-size:9.4px!important;
-  font-weight:900!important;
-  fill:var(--kc-muted)!important;
-  stroke:var(--kc-outline)!important;
-  stroke-width:2px!important;
-  paint-order:stroke fill!important;
-}
-html[data-theme="light"] .north-house-no{fill:#6C4938!important;stroke:#FFF7E8!important;}
-html[data-theme="light"] .north-house-no.lagna{fill:#A51E2A!important;}
-html[data-theme="light"] .north-planet-text,
-html[data-theme="light"] .north-planet-degree{stroke:#FFF6E4!important;}
-html[data-theme="light"] .north-planet-degree{fill:#7A5947!important;}
-
-/* Help box belongs visually with the chart */
-.kundli-help{
-  max-width:650px!important;background:color-mix(in srgb,var(--kc-cell) 88%,transparent)!important;
-  border-color:color-mix(in srgb,var(--kc-grid) 45%,transparent)!important;
-  color:var(--text-mid)!important;padding:.85rem 1rem!important;
-}
-.kundli-help strong{color:var(--kc-lagna)!important;}
-
-/* Light theme chart summary feels like the same Kundli document */
-html[data-theme="light"] .chart-summary-item{
-  background:linear-gradient(145deg,#FFF9EE,#FFEBC8)!important;
-  border-color:rgba(151,94,42,.18)!important;
-}
-html[data-theme="light"] .chart-summary-item span{color:#7B5A49!important;}
-html[data-theme="light"] .chart-summary-item strong{color:#3A251E!important;}
-
-/* Planet table labels are easier to scan in light mode */
-html[data-theme="light"] .planet-table-name{
-  color:#35231E!important;background:rgba(255,255,255,.90)!important;
-  border-color:color-mix(in srgb,var(--pc) 45%,#D9B98E)!important;
-  border-left:4px solid var(--pc)!important;font-weight:850!important;
-}
-
-@media(max-width:768px){
-  .kundli-shell{max-width:100%!important;overflow:visible!important;padding-bottom:0!important;}
-  .kundli-chart{min-width:0!important;width:100%!important;border-radius:15px!important;}
-  .kundli-cell{min-height:88px!important;padding:6px 5px!important;}
-  .kundli-sign-row{gap:3px!important;margin-bottom:5px!important;}
-  .kundli-sign{font-size:.57rem!important;letter-spacing:.025em!important;}
-  .kundli-num{font-size:.48rem!important;}
-  .kundli-planets{gap:3px!important;}
-  .planet-name-tag{font-size:.60rem!important;padding:3px 5px!important;border-left-width:3px!important;}
-  .kundli-center{padding:.55rem!important;}
-  .kundli-center-title{font-size:1.35rem!important;}
-  .kundli-center-sub{font-size:.48rem!important;margin-top:.25rem!important;}
-  .kundli-center-line{font-size:.63rem!important;margin-top:.30rem!important;}
-  .kundli-center-name{font-size:.55rem!important;}
-  .north-chart-wrap{max-width:100%!important;overflow:hidden!important;}
-  .north-chart-svg{width:100%!important;min-width:0!important;border-radius:15px!important;}
-  .north-house-no{font-size:13px!important;}
-  .north-house-no.lagna{font-size:14px!important;}
-  .north-planet-text{font-size:14.4px!important;stroke-width:3.2px!important;}
-  .north-planet-text.dense{font-size:12.2px!important;}
-  .north-planet-degree{font-size:9.6px!important;}
-  .kundli-chart-explainer{font-size:.64rem!important;margin-bottom:.75rem!important;gap:.35rem .55rem!important;}
-  .kundli-help{font-size:.70rem!important;padding:.70rem .78rem!important;}
-}
-@media(max-width:390px){
-  .kundli-cell{min-height:82px!important;padding:5px 4px!important;}
-  .kundli-sign{font-size:.53rem!important;}
-  .planet-name-tag{font-size:.56rem!important;padding:3px 4px!important;}
-  .kundli-center-title{font-size:1.22rem!important;}
-  .north-house-no{font-size:13.4px!important;}
-  .north-house-no.lagna{font-size:14.2px!important;}
-  .north-planet-text{font-size:14.1px!important;}
-  .north-planet-text.dense{font-size:11.8px!important;}
-  .north-planet-degree{font-size:9.4px!important;}
-}
-</style>
-
-<style id="pj-my-kundli-account-style">
-/* MY KUNDLI ACCOUNT — isolated additions only */
-.pj-account-card{margin:0 0 1rem;border:1px solid color-mix(in srgb,var(--gold) 28%,var(--line));border-radius:18px;padding:1rem;background:linear-gradient(135deg,color-mix(in srgb,var(--gold) 7%,var(--glass)),var(--glass));}
-.pj-account-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:.8rem;flex-wrap:wrap}.pj-account-card h3{font-family:var(--font-serif);font-size:1.18rem;color:var(--text-bright);font-weight:600;margin:0}.pj-account-card p{font-size:.76rem;color:var(--text-dim);margin:.28rem 0 0;line-height:1.5}.pj-account-actions{display:flex;gap:.45rem;flex-wrap:wrap;margin-top:.75rem}.pj-account-btn{border:1px solid var(--line);border-radius:999px;background:var(--glass);color:var(--text-bright);padding:.5rem .75rem;font:800 .7rem var(--font-sans);cursor:pointer;text-decoration:none}.pj-account-btn.primary{background:linear-gradient(135deg,var(--ember),#B85A2A);color:#fff;border-color:transparent}.pj-account-btn:disabled{opacity:.55;cursor:wait}.pj-account-quota{font-family:var(--font-mono);font-size:.61rem;color:var(--gold-light);border:1px solid color-mix(in srgb,var(--gold) 25%,var(--line));border-radius:999px;padding:.26rem .55rem;white-space:nowrap}.pj-account-msg{font-size:.7rem;color:var(--text-mid);margin-top:.55rem;min-height:1em}.pj-account-msg.err{color:var(--lotus-light)}.pj-account-msg.ok{color:var(--sage-light)}
-@media(max-width:560px){.pj-account-actions{display:grid;grid-template-columns:1fr 1fr}.pj-account-btn{text-align:center}.pj-account-btn:last-child:nth-child(odd){grid-column:1/-1}}
-</style>
 </head>
 <body>
 
@@ -1180,7 +750,11 @@ html[data-theme="light"] .planet-table-name{
 <nav class="nav">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo"><span class="nav-logo-mark">Parashar Jyotisha</span><span class="nav-logo-dot"></span></a>
-    <div class="pj-nav-actions"><button class="pj-theme-toggle" type="button" aria-label="Switch colour theme" title="Switch colour theme"><span class="pj-theme-icon" aria-hidden="true">☾</span><span class="pj-theme-label">Dark</span></button><a href="index.html" class="nav-back">← Home</a></div>
+    <a href="index.html" class="nav-back">← Home</a>
+    <div class="pj-lang-switch" aria-label="Language">
+      <span class="active" lang="en">EN</span>
+      <a data-pj-lang="hi" href="hi/tools.html#kundli" lang="hi">हिंदी</a>
+    </div>
   </div>
 </nav>
 
@@ -1644,33 +1218,14 @@ function degText(p){
   const n = Number(d);
   return Number.isFinite(n) ? n.toFixed(2) + '°' : String(d);
 }
-function chartDegreeText(p){
-  // Prefer degree within the current sign. If the backend only returns a full
-  // 0–360 longitude, convert it to 0–30 degrees for chart display.
-  let d = p?.degree ?? p?.degrees ?? p?.longitude_in_sign ?? p?.degree_in_sign ?? p?.degree_in_rashi ?? p?.rashi_degree ?? p?.sign_degree;
-  if(d === undefined || d === null || d === ''){
-    d = p?.longitude ?? p?.sidereal_longitude ?? p?.planet_longitude ?? p?.absolute_longitude;
-  }
-  if(d === undefined || d === null || d === '') return '';
-  const n = Number(d);
-  if(Number.isFinite(n)){
-    const v = (n >= 30 || n < 0) ? ((n % 30) + 30) % 30 : n;
-    const deg = Math.floor(v);
-    const min = Math.round((v - deg) * 60);
-    if(min === 60) return `${deg+1}°00′`;
-    return `${deg}°${String(min).padStart(2,'0')}′`;
-  }
-  return String(d).trim();
-}
 function signText(p){
   const raw=textFromAny(p?.sign || p?.rashi || p?.zodiac || p?.sign_name || p?.rashi_name || p?.signName || p?.rashiName);
   return raw || (RF[rashiNum(p)] || '');
 }
 function planetByName(planets, name){return planets.find(p => cleanName(p).toLowerCase() === name.toLowerCase());}
-function planetTag(name, ret=false, degree=''){
+function planetTag(name, ret=false){
   const co = PCOL[name] || 'var(--text-dim)';
-  const tip = `${name}${degree ? ' · '+degree : ''}${ret ? ' · Retrograde' : ''}`;
-  return `<span class="planet-name-tag" style="--pc:${co};" title="${escapeHtml(tip)}">${escapeHtml(name)}${ret?'<sup>R</sup>':''}</span>`;
+  return `<span class="planet-name-tag" style="--pc:${co};">${escapeHtml(name)}${ret?'<sup>R</sup>':''}</span>`;
 }
 function signForHouse(lagnaNum, houseNo){
   if(!lagnaNum) return 0;
@@ -1689,58 +1244,48 @@ function showKundliChartStyle(style){
   if(btn)btn.classList.add('active');
 }
 function renderNorthChart(cells, lagN, safeName, lagDisplay){
-  // North Indian chart: houses are fixed. Visible numbering is House 1–12,
-  // starting from Lagna. Sign names remain available in SVG tooltips so the
-  // chart stays informative without crowding the house interiors.
+  // Clean North Indian chart: fixed houses, signs calculated from Lagna.
+  // Standard reading flow is anti-clockwise from the Lagna house.
   const pos={
-    1:{numX:250,numY:34,x:250,y:74,dir:1},
-    2:{numX:145,numY:34,x:145,y:76,dir:1},
-    3:{numX:42, numY:128,x:82, y:160,dir:1},
-    4:{numX:42, numY:250,x:112,y:246,dir:1},
-    5:{numX:42, numY:372,x:82, y:340,dir:-1},
-    6:{numX:145,numY:466,x:145,y:424,dir:-1},
-    7:{numX:250,numY:466,x:250,y:424,dir:-1},
-    8:{numX:355,numY:466,x:355,y:424,dir:-1},
-    9:{numX:458,numY:372,x:418,y:340,dir:-1},
-    10:{numX:458,numY:250,x:388,y:246,dir:1},
-    11:{numX:458,numY:128,x:418,y:160,dir:1},
-    12:{numX:355,numY:34,x:355,y:76,dir:1}
+    1:{x:250,y:78},  2:{x:150,y:72},  3:{x:72,y:150},  4:{x:104,y:250},
+    5:{x:72,y:350},  6:{x:150,y:428}, 7:{x:250,y:422}, 8:{x:350,y:428},
+    9:{x:428,y:350}, 10:{x:396,y:250}, 11:{x:428,y:150}, 12:{x:350,y:72}
   };
   let s=`<div class="north-chart-wrap"><svg class="north-chart-svg" viewBox="0 0 500 500" role="img" aria-label="North Indian Rashi chart">
     <defs>
-      <radialGradient id="ngClean" cx="50%" cy="50%" r="70%"><stop offset="0%" stop-color="var(--kc-center-1)"/><stop offset="100%" stop-color="var(--kc-center-2)"/></radialGradient>
+      <radialGradient id="ngClean" cx="50%" cy="50%" r="70%"><stop offset="0%" stop-color="rgba(212,116,62,.10)"/><stop offset="100%" stop-color="rgba(18,18,26,.96)"/></radialGradient>
     </defs>
-    <rect x="8" y="8" width="484" height="484" rx="22" fill="url(#ngClean)" stroke="var(--kc-grid)"/>
-    <path d="M250 8 L492 250 L250 492 L8 250 Z" fill="none" stroke="var(--kc-grid)" stroke-width="1.35"/>
-    <path d="M8 8 L492 492 M492 8 L8 492" stroke="var(--kc-grid)" stroke-width="1.15"/>`;
-
+    <rect x="8" y="8" width="484" height="484" rx="22" fill="url(#ngClean)" stroke="rgba(255,255,255,.16)"/>
+    <path d="M250 8 L492 250 L250 492 L8 250 Z" fill="none" stroke="rgba(255,255,255,.20)" stroke-width="1.1"/>
+    <path d="M8 8 L492 492 M492 8 L8 492" stroke="rgba(255,255,255,.14)" stroke-width="1"/>
+    <circle cx="250" cy="250" r="2" fill="rgba(232,149,95,.6)"/>
+    <text x="250" y="244" text-anchor="middle" class="north-center-title">North Indian Chart</text>
+    <text x="250" y="260" text-anchor="middle" class="north-center-sub">Fixed Houses</text>
+    <text x="250" y="276" text-anchor="middle" fill="var(--text-mid)" style="font-size:10px;">Lagna: ${escapeHtml(lagDisplay||RF[lagN]||'—')}</text>`;
   for(let h=1;h<=12;h++){
     const p=pos[h];
     const sign=signForHouse(lagN,h);
-    const signName=RF[sign]||'—';
     const isL=h===1;
     const pp=cells[sign]||[];
-    const houseTitle=`House ${h}${isL?' · Lagna':''} · ${signName}`;
     s+=`<g class="north-house-group ${isL?'north-lagna-group':''}">`;
-    s+=`<text x="${p.numX}" y="${p.numY}" text-anchor="middle" class="north-house-no ${isL?'lagna':''}"><title>${escapeHtml(houseTitle)}</title>${h}</text>`;
-
+    s+=`<text x="${p.x}" y="${p.y-20}" text-anchor="middle" class="north-house-label ${isL?'lagna':''}">H${h} • ${escapeHtml(RS[sign]||'—')}${isL?' • Lagna':''}</text>`;
     if(pp.length){
-      // Keep every graha inside the house. Dense houses use tighter spacing.
-      const dense=pp.length>=5;
-      const gap=pp.length>=7?10:pp.length>=6?11:pp.length>=5?12:pp.length===4?14:17;
-      pp.forEach((pl,i)=>{
+      const max=pp.length>4?4:pp.length;
+      for(let i=0;i<max;i++){
+        const pl=pp[i];
         const co=PCOL[pl.nm]||'var(--text-mid)';
-        const y=p.y + (p.dir*i*gap);
-        const title=[pl.nm,pl.degree||'',pl.ret?'Retrograde':'',signName,`House ${h}`].filter(Boolean).join(' · ');
-        const degree=pl.degree?` <tspan class="north-planet-degree">${escapeHtml(pl.degree)}</tspan>`:'';
-        s+=`<text x="${p.x}" y="${y}" text-anchor="middle" class="north-planet-text ${dense?'dense':''}" fill="${co}"><title>${escapeHtml(title)}</title>${escapeHtml(pl.nm)}${pl.ret?' R':''}${degree}</text>`;
-      });
+        s+=`<text x="${p.x}" y="${p.y + (i*13)}" text-anchor="middle" class="north-planet-text" fill="${co}">${escapeHtml(pl.nm)}${pl.ret?' R':''}</text>`;
+      }
+      if(pp.length>4)s+=`<text x="${p.x}" y="${p.y+52}" text-anchor="middle" fill="var(--text-dim)" style="font-size:9px;">+${pp.length-4} more</text>`;
+    }else{
+      s+=`<text x="${p.x}" y="${p.y}" text-anchor="middle" fill="var(--text-dim)" opacity=".32" style="font-size:11px;">—</text>`;
     }
     s+=`</g>`;
   }
-  s+=`</svg><div class="kundli-help"><strong>How to read:</strong> House <strong>1</strong> is the Lagna/Ascendant, followed by Houses 2–12 in fixed North Indian positions. Planet degree is shown when returned by the birth-chart data. <strong>R</strong> means retrograde. Hover a house number to see its zodiac sign.</div></div>`;
+  s+=`</svg><div class="kundli-help"><strong>How to read:</strong> North Indian style keeps houses fixed. H1 is Lagna; signs move according to the Lagna, and planets are placed from the exact rashi data used in the table below.</div></div>`;
   return s;
 }
+
 
 function primitiveEntries(obj, limit=6){
   if(!obj || typeof obj!=='object') return [];
@@ -2897,7 +2442,6 @@ function renderYogasSection(yg,bc){
 }
 
 function renderKundli(name,bcRaw,ygRaw,dsRaw,meta={},skipScroll=false){
-  window.__pjCurrentKundli={name:String(name||'Kundli'),dob:String(meta.dob||''),tob:String(meta.tob||''),city:String(meta.city||'')};
   const el=document.getElementById('res-kundli');
   const bc=dig(bcRaw), yg=dig(ygRaw), ds=dig(dsRaw);
   const advanced = meta.advanced || {};
@@ -2931,7 +2475,7 @@ function renderKundli(name,bcRaw,ygRaw,dsRaw,meta={},skipScroll=false){
     const rn=rashiNum(p);
     if(rn>=1&&rn<=12){
       const nm=cleanName(p);
-      cells[rn].push({nm,ret:retroFlag(p),degree:chartDegreeText(p)});
+      cells[rn].push({nm,ret:retroFlag(p),degree:degText(p)});
     }
   });
 
@@ -2953,7 +2497,7 @@ function renderKundli(name,bcRaw,ygRaw,dsRaw,meta={},skipScroll=false){
     const rn=cell.r,isL=rn===lagN,pp=cells[rn]||[];
     south+=`<div class="kundli-cell ${isL?'lagna-cell':''}">
       <div class="kundli-sign-row"><span class="kundli-sign">${escapeHtml(RF[rn])}${isL?' · Lagna':''}</span><span class="kundli-num">${rn}</span></div>
-      <div class="kundli-planets">${pp.length?pp.map(p=>planetTag(p.nm,p.ret,p.degree)).join(''):'<span class="empty-house">—</span>'}</div>
+      <div class="kundli-planets">${pp.length?pp.map(p=>planetTag(p.nm,p.ret)).join(''):'<span class="empty-house">—</span>'}</div>
     </div>`;
   }
   south+='</div><div class="kundli-help"><strong>How to read:</strong> This is a fixed South Indian chart. Signs stay fixed; the highlighted box is your Lagna/Ascendant. Planet names are placed inside their signs. <strong>R</strong> means retrograde.</div></div>';
@@ -2962,7 +2506,6 @@ function renderKundli(name,bcRaw,ygRaw,dsRaw,meta={},skipScroll=false){
     <button class="chart-style-btn active" data-kundli-btn="south" onclick="showKundliChartStyle('south')">South Indian</button>
     <button class="chart-style-btn" data-kundli-btn="north" onclick="showKundliChartStyle('north')">North Indian</button>
   </div>
-  <div class="kundli-chart-explainer" aria-label="Kundli chart legend"><span><i class="lagna"></i>House 1 = Lagna</span><span><b>R</b> Retrograde</span><span><i></i>Planet colour marker</span><span>Degrees shown when available</span></div>
   <div class="kundli-chart-style active" data-kundli-style="south">${south}</div>
   <div class="kundli-chart-style" data-kundli-style="north">${north}</div>`;
 
@@ -3103,7 +2646,6 @@ function renderKundli(name,bcRaw,ygRaw,dsRaw,meta={},skipScroll=false){
   el.innerHTML=`
     ${jumpbar}
     ${birthSummary.replace('<div class="rcard"','<div class="rcard" id="result-summary"')}
-    <div id="pj-kundli-account-card"></div>
     ${flags}
     <div class="rcard" id="result-chart"><div class="rcard-header"><div class="rcard-title">${safeName}'s Birth Chart</div><div class="rbadge rb-good">South / North Toggle</div></div><div class="rcard-body">${chartSummary}${ch}${planetWarning}</div></div>
     <div class="rcard" id="result-planets"><div class="rcard-header"><div class="rcard-title">Planetary Positions</div><div class="rbadge rb-good">Lagna: ${escapeHtml(lagDisplay)}</div></div><div class="rcard-body">${tb2}</div></div>
@@ -3114,7 +2656,6 @@ function renderKundli(name,bcRaw,ygRaw,dsRaw,meta={},skipScroll=false){
     ${remediesHtml}
     <div class="spirit"><div class="spirit-icon">☉</div><div class="spirit-text">Your birth chart is a sacred map — not of fate, but of potential. Start by reading the highlighted Lagna sign, then see where each planet name is placed. For deeper interpretation including Navamsa, Antardasha, remedies and life predictions — consider a personal reading.</div><div class="spirit-attr">— Parashar Jyotisha</div><a href="index.html#contact" class="fbtn">Book Personal Reading →</a></div>`;
   el.classList.add('show');
-  if(typeof window.pjRenderKundliAccountCard==='function') window.pjRenderKundliAccountCard();
   if(!skipScroll) el.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
@@ -4417,66 +3958,6 @@ try {
 })();
 </script>
 
-
-<script id="pj-theme-runtime">
-(function(){
-  function current(){return document.documentElement.getAttribute('data-theme')==='dark'?'dark':'light';}
-  function syncButtons(){
-    var t=current();
-    document.querySelectorAll('.pj-theme-toggle').forEach(function(btn){
-      var icon=btn.querySelector('.pj-theme-icon');
-      var label=btn.querySelector('.pj-theme-label');
-      var next=t==='light'?'dark':'light';
-      if(icon) icon.textContent=t==='light'?'☾':'☀';
-      if(label) label.textContent=t==='light'?'Dark':'Light';
-      btn.setAttribute('aria-label','Switch to '+next+' theme');
-      btn.setAttribute('title','Switch to '+next+' theme');
-      btn.setAttribute('aria-pressed',t==='dark'?'true':'false');
-    });
-    var meta=document.querySelector('meta[name="theme-color"]');
-    if(meta) meta.setAttribute('content',t==='light'?'#FFF9EF':'#0A0A0F');
-  }
-  function apply(t,persist){
-    document.documentElement.setAttribute('data-theme',t);
-    document.documentElement.style.colorScheme=t;
-    if(persist){try{localStorage.setItem('pj-theme',t);}catch(e){}}
-    syncButtons();
-  }
-  document.addEventListener('click',function(e){
-    var btn=e.target.closest&&e.target.closest('.pj-theme-toggle');
-    if(!btn)return;
-    apply(current()==='light'?'dark':'light',true);
-  });
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',syncButtons);else syncButtons();
-})();
-</script>
-
-
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
-<script id="pj-my-kundli-account-runtime">
-(function(){
-const cfg={apiKey:"AIzaSyAmTmvbM-XtsPb4O-luxNiqb1W9gyQ77As",authDomain:"vedicpanchangaapp.firebaseapp.com",projectId:"vedicpanchangaapp",storageBucket:"vedicpanchangaapp.firebasestorage.app",messagingSenderId:"767719116529",appId:"1:767719116529:web:b8eff04f41df72ea602350"};if(!firebase.apps.length)firebase.initializeApp(cfg);
-const a=firebase.auth(),d=firebase.firestore(),FV=firebase.firestore.FieldValue,FN="https://asia-south2-vedicpanchangaapp.cloudfunctions.net";let u=null,busy=false;
-const e=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-function monthKey(){const p=new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Kolkata',year:'numeric',month:'2-digit'}).formatToParts(new Date());return p.find(x=>x.type==='year').value+'-'+p.find(x=>x.type==='month').value}
-async function kid(k){const raw=[k.name,k.dob,k.tob,k.city].map(x=>String(x||'').trim().toLowerCase()).join('|'),b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(raw));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('').slice(0,32)}
-async function save(){if(!u)throw new Error('Please sign in first.');const k=window.__pjCurrentKundli;if(!k||!k.dob||!k.tob||!k.city)throw new Error('Generate a Kundli first.');const id=await kid(k),ref=d.collection('users').doc(u.uid).collection('kundlis').doc(id),s=await ref.get();await ref.set({ownerUid:u.uid,name:k.name.slice(0,80),dob:k.dob.slice(0,20),tob:k.tob.slice(0,20),city:k.city.slice(0,120),source:'website',createdAt:s.exists?(s.data().createdAt||FV.serverTimestamp()):FV.serverTimestamp(),updatedAt:FV.serverTimestamp()},{merge:true});return id}
-async function post(name,body){const t=await u.getIdToken();const r=await fetch(`${FN}/${name}`,{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${t}`},body:JSON.stringify(body)});let j={};try{j=await r.json()}catch(_){}if(!r.ok||!j.ok)throw new Error(j.message||`Request failed (${r.status})`);return j}
-function rid(){return(crypto.randomUUID?crypto.randomUUID():Date.now()+'-'+Math.random().toString(36).slice(2)).replace(/[^A-Za-z0-9_-]/g,'').slice(0,80)}
-async function dl(reportId,name){const t=await u.getIdToken(),r=await fetch(`${FN}/downloadKundliPdfReport`,{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${t}`},body:JSON.stringify({reportId})});if(!r.ok){let j={};try{j=await r.json()}catch(_){}throw new Error(j.message||'Download failed.')}const b=await r.blob(),url=URL.createObjectURL(b),x=document.createElement('a');x.href=url;x.download=`Kundli_${String(name||'Report').replace(/[^A-Za-z0-9_-]+/g,'_')}.pdf`;document.body.appendChild(x);x.click();x.remove();setTimeout(()=>URL.revokeObjectURL(url),2500)}
-function setMsg(t,cls=''){const x=document.getElementById('pj-account-msg');if(x){x.textContent=t||'';x.className='pj-account-msg '+cls}}
-async function used(){if(!u)return 0;try{const s=await d.collection('users').doc(u.uid).collection('pdf_usage').doc(monthKey()).get();return Number((s.data()||{}).generated||0)}catch(_){return 0}}
-window.pjRenderKundliAccountCard=async function(){const box=document.getElementById('pj-kundli-account-card');if(!box)return;const n=await used();box.innerHTML=`<div class="pj-account-card"><div class="pj-account-card-head"><div><h3>💾 Save this Kundli</h3><p>${u?'Keep this birth profile in your private dashboard and create an official PDF report.':'Create a free account only when you want to save this Kundli or download an official PDF.'}</p></div><span class="pj-account-quota">PDF ${n} / 5 this month</span></div><div class="pj-account-actions">${u?'<button class="pj-account-btn primary" type="button" onclick="pjSaveCurrentKundli()">Save Kundli</button><button class="pj-account-btn" type="button" onclick="pjDownloadCurrentKundliPdf()">Download PDF</button><a class="pj-account-btn" href="my-kundli.html">My Kundlis</a>':'<button class="pj-account-btn primary" type="button" onclick="pjAccountRedirect(\'save\')">Sign in to Save</button><button class="pj-account-btn" type="button" onclick="pjAccountRedirect(\'pdf\')">Sign in for PDF</button><a class="pj-account-btn" href="my-kundli.html">My Kundli Dashboard</a>'}</div><div id="pj-account-msg" class="pj-account-msg"></div></div>`};
-window.pjAccountRedirect=function(action){if(window.__pjCurrentKundli)sessionStorage.setItem('pj-pending-kundli',JSON.stringify({action,data:window.__pjCurrentKundli}));location.href='my-kundli.html'};
-window.pjSaveCurrentKundli=async function(){if(busy)return;busy=true;try{await save();setMsg('Kundli saved to My Kundlis.','ok')}catch(x){setMsg(x.message||String(x),'err')}finally{busy=false;window.pjRenderKundliAccountCard()}};
-window.pjDownloadCurrentKundliPdf=async function(){if(busy)return;busy=true;try{await u.reload();await u.getIdToken(true);if(!u.emailVerified)throw new Error('Verify your email first. Open My Kundli Dashboard to resend verification.');const id=await save(),k=window.__pjCurrentKundli,out=await post('generateKundliPdf',{kundliId:id,requestId:rid()});await dl(out.reportId,k.name);setMsg(`PDF downloaded. ${out.used} of ${out.limit} used this month.`,'ok')}catch(x){setMsg(x.message||String(x),'err')}finally{busy=false;window.pjRenderKundliAccountCard()}};
-a.onAuthStateChanged(user=>{u=user||null;window.pjRenderKundliAccountCard()});
-function restore(){let k=null;try{k=JSON.parse(sessionStorage.getItem('pj-open-kundli')||'null')}catch(_){}if(!k)return;sessionStorage.removeItem('pj-open-kundli');const set=(id,v)=>{const x=document.getElementById(id);if(x)x.value=v||''};set('k-name',k.name);set('k-dob',String(k.dob||'').split('-').length===3?String(k.dob).split('-').reverse().join('-'):k.dob);set('k-tob',k.tob);set('k-city',k.city);setTimeout(()=>{const f=document.querySelector('#panel-kundli form');if(f)f.requestSubmit()},100)}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',restore);else restore();
-})();
-</script>
-
+<script defer src="assets/i18n/language-preference.js"></script>
 </body>
 </html>
