@@ -24,6 +24,9 @@
 <meta content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" name="robots"/>
 <meta content="M. Sharma" name="author"/>
 <link href="https://parasharajyotisha.com/" rel="canonical"/>
+<link rel="alternate" hreflang="en" href="https://parasharajyotisha.com/">
+<link rel="alternate" hreflang="hi" href="https://parasharajyotisha.com/hi/">
+<link rel="alternate" hreflang="x-default" href="https://parasharajyotisha.com/">
 <meta content="website" property="og:type"/>
 <meta content="Parashar Jyotisha" property="og:site_name"/>
 <meta content="en_IN" property="og:locale"/>
@@ -2674,6 +2677,17 @@ html[data-theme="light"] #contact .cm-card{
 }
 </style>
 
+
+<style id="pj-language-switch-style">
+.pj-lang-switch{display:inline-flex;align-items:center;gap:2px;padding:3px;border:1px solid var(--line);border-radius:999px;background:var(--glass);white-space:nowrap}
+.pj-lang-switch a,.pj-lang-switch span{display:inline-flex;align-items:center;justify-content:center;min-height:28px;padding:.28rem .5rem;border-radius:999px;font:700 .68rem var(--font-sans);letter-spacing:.02em;color:var(--text-mid);text-decoration:none}
+.pj-lang-switch .active{background:var(--ember);color:#fff}.pj-lang-switch a:hover{color:var(--ember-light);background:var(--glass-hover)}
+html[data-theme="light"] .pj-lang-switch{border-color:rgba(92,58,38,.14);background:rgba(255,255,255,.36)}
+html[data-theme="light"] .pj-lang-switch .active{background:#9E2028;color:#fff}
+@media(max-width:1180px){.pj-lang-item{display:none!important}}
+.pjm2-lang{display:flex;align-items:center;justify-content:space-between;gap:.8rem;margin-top:.65rem;padding-top:.65rem;border-top:1px solid var(--line)}
+.pjm2-lang>span{font-size:.72rem;color:var(--text-dim)}
+</style>
 </head>
 <body>
 <div class="cosmos-bg"></div>
@@ -2736,6 +2750,7 @@ html[data-theme="light"] #contact .cm-card{
     <a href="how-we-calculate-panchang.html"><strong>How We Calculate</strong><small>Methodology and transparency</small></a>
   </div>
 </li>
+<li class="pj-lang-item"><div class="pj-lang-switch" aria-label="Language"><span class="active" lang="en">EN</span><a href="hi/" lang="hi" hreflang="hi" data-pj-lang="hi">हिंदी</a></div></li>
 <li class="pj-theme-item"><button class="pj-theme-toggle" type="button" aria-label="Switch colour theme" title="Switch colour theme"><span class="pj-theme-icon" aria-hidden="true">☾</span><span class="pj-theme-label">Dark</span></button></li>
 <li><button class="pj-nav-find" type="button" aria-label="Find a tool or page" title="Find a tool or page">⌕ <span>Find</span></button></li>
 <li><a class="nav-cta-btn" href="#contact">Free Guidance</a></li>
@@ -2809,6 +2824,7 @@ html[data-theme="light"] #contact .cm-card{
   </nav>
 
   <div class="pjm2-bottom">
+    <div class="pjm2-lang"><span>Language</span><div class="pj-lang-switch"><span class="active" lang="en">EN</span><a href="hi/" lang="hi" hreflang="hi" data-pj-lang="hi">हिंदी</a></div></div>
     <a class="pjm2-guidance" href="#contact">Free Guidance</a>
     <a class="pjm2-reviews" href="reviews.html">★ Reviews</a>
   </div>
@@ -4254,5 +4270,6 @@ html[data-theme="light"] .pj-quick-find{background:rgba(255,249,239,.96);color:#
 })();
 </script>
 
+<script src="assets/i18n/language-preference.js" defer></script>
 </body>
 </html>
