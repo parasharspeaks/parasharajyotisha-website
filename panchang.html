@@ -23,6 +23,9 @@
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 <meta name="author" content="M. Sharma">
 <link rel="canonical" href="https://parasharajyotisha.com/panchang.html">
+<link rel="alternate" hreflang="en-IN" href="https://parasharajyotisha.com/panchang.html">
+<link rel="alternate" hreflang="hi-IN" href="https://parasharajyotisha.com/hi/panchang.html">
+<link rel="alternate" hreflang="x-default" href="https://parasharajyotisha.com/panchang.html">
 <meta property="og:type" content="website"><meta property="og:site_name" content="Parashar Jyotisha"><meta property="og:locale" content="en_IN">
 <meta property="og:title" content="Today's Panchang – Tithi, Nakshatra & Rahu Kaal | Parashar Jyotisha"><meta property="og:description" content="Check today’s Vedic Panchang by date and city: Tithi, Nakshatra, Yoga, Karana, sunrise, sunset, Moon timing, Rahu Kaal, Gulika, Yamaganda and daily guidance."><meta property="og:url" content="https://parasharajyotisha.com/panchang.html"><meta property="og:image" content="https://parasharajyotisha.com/assets/images/surya-panchang.webp">
 <meta name="twitter:card" content="summary"><meta name="twitter:title" content="Today's Panchang – Tithi, Nakshatra & Rahu Kaal | Parashar Jyotisha"><meta name="twitter:description" content="Check today’s Vedic Panchang by date and city: Tithi, Nakshatra, Yoga, Karana, sunrise, sunset, Moon timing, Rahu Kaal, Gulika, Yamaganda and daily guidance."><meta name="twitter:image" content="https://parasharajyotisha.com/assets/images/surya-panchang.webp">
@@ -252,9 +255,18 @@ html[data-theme="light"] .navlinks .cta{
 }
 
 </style>
+
+<style id="pj-language-switch-style">
+.pj-lang-switch{display:inline-flex;align-items:center;gap:2px;padding:3px;border:1px solid var(--line);border-radius:999px;background:var(--glass);white-space:nowrap}
+.pj-lang-switch a,.pj-lang-switch span{display:inline-flex;align-items:center;justify-content:center;min-height:28px;padding:.28rem .52rem;border-radius:999px;font:700 .68rem var(--sans);letter-spacing:.02em;color:var(--mid);text-decoration:none}
+.pj-lang-switch .active{background:var(--ember);color:#fff}.pj-lang-switch a:hover{color:var(--ember-light);background:rgba(255,255,255,.05)}
+html[data-theme="light"] .pj-lang-switch{border-color:rgba(92,58,38,.14);background:rgba(255,255,255,.36)}
+html[data-theme="light"] .pj-lang-switch .active{background:#9E2028;color:#fff}
+@media(max-width:900px){.navlinks{gap:8px}.navlinks>a:not(.cta){display:none}.pj-lang-switch a,.pj-lang-switch span{padding:.25rem .42rem}}
+</style>
 </head>
 <body style="--hero-img:url('assets/images/surya-panchang.webp')">
-<nav class="nav"><div class="wrap navin"><a class="brand" href="index.html">Parashar Jyotisha</a><div class="navlinks"><a href="panchang.html">Panchang</a><a href="tools.html">All Free Tools</a><a href="index.html#about">About</a><a href="index.html#contact" class="cta">Free Guidance</a><button class="pj-theme-toggle" type="button" aria-label="Switch colour theme" title="Switch colour theme"><span class="pj-theme-icon" aria-hidden="true">☾</span><span class="pj-theme-label">Dark</span></button></div></div></nav>
+<nav class="nav"><div class="wrap navin"><a class="brand" href="index.html">Parashar Jyotisha</a><div class="navlinks"><a href="panchang.html">Panchang</a><a href="tools.html">All Free Tools</a><a href="index.html#about">About</a><a href="index.html#contact" class="cta">Free Guidance</a><div class="pj-lang-switch" aria-label="Language"><span class="active" lang="en">EN</span><a href="hi/panchang.html" lang="hi" hreflang="hi-IN" data-pj-lang="hi">हिंदी</a></div><button class="pj-theme-toggle" type="button" aria-label="Switch colour theme" title="Switch colour theme"><span class="pj-theme-icon" aria-hidden="true">☾</span><span class="pj-theme-label">Dark</span></button></div></div></nav>
 <main>
 <section class="hero"><div class="wrap"><div class="crumb"><a href="index.html">Home</a> / Today’s Panchang</div><div class="kicker">Daily Vedic Panchang</div><h1>Today’s Panchang <em>Tithi, Nakshatra & Timing</em></h1><p class="lead">Check the daily Panchang for your selected date and city. Read the five traditional limbs together with sunrise and sunset, Moon timing, Rahu Kaal, Gulika, Yamaganda and practical daily timing guidance.</p><div class="actions"><a class="btn primary" href="#daily-panchang">📅 Check Live Panchang</a><a class="btn secondary" href="#understand">Understand Panchang</a></div><div class="proof"><span class="pill">City based</span><span class="pill">Tithi</span><span class="pill">Nakshatra</span><span class="pill">Yoga + Karana</span><span class="pill">Rahu Kaal</span></div></div></section>
 <section class="section live-panchang-section" id="daily-panchang"><div class="wrap">
@@ -354,60 +366,6 @@ html[data-theme="light"] .navlinks .cta{
   }
   function timeCard(label,value,note,icon,caution=false){ if(!value) return ''; return `<div class="pj-time${caution?' caution':''}"><b>${icon} ${esc(label)}</b><strong>${esc(value)}</strong><small>${esc(note)}</small></div>`; }
   function limbCard(label,v,icon,fallback){ const value=text(v)||'—'; const sub=subText(v)||fallback; return `<div class="pj-limb"><span class="icon">${icon}</span><span class="label">${esc(label)}</span><strong>${esc(value)}</strong><em>${esc(sub)}</em></div>`; }
-
-  // Panchang context fix: data extraction only. No HTML/CSS/layout changes.
-  function planetAliasMatch(name,target){
-    const s=String(name||'').trim().toLowerCase().replace(/[^a-z]/g,'');
-    if(target==='moon') return ['moon','chandra','chandrama','soma'].includes(s);
-    return ['sun','surya','ravi','aditya'].includes(s);
-  }
-  function planetSignValue(v){
-    if(v===null||v===undefined||v==='') return '';
-    if(typeof v==='string'||typeof v==='number') return String(v);
-    if(Array.isArray(v)) return v.length ? planetSignValue(v[0]) : '';
-    if(typeof v==='object'){
-      const sign = v.rashi ?? v.rasi ?? v.sign ?? v.zodiac ?? v.zodiac_sign ??
-                   v.current_sign ?? v.to_sign ?? v.rashi_name ?? v.sign_name;
-      return text(sign);
-    }
-    return '';
-  }
-  function findPlanetSign(data,target){
-    if(!data || typeof data!=='object') return '';
-    const raw = data.planets || data.positions || data.current_positions ||
-                data.planetary_positions || data.transits || data.current_transits ||
-                data.planetary_transits || data.navagraha || data.grahas || null;
-    let list=[];
-    if(Array.isArray(raw)) list=raw;
-    else if(raw && typeof raw==='object'){
-      Object.entries(raw).forEach(([k,v])=>{
-        if(v && typeof v==='object') list.push({name:k,...v});
-      });
-    }
-    for(const p of list){
-      const nm=p?.name ?? p?.planet ?? p?.graha ?? p?.body ?? p?.sanskrit ?? '';
-      if(planetAliasMatch(nm,target)){
-        const sign=planetSignValue(p);
-        if(sign) return sign;
-      }
-    }
-    return '';
-  }
-  function pakshaFromTithi(tithi){
-    const t=first(tithi);
-    if(!t) return '';
-    if(typeof t==='object'){
-      const direct=pickText(t,['paksha','paksha_name','fortnight','lunar_fortnight']);
-      if(direct) return direct;
-      const n=Number(t.number ?? t.tithi_number ?? t.tithi_num ?? t.index);
-      if(Number.isFinite(n) && n>=1 && n<=30) return n<=15 ? 'Shukla' : 'Krishna';
-    }
-    const s=String(text(t)||'');
-    if(/shukla/i.test(s)) return 'Shukla';
-    if(/krishna/i.test(s)) return 'Krishna';
-    return '';
-  }
-
   function render(data,ctx){
     const p=data.panchanga||data.panchang||data.daily_panchanga||data;
     const timings=data.sun_moon||data.timings||data.times||p;
@@ -422,20 +380,9 @@ html[data-theme="light"] .navlinks .cta{
     const yoga=pick(p,['yoga','yoga_at_sunrise']);
     const karana=pick(p,['karana','karana_at_sunrise','karanas']);
     const vara=pick(p,['vaara','vara','weekday']);
-    const paksha=
-      pickText(p,['paksha','paksha_name','lunar_fortnight']) ||
-      pickText(data,['paksha','paksha_name','lunar_fortnight']) ||
-      pakshaFromTithi(tithi) || '—';
-    const moonSign=
-      pickText(p,['moon_sign','chandra_rashi','moon_rashi']) ||
-      pickText(data,['moon_sign','chandra_rashi','moon_rashi']) ||
-      findPlanetSign(data,'moon') ||
-      ctx.moonSign || '—';
-    const sunSign=
-      pickText(p,['sun_sign','surya_rashi','sun_rashi']) ||
-      pickText(data,['sun_sign','surya_rashi','sun_rashi']) ||
-      findPlanetSign(data,'sun') ||
-      ctx.sunSign || '—';
+    const paksha=pickText(p,['paksha'])||'—';
+    const moonSign=pickText(p,['moon_sign','chandra_rashi','moon_rashi'])||'—';
+    const sunSign=pickText(p,['sun_sign','surya_rashi','sun_rashi'])||'—';
     const sunrise=cleanTime(pick(timings,['sunrise','sunrise_time']));
     const sunset=cleanTime(pick(timings,['sunset','sunset_time']));
     const moonrise=cleanTime(pick(timings,['moonrise','moonrise_time']));
@@ -476,21 +423,7 @@ html[data-theme="light"] .navlinks .cta{
       let data;
       if(date===localIsoDate()) data=await getJson(`/today?city=${encodeURIComponent(city)}`);
       else data=await getJson(`/panchanga/daily?date=${encodeURIComponent(date)}&city=${encodeURIComponent(city)}`);
-
-      // For today's Panchang only, use the existing live-transit endpoint as a
-      // safe fallback if the combined response does not expose Sun/Moon Rashi.
-      // This does not alter any Panchang calculation.
-      let moonSignFallback='', sunSignFallback='';
-      if(date===localIsoDate() && (!findPlanetSign(data,'moon') || !findPlanetSign(data,'sun'))){
-        try{
-          const tr=await getJson(`/transits/current?city=${encodeURIComponent(city)}`);
-          moonSignFallback=findPlanetSign(tr,'moon');
-          sunSignFallback=findPlanetSign(tr,'sun');
-        }catch(_){
-          // Main Panchang remains usable even if the optional sign fallback fails.
-        }
-      }
-      render(data,{city,date,moonSign:moonSignFallback,sunSign:sunSignFallback});
+      render(data,{city,date});
     }catch(e){
       console.error(e); $('pj-status').textContent=e.name==='AbortError'?'Panchang service took too long. Please try again.':(e.message||'Could not load Panchang. Please check the city and try again.'); $('pj-status').className='panchang-status bad';
       $('pj-result').innerHTML=`<div class="result-placeholder"><strong>Could not load this Panchang.</strong><span>Check the city spelling or try again. Your existing all-tools Panchang is also available.</span><a class="btn secondary" href="tools.html#panchang">Open Panchang in All Tools</a></div>`;
@@ -536,4 +469,5 @@ html[data-theme="light"] .navlinks .cta{
 })();
 </script>
 
+<script src="assets/i18n/language-preference.js" defer></script>
 </body></html>
