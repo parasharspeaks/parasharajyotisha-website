@@ -832,6 +832,8 @@ html[data-theme="light"] .pj-lang-switch a:hover{background:rgba(158,32,40,.06)!
 
 
 <style id="pj-my-kundli-account-style">
+.pj-account-mode-banner{margin:0 0 1rem;padding:.85rem 1rem;border:1px solid color-mix(in srgb,var(--gold) 30%,var(--line));border-radius:14px;background:color-mix(in srgb,var(--gold) 7%,var(--glass));display:flex;align-items:center;justify-content:space-between;gap:.8rem;flex-wrap:wrap}.pj-account-mode-banner[hidden]{display:none}.pj-account-mode-banner strong{display:block;color:var(--text-bright);font-family:var(--font-serif);font-size:1rem}.pj-account-mode-banner span{display:block;color:var(--text-dim);font-size:.7rem;margin-top:.16rem}.pj-account-mode-banner a{font-size:.7rem;font-weight:800;color:var(--ember-light);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:.42rem .66rem;background:var(--glass)}
+
 /* MY KUNDLI ACCOUNT — isolated additions restored after multilingual tools update */
 .pj-account-card{margin:0 0 1rem;border:1px solid color-mix(in srgb,var(--gold) 28%,var(--line));border-radius:18px;padding:1rem;background:linear-gradient(135deg,color-mix(in srgb,var(--gold) 7%,var(--glass)),var(--glass));}
 .pj-account-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:.8rem;flex-wrap:wrap}.pj-account-card h3{font-family:var(--font-serif);font-size:1.18rem;color:var(--text-bright);font-weight:600;margin:0}.pj-account-card p{font-size:.76rem;color:var(--text-dim);margin:.28rem 0 0;line-height:1.5}.pj-account-actions{display:flex;gap:.45rem;flex-wrap:wrap;margin-top:.75rem}.pj-account-btn{border:1px solid var(--line);border-radius:999px;background:var(--glass);color:var(--text-bright);padding:.5rem .75rem;font:800 .7rem var(--font-sans);cursor:pointer;text-decoration:none}.pj-account-btn.primary{background:linear-gradient(135deg,var(--ember),#B85A2A);color:#fff;border-color:transparent}.pj-account-btn:disabled{opacity:.55;cursor:wait}.pj-account-quota{font-family:var(--font-mono);font-size:.61rem;color:var(--gold-light);border:1px solid color-mix(in srgb,var(--gold) 25%,var(--line));border-radius:999px;padding:.26rem .55rem;white-space:nowrap}.pj-account-msg{font-size:.7rem;color:var(--text-mid);margin-top:.55rem;min-height:1em}.pj-account-msg.err{color:var(--lotus-light)}.pj-account-msg.ok{color:var(--sage-light)}
@@ -880,6 +882,11 @@ html[data-theme="light"] .pj-lang-switch a:hover{background:rgba(158,32,40,.06)!
 <div class="tool-panel active" id="panel-kundli">
   <div class="fcard" id="fc-kundli" style="--panel-art:url('../assets/images/hero-chandra.webp')">
     <div class="loader" id="ld-kundli"><div class="spinner"></div><div class="load-text">आपकी जन्म कुंडली तैयार की जा रही है…</div></div>
+
+    <div id="pj-account-mode-banner" class="pj-account-mode-banner" hidden>
+      <div><strong>मेरी कुंडली अकाउंट · नई कुंडली</strong><span id="pj-account-mode-status">अकाउंट स्थिति जाँची जा रही है…</span></div>
+      <a href="my-kundli.html">← मेरी कुंडली डैशबोर्ड</a>
+    </div>
     <div class="fcard-title">📜 वैदिक जन्म कुंडली</div>
     <div class="fcard-sub">अपनी जन्म तिथि, सही जन्म समय और जन्म स्थान भरें। उसी विवरण से लग्न, ग्रह, भाव, जन्म पंचांग, दशा, योग, बल, गोचर और उपाय देखें।</div>
     <div class="kundli-scope-grid" aria-label="Kundli sections">
@@ -2828,6 +2835,7 @@ function renderKundli(name,bcRaw,ygRaw,dsRaw,meta={},skipScroll=false){
     <div class="spirit"><div class="spirit-icon">☉</div><div class="spirit-text">Your birth chart is a sacred map — not of fate, but of potential. Start by reading the highlighted Lagna sign, then see where each planet name is placed. For deeper interpretation including Navamsa, Antardasha, remedies and life predictions — consider a personal reading.</div><div class="spirit-attr">— Parashar Jyotisha</div><a href="index.html#contact" class="fbtn">Book Personal Reading →</a></div>`;
   localizeKundliHindi(el);
   el.classList.add('show');
+  if(typeof window.pjRenderKundliAccountCard==='function') window.pjRenderKundliAccountCard();
   if(!skipScroll) el.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
@@ -4176,6 +4184,9 @@ try {
 const cfg={apiKey:"AIzaSyAmTmvbM-XtsPb4O-luxNiqb1W9gyQ77As",authDomain:"vedicpanchangaapp.firebaseapp.com",projectId:"vedicpanchangaapp",storageBucket:"vedicpanchangaapp.firebasestorage.app",messagingSenderId:"767719116529",appId:"1:767719116529:web:b8eff04f41df72ea602350"};
 if(!firebase.apps.length)firebase.initializeApp(cfg);
 const a=firebase.auth(),d=firebase.firestore(),FV=firebase.firestore.FieldValue,FN="https://asia-south2-vedicpanchangaapp.cloudfunctions.net";let u=null,busy=false;
+const accountMode=new URLSearchParams(location.search).get('account')==='1';
+function syncAccountModeBanner(user){const b=document.getElementById('pj-account-mode-banner'),s=document.getElementById('pj-account-mode-status');if(!b||!accountMode)return;b.hidden=false;if(s)s.textContent=user?`आप ${user.email||'अपने अकाउंट'} से साइन-इन हैं। कुंडली बनाएं; परिणाम में सुरक्षित करें और PDF विकल्प मिलेंगे।`:'आपका अकाउंट सत्र उपलब्ध नहीं है। मेरी कुंडली डैशबोर्ड से दोबारा साइन-इन करें।';}
+
 function monthKey(){const p=new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Kolkata',year:'numeric',month:'2-digit'}).formatToParts(new Date());return p.find(x=>x.type==='year').value+'-'+p.find(x=>x.type==='month').value}
 async function kid(k){const raw=[k.name,k.dob,k.tob,k.city].map(x=>String(x||'').trim().toLowerCase()).join('|'),b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(raw));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('').slice(0,32)}
 async function save(){if(!u)throw new Error('कृपया पहले साइन-इन करें।');const k=window.__pjCurrentKundli;if(!k||!k.dob||!k.tob||!k.city)throw new Error('पहले कुंडली बनाएं।');const id=await kid(k),ref=d.collection('users').doc(u.uid).collection('kundlis').doc(id),s=await ref.get();await ref.set({ownerUid:u.uid,name:String(k.name||'Kundli').slice(0,80),dob:String(k.dob).slice(0,20),tob:String(k.tob).slice(0,20),city:String(k.city).slice(0,120),source:'website',createdAt:s.exists?(s.data().createdAt||FV.serverTimestamp()):FV.serverTimestamp(),updatedAt:FV.serverTimestamp()},{merge:true});return id}
@@ -4188,7 +4199,7 @@ window.pjRenderKundliAccountCard=async function(){const box=document.getElementB
 window.pjAccountRedirect=function(action){if(window.__pjCurrentKundli)sessionStorage.setItem('pj-pending-kundli',JSON.stringify({action,data:window.__pjCurrentKundli}));location.href='my-kundli.html'};
 window.pjSaveCurrentKundli=async function(){if(busy)return;busy=true;try{await save();setMsg('कुंडली मेरी कुंडलियों में सुरक्षित हो गई।','ok')}catch(x){setMsg(x.message||String(x),'err')}finally{busy=false;window.pjRenderKundliAccountCard()}};
 window.pjDownloadCurrentKundliPdf=async function(language='en'){if(busy)return;busy=true;try{if(!u)throw new Error('कृपया पहले साइन-इन करें।');await u.reload();await u.getIdToken(true);if(!u.emailVerified)throw new Error('पहले अपना ईमेल सत्यापित करें। सत्यापन ईमेल दोबारा भेजने के लिए मेरी कुंडली डैशबोर्ड खोलें।');const id=await save(),k=window.__pjCurrentKundli,isHi=language==='hi',out=await post(isHi?'generateKundliPdfHi':'generateKundliPdf',{kundliId:id,requestId:rid()});await dl(out.reportId,k.name,isHi?'hi':'en');setMsg(`${isHi?'हिंदी':'English'} PDF डाउनलोड हो गई। इस महीने ${out.limit} में से ${out.used} रिपोर्ट उपयोग हुई हैं।`,'ok')}catch(x){setMsg(x.message||String(x),'err')}finally{busy=false;window.pjRenderKundliAccountCard()}};
-a.onAuthStateChanged(user=>{u=user||null;window.pjRenderKundliAccountCard()});
+a.onAuthStateChanged(user=>{u=user||null;syncAccountModeBanner(u);window.pjRenderKundliAccountCard()});
 function restore(){let k=null;try{k=JSON.parse(sessionStorage.getItem('pj-open-kundli')||'null')}catch(_){}if(!k)return;sessionStorage.removeItem('pj-open-kundli');const set=(id,v)=>{const x=document.getElementById(id);if(x)x.value=v||''};const raw=String(k.dob||'');const parts=raw.split('-');const browserDob=parts.length===3&&parts[0].length===2?parts.reverse().join('-'):raw;set('k-name',k.name);set('k-dob',browserDob);set('k-tob',k.tob);set('k-city',k.city);setTimeout(()=>{const f=document.querySelector('#panel-kundli form');if(f)f.requestSubmit()},100)}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',restore);else restore();
 })();
