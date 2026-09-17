@@ -430,19 +430,12 @@ html[data-theme="light"] .pj-lang-switch .active{background:#9E2028;color:#fff}
       <div class="pj-section-title">सावधानी और यात्रा समय</div>
       <div class="pj-time-grid">${timeCard('राहु काल',rahu,'नए महत्वपूर्ण आरम्भ में पारंपरिक सावधानी','⚠️',true)}${timeCard('गुलिक काल',gulika,'उद्देश्य और परंपरा के अनुसार पढ़ें','♄',true)}${timeCard('यमगण्ड',yama,'नए आरम्भ में पारंपरिक सावधानी','⛔',true)}${timeCard('दिशा शूल',disha,'यात्रा-दिशा से संबंधित पारंपरिक सावधानी','🧭',true)}</div>
       <div class="pj-reading-note"><strong>पढ़ने की सलाह:</strong> पंचांग सामान्य समय-गुण बताता है। महत्वपूर्ण व्यक्तिगत निर्णय या मुहूर्त के लिए कार्य का उद्देश्य, कुंडली, दशा, गोचर और व्यावहारिक परिस्थितियाँ भी देखें।</div>
-      <div class="pj-result-actions"><button class="pj-mini-btn" id="pj-share-card" type="button">✨ सुंदर शेयर कार्ड</button><button class="pj-mini-btn" id="pj-share" type="button">🔗 लिंक साझा करें</button><a class="pj-mini-btn" href="../vedic-panchanga.html">📱 Vedic Panchanga App</a><a class="pj-mini-btn" href="free-kundli.html">📜 निःशुल्क कुंडली</a></div>`;
+      <div class="pj-result-actions"><button class="pj-mini-btn" id="pj-share" type="button">🔗 यह पंचांग साझा करें</button><a class="pj-mini-btn" href="../vedic-panchanga.html">📱 Vedic Panchanga App</a><a class="pj-mini-btn" href="free-kundli.html">📜 निःशुल्क कुंडली</a></div>`;
     $('panchang-live-title').textContent=`${loc} का पंचांग — ${titleDate}`;
     $('pj-status').textContent=`${loc} का लाइव पंचांग लोड हो गया।`;
     $('pj-status').className='panchang-status good';
     document.title=`${loc} का पंचांग – ${titleDate} | Parashar Jyotisha`;
     const q=new URLSearchParams({city:ctx.city,date:ctx.date}); history.replaceState(null,'',`${location.pathname}?${q.toString()}`);
-    window.PJ_PANCHANG_SHARE_DATA={
-      lang:'hi',city:loc,date:titleDate,isoDate:shownDate,
-      tithi:localTithi(tithi)||text(tithi)||'—',nakshatra:localNak(nak)||text(nak)||'—',yoga:localMap(yoga,HI.yogas)||text(yoga)||'—',karana:localMap(karana,HI.karanas)||text(karana)||'—',vara:localWeekday(vara)||text(vara)||'—',
-      paksha,moonSign,sunSign,sunrise:sunrise||'—',sunset:sunset||'—',moonrise:moonrise||'—',moonset:moonset||'—',
-      brahma:brahma||'—',abhijit:abhijit||'—',rahu:rahu||'—',gulika:gulika||'—',yamaganda:yama||'—',disha:disha||'—',
-      url:location.origin+location.pathname+'?'+q.toString()
-    };
     const share=$('pj-share'); if(share) share.addEventListener('click',shareCurrent);
   }
   async function shareCurrent(){
