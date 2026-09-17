@@ -291,8 +291,90 @@ a{text-decoration:none;color:inherit}.wrap{width:min(1120px,calc(100% - 40px));m
 })();
 </script>
 <script src="assets/i18n/language-preference.js" defer></script>
+<!-- PJ_SIMPLE_SHARE_V2_START -->
+<script>
+(function(){
+  'use strict';
+  if(window.__pjSimpleShareV2Loaded) return;
+  window.__pjSimpleShareV2Loaded=true;
 
-<!-- PJ_SOCIAL_SHARE_V1_SCRIPT -->
-<script src="/assets/js/social-share.js" defer></script>
+  var path=String(location.pathname||'').toLowerCase();
+  var qs=new URLSearchParams(location.search||'');
+  if(path.indexOf('my-kundli')!==-1 || path.indexOf('admin-')!==-1 || qs.get('account')==='1') return;
+
+  var hi=String(document.documentElement.lang||'').toLowerCase().indexOf('hi')===0;
+  var T=hi ? {
+    open:'साझा करें', title:'यह पेज साझा करें', apps:'फ़ोन / ऐप्स', fb:'Facebook', x:'X', wa:'WhatsApp', copy:'लिंक कॉपी करें', copied:'लिंक कॉपी हो गया ✓', close:'बंद करें', note:'Instagram के लिए फ़ोन / ऐप्स चुनें और Instagram उपलब्ध हो तो उसे चुनें।'
+  } : {
+    open:'Share', title:'Share this page', apps:'Phone / apps', fb:'Facebook', x:'X', wa:'WhatsApp', copy:'Copy link', copied:'Link copied ✓', close:'Close', note:'For Instagram, choose Phone / apps and then Instagram if it is available.'
+  };
+
+  function canonical(){
+    var panchang=path.endsWith('/panchang.html') || path.endsWith('/hi/panchang.html');
+    if(panchang){
+      var live=new URL(location.href); live.hash=''; return live.toString();
+    }
+    var c=document.querySelector('link[rel="canonical"]');
+    var raw=(c&&c.href)?c.href:(location.origin+location.pathname);
+    try{var u=new URL(raw,location.origin);u.hash='';u.search='';return u.toString();}catch(_){return location.origin+location.pathname;}
+  }
+  function desc(){
+    var og=document.querySelector('meta[property="og:description"]');
+    var md=document.querySelector('meta[name="description"]');
+    return String((og&&og.content)||(md&&md.content)||document.title||'Parashar Jyotisha').replace(/\s+/g,' ').trim().slice(0,180);
+  }
+  function shareData(){return {title:document.title||'Parashar Jyotisha',text:desc(),url:canonical()};}
+  function enc(v){return encodeURIComponent(v);}
+  function popup(url){var w=window.open(url,'_blank','noopener,noreferrer'); if(w) try{w.opener=null;}catch(_){} }
+  async function copyUrl(){
+    var url=canonical();
+    try{
+      if(navigator.clipboard && window.isSecureContext){await navigator.clipboard.writeText(url);}
+      else{
+        var ta=document.createElement('textarea');ta.value=url;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.left='-9999px';document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();
+      }
+      status.textContent=T.copied;
+    }catch(_){status.textContent=url;}
+  }
+  async function nativeShare(){
+    var d=shareData();
+    if(navigator.share){
+      try{await navigator.share(d);return;}catch(e){if(e&&e.name==='AbortError')return;}
+    }
+    await copyUrl();
+  }
+
+  var style=document.createElement('style');
+  style.textContent='.pj-simple-share-launch{position:fixed;right:18px;bottom:18px;z-index:2147480000;border:0;border-radius:999px;background:#9b2638;color:#fff;padding:11px 16px;font:700 14px/1 system-ui,-apple-system,Segoe UI,sans-serif;box-shadow:0 10px 28px rgba(70,24,30,.24);cursor:pointer}.pj-simple-share-panel{position:fixed;right:18px;bottom:70px;z-index:2147480001;width:min(330px,calc(100vw - 24px));display:none;background:#fffaf2;color:#382821;border:1px solid rgba(144,35,48,.18);border-radius:18px;padding:14px;box-shadow:0 18px 48px rgba(45,22,18,.24);font-family:system-ui,-apple-system,Segoe UI,sans-serif}.pj-simple-share-panel.open{display:block}.pj-simple-share-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}.pj-simple-share-head strong{font-size:17px;color:#7f1f30}.pj-simple-share-close{border:0;background:transparent;font-size:22px;cursor:pointer;color:#725f55}.pj-simple-share-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.pj-simple-share-grid button{min-height:44px;border:1px solid rgba(151,103,55,.20);border-radius:11px;background:#fff;color:#392922;font:700 13px/1.2 system-ui,-apple-system,Segoe UI,sans-serif;cursor:pointer}.pj-simple-share-grid button:first-child{grid-column:1/-1;background:#9b2638;color:#fff;border-color:#9b2638}.pj-simple-share-note{margin-top:10px;font-size:11px;line-height:1.45;color:#79675d}.pj-simple-share-status{margin-top:7px;min-height:16px;font-size:11px;color:#2e7a4c}@media(max-width:520px){.pj-simple-share-launch{right:12px;bottom:12px}.pj-simple-share-panel{right:12px;bottom:62px}}@media print{.pj-simple-share-launch,.pj-simple-share-panel{display:none!important}}';
+  document.head.appendChild(style);
+
+  var launch=document.createElement('button');
+  launch.type='button'; launch.id='pj-simple-share-launch'; launch.className='pj-simple-share-launch'; launch.textContent='↗ '+T.open;
+  var panel=document.createElement('div');
+  panel.id='pj-simple-share-panel'; panel.className='pj-simple-share-panel'; panel.setAttribute('aria-hidden','true');
+  panel.innerHTML='<div class="pj-simple-share-head"><strong>'+T.title+'</strong><button type="button" class="pj-simple-share-close" aria-label="'+T.close+'">×</button></div><div class="pj-simple-share-grid"><button type="button" data-s="apps">↗ '+T.apps+'</button><button type="button" data-s="fb">f '+T.fb+'</button><button type="button" data-s="x">𝕏 '+T.x+'</button><button type="button" data-s="wa">◉ '+T.wa+'</button><button type="button" data-s="copy">⧉ '+T.copy+'</button></div><div class="pj-simple-share-note">'+T.note+'</div><div class="pj-simple-share-status" aria-live="polite"></div>';
+  document.body.appendChild(launch); document.body.appendChild(panel);
+  var status=panel.querySelector('.pj-simple-share-status');
+
+  function open(){status.textContent='';panel.classList.add('open');panel.setAttribute('aria-hidden','false');}
+  function close(){panel.classList.remove('open');panel.setAttribute('aria-hidden','true');}
+  launch.addEventListener('click',function(e){e.stopPropagation();panel.classList.contains('open')?close():open();});
+  panel.querySelector('.pj-simple-share-close').addEventListener('click',close);
+  panel.addEventListener('click',function(e){
+    var b=e.target.closest&&e.target.closest('[data-s]'); if(!b)return;
+    var t=b.getAttribute('data-s'),d=shareData(),u=d.url;
+    if(t==='apps'){nativeShare();return;}
+    if(t==='copy'){copyUrl();return;}
+    if(t==='fb'){popup('https://www.facebook.com/sharer/sharer.php?u='+enc(u));return;}
+    if(t==='x'){popup('https://twitter.com/intent/tweet?text='+enc(d.title)+'&url='+enc(u));return;}
+    if(t==='wa'){popup('https://wa.me/?text='+enc(d.title+' — '+d.text+' '+u));return;}
+  });
+  document.addEventListener('click',function(e){if(!panel.contains(e.target)&&e.target!==launch)close();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+
+  window.PJSimpleShare={open:open,close:close,url:canonical};
+})();
+</script>
+<!-- PJ_SIMPLE_SHARE_V2_END -->
 </body>
 </html>
