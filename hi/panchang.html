@@ -436,7 +436,7 @@ html[data-theme="light"] .pj-lang-switch .active{background:#9E2028;color:#fff}
     $('pj-status').className='panchang-status good';
     document.title=`${loc} का पंचांग – ${titleDate} | Parashar Jyotisha`;
     const q=new URLSearchParams({city:ctx.city,date:ctx.date}); history.replaceState(null,'',`${location.pathname}?${q.toString()}`);
-    const share=$('pj-share'); if(share) share.addEventListener('click',shareCurrent);
+    const share=$('pj-share'); if(share) share.addEventListener('click',function(e){ e.stopPropagation(); shareCurrent(); });
   }
   async function shareCurrent(){
     if(window.PJSimpleShare&&typeof window.PJSimpleShare.open==='function'){window.PJSimpleShare.open();return;}
