@@ -160,7 +160,7 @@
           '<button type="button" class="pj-card-action primary" data-card-action="share">↗ ' + L.share + '</button>' +
           '<button type="button" class="pj-card-action" data-card-action="save">⇩ ' + L.save + '</button>' +
           '<button type="button" class="pj-card-action" data-card-action="copy">⧉ ' + L.copy + '</button>' +
-          '<div class="pj-card-hint">Instagram does not accept ordinary website links as image posts from every browser. On mobile, <b>' + L.share + '</b> uses the device share sheet; choose Instagram when offered.</div>' +
+          '<div class="pj-card-hint">' + (isHi ? 'Instagram हर ब्राउज़र से सामान्य वेबसाइट लिंक को चित्र पोस्ट के रूप में स्वीकार नहीं करता। मोबाइल पर <b>' + L.share + '</b> दबाएँ और उपलब्ध होने पर Instagram चुनें।' : 'Instagram does not accept ordinary website links as image posts from every browser. On mobile, <b>' + L.share + '</b> uses the device share sheet; choose Instagram when offered.') + '</div>' +
           '<div class="pj-card-status" role="status" aria-live="polite"></div>' +
           '<div class="pj-card-fresh">✦ ' + L.fresh + '</div>' +
         '</div>' +
@@ -174,7 +174,69 @@
   var currentFormat = "post";
   var lastFocus = null;
 
-  function data() { return window.PJ_PANCHANG_SHARE_DATA || null; }
+  function norm(v) {
+    return String(v || "").replace(/\s+/g, " ").trim().toLowerCase();
+  }
+  function childValue(selector, labelSelectors, valueSelector, names) {
+    var items = document.querySelectorAll(selector);
+    var wanted = names.map(norm);
+    for (var i = 0; i < items.length; i++) {
+      var item = items[i];
+      var label = "";
+      for (var j = 0; j < labelSelectors.length; j++) {
+        var el = item.querySelector(labelSelectors[j]);
+        if (el && el.textContent) { label = norm(el.textContent); break; }
+      }
+      if (wanted.indexOf(label) !== -1) {
+        var value = item.querySelector(valueSelector);
+        return value ? txt(value.textContent) : "—";
+      }
+    }
+    return "—";
+  }
+  function collectData() {
+    var result = document.getElementById("pj-result");
+    if (!result || !result.querySelector(".pj-result-hero h3")) return null;
+
+    var dateEl = result.querySelector(".pj-result-hero h3");
+    var overline = result.querySelector(".pj-result-overline");
+    var cityInput = document.getElementById("pj-city");
+    var dateInput = document.getElementById("pj-date");
+    var city = cityInput ? txt(cityInput.value, "") : "";
+    if (overline && overline.textContent) {
+      var ov = txt(overline.textContent, "");
+      var dot = ov.indexOf("·");
+      if (dot !== -1) city = txt(ov.slice(dot + 1), city);
+    }
+
+    var d = {
+      lang: isHi ? "hi" : "en",
+      city: city || "—",
+      date: txt(dateEl && dateEl.textContent),
+      isoDate: dateInput ? txt(dateInput.value, "") : "",
+      tithi: childValue("#pj-result .pj-limb", [".label"], "strong", ["Tithi","तिथि"]),
+      nakshatra: childValue("#pj-result .pj-limb", [".label"], "strong", ["Nakshatra","नक्षत्र"]),
+      yoga: childValue("#pj-result .pj-limb", [".label"], "strong", ["Yoga","योग"]),
+      karana: childValue("#pj-result .pj-limb", [".label"], "strong", ["Karana","करण"]),
+      vara: childValue("#pj-result .pj-limb", [".label"], "strong", ["Vara","वार"]),
+      paksha: childValue("#pj-result .pj-stat", ["small"], "strong", ["Paksha","पक्ष"]),
+      moonSign: childValue("#pj-result .pj-stat", ["small"], "strong", ["Moon Sign","चंद्र राशि"]),
+      sunSign: childValue("#pj-result .pj-stat", ["small"], "strong", ["Sun Sign","सूर्य राशि"]),
+      sunrise: childValue("#pj-result .pj-time", ["b"], "strong", ["🌅 Sunrise","Sunrise","🌅 सूर्योदय","सूर्योदय"]),
+      sunset: childValue("#pj-result .pj-time", ["b"], "strong", ["🌇 Sunset","Sunset","🌇 सूर्यास्त","सूर्यास्त"]),
+      moonrise: childValue("#pj-result .pj-time", ["b"], "strong", ["🌙 Moonrise","Moonrise","🌙 चंद्रोदय","चंद्रोदय"]),
+      moonset: childValue("#pj-result .pj-time", ["b"], "strong", ["☽ Moonset","Moonset","☽ चंद्रास्त","चंद्रास्त"]),
+      brahma: childValue("#pj-result .pj-time", ["b"], "strong", ["🕉️ Brahma Muhurta","Brahma Muhurta","🕉️ ब्रह्म मुहूर्त","ब्रह्म मुहूर्त"]),
+      abhijit: childValue("#pj-result .pj-time", ["b"], "strong", ["✨ Abhijit Muhurta","Abhijit Muhurta","✨ अभिजित मुहूर्त","अभिजित मुहूर्त"]),
+      rahu: childValue("#pj-result .pj-time", ["b"], "strong", ["⚠️ Rahu Kaal","Rahu Kaal","⚠️ राहु काल","राहु काल"]),
+      gulika: childValue("#pj-result .pj-time", ["b"], "strong", ["♄ Gulika Kaal","Gulika Kaal","♄ गुलिक काल","गुलिक काल"]),
+      yamaganda: childValue("#pj-result .pj-time", ["b"], "strong", ["⛔ Yamaganda","Yamaganda","⛔ यमगण्ड","यमगण्ड"]),
+      disha: childValue("#pj-result .pj-time", ["b"], "strong", ["🧭 Disha Shool","Disha Shool","🧭 दिशा शूल","दिशा शूल"]),
+      url: location.href
+    };
+    return d;
+  }
+  function data() { return collectData(); }
   function setStatus(s, bad) { status.textContent = s || ""; status.style.color = bad ? "#a72d3a" : "#28724b"; }
   function cardUrl(d) { return txt(d && d.url, location.origin + location.pathname); }
   function caption(d) {
@@ -356,6 +418,24 @@
       }
       setStatus(L.copied);
     } catch (_) { setStatus(c, true); }
+  }
+
+  function installTrigger() {
+    var actions = document.querySelector("#pj-result .pj-result-actions");
+    if (!actions || document.getElementById("pj-share-card")) return;
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.id = "pj-share-card";
+    btn.className = "pj-mini-btn";
+    btn.textContent = isHi ? "✨ शेयर कार्ड बनाएँ" : "✨ Create share card";
+    var shareLink = document.getElementById("pj-share");
+    if (shareLink && shareLink.parentNode === actions) actions.insertBefore(btn, shareLink);
+    else actions.insertBefore(btn, actions.firstChild);
+  }
+  installTrigger();
+  var resultHost = document.getElementById("pj-result");
+  if (resultHost && window.MutationObserver) {
+    new MutationObserver(function(){ installTrigger(); }).observe(resultHost, {childList:true, subtree:true});
   }
 
   document.addEventListener("click", function(e){
