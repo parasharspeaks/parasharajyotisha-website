@@ -404,19 +404,12 @@ html[data-theme="light"] .pj-lang-switch .active{background:#9E2028;color:#fff}
       <div class="pj-section-title">Caution & travel windows</div>
       <div class="pj-time-grid">${timeCard('Rahu Kaal',rahu,'Traditionally avoid fresh beginnings','⚠️',true)}${timeCard('Gulika Kaal',gulika,'Read according to purpose/tradition','♄',true)}${timeCard('Yamaganda',yama,'Traditionally used cautiously','⛔',true)}${timeCard('Disha Shool',disha,'Traditional travel-direction caution','🧭',true)}</div>
       <div class="pj-reading-note"><strong>Reading note:</strong> Panchang describes general time quality. For an important personal decision or Muhurta, combine it with the activity, your Kundli/Dasha/Gochar and practical circumstances.</div>
-      <div class="pj-result-actions"><button class="pj-mini-btn" id="pj-share-card" type="button">✨ Create share card</button><button class="pj-mini-btn" id="pj-share" type="button">🔗 Share link</button><a class="pj-mini-btn" href="vedic-panchanga.html">📱 Vedic Panchanga App</a><a class="pj-mini-btn" href="free-kundli.html">📜 Free Kundli</a></div>`;
+      <div class="pj-result-actions"><button class="pj-mini-btn" id="pj-share" type="button">🔗 Share this Panchang</button><a class="pj-mini-btn" href="vedic-panchanga.html">📱 Vedic Panchanga App</a><a class="pj-mini-btn" href="free-kundli.html">📜 Free Kundli</a></div>`;
     $('panchang-live-title').textContent=`Panchang for ${loc} — ${titleDate}`;
     $('pj-status').textContent=`Live Panchang loaded for ${loc}.`;
     $('pj-status').className='panchang-status good';
     document.title=`Panchang for ${loc} – ${titleDate} | Parashar Jyotisha`;
     const q=new URLSearchParams({city:ctx.city,date:ctx.date}); history.replaceState(null,'',`${location.pathname}?${q.toString()}`);
-    window.PJ_PANCHANG_SHARE_DATA={
-      lang:'en',city:loc,date:titleDate,isoDate:shownDate,
-      tithi:text(tithi)||'—',nakshatra:text(nak)||'—',yoga:text(yoga)||'—',karana:text(karana)||'—',vara:text(vara)||'—',
-      paksha,moonSign,sunSign,sunrise:sunrise||'—',sunset:sunset||'—',moonrise:moonrise||'—',moonset:moonset||'—',
-      brahma:brahma||'—',abhijit:abhijit||'—',rahu:rahu||'—',gulika:gulika||'—',yamaganda:yama||'—',disha:disha||'—',
-      url:location.origin+location.pathname+'?'+q.toString()
-    };
     const share=$('pj-share'); if(share) share.addEventListener('click',shareCurrent);
   }
   async function shareCurrent(){
