@@ -413,10 +413,19 @@ html[data-theme="light"] .pj-lang-switch .active{background:#9E2028;color:#fff}
     const share=$('pj-share'); if(share) share.addEventListener('click',function(e){ e.stopPropagation(); shareCurrent(); });
   }
   async function shareCurrent(){
-    if(window.PJSimpleShare&&typeof window.PJSimpleShare.open==='function'){window.PJSimpleShare.open();return;}
-    const url=location.href;
-    try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(url);$('pj-status').textContent='Panchang link copied.';return;}}catch(_){}
-    window.prompt('Copy Panchang link:',url);
+    const q=new URLSearchParams(location.search);
+    const shareUrl=new URL('panchang-share.html',location.href);
+    if(q.get('city')) shareUrl.searchParams.set('city',q.get('city'));
+    if(q.get('date')) shareUrl.searchParams.set('date',q.get('date'));
+    const payload={
+      url:shareUrl.toString(),
+      title:document.title,
+      text:'Daily Vedic Panchang — Tithi, Nakshatra, Yoga, Karana, sunrise, Rahu Kaal and key timings.'
+    };
+    if(window.PJSimpleShare&&typeof window.PJSimpleShare.open==='function'){window.PJSimpleShare.open(payload);return;}
+    try{if(navigator.share){await navigator.share(payload);return;}}catch(e){if(e&&e.name==='AbortError')return;}
+    try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(payload.url);$('pj-status').textContent='Panchang share link copied.';return;}}catch(_){}
+    window.prompt('Copy Panchang share link:',payload.url);
   }
   async function load(){
     const city=$('pj-city').value.trim()||'Delhi'; const date=$('pj-date').value||localIsoDate();
@@ -504,11 +513,11 @@ html[data-theme="light"] .pj-lang-switch .active{background:#9E2028;color:#fff}
     var md=document.querySelector('meta[name="description"]');
     return String((og&&og.content)||(md&&md.content)||document.title||'Parashar Jyotisha').replace(/\s+/g,' ').trim().slice(0,180);
   }
-  function shareData(){return {title:document.title||'Parashar Jyotisha',text:desc(),url:canonical()};}
+  var activeShare=null; function shareData(){var o=activeShare||{};return {title:o.title||document.title||'Parashar Jyotisha',text:o.text||desc(),url:o.url||canonical()};}
   function enc(v){return encodeURIComponent(v);}
   function popup(url){var w=window.open(url,'_blank','noopener,noreferrer'); if(w) try{w.opener=null;}catch(_){} }
   async function copyUrl(){
-    var url=canonical();
+    var url=shareData().url;
     try{
       if(navigator.clipboard && window.isSecureContext){await navigator.clipboard.writeText(url);}
       else{
@@ -537,8 +546,8 @@ html[data-theme="light"] .pj-lang-switch .active{background:#9E2028;color:#fff}
   document.body.appendChild(launch); document.body.appendChild(panel);
   var status=panel.querySelector('.pj-simple-share-status');
 
-  function open(){status.textContent='';panel.classList.add('open');panel.setAttribute('aria-hidden','false');}
-  function close(){panel.classList.remove('open');panel.setAttribute('aria-hidden','true');}
+  function open(opts){activeShare=(opts&&typeof opts==='object')?{url:String(opts.url||''),title:String(opts.title||''),text:String(opts.text||'')}:null;status.textContent='';panel.classList.add('open');panel.setAttribute('aria-hidden','false');}
+  function close(){panel.classList.remove('open');panel.setAttribute('aria-hidden','true');activeShare=null;}
   launch.addEventListener('click',function(e){e.stopPropagation();panel.classList.contains('open')?close():open();});
   panel.querySelector('.pj-simple-share-close').addEventListener('click',close);
   panel.addEventListener('click',function(e){
