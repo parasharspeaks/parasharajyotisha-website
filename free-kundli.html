@@ -18,6 +18,7 @@
 <meta property="og:description" content="Choose a quick Kundli without signup, or use a free My Kundli account to save charts and generate official PDF reports.">
 <meta property="og:url" content="https://parasharajyotisha.com/free-kundli.html">
 <meta property="og:image" content="https://parasharajyotisha.com/assets/images/hero-chandra.webp">
+<meta property="og:image:alt" content="Vedic birth chart and Moon illustration — Parashar Jyotisha Free Kundli">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Free Kundli Online – Vedic Birth Chart & My Kundli Account">
 <meta name="twitter:description" content="View your Kundli without signup, or use My Kundli to save charts and generate official PDF reports.">
@@ -91,7 +92,8 @@ a{text-decoration:none;color:inherit}.wrap{width:min(1120px,calc(100% - 40px));m
 .method-card{margin-top:26px;padding:24px;border-radius:20px;background:var(--surface);border:1px solid var(--line)}.method-card h3{font-family:var(--serif);font-size:1.6rem;color:var(--text)}.note{margin-top:20px;padding:17px 18px;border-left:3px solid var(--gold);background:color-mix(in srgb,var(--gold) 7%,var(--surface));border-radius:0 14px 14px 0;color:var(--text)}
 .related{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}.related a{display:block;padding:18px;border:1px solid var(--line);border-radius:16px;background:var(--surface);color:var(--text);font-weight:700}.related small{display:block;color:var(--muted);font-weight:400;margin-top:5px;line-height:1.45}
 .faq{display:grid;gap:12px;margin-top:24px}.faq article{padding:19px 20px;border:1px solid var(--line);border-radius:16px;background:var(--surface)}.faq h3{font-size:1rem;color:var(--text);margin-bottom:5px}.footer{padding:42px 0;font-size:.84rem}.footrow{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}.footlinks{display:flex;gap:14px;flex-wrap:wrap}.footlinks a:hover{color:var(--red)}
-@media(max-width:900px){.choice-grid,.grid3,.steps,.related{grid-template-columns:1fr}.compare{display:block;overflow-x:auto}.navlinks a:not(.navcta){display:none}.hero{padding:52px 0}.choice-shell{padding:16px}.wrap{width:min(100% - 28px,1120px)}}
+.tool-embed-shell{margin-top:24px;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:var(--surface)}.tool-embed{display:block;width:100%;height:760px;border:0;background:var(--surface)}.embed-fallback{font-size:.82rem;color:var(--muted);margin-top:12px}.calculator-shell{padding:32px;border:1px solid var(--line);border-radius:26px;background:var(--surface);box-shadow:var(--shadow)}
+@media(max-width:900px){.choice-grid,.grid3,.steps,.related{grid-template-columns:1fr}.compare{display:block;overflow-x:auto}.navlinks a:not(.navcta){display:none}.hero{padding:52px 0}.choice-shell{padding:16px}.wrap{width:min(100% - 28px,1120px)}.calculator-shell{padding:18px}.tool-embed-shell{margin-inline:-8px;border-radius:16px}}
 @media(max-width:560px){.hero h1{font-size:3rem}.actions .btn{width:100%}.theme-btn{padding:.46rem .62rem}.choice-card{padding:21px}.section{padding:54px 0}}
 </style>
 </head>
@@ -153,7 +155,7 @@ a{text-decoration:none;color:inherit}.wrap{width:min(1120px,calc(100% - 40px));m
             <li class="no">The birth profile is not saved to your private dashboard</li>
             <li class="no">Official dashboard PDF reports are not generated here</li>
           </ul>
-          <div class="actions"><a class="btn primary" href="tools.html#kundli">View Kundli without account →</a></div>
+          <div class="actions"><a class="btn primary" href="#quick-calculator">View Kundli without account →</a></div>
           <p class="micro">Choose this for a quick calculation or one-time viewing.</p>
         </article>
 
@@ -186,6 +188,16 @@ a{text-decoration:none;color:inherit}.wrap{width:min(1120px,calc(100% - 40px));m
         <tr><td>Password reset / private account controls</td><td class="limited">Not needed</td><td class="yes">Yes</td></tr>
       </tbody>
     </table>
+  </div>
+</section>
+
+<section class="section" id="quick-calculator">
+  <div class="wrap calculator-shell">
+    <div class="kicker">Quick Kundli Calculator</div>
+    <h2>Generate and read your Kundli on this page</h2>
+    <p>Enter only the birth details needed for the calculation. No account is required unless you choose to save a profile or generate an official PDF.</p>
+    <div class="tool-embed-shell"><iframe class="tool-embed" data-pj-tool-embed src="tools.html?embed=kundli#kundli" title="Free Vedic Kundli calculator" loading="eager"></iframe></div>
+    <p class="embed-fallback">If the embedded calculator does not load, <a href="tools.html#kundli">open Quick Kundli in the full tools page</a>.</p>
   </div>
 </section>
 
@@ -263,6 +275,7 @@ a{text-decoration:none;color:inherit}.wrap{width:min(1120px,calc(100% - 40px));m
   </div>
 </section>
 </main>
+<script src="assets/images/tool-embed.js" defer></script>
 
 <footer class="footer">
   <div class="wrap footrow">
@@ -290,7 +303,7 @@ a{text-decoration:none;color:inherit}.wrap{width:min(1120px,calc(100% - 40px));m
   });
 })();
 </script>
-<script src="assets/i18n/language-preference.js" defer></script>
+<script src="assets/images/i18n/language-preference.js" defer></script>
 <!-- PJ_SIMPLE_SHARE_V2_START -->
 <script>
 (function(){
