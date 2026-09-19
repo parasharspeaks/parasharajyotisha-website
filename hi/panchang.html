@@ -395,8 +395,10 @@ html[data-theme="light"] .pj-lang-switch .active{background:#9E2028;color:#fff}
   function render(data,ctx){
     const p=data.panchanga||data.panchang||data.daily_panchanga||data;
     const timings=data.sun_moon||data.timings||data.times||p;
-    const bad=data.inauspicious||data.ashubh||data.caution||p;
-    const good=data.auspicious||data.shubh||data.muhurta||p;
+    const bad=data.inauspicious_periods||data.inauspicious||data.ashubh||data.caution||p;
+    const good=data.auspicious_periods||data.auspicious||data.shubh||data.muhurta||p;
+    const planets=Array.isArray(data.planet_positions)?data.planet_positions:[];
+    const planetSign=(name)=>text(planets.find(x=>String(x.planet||x.name||'').toLowerCase()===name.toLowerCase())?.rashi);
     const loc=locationText(data.location_used||data.location||data.city,ctx.city);
     const apiDate = pickText(data,['date_iso','iso_date','gregorian_date','local_date','date']) || pickText(p,['date_iso','iso_date','gregorian_date','local_date','date']) || ctx.date;
     const shownDate = /^\d{4}-\d{2}-\d{2}$/.test(apiDate) ? apiDate : ctx.date;
@@ -404,11 +406,12 @@ html[data-theme="light"] .pj-lang-switch .active{background:#9E2028;color:#fff}
     const tithi=pick(p,['tithi','tithi_at_sunrise','tithi_name']);
     const nak=pick(p,['nakshatra','nakshatra_at_sunrise']);
     const yoga=pick(p,['yoga','yoga_at_sunrise']);
-    const karana=pick(p,['karana','karana_at_sunrise','karanas']);
+    const karanaRaw=pick(p,['karana','karana_at_sunrise','karanas']);
+    const karana=(karanaRaw&&typeof karanaRaw==='object'&&!Array.isArray(karanaRaw))?(karanaRaw.first||karanaRaw.current||karanaRaw):karanaRaw;
     const vara=pick(p,['vaara','vara','weekday']);
-    const pakshaRaw=pickText(p,['paksha']); const paksha=localPaksha(pakshaRaw)||pakshaRaw||'—';
-    const moonRaw=pickText(p,['moon_sign','chandra_rashi','moon_rashi']); const moonSign=localMap(moonRaw,HI.rashis)||moonRaw||'—';
-    const sunRaw=pickText(p,['sun_sign','surya_rashi','sun_rashi']); const sunSign=localMap(sunRaw,HI.rashis)||sunRaw||'—';
+    const pakshaRaw=pickText(data,['paksha'])||pickText(p,['paksha','tithi.paksha']); const paksha=localPaksha(pakshaRaw)||pakshaRaw||'—';
+    const moonRaw=pickText(p,['moon_sign','chandra_rashi','moon_rashi'])||planetSign('Moon'); const moonSign=localMap(moonRaw,HI.rashis)||moonRaw||'—';
+    const sunRaw=pickText(p,['sun_sign','surya_rashi','sun_rashi'])||planetSign('Sun'); const sunSign=localMap(sunRaw,HI.rashis)||sunRaw||'—';
     const sunrise=cleanTime(pick(timings,['sunrise','sunrise_time']));
     const sunset=cleanTime(pick(timings,['sunset','sunset_time']));
     const moonrise=cleanTime(pick(timings,['moonrise','moonrise_time']));
@@ -416,7 +419,7 @@ html[data-theme="light"] .pj-lang-switch .active{background:#9E2028;color:#fff}
     const brahma=range(pick(good,['brahma_muhurat','brahma_muhurta'])) || range(pick(p,['brahma_muhurat','brahma_muhurta']));
     const abhijit=range(pick(good,['abhijeet_muhurat','abhijit_muhurta','abhijit_muhurat'])) || range(pick(p,['abhijeet_muhurat','abhijit_muhurta','abhijit_muhurat']));
     const rahu=range(pick(bad,['rahu_kalam','rahu_kaal','rahukalam'])) || range(pick(p,['rahu_kalam','rahu_kaal']));
-    const gulika=range(pick(bad,['gulika_kalam','gulika_kaal','gulikakalam'])) || range(pick(p,['gulika_kalam','gulika_kaal']));
+    const gulika=range(pick(bad,['gulikai_kalam','gulika_kalam','gulika_kaal','gulikakalam'])) || range(pick(p,['gulikai_kalam','gulika_kalam','gulika_kaal']));
     const yama=range(pick(bad,['yamaganda','yamagandam'])) || range(pick(p,['yamaganda','yamagandam']));
     const dishaRaw=pickText(p,['disha_shool','disha_shula']) || pickText(bad,['disha_shool','disha_shula']); const disha=localDirection(dishaRaw);
     const stat = (l,v,s) => `<div class="pj-stat"><small>${esc(l)}</small><strong>${esc(v||'—')}</strong><span style="font-size:.67rem;color:var(--dim)">${esc(s)}</span></div>`;

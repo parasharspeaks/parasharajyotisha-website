@@ -3774,8 +3774,8 @@ async function loadPanchang(city){
     const data = json.data || json;
     const p = data.panchanga || data.panchang || data;
     const sun = data.sun_moon || data.timings || data.sun || p;
-    const bad = data.inauspicious || data.caution || p;
-    const good = data.auspicious || data.muhurta || p;
+    const bad = data.inauspicious_periods || data.inauspicious || data.caution || p;
+    const good = data.auspicious_periods || data.auspicious || data.muhurta || p;
 
     const dateText = pDisplayDateFromApiData(data);
     const apiWeekday = pWeekdayFromApiData(data);
@@ -3786,7 +3786,9 @@ async function loadPanchang(city){
     updateLimb('limb-tithi','Tithi', pPick(p,['tithi','tithi_at_sunrise']), 'चंद्र तिथि');
     updateLimb('limb-nakshatra','Nakshatra', pPick(p,['nakshatra','nakshatra_at_sunrise']), 'चंद्र नक्षत्र');
     updateLimb('limb-yoga','Yoga', pPick(p,['yoga','yoga_at_sunrise']), 'सूर्य–चंद्र योग');
-    updateLimb('limb-karana','Karana', pPick(p,['karana','karana_at_sunrise','karanas']), 'अर्ध-तिथि की गुणवत्ता');
+    const karanaRaw=pPick(p,['karana','karana_at_sunrise','karanas']);
+    const karana=(karanaRaw&&typeof karanaRaw==='object'&&!Array.isArray(karanaRaw))?(karanaRaw.first||karanaRaw.current||karanaRaw):karanaRaw;
+    updateLimb('limb-karana','Karana', karana, 'अर्ध-तिथि की गुणवत्ता');
     // Vara must match the displayed civil date. Some API responses may contain a stale/alternate `vaara` field,
     // so we calculate weekday from the returned date first, then fall back to API weekday text.
     updateLimb('limb-vara','Vara', apiWeekday ? HI_WEEKDAYS[apiWeekday.index] : pPick(p,['vaara','vara','weekday']), 'वार का स्वामी');
@@ -3798,7 +3800,7 @@ async function loadPanchang(city){
     document.getElementById('pe-rahu').textContent = pRange(bad.rahu_kalam || bad.rahu_kaal || p.rahu_kalam) || pText(bad.rahu_kalam || p.rahu_kalam) || '—';
     document.getElementById('pe-disha').textContent = pText(p.disha_shool || p.disha_shula || bad.disha_shool) || '—';
     document.getElementById('pe-abhijit').textContent = pRange(good.abhijeet_muhurat || good.abhijit_muhurta || p.abhijeet_muhurat || p.abhijit_muhurta) || pText(p.abhijeet_muhurat || p.abhijit_muhurta) || '—';
-    document.getElementById('pe-brahma').textContent = pRange(good.brahma_muhurat || p.brahma_muhurat) || pText(p.brahma_muhurat) || '—';
+    document.getElementById('pe-brahma').textContent = pRange(good.brahma_muhurta || good.brahma_muhurat || p.brahma_muhurta || p.brahma_muhurat) || pText(p.brahma_muhurta || p.brahma_muhurat) || '—';
 
     const mood = pMood(p);
     document.getElementById('panchangMoodTitle').textContent = mood.title;
