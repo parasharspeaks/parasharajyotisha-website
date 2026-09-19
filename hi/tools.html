@@ -83,9 +83,10 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
 .tool-nav{position:sticky;top:56px;z-index:90;background:rgba(10,10,15,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--line);padding:.6rem 1rem;overflow-x:auto;-webkit-overflow-scrolling:touch;}
 .tool-nav::-webkit-scrollbar{display:none;}
 .tool-nav-inner{display:flex;justify-content:center;gap:.35rem;max-width:900px;margin:0 auto;min-width:max-content;}
-.tool-tab{padding:.55rem 1.1rem;border-radius:100px;font-size:.78rem;font-weight:600;cursor:pointer;border:1px solid transparent;background:transparent;color:var(--text-dim);transition:all .3s var(--ease);white-space:nowrap;display:flex;align-items:center;gap:.35rem;}
+.tool-tab{padding:.55rem 1.1rem;border-radius:100px;font:600 .78rem var(--font-sans);cursor:pointer;border:1px solid transparent;background:transparent;color:var(--text-dim);transition:all .3s var(--ease);white-space:nowrap;display:flex;align-items:center;gap:.35rem;}
 .tool-tab.active{background:linear-gradient(135deg,var(--ember),#B85A2A);color:white;border-color:rgba(212,116,62,.3);box-shadow:0 2px 16px rgba(212,116,62,.2);}
 .tool-tab:not(.active):hover{color:var(--text-bright);background:var(--glass-hover);border-color:var(--line);}
+.tool-tab:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
 .tool-tab .badge{font-size:.58rem;padding:.1rem .35rem;border-radius:4px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;line-height:1;}
 .badge-free{background:rgba(107,155,125,.2);color:var(--sage-light);}
 .badge-live{background:rgba(212,116,62,.2);color:var(--ember-glow);}
@@ -828,6 +829,10 @@ html[data-theme="light"] .pj-engage-card{background:rgba(255,255,255,.68)!import
 html[data-theme="light"] .pj-float-connect a,html[data-theme="light"] .pj-float-connect button{background:rgba(255,249,239,.94)!important;color:#9E2028!important;border-color:rgba(92,58,38,.16)!important;box-shadow:0 10px 28px rgba(91,56,33,.10)!important;}
 html[data-theme="light"] .pj-lang-switch{background:rgba(255,255,255,.58)!important;}
 html[data-theme="light"] .pj-lang-switch a:hover{background:rgba(158,32,40,.06)!important;color:#9E2028!important;}
+html.pj-embed .nav,html.pj-embed .tools-hero,html.pj-embed .tool-nav,html.pj-embed .mini-footer,html.pj-embed .pj-engage-section,html.pj-embed footer,html.pj-embed .wa-float,html.pj-embed .pj-float-connect,html.pj-embed .pj-share-launch,html.pj-embed .pj-share-backdrop{display:none!important}
+html.pj-embed body{background:transparent;min-height:0}
+html.pj-embed .tool-panel{padding-top:12px;padding-bottom:12px}
+html.pj-embed .tool-panel.active{animation:none}
 </style>
 
 
@@ -845,6 +850,9 @@ html[data-theme="light"] .pj-lang-switch a:hover{background:rgba(158,32,40,.06)!
 <meta property="og:image" content="https://parasharajyotisha.com/assets/images/hero-chandra.webp">
 <meta property="og:image:alt" content="Parashar Jyotisha — Vedic astrology and Panchanga">
 <meta name="twitter:image" content="https://parasharajyotisha.com/assets/images/hero-chandra.webp">
+<link rel="preconnect" href="https://vedic-horoscope-api-production.up.railway.app" crossorigin>
+<link rel="dns-prefetch" href="//vedic-horoscope-api-production.up.railway.app">
+<script>if(new URLSearchParams(location.search).has('embed'))document.documentElement.classList.add('pj-embed');</script>
 </head>
 <body>
 
@@ -870,13 +878,13 @@ html[data-theme="light"] .pj-lang-switch a:hover{background:rgba(158,32,40,.06)!
 
 <!-- STICKY TOOL NAV -->
 <div class="tool-nav">
-  <div class="tool-nav-inner">
-    <div class="tool-tab active" onclick="switchTab('kundli',this)">📜 कुंडली <span class="badge badge-free">निःशुल्क</span></div>
-    <div class="tool-tab" onclick="switchTab('matching',this)">💑 मिलान <span class="badge badge-free">निःशुल्क</span></div>
-    <div class="tool-tab" onclick="switchTab('numerology',this)">🔢 अंक ज्योतिष <span class="badge badge-free">निःशुल्क</span></div>
-    <div class="tool-tab" onclick="switchTab('transits',this)">🪐 गोचर <span class="badge badge-live">लाइव</span></div>
-    <div class="tool-tab" onclick="switchTab('sadesati',this)">⚠️ साढ़ेसाती</div>
-    <div class="tool-tab" onclick="switchTab('panchang',this)">📅 पंचांग <span class="badge badge-live">दैनिक</span></div>
+  <div class="tool-nav-inner" role="tablist" aria-label="वैदिक ज्योतिष टूल">
+    <button type="button" class="tool-tab active" role="tab" aria-selected="true" aria-controls="panel-kundli" onclick="switchTab('kundli',this)">📜 कुंडली <span class="badge badge-free">निःशुल्क</span></button>
+    <button type="button" class="tool-tab" role="tab" aria-selected="false" aria-controls="panel-matching" onclick="switchTab('matching',this)">💑 मिलान <span class="badge badge-free">निःशुल्क</span></button>
+    <button type="button" class="tool-tab" role="tab" aria-selected="false" aria-controls="panel-numerology" onclick="switchTab('numerology',this)">🔢 अंक ज्योतिष <span class="badge badge-free">निःशुल्क</span></button>
+    <button type="button" class="tool-tab" role="tab" aria-selected="false" aria-controls="panel-transits" onclick="switchTab('transits',this)">🪐 गोचर <span class="badge badge-live">लाइव</span></button>
+    <button type="button" class="tool-tab" role="tab" aria-selected="false" aria-controls="panel-sadesati" onclick="switchTab('sadesati',this)">⚠️ साढ़ेसाती</button>
+    <button type="button" class="tool-tab" role="tab" aria-selected="false" aria-controls="panel-panchang" onclick="switchTab('panchang',this)">📅 पंचांग <span class="badge badge-live">दैनिक</span></button>
   </div>
 </div>
 
@@ -919,19 +927,19 @@ html[data-theme="light"] .pj-lang-switch a:hover{background:rgba(158,32,40,.06)!
      ════════════════════════════════════════════════ -->
 <div class="tool-panel" id="panel-matching">
   <div class="fcard" id="fc-matching" style="--panel-art:url('../assets/images/krishna-govardhan.webp')">
-    <div class="loader" id="ld-matching"><div class="spinner"></div><div class="load-text">Comparing celestial harmonies...</div></div>
-    <div class="fcard-title">💑 Free Kundli Matching</div>
-    <div class="fcard-sub">Two ways to match: Quick Match gives the same core Ashtakoot score from Moon Rashi–Nakshatra; Full Match adds birth-chart verification, Mangal Dosha, critical issues and next-step marriage guidance.</div>
+    <div class="loader" id="ld-matching"><div class="spinner"></div><div class="load-text">कुंडलियों का मिलान किया जा रहा है…</div></div>
+    <div class="fcard-title">💑 निःशुल्क कुंडली मिलान</div>
+    <div class="fcard-sub">त्वरित मिलान चंद्र राशि और नक्षत्र से मूल अष्टकूट स्कोर देता है। पूर्ण मिलान जन्म विवरण से चंद्र स्थिति की पुष्टि करके मंगल दोष और अन्य महत्वपूर्ण संकेत जोड़ता है।</div>
 
     <div class="match-mode-tabs" role="tablist" aria-label="Kundli matching mode">
-      <button type="button" class="match-mode-tab active" id="match-tab-quick" onclick="switchMatchingMode('quick')">⚡ Quick Match <span class="badge badge-free">Free</span></button>
-      <button type="button" class="match-mode-tab" id="match-tab-full" onclick="switchMatchingMode('full')">🔮 Full Match</button>
+      <button type="button" class="match-mode-tab active" id="match-tab-quick" onclick="switchMatchingMode('quick')">⚡ त्वरित मिलान <span class="badge badge-free">निःशुल्क</span></button>
+      <button type="button" class="match-mode-tab" id="match-tab-full" onclick="switchMatchingMode('full')">🔮 पूर्ण मिलान</button>
     </div>
 
     <div class="match-guide-grid">
-      <div class="match-guide"><b>Quick = first filter</b><span>Use Rashi and Nakshatra only. Good when exact birth time is unknown.</span></div>
-      <div class="match-guide"><b>Full = safer decision</b><span>Uses birth details to calculate Moon data and checks Mangal / critical issues.</span></div>
-      <div class="match-guide"><b>Final = expert reading</b><span>Add Lagna, 7th house, Navamsa, Dasha timing and practical family factors.</span></div>
+      <div class="match-guide"><b>त्वरित = प्रारंभिक जाँच</b><span>केवल राशि और नक्षत्र। सही जन्म समय ज्ञात न हो तो उपयोगी।</span></div>
+      <div class="match-guide"><b>पूर्ण = अधिक सुरक्षित समीक्षा</b><span>जन्म विवरण से चंद्र स्थिति, मंगल और महत्वपूर्ण विषयों की जाँच।</span></div>
+      <div class="match-guide"><b>अंतिम = विशेषज्ञ समीक्षा</b><span>लग्न, सप्तम भाव, नवांश, दशा और व्यावहारिक पारिवारिक पक्ष भी देखें।</span></div>
     </div>
 
     <div class="match-error" id="match-error"></div>
@@ -940,43 +948,43 @@ html[data-theme="light"] .pj-lang-switch a:hover{background:rgba(158,32,40,.06)!
       <form onsubmit="genQuickMatching(event)">
         <div class="match-person-grid">
           <div class="match-person">
-            <div class="match-person-title">☉ Boy / Var</div>
-            <div class="fg"><label class="fl">Name optional</label><input class="fi" id="mq-bn" placeholder="Boy"></div>
-            <div class="fg"><label class="fl">Boy's Rashi</label><select class="fsel" id="mq-br" required></select></div>
-            <div class="fg"><label class="fl">Boy's Nakshatra</label><select class="fsel" id="mq-bnaks" required></select></div>
+            <div class="match-person-title">☉ वर</div>
+            <div class="fg"><label class="fl">नाम (वैकल्पिक)</label><input class="fi" id="mq-bn" placeholder="वर"></div>
+            <div class="fg"><label class="fl">वर की राशि</label><select class="fsel" id="mq-br" required></select></div>
+            <div class="fg"><label class="fl">वर का नक्षत्र</label><select class="fsel" id="mq-bnaks" required></select></div>
           </div>
           <div class="match-heart">💕</div>
           <div class="match-person">
-            <div class="match-person-title">☽ Girl / Kanya</div>
-            <div class="fg"><label class="fl">Name optional</label><input class="fi" id="mq-gn" placeholder="Girl"></div>
-            <div class="fg"><label class="fl">Girl's Rashi</label><select class="fsel" id="mq-gr" required></select></div>
-            <div class="fg"><label class="fl">Girl's Nakshatra</label><select class="fsel" id="mq-gnaks" required></select></div>
+            <div class="match-person-title">☽ कन्या</div>
+            <div class="fg"><label class="fl">नाम (वैकल्पिक)</label><input class="fi" id="mq-gn" placeholder="कन्या"></div>
+            <div class="fg"><label class="fl">कन्या की राशि</label><select class="fsel" id="mq-gr" required></select></div>
+            <div class="fg"><label class="fl">कन्या का नक्षत्र</label><select class="fsel" id="mq-gnaks" required></select></div>
           </div>
         </div>
-        <button class="fbtn" type="submit" id="mq-btn">⚡ Check Free Compatibility</button>
-        <div class="match-mini-note"><strong>Quick Match:</strong> this is the free Moon Rashi + Nakshatra screening. It may give the same 36-point score as Full Match when the same Moon data is used. It does not verify Mangal Dosha, Navamsa or Dasha.</div>
+        <button class="fbtn" type="submit" id="mq-btn">⚡ निःशुल्क मिलान देखें</button>
+        <div class="match-mini-note"><strong>त्वरित मिलान:</strong> यह चंद्र राशि और नक्षत्र पर आधारित प्रारंभिक जाँच है। यह मंगल दोष, नवांश या दशा की पुष्टि नहीं करता।</div>
       </form>
     </div>
 
     <div class="match-mode-panel" id="match-panel-full">
       <form onsubmit="genFullMatching(event)">
-        <div class="fsec">☉ Boy's Details</div>
-        <div class="fg"><label class="fl">Name</label><input class="fi" id="m-bn" placeholder="Boy's name" required></div>
+        <div class="fsec">☉ वर का विवरण</div>
+        <div class="fg"><label class="fl">नाम</label><input class="fi" id="m-bn" placeholder="वर का नाम" required></div>
         <div class="frow3">
-          <div class="fg"><label class="fl">Date of Birth</label><input class="fi" type="date" id="m-bd" required></div>
-          <div class="fg"><label class="fl">Time of Birth</label><input class="fi" type="time" id="m-bt" required></div>
-          <div class="fg"><label class="fl">Place of Birth</label><input class="fi" id="m-bc" placeholder="City" required></div>
+          <div class="fg"><label class="fl">जन्म तिथि</label><input class="fi" type="date" id="m-bd" required></div>
+          <div class="fg"><label class="fl">जन्म समय</label><input class="fi" type="time" id="m-bt" required></div>
+          <div class="fg"><label class="fl">जन्म स्थान</label><input class="fi" id="m-bc" placeholder="शहर" required></div>
         </div>
         <div class="sdiv">✦ ✦ ✦</div>
-        <div class="fsec">☽ Girl's Details</div>
-        <div class="fg"><label class="fl">Name</label><input class="fi" id="m-gn" placeholder="Girl's name" required></div>
+        <div class="fsec">☽ कन्या का विवरण</div>
+        <div class="fg"><label class="fl">नाम</label><input class="fi" id="m-gn" placeholder="कन्या का नाम" required></div>
         <div class="frow3">
-          <div class="fg"><label class="fl">Date of Birth</label><input class="fi" type="date" id="m-gd" required></div>
-          <div class="fg"><label class="fl">Time of Birth</label><input class="fi" type="time" id="m-gt" required></div>
-          <div class="fg"><label class="fl">Place of Birth</label><input class="fi" id="m-gc" placeholder="City" required></div>
+          <div class="fg"><label class="fl">जन्म तिथि</label><input class="fi" type="date" id="m-gd" required></div>
+          <div class="fg"><label class="fl">जन्म समय</label><input class="fi" type="time" id="m-gt" required></div>
+          <div class="fg"><label class="fl">जन्म स्थान</label><input class="fi" id="m-gc" placeholder="शहर" required></div>
         </div>
-        <button class="fbtn" type="submit" id="m-btn">💑 Match Kundlis</button>
-        <div class="match-mini-note"><strong>Full Match:</strong> birth details calculate the Moon Rashi/Nakshatra automatically and add extra checks such as Mangal Dosha, Bhakoot/Nadi issues and detailed guidance. The Ashtakoot score can still match Quick Match because its core is Moon-based.</div>
+        <button class="fbtn" type="submit" id="m-btn">💑 कुंडली मिलान करें</button>
+        <div class="match-mini-note"><strong>पूर्ण मिलान:</strong> जन्म विवरण से चंद्र राशि और नक्षत्र स्वतः निकाले जाते हैं तथा मंगल दोष, भकूट और नाड़ी जैसे विषय जोड़े जाते हैं। मूल अष्टकूट स्कोर चंद्र-आधारित होने के कारण त्वरित मिलान के समान हो सकता है।</div>
       </form>
     </div>
   </div>
@@ -1063,16 +1071,16 @@ html[data-theme="light"] .pj-lang-switch a:hover{background:rgba(158,32,40,.06)!
      ════════════════════════════════════════════════ -->
 <div class="tool-panel" id="panel-sadesati">
   <div class="fcard" id="fc-sadesati" style="--panel-art:url('../assets/images/saturn-transit.webp')">
-    <div class="loader" id="ld-sadesati"><div class="spinner"></div><div class="load-text">Checking Saturn's influence...</div></div>
-    <div class="fcard-title">⚠️ Sade Sati Check</div>
-    <div class="fcard-sub">Is Saturn's 7.5 year transit affecting you? Enter your birth details to check your Sade Sati status and phase.</div>
+    <div class="loader" id="ld-sadesati"><div class="spinner"></div><div class="load-text">शनि के गोचर की जाँच की जा रही है…</div></div>
+    <div class="fcard-title">⚠️ साढ़ेसाती जाँच</div>
+    <div class="fcard-sub">जन्म विवरण भरकर देखें कि शनि की साढ़ेसाती सक्रिय है या नहीं और वर्तमान चरण कौन-सा है।</div>
     <form onsubmit="genSadeSati(event)">
       <div class="frow">
-        <div class="fg"><label class="fl">Date of Birth</label><input class="fi" type="date" id="s-dob" required></div>
-        <div class="fg"><label class="fl">Time of Birth</label><input class="fi" type="time" id="s-tob" required></div>
+        <div class="fg"><label class="fl">जन्म तिथि</label><input class="fi" type="date" id="s-dob" required></div>
+        <div class="fg"><label class="fl">जन्म समय</label><input class="fi" type="time" id="s-tob" required></div>
       </div>
-      <div class="fg"><label class="fl">Place of Birth</label><input class="fi" id="s-city" placeholder="City" required></div>
-      <button class="fbtn" type="submit" id="s-btn">⚠️ Check Sade Sati</button>
+      <div class="fg"><label class="fl">जन्म स्थान</label><input class="fi" id="s-city" placeholder="शहर" required></div>
+      <button class="fbtn" type="submit" id="s-btn">⚠️ साढ़ेसाती देखें</button>
     </form>
   </div>
   <div class="results" id="res-sadesati"></div>
@@ -1083,16 +1091,16 @@ html[data-theme="light"] .pj-lang-switch a:hover{background:rgba(158,32,40,.06)!
      ════════════════════════════════════════════════ -->
 <div class="tool-panel" id="panel-panchang">
   <div class="fcard" id="fc-panchang" style="--panel-art:url('../assets/images/surya-panchang.webp')">
-    <div class="loader" id="ld-panchang"><div class="spinner"></div><div class="load-text">Reading today's cosmic weather...</div></div>
-    <div class="fcard-title">📅 Daily Panchang</div>
-    <div class="fcard-sub">A clearer daily cosmic weather report: five Panchang limbs, sunrise/sunset, Moon timing, Rahu Kaal, Gulika, Yamaganda and simple guidance for the day.</div>
+    <div class="loader" id="ld-panchang"><div class="spinner"></div><div class="load-text">आज का पंचांग तैयार किया जा रहा है…</div></div>
+    <div class="fcard-title">📅 दैनिक पंचांग</div>
+    <div class="fcard-sub">पंचांग के पाँच अंग, सूर्योदय-सूर्यास्त, चंद्र समय, राहु काल, गुलिक, यमगण्ड और दिन के लिए सरल मार्गदर्शन देखें।</div>
     <form onsubmit="genPanchang(event)">
       <div class="frow">
-        <div class="fg"><label class="fl">Date</label><input class="fi" type="date" id="p-date"></div>
-        <div class="fg"><label class="fl">City</label><input class="fi" id="p-city" value="Delhi" required></div>
+        <div class="fg"><label class="fl">तिथि</label><input class="fi" type="date" id="p-date"></div>
+        <div class="fg"><label class="fl">शहर</label><input class="fi" id="p-city" value="Delhi" required></div>
       </div>
-      <button class="fbtn" type="submit" id="p-btn">📅 Show Daily Panchang</button>
-      <div class="match-mini-note"><strong>Use Panchang like weather:</strong> first see Tithi/Nakshatra/Yoga, then avoid Rahu Kaal for important beginnings, and use auspicious windows when available.</div>
+      <button class="fbtn" type="submit" id="p-btn">📅 दैनिक पंचांग देखें</button>
+      <div class="match-mini-note"><strong>पंचांग को समय-मौसम की तरह पढ़ें:</strong> पहले तिथि, नक्षत्र और योग देखें; महत्वपूर्ण आरम्भ में राहु काल से बचें और उपलब्ध शुभ समय का उपयोग करें।</div>
     </form>
   </div>
   <div class="results" id="res-panchang"></div>
@@ -1106,7 +1114,7 @@ html[data-theme="light"] .pj-lang-switch a:hover{background:rgba(158,32,40,.06)!
 </div>
 
 <!-- WhatsApp -->
-<a href="mailto:su03may@gmail.com?subject=Parashar%20Jyotisha%20Consultation" class="wa-float" title="Email support">✉️</a>
+<a href="mailto:support@parasharajyotisha.com?subject=Parashar%20Jyotisha%20Consultation" class="wa-float" title="Email support">✉️</a>
 
 <script>
 // ═══════════════════════════════════════════════════
@@ -1157,7 +1165,15 @@ const PJ_HI_EXACT = {
   'Beneficial Yogas':'शुभ योग','Findings':'निष्कर्ष','Periods':'अवधियाँ','Note:':'नोट:','Tip:':'सुझाव:','Remedy:':'उपाय:',
   'Ashtakavarga':'अष्टकवर्ग','Shadbala':'षड्बल','Gochar':'गोचर','Current Gochar':'वर्तमान गोचर','Remedies / Upaya Guidance':'उपाय मार्गदर्शन',
   'Daily':'दैनिक','Weekly':'साप्ताहिक','Timing':'समय','Gemstones':'रत्न','Back':'वापस','View sub-periods →':'उप-दशाएँ देखें →',
-  'Book Personal Reading →':'व्यक्तिगत परामर्श →','Free':'निःशुल्क','Live':'लाइव'
+  'Book Personal Reading →':'व्यक्तिगत परामर्श →','Free':'निःशुल्क','Live':'लाइव',
+  'Kundli Matching Result':'कुंडली मिलान परिणाम','Free Quick Screening':'निःशुल्क त्वरित जाँच','Ashtakoot Gun Milan':'अष्टकूट गुण मिलान',
+  'Good':'अच्छा','GOOD':'अच्छा','Average':'औसत','AVERAGE':'औसत','Low':'कम','LOW':'कम','Manual review':'व्यक्तिगत समीक्षा','MANUAL REVIEW':'व्यक्तिगत समीक्षा','Important':'महत्वपूर्ण','IMPORTANT':'महत्वपूर्ण','Review':'समीक्षा','REVIEW':'समीक्षा',
+  'out of 36':'36 में से','Quick Match API':'त्वरित मिलान API','Boy / Var':'वर','Girl / Kanya':'कन्या','Selected manually':'स्वयं चुना गया',
+  'Score reading':'स्कोर का अर्थ','Quick vs Full':'त्वरित और पूर्ण','Final decision':'अंतिम निर्णय','8 Koot Breakdown — Core Gun Milan':'8 कूट विवरण — मूल गुण मिलान',
+  'Critical issues:':'महत्वपूर्ण विषय:','Traditional Nadi compatibility indicator':'पारंपरिक नाड़ी अनुकूलता संकेतक',
+  'Sade Sati Status':'साढ़ेसाती स्थिति','Active':'सक्रिय','Not Active':'सक्रिय नहीं','Sade Sati is Active':'साढ़ेसाती सक्रिय है','You are Free from Sade Sati':'साढ़ेसाती सक्रिय नहीं है',
+  'Daily Panchang':'दैनिक पंचांग','Five Limbs':'पंचांग के पाँच अंग','Sunrise':'सूर्योदय','Sunset':'सूर्यास्त','Moonrise':'चंद्रोदय','Moonset':'चंद्रास्त',
+  'Rahu Kaal':'राहु काल','Gulika Kaal':'गुलिक काल','Yamaganda':'यमगण्ड','Brahma Muhurta':'ब्रह्म मुहूर्त','Abhijit Muhurta':'अभिजित मुहूर्त'
 };
 const PJ_HI_PHRASES = new Map([
   ['How to read:','कैसे पढ़ें:'],
@@ -1192,19 +1208,36 @@ function localizeKundliHindi(root=document.getElementById('res-kundli')){
   root.setAttribute('lang','hi');
 }
 
+// Localize newly rendered result cards without changing calculation values or API identifiers.
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('.results').forEach(root=>{
+    new MutationObserver(()=>localizeKundliHindi(root)).observe(root,{childList:true,subtree:true});
+  });
+});
+
 
 // ═══════════════════════════════════════════════════
 // HELPERS
 // ═══════════════════════════════════════════════════
 function switchTab(id, el) {
-  document.querySelectorAll('.tool-tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tool-panel').forEach(p => p.classList.remove('active'));
-  if (el) el.classList.add('active');
-  document.getElementById('panel-' + id).classList.add('active');
+  document.querySelectorAll('.tool-tab').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+  document.querySelectorAll('.tool-panel').forEach(p => { p.classList.remove('active'); p.setAttribute('aria-hidden','true'); });
+  if (el) { el.classList.add('active'); el.setAttribute('aria-selected','true'); }
+  const panel=document.getElementById('panel-' + id);
+  if(panel){ panel.classList.add('active'); panel.setAttribute('aria-hidden','false'); }
   if (location.hash !== '#' + id) history.replaceState(null, '', '#' + id);
 }
 function fmtDate(iso){if(!iso)return'';const[y,m,d]=iso.split('-');return`${d}-${m}-${y}`;}
-function ld(t,s){document.getElementById('ld-'+t).classList.toggle('show',s);}
+const pjLoadTimers={};
+function ld(t,s){
+  const box=document.getElementById('ld-'+t); if(!box)return;
+  const text=box.querySelector('.load-text');
+  clearTimeout(pjLoadTimers[t]);
+  if(text && !text.dataset.original) text.dataset.original=text.textContent;
+  if(!s && text?.dataset.original) text.textContent=text.dataset.original;
+  box.classList.toggle('show',s);
+  if(s && text) pjLoadTimers[t]=setTimeout(()=>{ text.textContent='गणना सर्वर सक्रिय हो रहा है। कृपया यह पृष्ठ खुला रखें…'; },6000);
+}
 function str(v){if(!v)return'';if(typeof v==='string')return v;return v.name||v.name_en||v.value||'';}
 function cleanName(p){
   if(!p) return 'Planet';
@@ -4065,15 +4098,28 @@ function enableNativePickers(){
 }
 
 function openTabFromHash(){
-  let id = (location.hash || '#kundli').replace('#','');
+  const requested=new URLSearchParams(location.search).get('embed');
+  let id = requested || (location.hash || '#kundli').replace('#','');
   if(id === 'horoscope') id = 'kundli';
   const tab = Array.from(document.querySelectorAll('.tool-tab')).find(t => t.getAttribute('onclick')?.includes(`'${id}'`));
-  if (tab && document.getElementById('panel-' + id)) switchTab(id, tab);
+  if (tab && document.getElementById('panel-' + id)){
+    if(requested) document.documentElement.classList.add('pj-embed');
+    switchTab(id, tab);
+  }
 }
 
 enableNativePickers();
 openTabFromHash();
 window.addEventListener('hashchange', openTabFromHash);
+document.querySelector('.tool-nav-inner')?.addEventListener('keydown',e=>{
+  if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;
+  const items=Array.from(document.querySelectorAll('.tool-tab'));
+  let i=items.indexOf(document.activeElement);
+  if(i<0)return;
+  e.preventDefault();
+  if(e.key==='Home')i=0; else if(e.key==='End')i=items.length-1; else i=(i+(e.key==='ArrowRight'?1:-1)+items.length)%items.length;
+  items[i].focus(); items[i].click();
+});
 
 // Matching selector initialization
 document.addEventListener('DOMContentLoaded', initMatchingSelectors);
@@ -4096,7 +4142,7 @@ try {
     <h2 class="pj-engage-title">Use the free Vedic tools regularly</h2>
     <p class="pj-engage-desc">Bookmark this tools page, share it with seekers, or send your feedback so we can improve calculations, explanations and user experience.</p>
     <div class="pj-engage-grid">
-      <a class="pj-engage-card" href="mailto:su03may@gmail.com?subject=Tools%20Page%20Feedback%20for%20Parashar%20Jyotisha&body=Namaste%2C%0A%0AMy%20feedback%20about%20the%20tools%20page%20is%3A%0A%0A">
+      <a class="pj-engage-card" href="mailto:support@parasharajyotisha.com?subject=Tools%20Page%20Feedback%20for%20Parashar%20Jyotisha&body=Namaste%2C%0A%0AMy%20feedback%20about%20the%20tools%20page%20is%3A%0A%0A">
         <div class="pj-engage-icon">💬</div><strong>Comment</strong><span>Give impression or suggestion</span>
       </a>
       <button class="pj-engage-card pj-share-btn" type="button" data-share-title="Free Vedic Tools — Parashar Jyotisha" data-share-text="Use free Vedic Panchanga, Kundli and Jyotisha tools." data-share-url="https://parasharajyotisha.com/tools.html">
@@ -4136,7 +4182,7 @@ try {
       <a href="../digital-delivery-policy.html">Digital Delivery</a>
       <a href="../legal.html">Legal Center</a>
     </nav>
-    <p class="legal-copy">© <span id="legalYear"></span> Parashar Jyotisha. All rights reserved. Contact: <a href="mailto:su03may@gmail.com">su03may@gmail.com</a></p>
+    <p class="legal-copy">© <span id="legalYear"></span> Parashar Jyotisha. सर्वाधिकार सुरक्षित। संपर्क: <a href="mailto:support@parasharajyotisha.com">support@parasharajyotisha.com</a></p>
   </div>
 </footer>
 <script>document.querySelectorAll('#legalYear').forEach(el => el.textContent = new Date().getFullYear());</script>
@@ -4157,14 +4203,14 @@ try {
 
 <div class="pj-float-connect" aria-label="Quick connect">
   <button class="pj-share-btn" type="button" title="Share website" data-share-title="Parashar Jyotisha" data-share-text="Explore Parashar Jyotisha — Vedic Panchanga, Jyotisha tools and consultations." data-share-url="https://parasharajyotisha.com/">🔗</button>
-  <a href="mailto:su03may@gmail.com?subject=Parashar%20Jyotisha%20Query" title="Email support">✉️</a>
+  <a href="mailto:support@parasharajyotisha.com?subject=Parashar%20Jyotisha%20Query" title="ईमेल सहायता">✉️</a>
 </div>
 
 
 
 <script>
 (function(){
-  const supportEmail = 'su03may@gmail.com';
+  const supportEmail = 'support@parasharajyotisha.com';
   function toast(message){
     let el = document.querySelector('.pj-toast');
     if(!el){
@@ -4195,7 +4241,7 @@ try {
 })();
 </script>
 
-<script defer src="../assets/i18n/language-preference.js"></script>
+<script defer src="../assets/images/i18n/language-preference.js"></script>
 
 <script id="pj-tools-theme-runtime">
 (function(){
@@ -4264,6 +4310,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 
 
 <!-- PJ_SOCIAL_SHARE_V1_SCRIPT -->
-<script src="/assets/js/social-share.js" defer></script>
+<script src="../assets/images/social-share.js" defer></script>
 </body>
 </html>
