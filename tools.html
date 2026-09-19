@@ -1112,7 +1112,7 @@ html[data-theme="light"] .pj-lang-switch a:hover{background:rgba(158,32,40,.06)!
 const API = 'https://vedic-horoscope-api-production.up.railway.app/api/v1';
 const P = {Sun:'☉',Moon:'☽',Mars:'♂',Mercury:'☿',Jupiter:'♃',Venus:'♀',Saturn:'♄',Rahu:'☊',Ketu:'☋',Asc:'Lg'};
 const PCOL = {Sun:'var(--ember)',Moon:'var(--sky-light)',Mars:'var(--lotus)',Mercury:'var(--sage)',Jupiter:'var(--gold)',Venus:'var(--lotus-light)',Saturn:'var(--sky)',Rahu:'var(--text-dim)',Ketu:'var(--text-dim)',Asc:'var(--ember-light)'};
-const KOOTS = [{n:'Varna',m:1,d:'Spiritual compatibility'},{n:'Vashya',m:2,d:'Mutual attraction'},{n:'Tara',m:3,d:'Birth star harmony'},{n:'Yoni',m:4,d:'Physical compatibility'},{n:'Maitri',m:5,d:'Mental wavelength'},{n:'Gana',m:6,d:'Temperament match'},{n:'Bhakoot',m:7,d:'Love & family harmony'},{n:'Nadi',m:8,d:'Health & genes'}];
+const KOOTS = [{n:'Varna',m:1,d:'Spiritual compatibility'},{n:'Vashya',m:2,d:'Mutual attraction'},{n:'Tara',m:3,d:'Birth star harmony'},{n:'Yoni',m:4,d:'Physical compatibility'},{n:'Maitri',m:5,d:'Mental wavelength'},{n:'Gana',m:6,d:'Temperament match'},{n:'Bhakoot',m:7,d:'Love & family harmony'},{n:'Nadi',m:8,d:'Traditional Nadi compatibility indicator'}];
 const RASHIS = [
   {sym:'♈',hi:'मेष',en:'Aries'},{sym:'♉',hi:'वृषभ',en:'Taurus'},{sym:'♊',hi:'मिथुन',en:'Gemini'},
   {sym:'♋',hi:'कर्क',en:'Cancer'},{sym:'♌',hi:'सिंह',en:'Leo'},{sym:'♍',hi:'कन्या',en:'Virgo'},
@@ -2698,15 +2698,18 @@ function renderKundli(name,bcRaw,ygRaw,dsRaw,meta={},skipScroll=false){
   let panchHtml='';
   const bp=bc.birth_panchang||bc.panchang||{};
   const ms=bc.moon_sign||bc.moon||{};
+  const moonPlanet=planets.find(p=>cleanName(p)==='Moon')||{};
+  const moonNakshatra=moonPlanet.nakshatra||ms.nakshatra||bp.nakshatra||'';
+  const moonPada=moonPlanet.nakshatra_pada||moonPlanet.pada||ms.nakshatra_pada||ms.pada||bp.nakshatra_pada||'';
   const bi=bc.birth_info||bc.info||{};
   const age=bc.age||{};
   const bd2=bc.balance_dasha||{};
   if(bp && typeof bp==='object' && Object.keys(bp).length){
     let items='';
     if(bp.tithi) items+=`<div class="info-box" style="margin:0;"><div class="info-box-title">Birth Tithi</div><div class="info-box-text">${escapeHtml(bp.tithi)}${bp.paksha?' ('+escapeHtml(bp.paksha)+')':''}</div></div>`;
-    if(bp.nakshatra) items+=`<div class="info-box" style="margin:0;"><div class="info-box-title">Birth Nakshatra</div><div class="info-box-text">${escapeHtml(bp.nakshatra)}${bp.nakshatra_pada?' Pada '+bp.nakshatra_pada:''}</div></div>`;
+    if(moonNakshatra) items+=`<div class="info-box" style="margin:0;"><div class="info-box-title">Birth Nakshatra</div><div class="info-box-text">${escapeHtml(moonNakshatra)}${moonPada?' Pada '+escapeHtml(moonPada):''}</div></div>`;
     if(bp.vaara) items+=`<div class="info-box" style="margin:0;"><div class="info-box-title">Birth Day</div><div class="info-box-text">${escapeHtml(bp.vaara)}</div></div>`;
-    if(ms.rashi) items+=`<div class="info-box" style="margin:0;"><div class="info-box-title">Moon Sign (Rashi)</div><div class="info-box-text">${escapeHtml(ms.rashi)}${ms.nakshatra?' · '+escapeHtml(ms.nakshatra):''}${ms.nakshatra_pada?' P'+ms.nakshatra_pada:''}</div></div>`;
+    if(ms.rashi) items+=`<div class="info-box" style="margin:0;"><div class="info-box-title">Moon Sign (Rashi)</div><div class="info-box-text">${escapeHtml(ms.rashi)}${moonNakshatra?' · '+escapeHtml(moonNakshatra):''}${moonPada?' P'+escapeHtml(moonPada):''}</div></div>`;
     if(age.formatted) items+=`<div class="info-box" style="margin:0;"><div class="info-box-title">Current Age</div><div class="info-box-text">${escapeHtml(age.formatted)}</div></div>`;
     if(bd2.first_dasha) items+=`<div class="info-box" style="margin:0;"><div class="info-box-title">Balance Dasha at Birth</div><div class="info-box-text">${escapeHtml(bd2.first_dasha)} — ${escapeHtml(bd2.balance_display||bd2.balance_years+' years')}</div></div>`;
     if(bi.sunrise) items+=`<div class="info-box" style="margin:0;"><div class="info-box-title">Sunrise / Sunset</div><div class="info-box-text">${escapeHtml(bi.sunrise)} / ${escapeHtml(bi.sunset||'—')}</div></div>`;
@@ -2938,7 +2941,7 @@ function localQuickMatching(br,bn,gr,gn){
     {name:'Maitri',score:maitri,max:5,description:'Mental wavelength through Rashi lords'},
     {name:'Gana',score:gana,max:6,description:'Temperament match'},
     {name:'Bhakoot',score:bhakoot,max:7,description:'Emotional, family and prosperity harmony'},
-    {name:'Nadi',score:nadi,max:8,description:'Health and lineage compatibility'}
+    {name:'Nadi',score:nadi,max:8,description:'Traditional Nadi compatibility indicator'}
   ];
   const total = koots.reduce((s,k)=>s+Number(k.score||0),0);
   return {
@@ -3012,7 +3015,12 @@ function normalizeKoots(data){
     const ref=KOOTS.find(x=>x.n.toLowerCase()===rawName.toLowerCase()) || KOOTS[i] || {n:rawName||'',m:k.max||1,d:''};
     const score=matchNum(k.score??k.obtained??k.obtained_points??k.points??k.value??k.gun??k.guna??k.received??k.received_points??k.match_points??0);
     const max=matchNum(k.max??k.max_points??k.maximum??k.total??k.out_of??k.full_score??ref.m, ref.m);
-    return {name:rawName||ref.n, score, max, description:k.description||k.desc||ref.d, reason:k.reason||k.explanation||k.result||k.comment||'', extra:formatMatchingExtra(k)};
+    const name=rawName||ref.n;
+    const isNadi=name.toLowerCase().includes('nadi');
+    const reviewState=isNadi?nadiReviewState(k):'';
+    const description=isNadi?'Traditional Nadi compatibility indicator':safeMatchingText(k.description||k.desc||ref.d);
+    const reason=reviewState==='review'?'Cancellation conditions were returned as checks, not conclusions. Manual review is required.':safeMatchingText(k.reason||k.explanation||k.result||k.comment||'');
+    return {name, score, max, description, reason, extra:formatMatchingExtra(k), reviewState};
   });
 }
 function isUsefulMatchingData(raw){
@@ -3064,18 +3072,14 @@ function extractMoonBasicsFromBirthChart(raw){
   const nakIndex=indexOfNakshatraName(m.nakshatra ?? m.nakshatra_name ?? m.nakshatra_number ?? planetMoon?.nakshatra ?? planetMoon?.nakshatra_number);
   return {valid:rashiIndex>=0&&nakIndex>=0, rashiIndex, nakIndex, rashiName:RASHIS[rashiIndex]?.en||'', nakName:NAKSHATRAS[nakIndex]||''};
 }
-function getMatchRecommendation(pct){
-  if(pct>=75) return 'Excellent match — strong overall harmony.';
-  if(pct>=50) return 'Good compatibility — suitable with normal family guidance.';
-  if(pct>=33) return 'Moderate compatibility — detailed expert review recommended.';
-  return 'Challenges indicated — consult an astrologer before decision.';
+function matchBand(pct){
+  if(pct>=75) return {label:'Excellent',cls:'good',recommendation:'Excellent compatibility — strong overall harmony.'};
+  if(pct>=50) return {label:'Good',cls:'good',recommendation:'Good compatibility — suitable with normal family guidance.'};
+  if(pct>=33) return {label:'Average',cls:'avg',recommendation:'Average compatibility — detailed expert review recommended.'};
+  return {label:'Needs Guidance',cls:'low',recommendation:'Challenges indicated — consult an astrologer before decision.'};
 }
-function matchBadge(pct){
-  if(pct>=75) return ['Excellent','good'];
-  if(pct>=50) return ['Good','good'];
-  if(pct>=33) return ['Average','avg'];
-  return ['Needs Guidance','low'];
-}
+function getMatchRecommendation(pct){ return matchBand(pct).recommendation; }
+function matchBadge(pct){ const band=matchBand(pct); return [band.label,band.cls]; }
 function matchingBoolText(v){
   if(v===true || v==='true' || v==='yes' || v==='Manglik' || v==='active') return '<span style="color:var(--lotus-light)">Manglik / active ⚠️</span>';
   if(v===false || v==='false' || v==='no' || v==='Non-Manglik' || v==='not indicated') return '<span style="color:var(--sage-light)">Not indicated ✓</span>';
@@ -3118,6 +3122,23 @@ function yesNo(v){
 function cleanEncodingText(v){
   return String(v ?? '').replace(/â/g,'—').replace(/â/g,'–').replace(/â/g,"’").replace(/â/g,'“').replace(/â/g,'”');
 }
+function safeMatchingText(v){
+  return cleanEncodingText(v)
+    .replace(/health\s*(?:&|and)\s*(?:genes|lineage)/gi,'traditional Nadi compatibility')
+    .replace(/genetic compatibility/gi,'traditional Nadi compatibility')
+    .replace(/affects?\s+(?:health\s+and\s+)?progeny/gi,'is traditionally considered significant')
+    .replace(/puja\s+recommended/gi,'remedy requires expert review');
+}
+function nadiReviewState(k){
+  if(!k || typeof k!=='object') return '';
+  const note=cleanEncodingText(k.cancellation_notes||k.cancellation_note||k.cancellation||'');
+  const cancelled=k.cancelled??k.is_cancelled??k.dosha_cancelled;
+  if(cancelled===true || String(cancelled).toLowerCase()==='true') return 'cancelled';
+  if(/\bcheck\s*:|manual\s+review|requires?\s+(?:a\s+)?(?:check|review)|verify|different\s+(?:rashi|nakshatra)/i.test(note)) return 'review';
+  if(k.has_dosha===false || String(k.has_dosha).toLowerCase()==='false') return 'clear';
+  if(k.has_dosha===true || String(k.has_dosha).toLowerCase()==='true') return 'present';
+  return '';
+}
 function displayKootName(name){
   const n=String(name||'').trim();
   if(n.toLowerCase()==='maitri') return 'Graha Maitri';
@@ -3126,6 +3147,7 @@ function displayKootName(name){
 function kootImportanceBadge(k){
   const nm=String(k?.name||'').toLowerCase();
   const score=Number(k?.score||0);
+  if(nm.includes('nadi') && k?.reviewState==='review') return '<span class="match-koot-badge alert">Manual review</span>';
   if((nm.includes('nadi') || nm.includes('bhakoot')) && score===0) return '<span class="match-koot-badge alert">Review</span>';
   if(nm.includes('nadi') || nm.includes('bhakoot')) return '<span class="match-koot-badge">Important</span>';
   return '';
@@ -3159,8 +3181,11 @@ function formatMatchingExtra(k){
   }
   else if(nm.includes('nadi')){
     addPair('Nadi', k.boy_nadi, k.girl_nadi);
-    if(k.has_dosha!==undefined) parts.push(`Nadi Dosha: ${k.has_dosha ? 'Present' : 'Not present'}`);
-    if(k.cancellation_notes) add('Cancellation note', k.cancellation_notes);
+    const reviewState=nadiReviewState(k);
+    if(reviewState==='review') parts.push('Status: Requires manual review');
+    else if(reviewState==='cancelled') parts.push('Cancellation: Confirmed by API');
+    else if(k.has_dosha!==undefined) parts.push(`Nadi Dosha: ${k.has_dosha ? 'Present' : 'Not present'}`);
+    if(k.cancellation_notes) add('Cancellation conditions', safeMatchingText(k.cancellation_notes));
   }
   if(parts.length) return parts.slice(0,3).join(' • ');
   const skip=new Set(['name','koot','koota','title','description','desc','score','obtained','obtained_points','points','value','gun','guna','received','received_points','match_points','max','max_points','maximum','total','out_of','full_score','reason','explanation','result','comment']);
@@ -3173,13 +3198,17 @@ function formatMatchingExtra(k){
 }
 function matchingIssueList(data){
   const out=[];
-  const crit=data?.critical_issues;
-  if(Array.isArray(crit)) crit.forEach(x=>out.push(String(x)));
-  else if(crit) out.push(String(crit));
   const koots=normalizeKoots(data);
+  const unresolvedNadi=koots.some(k=>String(k.name||'').toLowerCase().includes('nadi')&&k.reviewState==='review');
+  const crit=data?.critical_issues;
+  const addCritical=(x)=>{ const s=safeMatchingText(String(x)); if(!(unresolvedNadi&&/nadi|progeny|genetic|puja/i.test(s))) out.push(s); };
+  if(Array.isArray(crit)) crit.forEach(addCritical);
+  else if(crit) addCritical(crit);
   koots.forEach(k=>{
     const nm=String(k.name||'').toLowerCase();
-    if((nm.includes('bhakoot')||nm.includes('nadi')) && Number(k.score)===0){
+    if(nm.includes('nadi')&&k.reviewState==='review'){
+      out.push('Nadi cancellation conditions require manual review; no definitive Dosha or remedy conclusion is shown.');
+    } else if((nm.includes('bhakoot')||nm.includes('nadi')) && Number(k.score)===0){
       out.push(`${k.name} needs careful review (${k.score}/${k.max}).`);
     }
   });
@@ -3322,7 +3351,7 @@ function renderMatching(raw) {
   const maxScore = matchNum(deepFind(data,['max_score','maximum_score','out_of','full_score','total_possible']) ?? 36,36);
   const pct = maxScore>0 ? Math.max(0,Math.min(100,total/maxScore*100)) : 0;
   const [bText,bCls]=matchBadge(pct);
-  const recommendation = deepFind(data,['recommendation','verdict','advice','message','summary']) || getMatchRecommendation(pct);
+  const recommendation = getMatchRecommendation(pct);
   const bn = raw._boy_name || data._boy_name || document.getElementById('m-bn')?.value || document.getElementById('mq-bn')?.value || 'Boy';
   const gn = raw._girl_name || data._girl_name || document.getElementById('m-gn')?.value || document.getElementById('mq-gn')?.value || 'Girl';
   const boyNak = matchingPersonValue(data,raw,'boy',['nakshatra','star']) || '';
@@ -3814,39 +3843,62 @@ function firstVal(obj, keys){
   }
   return '';
 }
+function pClock(v){
+  if(!v) return '';
+  const s=String(v).trim();
+  const m=s.match(/T?(\d{1,2}):(\d{2})(?::\d{2})?/);
+  if(!m) return s;
+  let h=Number(m[1]); const ap=h>=12?'PM':'AM'; h=h%12||12;
+  return `${h}:${m[2]} ${ap}`;
+}
+function rangeVal(obj,keys){
+  for(const k of keys){
+    const parts=k.split('.'); let cur=obj;
+    for(const part of parts){ if(!cur||typeof cur!=='object'){cur=undefined;break;} cur=cur[part]; }
+    if(cur&&typeof cur==='object'){
+      const start=pClock(cur.start||cur.from||cur.start_time||'');
+      const end=pClock(cur.end||cur.to||cur.end_time||'');
+      if(start||end) return [start,end].filter(Boolean).join(' – ');
+    }
+    const val=pText(cur); if(val) return val;
+  }
+  return '';
+}
 function renderPanchang(data, ctx={}){
   const p=data.panchanga||data.panchang||data.daily_panchanga||data;
   const timings=data.sun_moon||data.timings||data.times||p;
-  const inauspicious=data.inauspicious||data.ashubh||p;
-  const auspicious=data.auspicious||data.shubh||p;
+  const inauspicious=data.inauspicious_periods||data.inauspicious||data.ashubh||p;
+  const auspicious=data.auspicious_periods||data.auspicious||data.shubh||p;
+  const planets=Array.isArray(data.planet_positions)?data.planet_positions:[];
+  const planetSign=(name)=>pText(planets.find(x=>String(x.planet||x.name||'').toLowerCase()===name.toLowerCase())?.rashi);
   const location=pLocationText(data.location||data.location_used||data.city, ctx.city||'Delhi');
-  const dateRaw=data.date||p.date||ctx.date||new Date().toISOString().slice(0,10);
+  const dateRaw=data.gregorian_date||data.date||p.date||ctx.date||new Date().toISOString().slice(0,10);
   const dateObj = /^\d{4}-\d{2}-\d{2}$/.test(dateRaw) ? new Date(dateRaw+'T00:00:00') : new Date();
   const dateStr=dateObj.toLocaleDateString('en-IN',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
   const limbs=[
     {label:'Tithi',value:firstVal(p,['tithi','tithi_at_sunrise','tithi_name']),sub:firstVal(p,['tithi_end','tithi_end_time','tithi_remaining']),icon:'🌙'},
     {label:'Nakshatra',value:firstVal(p,['nakshatra','nakshatra_at_sunrise']),sub:firstVal(p,['nakshatra_end','nakshatra_end_time']),icon:'⭐'},
     {label:'Yoga',value:firstVal(p,['yoga']),sub:firstVal(p,['yoga_end','yoga_end_time']),icon:'🔆'},
-    {label:'Karana',value:firstVal(p,['karana','karana_at_sunrise']),sub:firstVal(p,['karana_end','karana_end_time','karana_next']),icon:'📐'},
-    {label:'Vaara',value:firstVal(p,['vaara','vara','weekday']),sub:firstVal(p,['paksha']),icon:'📅'}
+    {label:'Karana',value:firstVal(p,['karana.first','karana.current','karana','karana_at_sunrise']),sub:firstVal(p,['karana.first.end_time','karana_end','karana_end_time','karana_next']),icon:'📐'},
+    {label:'Vaara',value:firstVal(p,['vaara','vara','weekday']),sub:firstVal(data,['paksha'])||firstVal(p,['paksha','tithi.paksha']),icon:'📅'}
   ].filter(x=>x.value);
   const timeItems=[
     {label:'Sunrise',value:firstVal(timings,['sunrise','sunrise_time']),note:'Start of Panchang day',icon:'🌅'},
     {label:'Sunset',value:firstVal(timings,['sunset','sunset_time']),note:'Daylight ends',icon:'🌇'},
     {label:'Moonrise',value:firstVal(timings,['moonrise','moonrise_time']),note:'Moon visibility',icon:'🌙'},
     {label:'Moonset',value:firstVal(timings,['moonset','moonset_time']),note:'Moon setting',icon:'☽'},
-    {label:'Brahma Muhurta',value:firstVal(auspicious,['brahma_muhurat','brahma_muhurta']),note:'Best for sadhana',icon:'🕉️'},
-    {label:'Abhijit Muhurta',value:firstVal(auspicious,['abhijeet_muhurat','abhijit_muhurta','abhijit_muhurat']),note:'General auspicious window',icon:'✨'}
+    {label:'Brahma Muhurta',value:rangeVal(auspicious,['brahma_muhurta','brahma_muhurat']),note:'Best for sadhana',icon:'🕉️'},
+    {label:'Abhijit Muhurta',value:rangeVal(auspicious,['abhijit_muhurta','abhijeet_muhurat','abhijit_muhurat']),note:'General auspicious window',icon:'✨'}
   ].filter(x=>x.value);
   const cautionItems=[
-    {label:'Rahu Kaal',value:firstVal(inauspicious,['rahu_kalam','rahu_kaal','rahukalam']),note:'Avoid fresh beginnings',icon:'⚠️'},
-    {label:'Gulika Kaal',value:firstVal(inauspicious,['gulika_kalam','gulika_kaal','gulikakalam']),note:'Use with care',icon:'♄'},
-    {label:'Yamaganda',value:firstVal(inauspicious,['yamaganda','yamagandam']),note:'Avoid travel/new work',icon:'⛔'},
+    {label:'Rahu Kaal',value:rangeVal(inauspicious,['rahu_kalam','rahu_kaal','rahukalam']),note:'Avoid fresh beginnings',icon:'⚠️'},
+    {label:'Gulika Kaal',value:rangeVal(inauspicious,['gulikai_kalam','gulika_kalam','gulika_kaal','gulikakalam']),note:'Use with care',icon:'♄'},
+    {label:'Yamaganda',value:rangeVal(inauspicious,['yamagandam','yamaganda']),note:'Avoid travel/new work',icon:'⛔'},
     {label:'Disha Shool',value:firstVal(p,['disha_shool','disha_shula']),note:'Travel caution direction',icon:'🧭'}
   ].filter(x=>x.value);
-  const moonSign=firstVal(p,['moon_sign','chandra_rashi','moon_rashi']);
-  const sunSign=firstVal(p,['sun_sign','surya_rashi','sun_rashi']);
-  const paksha=firstVal(p,['paksha']);
+  const moonSign=firstVal(p,['moon_sign','chandra_rashi','moon_rashi'])||planetSign('Moon');
+  const sunSign=firstVal(p,['sun_sign','surya_rashi','sun_rashi'])||planetSign('Sun');
+  const paksha=firstVal(data,['paksha'])||firstVal(p,['paksha','tithi.paksha']);
   const el=document.getElementById('res-panchang');
   const statCards=[
     {label:'City',value:location||'—',sub:'Location used'},
