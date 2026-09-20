@@ -2677,6 +2677,267 @@ html[lang^="hi"] body{font-family:'Noto Sans Devanagari','DM Sans',sans-serif}ht
 <meta property="og:image" content="https://parasharajyotisha.com/assets/images/hero-chandra.webp">
 <meta property="og:image:alt" content="Parashar Jyotisha — Vedic astrology and Panchanga">
 <meta name="twitter:image" content="https://parasharajyotisha.com/assets/images/hero-chandra.webp">
+<!-- PJ_ACCOUNT_VERIFICATION_UX_V1_STYLES -->
+<style>
+.pj-account-nav{
+  display:inline-flex!important;
+  align-items:center!important;
+  gap:.42rem!important;
+  padding:.50rem .82rem!important;
+  border:1px solid rgba(222,184,78,.62)!important;
+  border-radius:999px!important;
+  background:linear-gradient(135deg,rgba(201,168,76,.26),rgba(212,116,62,.18))!important;
+  color:#f9e6aa!important;
+  font-weight:700!important;
+  white-space:nowrap!important;
+  box-shadow:0 6px 20px rgba(201,168,76,.14)!important;
+  transition:background .2s,border-color .2s,box-shadow .2s,transform .2s!important
+}
+.pj-account-nav:hover{
+  background:linear-gradient(135deg,rgba(225,190,88,.38),rgba(212,116,62,.28))!important;
+  border-color:rgba(238,202,98,.9)!important;
+  color:#fff0bd!important;
+  box-shadow:0 9px 28px rgba(201,168,76,.23)!important;
+  transform:translateY(-2px)
+}
+html[data-theme="light"] .pj-account-nav{
+  background:linear-gradient(135deg,rgba(205,166,66,.24),rgba(212,116,62,.12))!important;
+  border-color:rgba(151,105,28,.45)!important;
+  color:#684018!important;
+  box-shadow:0 5px 16px rgba(112,75,28,.12)!important
+}
+html[data-theme="light"] .pj-account-nav:hover{
+  background:linear-gradient(135deg,rgba(205,166,66,.34),rgba(212,116,62,.18))!important;
+  border-color:rgba(151,105,28,.65)!important;
+  color:#4e2c10!important;
+  box-shadow:0 8px 22px rgba(112,75,28,.16)!important
+}
+.pj-account-home-card{
+  display:grid;
+  grid-template-columns:auto minmax(0,1fr) auto;
+  align-items:center;
+  gap:1.15rem;
+  margin:1.2rem 0 .15rem;
+  padding:1.15rem 1.25rem;
+  border:1px solid rgba(201,168,76,.22);
+  border-radius:20px;
+  background:linear-gradient(135deg,rgba(201,168,76,.075),rgba(212,116,62,.045)),rgba(255,255,255,.02)
+}
+.pj-account-home-icon{
+  width:54px;height:54px;
+  display:grid;place-items:center;
+  border-radius:16px;
+  background:rgba(201,168,76,.11);
+  border:1px solid rgba(201,168,76,.18);
+  font-size:1.45rem
+}
+.pj-account-home-copy{min-width:0}
+.pj-account-home-kicker{
+  display:block;
+  margin-bottom:.18rem;
+  font-family:var(--font-mono);
+  font-size:.63rem;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--gold)
+}
+.pj-account-home-card h3{
+  margin:0 0 .28rem;
+  font-family:var(--font-serif);
+  font-size:1.42rem;
+  font-weight:500;
+  color:var(--text-bright)
+}
+.pj-account-home-card p{
+  margin:0;
+  max-width:760px;
+  color:var(--text-mid);
+  font-size:.87rem;
+  line-height:1.62
+}
+.pj-account-home-actions{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:.3rem;
+  min-width:190px
+}
+.pj-account-home-actions .btn{
+  width:100%;
+  justify-content:center
+}
+.pj-account-home-actions small{
+  color:var(--text-dim);
+  font-size:.65rem;
+  text-align:center
+}
+html[data-theme="light"] .pj-account-home-card{
+  background:linear-gradient(135deg,rgba(158,32,40,.035),rgba(201,168,76,.055)),rgba(255,255,255,.52);
+  border-color:rgba(92,58,38,.12)
+}
+
+body.pj-verify-open{overflow:hidden}
+
+.pj-verify-modal{
+  position:fixed;
+  inset:0;
+  z-index:2147483200;
+  display:none;
+  place-items:center;
+  padding:1.1rem;
+  background:rgba(8,7,11,.72);
+  backdrop-filter:blur(8px)
+}
+.pj-verify-modal.open{display:grid}
+
+.pj-verify-card{
+  width:min(520px,100%);
+  border:1px solid rgba(201,168,76,.25);
+  border-radius:24px;
+  padding:1.55rem;
+  background:#17151c;
+  box-shadow:0 28px 90px rgba(0,0,0,.42);
+  color:#f7f1e9
+}
+html[data-theme="light"] .pj-verify-card{
+  background:#fffaf1;
+  color:#392b24;
+  border-color:rgba(92,58,38,.15);
+  box-shadow:0 28px 80px rgba(78,49,30,.2)
+}
+
+.pj-verify-success-icon{
+  width:58px;height:58px;
+  display:grid;place-items:center;
+  margin:0 auto .9rem;
+  border-radius:18px;
+  background:rgba(58,145,91,.13);
+  border:1px solid rgba(58,145,91,.22);
+  color:#66b783;
+  font-size:1.7rem;
+  font-weight:800
+}
+.pj-verify-card h2{
+  margin:.1rem 0 .45rem;
+  text-align:center;
+  font-family:var(--font-serif);
+  font-size:1.8rem;
+  font-weight:550;
+  color:inherit
+}
+.pj-verify-lead{
+  margin:0 auto 1.1rem;
+  max-width:410px;
+  text-align:center;
+  color:var(--text-mid);
+  font-size:.9rem;
+  line-height:1.6
+}
+.pj-verify-detail{
+  display:grid;
+  gap:.72rem;
+  margin:1rem 0
+}
+.pj-verify-row{
+  padding:.78rem .9rem;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:13px;
+  background:rgba(255,255,255,.035)
+}
+html[data-theme="light"] .pj-verify-row{
+  background:rgba(255,255,255,.6);
+  border-color:rgba(92,58,38,.11)
+}
+.pj-verify-label{
+  display:block;
+  margin-bottom:.2rem;
+  font-family:var(--font-mono);
+  font-size:.6rem;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--gold)
+}
+.pj-verify-value{
+  display:block;
+  color:inherit;
+  font-size:.9rem;
+  font-weight:650;
+  overflow-wrap:anywhere
+}
+.pj-verify-ref{
+  font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+  letter-spacing:.025em
+}
+.pj-verify-note{
+  padding:.72rem .82rem;
+  border-radius:12px;
+  background:rgba(58,145,91,.08);
+  border:1px solid rgba(58,145,91,.15);
+  color:var(--text-mid);
+  font-size:.78rem;
+  line-height:1.5
+}
+.pj-verify-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:.65rem;
+  margin-top:1rem
+}
+.pj-verify-btn{
+  min-height:45px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,.1);
+  cursor:pointer;
+  font:700 .82rem var(--font-sans)
+}
+.pj-verify-copy{
+  background:transparent;
+  color:inherit
+}
+.pj-verify-done{
+  border-color:transparent;
+  background:linear-gradient(135deg,#A51F29,#C62B34);
+  color:#fff
+}
+html[data-theme="light"] .pj-verify-copy{
+  border-color:rgba(92,58,38,.16);
+  background:rgba(255,255,255,.55)
+}
+.pj-verify-status{
+  min-height:18px;
+  margin-top:.45rem;
+  text-align:center;
+  color:#66b783;
+  font-size:.68rem
+}
+
+@media(max-width:760px){
+  .pj-account-home-card{
+    grid-template-columns:auto 1fr
+  }
+  .pj-account-home-actions{
+    grid-column:1/-1;
+    width:100%;
+    min-width:0
+  }
+  .pj-verify-card{
+    padding:1.25rem;
+    border-radius:20px
+  }
+}
+
+@media(max-width:430px){
+  .pj-account-home-card{
+    grid-template-columns:1fr;
+    text-align:center
+  }
+  .pj-account-home-icon{margin:auto}
+  .pj-verify-actions{grid-template-columns:1fr}
+}
+</style>
+<!-- PJ_ACCOUNT_VERIFICATION_UX_V1_STYLES_END -->
 </head>
 <body>
 <div class="cosmos-bg"></div>
@@ -2740,6 +3001,7 @@ html[lang^="hi"] body{font-family:'Noto Sans Devanagari','DM Sans',sans-serif}ht
 </div>
 </li>
 <li class="pj-lang-item"><div aria-label="भाषा" class="pj-lang-switch"><a data-pj-lang="en" href="../" hreflang="en" lang="en">EN</a><span class="active" lang="hi">हिंदी</span></div></li><li class="pj-theme-item"><button aria-label="रंग थीम बदलें" class="pj-theme-toggle" title="रंग थीम बदलें" type="button"><span aria-hidden="true" class="pj-theme-icon">☾</span><span class="pj-theme-label">डार्क</span></button></li>
+<li class="pj-account-item"><a aria-label="मेरी कुंडली खाता" class="pj-account-nav" href="my-kundli.html" title="साइन इन करें या अपना मुफ्त खाता बनाएं"><span aria-hidden="true">&#128100;</span><span>मेरी कुंडली</span></a></li>
 <li><button aria-label="टूल या पेज खोजें" class="pj-nav-find" title="टूल या पेज खोजें" type="button">⌕ <span>खोजें</span></button></li>
 <li><a class="nav-cta-btn" href="#contact">मुफ़्त मार्गदर्शन</a></li>
 </ul>
@@ -2770,6 +3032,7 @@ html[lang^="hi"] body{font-family:'Noto Sans Devanagari','DM Sans',sans-serif}ht
 <nav aria-label="मोबाइल नेविगेशन" class="pjm2-nav">
 <a class="pjm2-row pjm2-primary" href="panchang.html"><span>आज का पंचांग</span><b>→</b></a>
 <a class="pjm2-row" href="../learn.html"><span>ज्योतिष सीखें</span><b>→</b></a>
+<a class="pjm2-row" href="my-kundli.html"><span>&#128100; मेरी कुंडली · साइन इन / खाता बनाएं</span><b>→</b></a>
 <details class="pjm2-group">
 <summary><span>कैलकुलेटर</span><b>＋</b></summary>
 <div class="pjm2-group-body">
@@ -2852,6 +3115,19 @@ html[lang^="hi"] body{font-family:'Noto Sans Devanagari','DM Sans',sans-serif}ht
 <a class="quick-start-card reveal" href="#contact"><div class="quick-start-icon">🙏</div><h3>मार्गदर्शन पूछें</h3><p>व्यक्तिगत व्याख्या की आवश्यकता हो तो फ्री परामर्श अनुरोध भेजें।</p><span class="quick-start-cta">मार्गदर्शन अनुरोध →</span></a>
 <a class="quick-start-card reveal" href="../track-consultation.html"><div class="quick-start-icon">🔎</div><h3>मेरा परामर्श ट्रैक करें</h3><p>रेफरेंस ID और पंजीकृत ईमेल से प्रगति और उत्तर देखें।</p><span class="quick-start-cta">स्थिति देखें →</span></a>
 </div>
+<div aria-label="मेरी कुंडली खाता" class="pj-account-home-card reveal">
+  <div aria-hidden="true" class="pj-account-home-icon">&#128100;</div>
+  <div class="pj-account-home-copy">
+    <span class="pj-account-home-kicker">निजी ज्योतिष खाता</span>
+    <h3>आपका निजी ज्योतिष स्थान</h3>
+    <p>जन्म विवरण सुरक्षित करें, अपनी कुंडलियाँ फिर से खोलें और निजी डैशबोर्ड से आधिकारिक PDF रिपोर्ट बनाएं। मुख्य कैलकुलेटर बिना साइन-अप के भी निःशुल्क रहेंगे।</p>
+  </div>
+  <div class="pj-account-home-actions">
+    <a class="btn btn-outline" href="my-kundli.html">मेरी कुंडली खोलें &rarr;</a>
+    <small>साइन इन करें या अपना मुफ्त खाता बनाएं</small>
+  </div>
+</div>
+
 <div class="pj-start-more reveal">
 <a class="btn btn-outline" href="#tools">चुनिंदा टूल देखें</a>
 <a class="btn btn-ghost" href="../tools.html">सभी कैलकुलेटर खोलें</a>
@@ -3413,6 +3689,133 @@ function setFormStatus(message, type='') {
   box.className = 'form-status' + (message ? ' show' : '') + (type ? ' ' + type : '');
 }
 
+/* PJ_ACCOUNT_VERIFICATION_UX_V1_JS */
+let pjVerifyReturnFocus = null;
+
+function openVerificationModal(refId, maskedEmail, verificationHours) {
+  const modal = document.getElementById('pjVerifyModal');
+  if (!modal) return;
+
+  const emailBox = document.getElementById('pjVerifyEmail');
+  const refBox = document.getElementById('pjVerifyRef');
+  const expiryBox = document.getElementById('pjVerifyExpiry');
+  const statusBox = document.getElementById('pjVerifyStatus');
+  const doneBtn = document.getElementById('pjVerifyDone');
+
+  const rawHours = Number(verificationHours);
+  const hours = Number.isFinite(rawHours) && rawHours > 0 ? Math.round(rawHours) : 24;
+  const isHindi = String(document.documentElement.lang || '').toLowerCase().startsWith('hi');
+
+  if (emailBox) emailBox.textContent = maskedEmail || '—';
+  if (refBox) refBox.textContent = refId || '—';
+
+  if (expiryBox) {
+    expiryBox.textContent = isHindi
+      ? `सत्यापन लिंक ${hours} घंटे तक मान्य है। ईमेल खोलकर अपने अनुरोध की पुष्टि करें। किसी भुगतान की आवश्यकता नहीं है।`
+      : `The verification link is valid for ${hours} hours. Open the email and confirm your request. No payment is required.`;
+  }
+
+  if (statusBox) statusBox.textContent = '';
+
+  pjVerifyReturnFocus = document.activeElement;
+
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('pj-verify-open');
+
+  window.requestAnimationFrame(() => {
+    if (doneBtn) doneBtn.focus();
+  });
+}
+
+function closeVerificationModal() {
+  const modal = document.getElementById('pjVerifyModal');
+  if (!modal) return;
+
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('pj-verify-open');
+
+  if (pjVerifyReturnFocus && typeof pjVerifyReturnFocus.focus === 'function') {
+    try { pjVerifyReturnFocus.focus(); } catch (e) {}
+  }
+
+  pjVerifyReturnFocus = null;
+}
+
+async function copyVerificationReference() {
+  const refBox = document.getElementById('pjVerifyRef');
+  const statusBox = document.getElementById('pjVerifyStatus');
+
+  const value = refBox ? String(refBox.textContent || '').trim() : '';
+  const isHindi = String(document.documentElement.lang || '').toLowerCase().startsWith('hi');
+
+  if (!value || value === '—') return;
+
+  let copied = false;
+
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(value);
+      copied = true;
+    }
+  } catch (e) {}
+
+  if (!copied) {
+    try {
+      const temp = document.createElement('textarea');
+      temp.value = value;
+      temp.setAttribute('readonly', '');
+      temp.style.position = 'fixed';
+      temp.style.opacity = '0';
+      document.body.appendChild(temp);
+      temp.select();
+      copied = document.execCommand('copy');
+      temp.remove();
+    } catch (e) {}
+  }
+
+  if (statusBox) {
+    statusBox.textContent = copied
+      ? (isHindi ? 'रेफरेंस ID कॉपी हो गया।' : 'Reference ID copied.')
+      : (isHindi
+          ? 'कॉपी नहीं हो सका। कृपया रेफरेंस ID चुनकर कॉपी करें।'
+          : 'Could not copy automatically. Please select and copy the Reference ID.');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById('pjVerifyModal');
+  const doneBtn = document.getElementById('pjVerifyDone');
+  const copyBtn = document.getElementById('pjVerifyCopy');
+
+  if (doneBtn) {
+    doneBtn.addEventListener('click', closeVerificationModal);
+  }
+
+  if (copyBtn) {
+    copyBtn.addEventListener('click', copyVerificationReference);
+  }
+
+  if (modal) {
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal) {
+        closeVerificationModal();
+      }
+    });
+  }
+
+  document.addEventListener('keydown', (event) => {
+    if (
+      event.key === 'Escape' &&
+      modal &&
+      modal.classList.contains('open')
+    ) {
+      closeVerificationModal();
+    }
+  });
+});
+/* PJ_ACCOUNT_VERIFICATION_UX_V1_JS_END */
 function getFormValue(form, fieldName) {
   return (form.elements[fieldName]?.value || '').trim();
 }
@@ -3540,12 +3943,14 @@ async function handleSubmit(e) {
     const verificationHours = Number(result.verificationExpiresHours || 24);
     const maskedEmail = email.replace(/^(.{1,2})(.*)(@.*)$/, (m, a, b, c) => a + '•'.repeat(Math.min(Math.max(b.length, 2), 8)) + c);
 
-    btn.textContent = '✓ Check Your Email';
+    btn.textContent = '\u2713 अपना ईमेल देखें';
     btn.style.background = 'linear-gradient(135deg, #2E7D32, #1B5E20)';
     setFormStatus(
-      `Almost done. Reference ID: ${refId}. We sent a verification email to ${maskedEmail}. Please open it and confirm your request within ${verificationHours} hours. Your consultation enters our review queue only after email verification. No payment is required.`,
+      `लगभग पूरा हो गया। रेफरेंस ID: ${refId}। हमने ${maskedEmail} पर सत्यापन ईमेल भेजा है। कृपया ${verificationHours} घंटे के भीतर ईमेल खोलकर अनुरोध की पुष्टि करें। ईमेल सत्यापन के बाद ही आपका अनुरोध परामर्श कतार में जाएगा। किसी भुगतान की आवश्यकता नहीं है।`,
       'ok'
     );
+
+    openVerificationModal(refId, maskedEmail, verificationHours);
 
     form.reset();
     if (form.elements.country) form.elements.country.value = 'India';
@@ -4309,5 +4714,34 @@ html[data-theme="light"] .pj-quick-find{background:rgba(255,249,239,.96);color:#
 })();
 </script>
 <!-- PJ_SIMPLE_SHARE_V2_END -->
+<!-- PJ_ACCOUNT_VERIFICATION_UX_V1_MODAL -->
+<div aria-hidden="true" aria-labelledby="pjVerifyTitle" aria-modal="true" class="pj-verify-modal" id="pjVerifyModal" role="dialog">
+  <div class="pj-verify-card">
+    <div aria-hidden="true" class="pj-verify-success-icon">&#10003;</div>
+    <h2 id="pjVerifyTitle">अपना ईमेल देखें</h2>
+    <p class="pj-verify-lead">आपका अनुरोध सुरक्षित रूप से सहेज लिया गया है, लेकिन ईमेल सत्यापन के बाद ही यह परामर्श कतार में जाएगा।</p>
+
+    <div class="pj-verify-detail">
+      <div class="pj-verify-row">
+        <span class="pj-verify-label">सत्यापन ईमेल भेजा गया</span>
+        <span class="pj-verify-value" id="pjVerifyEmail">—</span>
+      </div>
+      <div class="pj-verify-row">
+        <span class="pj-verify-label">रेफरेंस ID</span>
+        <span class="pj-verify-value pj-verify-ref" id="pjVerifyRef">—</span>
+      </div>
+    </div>
+
+    <div class="pj-verify-note" id="pjVerifyExpiry">सत्यापन ईमेल खोलें और अपने अनुरोध की पुष्टि करें। किसी भुगतान की आवश्यकता नहीं है।</div>
+
+    <div class="pj-verify-actions">
+      <button class="pj-verify-btn pj-verify-copy" id="pjVerifyCopy" type="button">रेफरेंस ID कॉपी करें</button>
+      <button class="pj-verify-btn pj-verify-done" id="pjVerifyDone" type="button">ठीक है</button>
+    </div>
+
+    <div aria-live="polite" class="pj-verify-status" id="pjVerifyStatus"></div>
+  </div>
+</div>
+<!-- PJ_ACCOUNT_VERIFICATION_UX_V1_MODAL_END -->
 </body>
 </html>
