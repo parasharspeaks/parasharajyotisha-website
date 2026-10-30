@@ -730,6 +730,24 @@ body::after{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;o
 @media(max-width:780px){.cosmic-hero-inner{grid-template-columns:1fr}.cosmic-mandala{display:none}.cosmic-stat-grid{grid-template-columns:repeat(2,1fr)}.day-guidance-grid{grid-template-columns:1fr}}
 @media(max-width:460px){.cosmic-stat-grid{grid-template-columns:1fr}.transit-grid,.panchang-limb-grid{grid-template-columns:1fr}}
 
+
+/* North Indian chart: theme-aware fixed-house layout, October 2026. */
+.north-chart-wrap{max-width:760px;margin:0 auto;--ni-bg:#fffaf0;--ni-ink:#35251d;--ni-muted:#70594b;--ni-line:#af8963;--ni-accent:#a31f32;--ni-lagna:#fbe7d5;--ni-card:#fffdf8;}
+html[data-theme="dark"] .north-chart-wrap{--ni-bg:#191820;--ni-ink:#f8eddd;--ni-muted:#d2bdab;--ni-line:#9d8063;--ni-accent:#ffb68d;--ni-lagna:#39272b;--ni-card:#22212b;}
+.north-chart-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:8px 0 14px;color:var(--ni-ink);font:600 20px var(--font-serif,serif);}
+.north-chart-heading small{font:500 12px var(--font-sans,sans-serif);color:var(--ni-muted);text-align:right;}
+.north-chart-wrap .north-chart-svg{background:var(--ni-bg)!important;border:1px solid var(--ni-line)!important;border-radius:12px;box-shadow:0 8px 24px #0000000c;}
+.ni-boundary{fill:none;stroke:var(--ni-line);stroke-width:1.5;}
+.ni-sign{fill:var(--ni-ink);font:700 17px var(--font-sans,sans-serif);}
+.ni-house{fill:var(--ni-muted);font:600 12px var(--font-sans,sans-serif);}
+.ni-planets{fill:var(--ni-accent);font:700 17px var(--font-sans,sans-serif);}
+.ni-detail-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:14px;}
+.ni-detail{padding:12px;border:1px solid var(--ni-line);border-radius:10px;background:var(--ni-card);color:var(--ni-ink);font:13px/1.6 var(--font-sans,sans-serif);overflow-wrap:anywhere;}
+.ni-detail.lagna{background:var(--ni-lagna);border-color:var(--ni-accent);}
+.ni-detail strong{display:block;margin-bottom:5px;}.ni-detail span{display:block;}.ni-empty{color:var(--ni-muted);}
+.ni-guide{color:var(--ni-muted);font:13px/1.65 var(--font-sans,sans-serif);margin:12px 0;}
+@media(max-width:560px){.ni-detail-grid{grid-template-columns:repeat(2,minmax(0,1fr));}.north-chart-heading{font-size:18px;}.north-chart-heading small{font-size:11px;}}
+
 </style>
 
 
@@ -1369,46 +1387,25 @@ function showKundliChartStyle(style){
   if(btn)btn.classList.add('active');
 }
 function renderNorthChart(cells, lagN, safeName, lagDisplay){
-  // Clean North Indian chart: fixed houses, signs calculated from Lagna.
-  // Standard reading flow is anti-clockwise from the Lagna house.
-  const pos={
-    1:{x:250,y:78},  2:{x:150,y:72},  3:{x:72,y:150},  4:{x:104,y:250},
-    5:{x:72,y:350},  6:{x:150,y:428}, 7:{x:250,y:422}, 8:{x:350,y:428},
-    9:{x:428,y:350}, 10:{x:396,y:250}, 11:{x:428,y:150}, 12:{x:350,y:72}
-  };
-  let s=`<div class="north-chart-wrap"><svg class="north-chart-svg" viewBox="0 0 500 500" role="img" aria-label="North Indian Rashi chart">
-    <defs>
-      <radialGradient id="ngClean" cx="50%" cy="50%" r="70%"><stop offset="0%" stop-color="rgba(212,116,62,.10)"/><stop offset="100%" stop-color="rgba(18,18,26,.96)"/></radialGradient>
-    </defs>
-    <rect x="8" y="8" width="484" height="484" rx="22" fill="url(#ngClean)" stroke="rgba(255,255,255,.16)"/>
-    <path d="M250 8 L492 250 L250 492 L8 250 Z" fill="none" stroke="rgba(255,255,255,.20)" stroke-width="1.1"/>
-    <path d="M8 8 L492 492 M492 8 L8 492" stroke="rgba(255,255,255,.14)" stroke-width="1"/>
-    <circle cx="250" cy="250" r="2" fill="rgba(232,149,95,.6)"/>
-    <text x="250" y="244" text-anchor="middle" class="north-center-title">North Indian Chart</text>
-    <text x="250" y="260" text-anchor="middle" class="north-center-sub">Fixed Houses</text>
-    <text x="250" y="276" text-anchor="middle" fill="var(--text-mid)" style="font-size:10px;">Lagna: ${escapeHtml(lagDisplay||RF[lagN]||'—')}</text>`;
+  const hi=document.documentElement.lang.startsWith('hi');
+  const t=hi?{title:'राशि कुंडली',style:'उत्तर भारतीय · स्थिर भाव',house:'भाव',lagna:'लग्न',empty:'कोई ग्रह नहीं',guide:'भाव स्थिर हैं; ऊपर का हीरा प्रथम भाव (लग्न) है। राशि के आगे की संख्या राशि क्रमांक है (1–12)। R = वक्री। ग्रहों के पूरे नाम और अंश नीचे दिए हैं।'}:{title:'Rashi Chart',style:'North Indian · Fixed houses',house:'House',lagna:'Lagna',empty:'No planets',guide:'Houses stay fixed; the top diamond is House 1 (Lagna). The number beside each sign is its zodiac number (1–12). R = retrograde. Full planet names and degrees appear below.'};
+  const short={Sun:'Su',Moon:'Mo',Mars:'Ma',Mercury:'Me',Jupiter:'Ju',Venus:'Ve',Saturn:'Sa',Rahu:'Ra',Ketu:'Ke'};
+  // Centers are inside the twelve actual polygons, in anti-clockwise house order.
+  const pos=[[300,150],[150,49],[49,150],[150,300],[49,450],[150,530],[300,450],[450,530],[551,450],[450,300],[551,150],[450,49]];
+  let s=`<div class="north-chart-wrap"><div class="north-chart-heading"><span>${t.title}</span><small>${t.style}<br>${t.lagna}: ${escapeHtml(lagDisplay||RF[lagN]||'—')}</small></div><svg class="north-chart-svg" viewBox="0 0 600 600" role="img" aria-label="${t.title} — ${t.style}"><title>${t.title} — ${safeName}</title><desc>${t.guide}</desc><rect x="1" y="1" width="598" height="598" rx="10" fill="var(--ni-bg)"/><path d="M300 0 L450 150 L300 300 L150 150 Z" fill="var(--ni-lagna)"/><path class="ni-boundary" d="M300 0 L600 300 L300 600 L0 300 Z M0 0 L600 600 M600 0 L0 600"/>`;
+  let details='';
   for(let h=1;h<=12;h++){
-    const p=pos[h];
-    const sign=signForHouse(lagN,h);
-    const isL=h===1;
-    const pp=cells[sign]||[];
-    s+=`<g class="north-house-group ${isL?'north-lagna-group':''}">`;
-    s+=`<text x="${p.x}" y="${p.y-20}" text-anchor="middle" class="north-house-label ${isL?'lagna':''}">H${h} • ${escapeHtml(RS[sign]||'—')}${isL?' • Lagna':''}</text>`;
-    if(pp.length){
-      const max=pp.length>4?4:pp.length;
-      for(let i=0;i<max;i++){
-        const pl=pp[i];
-        const co=PCOL[pl.nm]||'var(--text-mid)';
-        s+=`<text x="${p.x}" y="${p.y + (i*13)}" text-anchor="middle" class="north-planet-text" fill="${co}">${escapeHtml(pl.nm)}${pl.ret?' R':''}</text>`;
-      }
-      if(pp.length>4)s+=`<text x="${p.x}" y="${p.y+52}" text-anchor="middle" fill="var(--text-dim)" style="font-size:9px;">+${pp.length-4} more</text>`;
-    }else{
-      s+=`<text x="${p.x}" y="${p.y}" text-anchor="middle" fill="var(--text-dim)" opacity=".32" style="font-size:11px;">—</text>`;
-    }
-    s+=`</g>`;
+    const sign=signForHouse(lagN,h), pp=cells[sign]||[], [x,y]=pos[h-1];
+    const signName=RF[sign]||'—';
+    const rows=[];
+    for(let i=0;i<pp.length;i+=3) rows.push(pp.slice(i,i+3).map(p=>(short[p.nm]||p.nm.slice(0,2))+(p.ret?'ᴿ':'')).join(' · '));
+    const title=`${t.house} ${h} · ${signName}: ${pp.map(p=>p.nm+(p.ret?' R':'')+(p.degree?' '+p.degree:'')).join(', ')||t.empty}`;
+    s+=`<g><title>${escapeHtml(title)}</title><text x="${x}" y="${y-17}" text-anchor="middle" class="ni-sign">${sign} · ${escapeHtml(hi?signName:RS[sign]||'—')}</text><text x="${x}" y="${y+1}" text-anchor="middle" class="ni-house">${hi?'भाव':'H'}${h}${h===1?' · '+t.lagna:''}</text>`;
+    rows.forEach((row,i)=>{s+=`<text x="${x}" y="${y+23+i*18}" text-anchor="middle" class="ni-planets" style="font-size:${pp.length>2?14:17}px">${escapeHtml(row)}</text>`;});
+    s+='</g>';
+    details+=`<div class="ni-detail ${h===1?'lagna':''}"><strong>${t.house} ${h} · ${escapeHtml(signName)}${h===1?' · '+t.lagna:''}</strong>${pp.length?pp.map(p=>`<span>${escapeHtml(p.nm)}${p.ret?' <b>R</b>':''}${p.degree?' · '+escapeHtml(p.degree):''}</span>`).join(''):`<span class="ni-empty">${t.empty}</span>`}</div>`;
   }
-  s+=`</svg><div class="kundli-help"><strong>How to read:</strong> North Indian style keeps houses fixed. H1 is Lagna; signs move according to the Lagna, and planets are placed from the exact rashi data used in the table below.</div></div>`;
-  return s;
+  return s+`</svg><p class="ni-guide">${t.guide}</p><div class="ni-detail-grid">${details}</div></div>`;
 }
 
 
@@ -4223,3 +4220,4 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 <script src="assets/js/social-share.js" defer></script>
 </body>
 </html>
+
