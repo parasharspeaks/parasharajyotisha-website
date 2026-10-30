@@ -464,6 +464,7 @@ html[data-theme="light"] .pj-lang-switch .active{background:#9E2028;color:#fff}
       if(date===localIsoDate()) data=await getJson(`/today?city=${encodeURIComponent(city)}`);
       else data=await getJson(`/panchanga/daily?date=${encodeURIComponent(date)}&city=${encodeURIComponent(city)}`);
       render(data,{city,date});
+      try { if(city.length<=120) localStorage.setItem('pj-panchang-city',city); } catch(e) {}
     }catch(e){
       console.error(e); $('pj-status').textContent=e.name==='AbortError'?'पंचांग सेवा ने बहुत समय लिया। कृपया फिर प्रयास करें।':(e.message||'पंचांग लोड नहीं हो सका। शहर की वर्तनी जाँचें और फिर प्रयास करें।'); $('pj-status').className='panchang-status bad';
       $('pj-result').innerHTML=`<div class="result-placeholder"><strong>यह पंचांग लोड नहीं हो सका।</strong><span>शहर की वर्तनी जाँचें या फिर प्रयास करें।</span><a class="btn secondary" href="../tools.html#panchang">All Tools में Panchang खोलें</a></div>`;
@@ -472,7 +473,7 @@ html[data-theme="light"] .pj-lang-switch .active{background:#9E2028;color:#fff}
   $('panchang-form').addEventListener('submit',e=>{e.preventDefault();load();});
   (async function init(){
     await loadHindiDictionary();
-    const params=new URLSearchParams(location.search); $('pj-date').value=params.get('date')||localIsoDate(); $('pj-city').value=params.get('city')||'Delhi';
+    const params=new URLSearchParams(location.search); $('pj-date').value=params.get('date')||localIsoDate(); let savedCity=''; try { savedCity=localStorage.getItem('pj-panchang-city')||''; } catch(e) {} $('pj-city').value=params.get('city')||(savedCity.length<=120?savedCity:'')||'Delhi';
     load();
   })();
 })();
@@ -598,4 +599,8 @@ html[data-theme="light"] .pj-lang-switch .active{background:#9E2028;color:#fff}
 })();
 </script>
 <!-- PJ_SIMPLE_SHARE_V2_END -->
+
+<link rel="stylesheet" href="/assets/css/mobile-experience.css?v=20261030">
+<script src="/assets/js/mobile-experience.js?v=20261030" defer></script>
 </body></html>
+
