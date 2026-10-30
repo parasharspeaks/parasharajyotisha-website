@@ -1477,7 +1477,7 @@ function showKundliChartStyle(style){
 }
 function renderNorthChart(cells, lagN, safeName, lagDisplay){
   const hi=document.documentElement.lang.startsWith('hi');
-  const t=hi?{title:'राशि कुंडली',style:'उत्तर भारतीय · स्थिर भाव',house:'भाव',lagna:'लग्न',empty:'कोई ग्रह नहीं',guide:'भाव स्थिर हैं; ऊपर का हीरा प्रथम भाव (लग्न) है। R = वक्री। ग्रहों के पूरे नाम और अंश नीचे दिए हैं।'}:{title:'Rashi Chart',style:'North Indian · Fixed houses',house:'House',lagna:'Lagna',empty:'No planets',guide:'Houses stay fixed; the top diamond is House 1 (Lagna). R = retrograde. Full planet names and degrees appear below.'};
+  const t=hi?{title:'राशि कुंडली',style:'उत्तर भारतीय · स्थिर भाव',house:'भाव',lagna:'लग्न',empty:'कोई ग्रह नहीं',guide:'भाव स्थिर हैं; ऊपर का हीरा प्रथम भाव (लग्न) है। अंक राशि दर्शाते हैं (1 = मेष, 8 = वृश्चिक, 9 = धनु), भाव नहीं। R = वक्री। ग्रहों के पूरे नाम और अंश नीचे दिए हैं।'}:{title:'Rashi Chart',style:'North Indian · Fixed houses',house:'House',lagna:'Lagna',empty:'No planets',guide:'Houses stay fixed; the top diamond is House 1 (Lagna). Numbers indicate zodiac signs (1 = Aries, 8 = Scorpio, 9 = Sagittarius), not houses. R = retrograde. Full planet names and degrees appear below.'};
   const short={Sun:'Su',Moon:'Mo',Mars:'Ma',Mercury:'Me',Jupiter:'Ju',Venus:'Ve',Saturn:'Sa',Rahu:'Ra',Ketu:'Ke'};
   // Centers are inside the twelve actual polygons, in anti-clockwise house order.
   const pos=[[300,150],[150,49],[49,150],[150,300],[49,450],[150,530],[300,450],[450,530],[551,450],[450,300],[551,150],[450,49]];
@@ -1489,7 +1489,7 @@ function renderNorthChart(cells, lagN, safeName, lagDisplay){
     const rows=[];
     for(let i=0;i<pp.length;i+=3) rows.push(pp.slice(i,i+3).map(p=>(short[p.nm]||p.nm.slice(0,2))+(p.ret?'ᴿ':'')).join(' · '));
     const title=`${t.house} ${h} · ${signName}: ${pp.map(p=>p.nm+(p.ret?' R':'')+(p.degree?' '+p.degree:'')).join(', ')||t.empty}`;
-    s+=`<g><title>${escapeHtml(title)}</title><text x="${x}" y="${y-17}" text-anchor="middle" class="ni-sign">${escapeHtml(hi?signName:RS[sign]||'—')}</text><text x="${x}" y="${y+1}" text-anchor="middle" class="ni-house">${h===1?t.lagna:''}</text>`;
+    s+=`<g><title>${escapeHtml(title)}</title><text x="${x}" y="${y-17}" text-anchor="middle" class="ni-sign">${sign || '—'}</text><text x="${x}" y="${y+1}" text-anchor="middle" class="ni-house">${h===1?t.lagna:''}</text>`;
     rows.forEach((row,i)=>{s+=`<text x="${x}" y="${y+23+i*18}" text-anchor="middle" class="ni-planets" style="font-size:${pp.length>2?14:17}px">${escapeHtml(row)}</text>`;});
     s+='</g>';
     details+=`<div class="ni-detail ${h===1?'lagna':''}"><strong>${t.house} ${h} · ${escapeHtml(signName)}${h===1?' · '+t.lagna:''}</strong>${pp.length?pp.map(p=>`<span>${escapeHtml(p.nm)}${p.ret?' <b>R</b>':''}${p.degree?' · '+escapeHtml(p.degree):''}</span>`).join(''):`<span class="ni-empty">${t.empty}</span>`}</div>`;
@@ -4310,5 +4310,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 <script src="../assets/js/social-share.js" defer></script>
 </body>
 </html>
+
 
 
