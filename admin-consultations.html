@@ -41,6 +41,13 @@
 
 .attention{padding:16px;max-width:1500px;margin:auto}.attention h2{font:22px Georgia,serif;color:var(--maroon);margin:0 0 4px}.attention-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:12px}.attention-card{text-align:left;border:1px solid var(--line);border-radius:12px;background:var(--paper2);padding:14px;color:var(--ink);cursor:pointer;min-height:85px}.attention-card span{display:block;font-size:12px;font-weight:750}.attention-card strong{display:block;font-size:25px;margin-top:4px}.attention-card.active{border:2px solid var(--maroon);background:#fff0e4}.attention-card:disabled{cursor:default;color:var(--muted)}.attention-card:disabled strong{font-size:16px}.list-email{font-size:10px;color:var(--muted);margin-top:7px}.email-alert{color:#a83232;font-weight:800}.attention-filter{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:11px;margin-bottom:10px}.preview-dialog{color:var(--ink);background:var(--paper2);border:1px solid var(--line);border-radius:18px;width:min(760px,calc(100% - 24px));max-height:90vh;padding:0;box-shadow:var(--shadow)}.preview-dialog::backdrop{background:rgba(39,28,20,.55)}.preview-body{padding:20px}.preview-meta{display:grid;grid-template-columns:150px minmax(0,1fr);gap:7px 12px}.preview-meta dt{font-weight:800;color:var(--muted)}.preview-meta dd{margin:0;overflow-wrap:anywhere}.preview-answer{white-space:pre-wrap;overflow-wrap:anywhere;padding:15px;border:1px solid var(--line);border-radius:10px;background:#fff8eb;max-height:35vh;overflow:auto}.preview-footer{padding:16px 20px;border-top:1px solid var(--line);background:var(--paper);position:sticky;bottom:0}.preview-check{display:flex;align-items:flex-start;gap:9px;margin-bottom:12px}.preview-check input{width:18px;height:18px;flex-shrink:0}.preview-footer .btn{min-height:44px}.topbar{height:auto;min-height:58px;gap:12px;flex-wrap:wrap}.righttop,.top-tabs{flex-wrap:wrap}.item-top{flex-wrap:wrap}.item-select{min-width:0}.ref{overflow-wrap:anywhere}.list{max-height:65vh}button:focus-visible,a:focus-visible{outline:3px solid #245b92;outline-offset:3px}
 @media(max-width:760px){.attention{padding:12px}.attention-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.preview-meta{grid-template-columns:1fr}.preview-meta dd{margin-bottom:6px}.preview-footer .modal-actions{flex-wrap:wrap}.preview-body{padding:14px}.top-tabs{gap:4px}.tabbtn{min-height:44px}.signed{overflow-wrap:anywhere}.righttop{min-width:0}.attention-card{padding:10px}.preview-answer{max-height:30vh}}
+
+.directory-controls{display:grid;grid-template-columns:1fr 1fr;gap:12px}.directory-controls label{display:block;margin-bottom:6px;font-weight:700}
+.directory-rows{display:grid;gap:12px;margin:14px 0}.directory-card{border:1px solid var(--line);border-radius:12px;padding:14px;background:#fffdf8;min-width:0}
+.directory-card header{display:flex;justify-content:space-between;gap:12px;align-items:center}.directory-card h3{font-size:16px;margin:0}.directory-card p{margin:5px 0;overflow-wrap:anywhere}
+.directory-dates{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}.directory-dates dt{font-size:11px;color:var(--muted)}.directory-dates dd{margin:4px 0;font-size:13px}
+.directory-pagination{display:flex;align-items:center;justify-content:space-between;gap:10px}
+@media(max-width:600px){.directory-controls,.directory-dates{grid-template-columns:1fr}.directory-card header{align-items:flex-start;flex-direction:column}}
 </style>
 </head>
 <body>
@@ -74,8 +81,19 @@
 <section id="accountView" class="review-wrap hidden">
   <div class="account-shell">
     <div class="review-head">
-      <div><div class="panel-title" style="font-size:24px">Kundli Accounts <span class="account-readonly">READ ONLY</span></div><div class="note">Search a registered My Kundli account by email before granting any future bonus credits or coupon. This screen cannot change account data.</div></div>
+      <div><div class="panel-title" style="font-size:24px">Kundli Accounts</div><div class="note">Browse registered accounts or look up an exact email to view details and manage PDF credits.</div></div>
     </div>
+<section class="panel" aria-label="Registered account directory">
+<div class="panel-head"><div class="panel-title">Registered accounts</div><button type="button" id="directoryRefresh" class="btn">Refresh list</button></div>
+<div class="panel-body">
+<p class="note">Firebase accounts, 50 per page. A users profile is indicated separately; this project may include app and admin accounts. Dates are IST. Last sign-in is the latest Firebase login, not online status or a full login history.</p>
+<div class="directory-controls"><div><label for="directorySearch">Search this page</label><input id="directorySearch" class="input" type="search" placeholder="Name, email or UID"></div>
+<div><label for="directoryFilter">Show on this page</label><select id="directoryFilter" class="input"><option value="all">All accounts</option><option value="profile">With Kundli/users profile</option><option value="unverified">Email unverified</option><option value="disabled">Disabled</option></select></div></div>
+<p class="note">For an exact email across all accounts, use the lookup below. Page order follows Firebase UID.</p>
+<div id="directoryMessage" role="status" aria-live="polite"></div>
+<div id="directoryRows" class="directory-rows"></div>
+<div class="directory-pagination"><button type="button" id="directoryPrevious" class="btn" disabled>Previous</button><span id="directoryPage">Page 1</span><button type="button" id="directoryNext" class="btn" disabled>Next</button></div>
+</div></section>
     <div class="panel"><div class="panel-body">
       <form id="accountLookupForm" class="account-search">
         <div class="field" style="margin:0"><label>Registered My Kundli email</label><input id="accountEmailInput" class="input" type="email" autocomplete="off" placeholder="person@example.com" required></div>
@@ -156,7 +174,61 @@ function fmtBirthTime(v){
 function setBusy(v){busy=v;["retryReplyEmailBtn","inProgressBtn","clarifyBtn","saveDraftBtn","sendReplyBtn","uploadPdfBtn","uploadAudioBtn","archiveBtn","invalidBtn","deleteAttachmentsBtn","deletePermanentBtn","bulkArchiveBtn","bulkDeleteBtn"].forEach(id=>{if($(id))$(id).disabled=v});if(selected)renderReplyDelivery()}
 async function apiPost(name,body){const user=auth.currentUser;if(!user)throw new Error("Admin session expired. Sign in again.");const token=await user.getIdToken();const r=await fetch(`${FN_BASE}/${name}`,{method:"POST",headers:{"Content-Type":"application/json","Authorization":`Bearer ${token}`},body:JSON.stringify(body)});let j={};try{j=await r.json()}catch(_){j={ok:false,message:`HTTP ${r.status}`}}if(!r.ok||!j.ok)throw new Error(j.message||`Request failed (${r.status})`);return j}
 loginForm.addEventListener("submit",async e=>{e.preventDefault();showMsg(loginMsg,"");loginBtn.disabled=true;try{await auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);const cred=await auth.signInWithEmailAndPassword(loginEmail.value.trim(),loginPassword.value);const email=(cred.user.email||"").toLowerCase();if(!APPROVED.has(email)){await auth.signOut();throw new Error("This account is not an approved administrator.")}loginPassword.value=""}catch(err){showMsg(loginMsg,err.message||String(err),"err")}finally{loginBtn.disabled=false}});logoutBtn.onclick=()=>auth.signOut();
-auth.onAuthStateChanged(user=>{const email=(user&&user.email||"").toLowerCase(),ok=!!user&&APPROVED.has(email);loginView.classList.toggle("hidden",ok);signedBar.classList.toggle("hidden",!ok);signedEmail.textContent=ok?email:"";$("attentionDashboard").classList.toggle("hidden",!ok);attentionLoaded.consultations=false;attentionLoaded.pending=false;if(ok){showWorkspace(currentWorkspace);startLive();startPending();startReviews()}else{consoleView.classList.add("hidden");pendingView.classList.add("hidden");reviewView.classList.add("hidden");accountView.classList.add("hidden");accountResult.classList.add("hidden");accountEmailInput.value="";resetKundliActionState();showMsg(accountLookupMsg,"");if(unsubscribe){unsubscribe();unsubscribe=null}if(pendingUnsubscribe){pendingUnsubscribe();pendingUnsubscribe=null}if(reviewUnsubscribe){reviewUnsubscribe();reviewUnsubscribe=null}docs=[];pendingDocs=[];reviewDocs=[];selected=null;selectedIds.clear();renderList();renderPending();renderReviews()}});
+let directoryRowsData=[],directoryTokens=[""],directoryIndex=0,directoryNextToken="";
+let directoryBusy=false,directoryLoaded=false,directoryRequest=0;
+function resetAccountDirectory(){
+  directoryRequest++;directoryRowsData=[];directoryTokens=[""];directoryIndex=0;
+  directoryNextToken="";directoryBusy=false;directoryLoaded=false;
+  $("directoryRows").replaceChildren();$("directoryMessage").textContent="";
+  $("directorySearch").value="";$("directoryFilter").value="all";
+  $("directoryPrevious").disabled=true;$("directoryNext").disabled=true;
+  $("directoryRefresh").disabled=false;$("directoryPage").textContent="Page 1";
+}
+function directoryDate(value){
+  if(!value)return "Not recorded";
+  const date=new Date(value);
+  return Number.isNaN(date.getTime())?"Not recorded":date.toLocaleString("en-IN",{timeZone:"Asia/Kolkata",dateStyle:"medium",timeStyle:"short"});
+}
+function renderAccountDirectory(){
+  const query=$("directorySearch").value.trim().toLowerCase(),filter=$("directoryFilter").value;
+  const rows=directoryRowsData.filter(a=>([a.email,a.displayName,a.uid].join(" ").toLowerCase().includes(query))&&
+    (filter==="all"||(filter==="profile"&&a.profileExists)||(filter==="unverified"&&!a.emailVerified)||(filter==="disabled"&&a.disabled)));
+  $("directoryMessage").textContent=directoryBusy?"Loading accounts…":rows.length+" shown / "+directoryRowsData.length+" accounts on this page";
+  $("directoryPage").textContent="Page "+(directoryIndex+1);
+  $("directoryPrevious").disabled=directoryBusy||directoryIndex===0;
+  $("directoryNext").disabled=directoryBusy||!directoryNextToken;
+  $("directoryRefresh").disabled=directoryBusy;
+  $("directoryRows").innerHTML=rows.length?rows.map(a=>'<article class="directory-card"><header><div><h3>'+esc(a.displayName||"Unnamed account")+'</h3><p>'+esc(a.email||"No email registered")+'</p></div><button type="button" class="btn directory-detail" data-uid="'+esc(a.uid)+'" '+(!a.email?'disabled':'')+'>View details</button></header><p class="note">'+esc(a.disabled?"Disabled":"Active")+' · '+esc(a.emailVerified?"Email verified":"Email unverified")+' · '+esc(a.profileExists?"Kundli/users profile present":"No users profile")+'</p><dl class="directory-dates"><div><dt>Account created · IST</dt><dd>'+esc(directoryDate(a.createdAt))+'</dd></div><div><dt>Last Firebase sign-in · IST</dt><dd>'+esc(directoryDate(a.lastSignInAt))+'</dd></div><div><dt>Last dashboard login · IST</dt><dd>'+esc(directoryDate(a.lastDashboardLoginAt))+'</dd></div></dl><p class="account-technical">UID: '+esc(a.uid)+'</p></article>').join(""):'<p class="note">'+(directoryBusy?"":"No accounts match on this page.")+'</p>';
+}
+async function loadAccountDirectory(index,tokens){
+  if(directoryBusy||!auth.currentUser)return;
+  const request=++directoryRequest,uid=auth.currentUser.uid;
+  directoryBusy=true;renderAccountDirectory();
+  try{
+    const data=await apiPost("adminListKundliAccounts",{pageToken:tokens[index]||""});
+    if(request!==directoryRequest||auth.currentUser?.uid!==uid)return;
+    if(!Array.isArray(data.accounts))throw new Error("Invalid directory response.");
+    directoryRowsData=data.accounts;directoryTokens=tokens;directoryIndex=index;
+    directoryNextToken=data.nextPageToken||"";directoryLoaded=true;directoryBusy=false;
+    renderAccountDirectory();
+  }catch(error){
+    if(request!==directoryRequest||auth.currentUser?.uid!==uid)return;
+    directoryBusy=false;renderAccountDirectory();
+    $("directoryMessage").textContent="Accounts could not load: "+error.message+" Use Refresh to try again.";
+  }
+}
+$("directoryRefresh").onclick=()=>loadAccountDirectory(0,[""]);
+$("directoryPrevious").onclick=()=>loadAccountDirectory(directoryIndex-1,directoryTokens.slice(0,directoryIndex));
+$("directoryNext").onclick=()=>loadAccountDirectory(directoryIndex+1,[...directoryTokens.slice(0,directoryIndex+1),directoryNextToken]);
+$("directorySearch").oninput=renderAccountDirectory;
+$("directoryFilter").onchange=renderAccountDirectory;
+$("directoryRows").onclick=event=>{
+  const button=event.target.closest(".directory-detail");if(!button||directoryBusy)return;
+  const account=directoryRowsData.find(a=>a.uid===button.dataset.uid);
+  if(account&&account.email){lookupKundliAccount(account.email);$("accountLookupForm").scrollIntoView({behavior:"smooth",block:"start"});}
+};
+
+auth.onAuthStateChanged(user=>{resetAccountDirectory();const email=(user&&user.email||"").toLowerCase(),ok=!!user&&APPROVED.has(email);loginView.classList.toggle("hidden",ok);signedBar.classList.toggle("hidden",!ok);signedEmail.textContent=ok?email:"";$("attentionDashboard").classList.toggle("hidden",!ok);attentionLoaded.consultations=false;attentionLoaded.pending=false;if(ok){showWorkspace(currentWorkspace);startLive();startPending();startReviews()}else{consoleView.classList.add("hidden");pendingView.classList.add("hidden");reviewView.classList.add("hidden");accountView.classList.add("hidden");accountResult.classList.add("hidden");accountEmailInput.value="";resetKundliActionState();showMsg(accountLookupMsg,"");if(unsubscribe){unsubscribe();unsubscribe=null}if(pendingUnsubscribe){pendingUnsubscribe();pendingUnsubscribe=null}if(reviewUnsubscribe){reviewUnsubscribe();reviewUnsubscribe=null}docs=[];pendingDocs=[];reviewDocs=[];selected=null;selectedIds.clear();renderList();renderPending();renderReviews()}});
 function startLive(){if(unsubscribe)unsubscribe();unsubscribe=db.collection("consultations").orderBy("createdAt","desc").limit(250).onSnapshot(s=>{docs=s.docs.map(d=>({id:d.id,...d.data()}));attentionLoaded.consultations=true;renderList();renderAttention();if(selected){const hit=docs.find(x=>x.id===selected.id);if(hit){selected=hit;renderDetail(false)}else clearSelection()}},err=>{attentionLoaded.consultations="error";renderAttention();consultationList.innerHTML=`<div class="msg err">${esc(err.message)}</div>`})}
 const known=new Set(["pending","in_progress","awaiting_clarification","replied","invalid","archived","scheduled_call"]);function filtered(){const q=searchBox.value.trim().toLowerCase(),filter=statusFilter.value;return docs.filter(d=>{const hay=[d.id,d.refId,d.name,d.emailLower,d.email,d.topic,d.service,d.question,d.message,d.phone].join(" ").toLowerCase();const s=st(d);const smatch=filter==="all"||(filter==="other"?!known.has(s):filter==="invalid"?(s==="invalid"||s==="closed"):s===filter);return attentionMatch(d,attentionFilter)&&(!q||hay.includes(q))&&smatch})}
 function renderStats(){const c={pending:0,in_progress:0,awaiting_clarification:0,replied:0,invalid:0,archived:0,scheduled_call:0,other:0};docs.forEach(d=>{const s=st(d);if(s==="closed")c.invalid++;else if(s in c)c[s]++;else c.other++});stats.innerHTML=`<span class="chip">Total ${docs.length}</span><span class="chip">Pending ${c.pending}</span><span class="chip">Working ${c.in_progress}</span><span class="chip">Clarify ${c.awaiting_clarification}</span><span class="chip">Replied ${c.replied}</span><span class="chip">Closed ${c.invalid}</span><span class="chip">Archived ${c.archived}</span>${c.scheduled_call?`<span class="chip">Calls ${c.scheduled_call}</span>`:""}${c.other?`<span class="chip">Other ${c.other}</span>`:""}`}
@@ -229,7 +301,7 @@ invalidBtn.onclick=async()=>{if(!selected||busy)return;const reason=prompt("Reas
 deleteAttachmentsBtn.onclick=async()=>{if(!selected||busy)return;if(!confirm("Delete ALL Firebase reply files for this reference and clear PDF/audio links from Firestore? Google Drive files themselves cannot be deleted by this console."))return;setBusy(true);try{const r=await apiPost("deleteConsultationAttachments",{consultationId:selected.id});pdfUrl.value="";audioUrl.value="";showMsg(actionMsg,r.message)}catch(e){showMsg(actionMsg,e.message||String(e),"err")}finally{setBusy(false)}};
 deletePermanentBtn.onclick=async()=>{if(!selected||busy)return;const ref=selected.refId||selected.id;const typed=prompt(`PERMANENT DELETE\n\nThis removes consultation + tracking + clarification tokens + Firebase reply files.\nIt does NOT reset monthly consultation anti-abuse usage.\n\nType the exact Reference ID to continue:\n${ref}`);if(typed===null)return;if(typed.trim()!==ref){showMsg(actionMsg,"Reference ID did not match. Nothing was deleted.","err");return}const reason=prompt("Optional deletion reason for the server log:","")||"";setBusy(true);try{await apiPost("deleteConsultationPermanently",{consultationId:selected.id,confirmation:typed.trim(),reason});clearSelection()}catch(e){showMsg(actionMsg,e.message||String(e),"err")}finally{setBusy(false)}};
 
-function showWorkspace(name){currentWorkspace=name==="pending"?"pending":name==="reviews"?"reviews":name==="accounts"?"accounts":"consultations";const isConsultations=currentWorkspace==="consultations",isPending=currentWorkspace==="pending",isReviews=currentWorkspace==="reviews",isAccounts=currentWorkspace==="accounts";consoleView.classList.toggle("hidden",!isConsultations);pendingView.classList.toggle("hidden",!isPending);reviewView.classList.toggle("hidden",!isReviews);accountView.classList.toggle("hidden",!isAccounts);consultationsTabBtn.classList.toggle("active",isConsultations);pendingTabBtn.classList.toggle("active",isPending);reviewsTabBtn.classList.toggle("active",isReviews);accountsTabBtn.classList.toggle("active",isAccounts);renderAttention()}
+function showWorkspace(name){currentWorkspace=name==="pending"?"pending":name==="reviews"?"reviews":name==="accounts"?"accounts":"consultations";const isConsultations=currentWorkspace==="consultations",isPending=currentWorkspace==="pending",isReviews=currentWorkspace==="reviews",isAccounts=currentWorkspace==="accounts";consoleView.classList.toggle("hidden",!isConsultations);pendingView.classList.toggle("hidden",!isPending);reviewView.classList.toggle("hidden",!isReviews);accountView.classList.toggle("hidden",!isAccounts);consultationsTabBtn.classList.toggle("active",isConsultations);pendingTabBtn.classList.toggle("active",isPending);reviewsTabBtn.classList.toggle("active",isReviews);accountsTabBtn.classList.toggle("active",isAccounts);renderAttention();if(isAccounts&&!directoryLoaded&&!directoryBusy)loadAccountDirectory(0,[""])}
 consultationsTabBtn.onclick=()=>showWorkspace("consultations");pendingTabBtn.onclick=()=>showWorkspace("pending");reviewsTabBtn.onclick=()=>showWorkspace("reviews");accountsTabBtn.onclick=()=>showWorkspace("accounts");
 /* PJ_CONSULTATION_PENDING_V4_JS_START */
 function maskPendingEmail(value){const s=String(value||"").trim();const at=s.indexOf("@");if(at<=0)return s?"***":"—";const local=s.slice(0,at),domain=s.slice(at+1);const left=local.length<=2?local.charAt(0)+"*":local.slice(0,2)+"***";return `${left}@${domain}`}
