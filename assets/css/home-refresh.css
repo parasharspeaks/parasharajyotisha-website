@@ -1,0 +1,52 @@
+/* Homepage layout, scoped to preserve calculator and consultation pages. */
+body[data-home-refresh]{--home-surface:#fffdf9;--home-line:#e4d5c3;--home-ink:#34271f;--home-muted:#6b584b;--home-accent:#a72134;--tint:#fae5d2}
+html[data-theme="dark"] body[data-home-refresh]{--home-surface:#24212b;--home-line:#514553;--home-ink:#f8ede0;--home-muted:#d0bec0;--home-accent:#ffb7a6;--tint:#49313b}
+body[data-home-refresh] .hero{min-height:0!important;height:auto!important;padding:125px max(5vw,24px) 40px!important;display:block!important}
+body[data-home-refresh] .hero-content{max-width:760px!important;width:68%!important;margin:0!important;padding:0!important;text-align:left!important}
+body[data-home-refresh] .hero-title{font-size:clamp(2rem,3.6vw,3.7rem)!important;line-height:1.12!important;margin:12px 0!important}
+body[data-home-refresh] .hero-sub{font-size:1.05rem!important;line-height:1.6!important;margin:12px 0!important}
+body[data-home-refresh] .hero-desc{display:none!important}
+body[data-home-refresh] .hero-art{top:110px!important;bottom:24px!important;right:5%!important;width:24%!important;opacity:1!important;mix-blend-mode:normal!important;filter:none!important}
+body[data-home-refresh] .hero-art img{height:100%!important;object-fit:cover!important;object-position:center 40%!important;mask-image:none!important;-webkit-mask-image:none!important;border-radius:22px!important}
+body[data-home-refresh] .hero-content::before,body[data-home-refresh] .hero-stars,body[data-home-refresh] .hero-glow{display:none!important}
+body[data-home-refresh] .hero-actions{margin:20px 0 12px!important;justify-content:flex-start!important;gap:12px!important}
+body[data-home-refresh] .hero-proof{justify-content:flex-start!important;margin-top:14px!important}
+body[data-home-refresh] .section{padding:36px 0!important}
+body[data-home-refresh] .container{width:min(1180px,92%)!important;max-width:1180px!important}
+body[data-home-refresh] .heading{font-size:clamp(1.8rem,3vw,2.7rem)!important}
+body[data-home-refresh] .section-intro{margin-bottom:20px!important}
+body[data-home-refresh] .reveal{opacity:1!important;transform:none!important}
+.home-heading{font-size:1.8rem;color:var(--home-ink);margin:0 0 16px}
+body[data-home-refresh] .pj-site-finder{max-width:none!important;margin:0 0 20px!important}
+.home-shortcuts{display:grid;grid-template-columns:repeat(8,1fr);gap:10px}
+.home-shortcut{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;padding:18px 8px;background:var(--home-surface);border:1px solid var(--home-line);border-radius:16px;text-decoration:none;color:var(--home-ink);text-align:center;min-height:105px}
+.home-shortcut>span{font-size:1.8rem;color:var(--home-accent)}
+.home-shortcut strong{font-size:.9rem;line-height:1.35}
+.home-shortcut:hover,.home-shortcut:focus-visible{border-color:var(--home-accent);box-shadow:0 6px 20px #482b2310;transform:translateY(-2px)}
+.home-sky{display:grid;grid-template-columns:1fr 440px;align-items:center;gap:48px;background:var(--home-surface);border:1px solid var(--home-line);border-radius:24px;padding:28px}
+.home-sky p,.home-guidance p{font-size:1rem;color:var(--home-muted);margin:16px 0;line-height:1.7}
+.home-actions{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0}
+.home-actions button{font:inherit;cursor:pointer;padding:10px 16px;border-radius:30px;border:1px solid var(--home-line);background:var(--home-surface);color:var(--home-ink);min-height:44px}
+.home-actions button[aria-pressed="true"]{background:var(--home-accent);color:var(--home-surface)}
+#home-sky-chart{min-height:200px}#home-sky-chart svg{width:100%;display:block;background:var(--home-surface);border:1px solid #ba8c5e;border-radius:12px}
+#home-sky-chart .chart-line{fill:none;stroke:#ba8c5e;stroke-width:1.5}#home-sky-chart text{fill:var(--home-ink);font-family:Arial,sans-serif}#home-sky-chart .sign{font-size:18px;font-weight:700}#home-sky-chart .lag{font-size:13px}#home-sky-chart .planet{font-size:16px;fill:var(--home-accent);font-weight:600}
+.home-guidance{display:flex;align-items:center;justify-content:space-between;gap:30px;padding:28px;background:var(--tint);border:1px solid var(--home-line);border-radius:20px}
+.home-guidance h2{font-size:1.8rem;color:var(--home-ink)}.home-guidance .home-actions{min-width:260px;flex-direction:column}
+.home-lessons-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:24px 0}
+.home-lesson{display:grid;grid-template-columns:42% 1fr;align-items:center;overflow:hidden;background:var(--home-surface);border:1px solid var(--home-line);border-radius:18px;color:var(--home-ink);text-decoration:none}
+.home-lesson img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}.home-lesson div{padding:18px}.home-lesson h3{font-size:1.2rem;margin-bottom:8px}.home-lesson span{font-size:.875rem;color:var(--home-muted)}
+body[data-home-refresh] .philosophy{display:none!important}
+body[data-home-refresh] .panchang-meaning-strip,body[data-home-refresh] .panchang-summary{display:none}
+#home-recent{margin-top:18px;font-size:.9rem}#home-recent a{display:inline-block;padding:8px 14px;margin:4px;border:1px solid var(--home-line);border-radius:30px;color:var(--home-ink)}
+/* Override legacy link-only navigation hiding rules. */
+@media(min-width:769px){body[data-home-refresh] .nav-links{overflow:visible!important}body[data-home-refresh] .pj-nav-menu{position:relative!important}body[data-home-refresh] .pj-nav-menu.open>.pj-nav-dropdown,body[data-home-refresh] .pj-nav-menu:focus-within>.pj-nav-dropdown{display:grid!important;opacity:1!important;visibility:visible!important;transform:none!important}body[data-home-refresh] .pj-nav-dropdown{max-height:75vh;overflow-y:auto;z-index:2000;top:100%!important}body[data-home-refresh] .pj-nav-dropdown strong{font-size:.9rem}body[data-home-refresh] .pj-nav-dropdown small{font-size:.8rem}}
+@media(max-width:1000px){.home-shortcuts{grid-template-columns:repeat(4,1fr)}.home-sky{grid-template-columns:1fr 380px;gap:24px}.home-lesson{grid-template-columns:1fr}}
+@media(max-width:768px){body[data-home-refresh] .hero{padding:100px 5% 24px!important}body[data-home-refresh] .hero-content{width:100%!important}body[data-home-refresh] .hero-art{display:none!important}body[data-home-refresh] .hero-title{font-size:2.2rem!important}body[data-home-refresh] .hero-actions{flex-direction:row!important}body[data-home-refresh] .hero-actions .btn{width:auto!important;flex:1;padding:12px!important;font-size:.9rem!important}body[data-home-refresh] .hero-proof{display:none!important}.home-shortcuts{grid-template-columns:repeat(2,1fr)}.home-shortcut{flex-direction:row;justify-content:flex-start;padding:12px;min-height:68px;text-align:left}.home-shortcut strong{font-size:.95rem}.home-sky{grid-template-columns:1fr;padding:20px;gap:20px}.home-guidance{display:block;padding:22px}.home-guidance .home-actions{min-width:0}.home-lessons-grid{grid-template-columns:1fr}.home-lesson{grid-template-columns:38% 1fr}body[data-home-refresh] .pj-mobile-daily,body[data-home-refresh] .pj-finder-fab,body[data-home-refresh] .float-whatsapp{display:none!important}body[data-home-refresh] .section{padding:24px 0!important}}
+@media(prefers-reduced-motion:reduce){.home-shortcut{transition:none!important;transform:none!important}}
+body[data-home-refresh] .panchang-visual-grid{grid-template-columns:1fr!important}
+body[data-home-refresh] .panchang-sacred-panel,body[data-home-refresh] .panchang-mood-row{display:none!important}
+body[data-home-refresh] #panchang .panchang-items.enhanced{grid-template-columns:repeat(5,minmax(0,1fr))!important}
+body[data-home-refresh] #panchang .panchang-extras.enhanced{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+@media(min-width:769px){body[data-home-refresh] .pj-nav-menu:not(.open)>.pj-nav-dropdown{visibility:hidden!important;opacity:0!important;pointer-events:none!important}body[data-home-refresh] .pj-nav-menu.open>.pj-nav-dropdown{pointer-events:auto!important}}
+@media(max-width:768px){body[data-home-refresh] #panchang .panchang-items.enhanced,body[data-home-refresh] #panchang .panchang-extras.enhanced{grid-template-columns:repeat(2,minmax(0,1fr))!important}body[data-home-refresh] #pj-simple-share-launch{display:none!important}}
+#home-recent button{padding:8px 14px;border:1px solid var(--home-line);background:var(--home-surface);color:var(--home-ink);border-radius:20px;cursor:pointer;font:inherit}
