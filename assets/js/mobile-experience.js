@@ -12,6 +12,7 @@
  ['sade','Sade Sati','साढ़ेसाती',hi?'/hi/sade-sati.html':'/sade-sati-calculator.html','saturn shani शनि'],
  ['rahu','Rahu Kaal','राहु काल',prefix+'rahu-kaal.html','timing समय'],
  ['dasha','Vimshottari Dasha','विंशोत्तरी दशा',hi?'/hi/tools.html#kundli':'/vimshottari-dasha.html','mahadasha महादशा'],
+ ['planets-today','Planets Today','आज के ग्रह','/planets-today.html','graha positions date time kundli ग्रह स्थिति'],
  ['transits','Planetary transits','ग्रह गोचर',prefix+'tools.html#transits','gochar ग्रह'],
  ['numerology','Numerology','अंक ज्योतिष',prefix+'tools.html#numerology','number अंक'],
  ['tithi','Today’s Tithi','आज की तिथि (English)','/today-tithi.html','lunar day तिथि'],
