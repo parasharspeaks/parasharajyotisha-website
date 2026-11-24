@@ -594,7 +594,7 @@ body::after {
 
 /* Compact Panchang data card and prevent API text overflow */
 #panchang .panchang-live .panchang-el,
-#panchang .panchang-live .pe-item{box-shadow: inset 0 1px 0 rgba(255,255,255,.03);} 
+#panchang .panchang-live .pe-item{box-shadow: inset 0 1px 0 rgba(255,255,255,.03);}
 #panchang .pe-value{overflow-wrap:anywhere;}
 @media (max-width: 900px){
   .panchang-live{padding:1.5rem;}
@@ -1607,7 +1607,7 @@ html[data-theme="light"] .card,html[data-theme="light"] .hubcard,html[data-theme
 html[data-theme="light"] .hubcard:hover,html[data-theme="light"] .card:hover{border-color:rgba(212,139,16,.38)!important;box-shadow:0 18px 48px rgba(91,56,33,.09);}
 html[data-theme="light"] .note,html[data-theme="light"] .notice{background:rgba(212,139,16,.08)!important;border-color:var(--gold)!important;}
 html[data-theme="light"] .tablewrap,html[data-theme="light"] .table-wrap{background:rgba(255,255,255,.68)!important;border-color:var(--line)!important;}
-html[data-theme="light"] table th{color:#6D5146!important;background:rgba(212,139,16,.065);} 
+html[data-theme="light"] table th{color:#6D5146!important;background:rgba(212,139,16,.065);}
 html[data-theme="light"] table td{color:var(--text-mid)!important;border-color:var(--line)!important;}
 html[data-theme="light"] .footer,html[data-theme="light"] footer{border-color:var(--line)!important;}
 
@@ -2939,7 +2939,7 @@ html[data-theme="light"] .pj-verify-copy{
 </style>
 <!-- PJ_ACCOUNT_VERIFICATION_UX_V1_STYLES_END -->
 </head>
-<body>
+<body data-home-refresh="true">
 <div class="cosmos-bg"></div>
 <!-- ════════ NAV ════════ -->
 <nav class="nav" id="nav">
@@ -3085,14 +3085,7 @@ html[data-theme="light"] .pj-verify-copy{
 <div aria-label="मुख्य वेबसाइट टूल" class="hero-proof"><span class="proof-pill"><strong>साइन-अप नहीं</strong></span><span class="proof-pill"><strong>मुफ़्त</strong> मुख्य टूल</span><span class="proof-pill">शहर-आधारित पंचांग</span><span class="proof-pill">वैदिक / सायन-विरुद्ध निरयण</span></div>
 </div>
 </section>
-<section class="section start-here-section" id="start-here">
-<div class="container">
-<div class="section-intro center reveal">
-<span class="label">अपना मार्ग चुनें</span>
-<h2 class="heading">आज आप क्या <em>करना चाहते हैं?</em></h2>
-<p class="section-desc">आपको यह याद रखने की आवश्यकता नहीं कि कौन-सा फीचर कहाँ है। कुंडली, तिथि, विवाह मिलान, परामर्श, ट्रैकिंग या सीखने की सुविधा सीधे खोजें।</p>
-</div>
-<div class="pj-site-finder reveal" id="site-finder">
+<section class="section start-here-section" id="start-here"><div class="container"><h2 class="home-heading">आपके दैनिक ज्योतिष टूल</h2><div class="pj-site-finder reveal" id="site-finder">
 <div class="pj-finder-input-wrap">
 <span aria-hidden="true" class="pj-finder-icon">⌕</span>
 <input aria-controls="siteFinderResults" aria-label="Parashar Jyotisha का टूल या पेज खोजें" autocomplete="off" id="siteFinderInput" placeholder="टूल या पेज खोजें… जैसे कुंडली, राहु काल, परामर्श" type="search"/>
@@ -3107,111 +3100,7 @@ html[data-theme="light"] .pj-verify-copy{
 <a href="../track-consultation.html">परामर्श की स्थिति देखें</a>
 </div>
 </div>
-<div class="quick-start-grid">
-<a class="quick-start-card reveal primary" href="panchang.html"><div class="quick-start-icon">📅</div><h3>आज का पंचांग</h3><p>आपके शहर की तिथि, नक्षत्र, राहु काल, सूर्योदय और दैनिक समय।</p><span class="quick-start-cta">आज देखें →</span></a>
-<a class="quick-start-card reveal" href="free-kundli.html"><div class="quick-start-icon">📜</div><h3>मेरी जन्म कुंडली</h3><p>ग्रह, भाव, दशा, योग और उन्नत विश्लेषण के साथ फ्री कुंडली बनाएं।</p><span class="quick-start-cta">कुंडली बनाएं →</span></a>
-<a class="quick-start-card reveal" href="kundli-matching.html"><div class="quick-start-icon">💑</div><h3>विवाह और अनुकूलता</h3><p>अष्टकूट गुण मिलान, अनुकूलता और संबंधित मिलान कारक हिंदी में समझें।</p><span class="quick-start-cta">कुंडली मिलाएं →</span></a>
-<a class="quick-start-card reveal" href="sade-sati.html"><div class="quick-start-icon">🪐</div><h3>शनि और साढ़ेसाती</h3><p>साढ़ेसाती के तीन चरण समझें और हिंदी कैलकुलेटर से वर्तमान चरण जाँचें।</p><span class="quick-start-cta">साढ़ेसाती देखें →</span></a>
-<a class="quick-start-card reveal" href="#contact"><div class="quick-start-icon">🙏</div><h3>मार्गदर्शन पूछें</h3><p>व्यक्तिगत व्याख्या की आवश्यकता हो तो फ्री परामर्श अनुरोध भेजें।</p><span class="quick-start-cta">मार्गदर्शन अनुरोध →</span></a>
-<a class="quick-start-card reveal" href="../track-consultation.html"><div class="quick-start-icon">🔎</div><h3>मेरा परामर्श ट्रैक करें</h3><p>रेफरेंस ID और पंजीकृत ईमेल से प्रगति और उत्तर देखें।</p><span class="quick-start-cta">स्थिति देखें →</span></a>
-</div>
-<div aria-label="मेरी कुंडली खाता" class="pj-account-home-card reveal">
-  <div aria-hidden="true" class="pj-account-home-icon">&#128100;</div>
-  <div class="pj-account-home-copy">
-    <span class="pj-account-home-kicker">निजी ज्योतिष खाता</span>
-    <h3>आपका निजी ज्योतिष स्थान</h3>
-    <p>जन्म विवरण सुरक्षित करें, अपनी कुंडलियाँ फिर से खोलें और निजी डैशबोर्ड से आधिकारिक PDF रिपोर्ट बनाएं। मुख्य कैलकुलेटर बिना साइन-अप के भी निःशुल्क रहेंगे।</p>
-  </div>
-  <div class="pj-account-home-actions">
-    <a class="btn btn-outline" href="../my-kundli.html">मेरी कुंडली खोलें &rarr;</a>
-    <small>साइन इन करें या अपना मुफ्त खाता बनाएं</small>
-  </div>
-</div>
-
-<div class="pj-start-more reveal">
-<a class="btn btn-outline" href="#tools">चुनिंदा टूल देखें</a>
-<a class="btn btn-ghost" href="../tools.html">सभी कैलकुलेटर खोलें</a>
-<a class="btn btn-ghost" href="../learn.html">ज्योतिष सीखें</a>
-</div>
-<div class="trust-strip">
-<div class="trust-item"><span class="trust-icon">✓</span><div><strong>अनावश्यक साइन-अप नहीं</strong><span>मुख्य कैलकुलेटर सीधे उपयोग करें।</span></div></div>
-<div class="trust-item"><span class="trust-icon">⌖</span><div><strong>स्थान-आधारित पंचांग</strong><span>दैनिक समय चुने गए शहर के अनुसार बदलता है।</span></div></div>
-<div class="trust-item"><span class="trust-icon">☉</span><div><strong>पारंपरिक गणना पर केंद्रित</strong><span>वैदिक / निरयण ज्योतिष पद्धतियों पर आधारित।</span></div></div>
-<div class="trust-item"><span class="trust-icon">🔒</span><div><strong>गोपनीयता का ध्यान</strong><span>परामर्श और समीक्षा प्रक्रिया व्यक्तिगत विवरणों की सुरक्षा को प्राथमिकता देती है।</span></div></div>
-</div>
-</div>
-</section>
-<!-- ════════ PHILOSOPHY STRIP ════════ -->
-<div class="philosophy">
-<p class="philosophy-quote"> “ब्रह्मांड जीवन के हर क्षण आपसे संवाद करता है। <span>वैदिक ज्योतिष</span> उसे सुनना सीखने की कला है।” </p>
-<div class="philosophy-attr">— प्राचीन वैदिक ज्ञान</div>
-</div>
-<!-- ════════ FREE TOOLS ════════ -->
-<section class="section" id="tools">
-<div class="container">
-<div class="section-intro center reveal">
-<span class="label">और टूल देखें</span>
-<h2 class="heading">और गहराई से जानें <em>पूर्ण टूलकिट</em></h2>
-<p class="section-desc">पहली जाँच के बाद विस्तृत कुंडली, मिलान, अंक ज्योतिष, गोचर, दशा, योग, षड्बल और अष्टकवर्ग देखें।</p>
-</div>
-<div class="tools-grid">
-<a class="tool-card reveal reveal-d1" href="free-kundli.html" style="--card-img:url('../assets/images/hero-chandra.webp')">
-<span class="tool-badge badge-free">मुफ़्त</span>
-<span class="tool-icon">📜</span>
-<div class="tool-name">कुंडली — जन्म पत्रिका</div>
-<p class="tool-desc"> ग्रह स्थिति, भाव, दशा, योग, षड्बल और अष्टकवर्ग के साथ अपनी विस्तृत वैदिक जन्म कुंडली बनाएं। दक्षिण भारतीय और उत्तर भारतीय दोनों चार्ट शैली उपलब्ध हैं। </p>
-<div class="tool-features">
-<span class="tool-feat">ग्रह स्थिति</span>
-<span class="tool-feat">दशा काल</span>
-<span class="tool-feat">योग विश्लेषण</span>
-<span class="tool-feat">वर्ग कुंडलियाँ</span>
-<span class="tool-feat">PDF रिपोर्ट</span>
-</div>
-<div class="tool-arrow">→</div>
-</a>
-<a class="tool-card reveal reveal-d2" href="kundli-matching.html" style="--card-img:url('../assets/images/krishna-govardhan.webp')">
-<span class="tool-badge badge-free">मुफ़्त</span>
-<span class="tool-icon">💑</span>
-<div class="tool-name">कुंडली मिलान</div>
-<p class="tool-desc"> राशि–नक्षत्र त्वरित मिलान और पूर्ण अष्टकूट गुण मिलान। जन्म विवरण उपलब्ध होने पर वर्ण, वश्य, तारा, योनि, मैत्री, गण, भकूट, नाड़ी और मंगल दोष देखें। </p>
-<div class="tool-features">
-<span class="tool-feat">त्वरित फ्री मिलान</span>
-<span class="tool-feat">36-बिंदु मिलान</span>
-<span class="tool-feat">मंगल दोष</span>
-<span class="tool-feat">अनुकूलता स्कोर</span>
-</div>
-<div class="tool-arrow">→</div>
-</a>
-<a class="tool-card reveal reveal-d3" href="../tools.html#numerology" style="--card-img:url('../assets/images/guru-jupiter.webp')">
-<span class="tool-badge badge-free">मुफ़्त</span>
-<span class="tool-icon">🔢</span>
-<div class="tool-name">अंक ज्योतिष</div>
-<p class="tool-desc"> जीवन पथ, भाग्य, आत्मिक इच्छा और व्यक्तित्व अंक जानें। नाम की अनुकूलता जाँचें और जन्मतिथि-आधारित अंक ज्योतिष से शिशु-नाम के प्रारंभिक अक्षर के सुझाव पाएं। </p>
-<div class="tool-features">
-<span class="tool-feat">जीवन पथ अंक</span>
-<span class="tool-feat">भाग्य और आत्मिक अंक</span>
-<span class="tool-feat">नाम अनुकूलता</span>
-<span class="tool-feat">शिशु नाम</span>
-</div>
-<div class="tool-arrow">→</div>
-</a>
-<a class="tool-card reveal reveal-d4" href="../planetary-transits.html" style="--card-img:url('../assets/images/saturn-transit.webp')">
-<span class="tool-badge badge-live">लाइव</span>
-<span class="tool-icon">🪐</span>
-<div class="tool-name">ग्रह गोचर</div>
-<p class="tool-desc"> वास्तविक समय की ग्रह स्थिति और गोचर विश्लेषण देखें। वर्तमान गोचर आपकी जन्म कुंडली को कैसे प्रभावित कर रहा है, समझें; शनि, गुरु और राहु-केतु की गति देखें। </p>
-<div class="tool-features">
-<span class="tool-feat">लाइव ग्रह स्थिति</span>
-<span class="tool-feat">व्यक्तिगत गोचर</span>
-<span class="tool-feat">मुख्य गोचर</span>
-<span class="tool-feat">साढ़ेसाती जाँच</span>
-</div>
-<div class="tool-arrow">→</div>
-</a>
-</div>
-</div>
-</section>
-<!-- ════════ DAILY PANCHANG ════════ -->
+<div class="home-shortcuts"><a class="home-shortcut" href="/hi/panchang.html"><span aria-hidden="true">☀</span><strong>पंचांग</strong></a><a class="home-shortcut" href="/hi/free-kundli.html"><span aria-hidden="true">◇</span><strong>निःशुल्क कुंडली</strong></a><a class="home-shortcut" href="/planets-today.html"><span aria-hidden="true">♄</span><strong>आज के ग्रह</strong></a><a class="home-shortcut" href="/hi/kundli-matching.html"><span aria-hidden="true">♡</span><strong>कुंडली मिलान</strong></a><a class="home-shortcut" href="/hi/rahu-kaal.html"><span aria-hidden="true">◷</span><strong>राहु काल</strong></a><a class="home-shortcut" href="/hi/tools.html#kundli"><span aria-hidden="true">◴</span><strong>दशा</strong></a><a class="home-shortcut" href="/hi/sade-sati.html"><span aria-hidden="true">♧</span><strong>साढ़ेसाती</strong></a><a class="home-shortcut" href="/learn.html"><span aria-hidden="true">▷</span><strong>ज्योतिष सीखें</strong></a></div><div id="home-recent" hidden></div></div></section>
 <section class="section panchang-section" id="panchang">
 <div class="container">
 <div class="section-intro center">
@@ -3282,8 +3171,76 @@ html[data-theme="light"] .pj-verify-copy{
 </div>
 </div>
 </section>
-<!-- ════════ GUIDANCE / SERVICES ════════ -->
-<section class="section" id="guidance">
+<!-- ════════ PHILOSOPHY STRIP ════════ -->
+<div class="philosophy">
+<p class="philosophy-quote"> “ब्रह्मांड जीवन के हर क्षण आपसे संवाद करता है। <span>वैदिक ज्योतिष</span> उसे सुनना सीखने की कला है।” </p>
+<div class="philosophy-attr">— प्राचीन वैदिक ज्ञान</div>
+</div>
+<!-- ════════ FREE TOOLS ════════ -->
+<section class="section" id="home-planets"><div class="container home-sky"><div><span class="label">इस समय का आकाश</span><h2 class="heading">आज के ग्रह</h2><p>देहरादून के लिए वर्तमान निरयन कुंडली देखें। शहर, तिथि या समय बदलने के लिए पूरा टूल खोलें।</p><div class="home-actions"><button type="button" data-home-chart="north" aria-pressed="true">उत्तर भारतीय</button><button type="button" data-home-chart="south" aria-pressed="false">दक्षिण भारतीय</button><button type="button" id="home-sky-refresh">फिर देखें</button></div><p id="home-sky-status" role="status">इस भाग पर आने पर ग्रह स्थिति लोड होगी।</p><p id="home-sky-moment"></p><p class="home-note">लाहिड़ी · राशि अंक 1–12 · व = वक्री। यह वर्तमान समय की कुंडली है, आपकी जन्म कुंडली नहीं।</p><a class="btn btn-outline" href="/planets-today.html">तिथि, समय और सभी ग्रह देखें (English)</a></div><div id="home-sky-chart" aria-live="polite"></div></div></section><section class="home-guidance container" id="home-guidance"><div><span class="label">व्यक्तिगत मार्गदर्शन</span><h2>अपनी कुंडली के बारे में कोई प्रश्न?</h2><p>निःशुल्क परामर्श का अनुरोध करें। ईमेल सत्यापन आवश्यक है; उत्तर उपलब्धता के अनुसार दिए जाते हैं।</p></div><div class="home-actions"><a class="btn btn-ember" href="#contact">निःशुल्क परामर्श लें</a><a class="btn btn-outline" href="/track-consultation.html">परामर्श की स्थिति</a></div></section><section class="section" id="home-lessons"><div class="container"><span class="label">School of Parashara Astrology</span><h2 class="heading">हर बार कुछ नया सीखें</h2><p>वीडियो पाठ और ज्योतिष लेखों से नक्षत्रों को समझें।</p><div class="home-lessons-grid"><a class="home-lesson" href="https://www.youtube.com/watch?v=pwjTdotP2z0" target="_blank" rel="noopener noreferrer"><img loading="lazy" width="480" height="270" src="https://i.ytimg.com/vi/pwjTdotP2z0/hqdefault.jpg" alt="अश्विनी नक्षत्र · पाठ 1"/><div><h3>अश्विनी नक्षत्र · पाठ 1</h3><span>YouTube पर देखें (नया टैब)</span></div></a><a class="home-lesson" href="https://www.youtube.com/watch?v=bFHXFuQvn-M" target="_blank" rel="noopener noreferrer"><img loading="lazy" width="480" height="270" src="https://i.ytimg.com/vi/bFHXFuQvn-M/hqdefault.jpg" alt="भरणी नक्षत्र · पाठ 2"/><div><h3>भरणी नक्षत्र · पाठ 2</h3><span>YouTube पर देखें (नया टैब)</span></div></a></div><a class="btn btn-outline" href="/learn.html">सभी पाठ और लेख देखें</a></div></section><section class="section" id="tools">
+<div class="container">
+<div class="section-intro center reveal">
+<span class="label">और टूल देखें</span>
+<h2 class="heading">और गहराई से जानें <em>पूर्ण टूलकिट</em></h2>
+<p class="section-desc">पहली जाँच के बाद विस्तृत कुंडली, मिलान, अंक ज्योतिष, गोचर, दशा, योग, षड्बल और अष्टकवर्ग देखें।</p>
+</div>
+<div class="tools-grid">
+<a class="tool-card reveal reveal-d1" href="free-kundli.html" style="--card-img:url('../assets/images/hero-chandra.webp')">
+<span class="tool-badge badge-free">मुफ़्त</span>
+<span class="tool-icon">📜</span>
+<div class="tool-name">कुंडली — जन्म पत्रिका</div>
+<p class="tool-desc"> ग्रह स्थिति, भाव, दशा, योग, षड्बल और अष्टकवर्ग के साथ अपनी विस्तृत वैदिक जन्म कुंडली बनाएं। दक्षिण भारतीय और उत्तर भारतीय दोनों चार्ट शैली उपलब्ध हैं। </p>
+<div class="tool-features">
+<span class="tool-feat">ग्रह स्थिति</span>
+<span class="tool-feat">दशा काल</span>
+<span class="tool-feat">योग विश्लेषण</span>
+<span class="tool-feat">वर्ग कुंडलियाँ</span>
+<span class="tool-feat">PDF रिपोर्ट</span>
+</div>
+<div class="tool-arrow">→</div>
+</a>
+<a class="tool-card reveal reveal-d2" href="kundli-matching.html" style="--card-img:url('../assets/images/krishna-govardhan.webp')">
+<span class="tool-badge badge-free">मुफ़्त</span>
+<span class="tool-icon">💑</span>
+<div class="tool-name">कुंडली मिलान</div>
+<p class="tool-desc"> राशि–नक्षत्र त्वरित मिलान और पूर्ण अष्टकूट गुण मिलान। जन्म विवरण उपलब्ध होने पर वर्ण, वश्य, तारा, योनि, मैत्री, गण, भकूट, नाड़ी और मंगल दोष देखें। </p>
+<div class="tool-features">
+<span class="tool-feat">त्वरित फ्री मिलान</span>
+<span class="tool-feat">36-बिंदु मिलान</span>
+<span class="tool-feat">मंगल दोष</span>
+<span class="tool-feat">अनुकूलता स्कोर</span>
+</div>
+<div class="tool-arrow">→</div>
+</a>
+<a class="tool-card reveal reveal-d3" href="../tools.html#numerology" style="--card-img:url('../assets/images/guru-jupiter.webp')">
+<span class="tool-badge badge-free">मुफ़्त</span>
+<span class="tool-icon">🔢</span>
+<div class="tool-name">अंक ज्योतिष</div>
+<p class="tool-desc"> जीवन पथ, भाग्य, आत्मिक इच्छा और व्यक्तित्व अंक जानें। नाम की अनुकूलता जाँचें और जन्मतिथि-आधारित अंक ज्योतिष से शिशु-नाम के प्रारंभिक अक्षर के सुझाव पाएं। </p>
+<div class="tool-features">
+<span class="tool-feat">जीवन पथ अंक</span>
+<span class="tool-feat">भाग्य और आत्मिक अंक</span>
+<span class="tool-feat">नाम अनुकूलता</span>
+<span class="tool-feat">शिशु नाम</span>
+</div>
+<div class="tool-arrow">→</div>
+</a>
+<a class="tool-card reveal reveal-d4" href="../planetary-transits.html" style="--card-img:url('../assets/images/saturn-transit.webp')">
+<span class="tool-badge badge-live">लाइव</span>
+<span class="tool-icon">🪐</span>
+<div class="tool-name">ग्रह गोचर</div>
+<p class="tool-desc"> वास्तविक समय की ग्रह स्थिति और गोचर विश्लेषण देखें। वर्तमान गोचर आपकी जन्म कुंडली को कैसे प्रभावित कर रहा है, समझें; शनि, गुरु और राहु-केतु की गति देखें। </p>
+<div class="tool-features">
+<span class="tool-feat">लाइव ग्रह स्थिति</span>
+<span class="tool-feat">व्यक्तिगत गोचर</span>
+<span class="tool-feat">मुख्य गोचर</span>
+<span class="tool-feat">साढ़ेसाती जाँच</span>
+</div>
+<div class="tool-arrow">→</div>
+</a>
+</div>
+</div>
+</section><section class="section" id="guidance">
 <div class="section-line"></div>
 <div class="container" style="margin-top:5rem;">
 <div class="guidance-grid">
@@ -3350,6 +3307,10 @@ html[data-theme="light"] .pj-verify-copy{
 </div>
 </div>
 </section>
+<!-- ════════ DAILY PANCHANG ════════ -->
+
+<!-- ════════ GUIDANCE / SERVICES ════════ -->
+
 <!-- ════════ ABOUT ════════ -->
 <section class="section" id="about">
 <div class="section-line"></div>
@@ -4167,15 +4128,25 @@ function pMood(p){
   if(/ekadashi|dwadashi|purnima|pratipada/i.test(t)) return {title:'आध्यात्मिक एकाग्रता के लिए अच्छा दिन', text:`${pHiSimple(t,'tithi')} आंतरिक अनुशासन, दान, मंत्र और आत्मसंयम के लिए सहायक है। महत्त्वपूर्ण निर्णय शांत और सात्त्विक मन से लें।`};
   return {title:'मिश्रित पर उपयोगी समय गुणवत्ता', text:'पंचांग के पाँचों अंग साथ में देखें। महत्त्वपूर्ण कार्य के लिए अनुकूल समय चुनें और सावधानी काल में नियमित कार्य रखें।'};
 }
+let homePanchangRequest=0,homePanchangController;
 async function loadPanchang(city){
+  const requestId=++homePanchangRequest;
+  if(homePanchangController)homePanchangController.abort();
+  const controller=homePanchangController=new AbortController();
+  const timer=setTimeout(()=>controller.abort(),45000);
   const input = document.getElementById('panchangCityInput');
   const chosenCity = (city || (input && input.value) || 'Delhi').trim() || 'Delhi';
   const status = document.getElementById('panchangStatus');
+  document.getElementById('panchangCityLabel').textContent=chosenCity;
+  document.querySelectorAll('#panchang .panchang-el-value,#panchang .pe-value,#panchang .panchang-el-sub').forEach(el=>el.textContent='—');
+  document.getElementById('panchangUpdated').textContent='';
   if(status){ status.textContent='लोड हो रहा है…'; status.className='panchang-live-badge status-loading'; }
   try {
-    const r = await fetch(`${API}/today?city=${encodeURIComponent(chosenCity)}`);
+    const r = await fetch(`${API}/today?city=${encodeURIComponent(chosenCity)}`,{signal:controller.signal});
     const json = await r.json();
+    if(requestId!==homePanchangRequest)return;
     if(!r.ok || json.status === 'error') throw new Error(json.detail || json.message || 'API error');
+    try{localStorage.setItem('pj-panchang-city',chosenCity);}catch(_){}
     const data = json.data || json;
     const p = data.panchanga || data.panchang || data;
     const sun = data.sun_moon || data.timings || data.sun || p;
@@ -4217,17 +4188,18 @@ async function loadPanchang(city){
 
     if(status){ status.textContent='लाइव डेटा'; status.className='panchang-live-badge'; }
   } catch(e) {
-    console.log('Panchang API offline — showing graceful fallback', e);
-    if(status){ status.textContent='डेमो / API प्रतीक्षा'; status.className='panchang-live-badge status-error'; }
-    document.getElementById('panchangMoodTitle').textContent = 'लाइव पंचांग यहाँ दिखाई देगा';
-    document.getElementById('panchangMoodText').textContent = 'API से उत्तर मिलते ही यहाँ लाइव तिथि, नक्षत्र, योग, करण, वार और समय दिखाई देंगे।';
-  }
+    if(requestId!==homePanchangRequest)return;
+    if(status){ status.textContent='अभी उपलब्ध नहीं'; status.className='panchang-live-badge status-error'; }
+    document.getElementById('panchangMoodTitle').textContent = 'आज का पंचांग लोड नहीं हुआ';
+    document.getElementById('panchangMoodText').textContent = 'शहर जाँचें और फिर पंचांग देखें दबाएँ या पूरा पंचांग टूल खोलें।';
+  } finally {clearTimeout(timer);}
 }
 const pBtn = document.getElementById('panchangRefreshBtn');
 if(pBtn) pBtn.addEventListener('click', () => loadPanchang());
 const pCity = document.getElementById('panchangCityInput');
 if(pCity) pCity.addEventListener('keydown', e => { if(e.key === 'Enter') loadPanchang(); });
-loadPanchang('Delhi');
+let homeSavedCity='Dehradun';try{homeSavedCity=localStorage.getItem('pj-panchang-city')||homeSavedCity;}catch(_){}
+if(pCity)pCity.value=homeSavedCity;loadPanchang(homeSavedCity);
 </script>
 <!-- Legal footer -->
 <footer class="legal-footer">
@@ -4746,6 +4718,7 @@ html[data-theme="light"] .pj-quick-find{background:rgba(255,249,239,.96);color:#
 
 <link rel="stylesheet" href="/assets/css/mobile-experience.css?v=20261030">
 <script src="/assets/js/mobile-experience.js?v=20261030" defer></script>
+<link rel="stylesheet" href="/assets/css/home-refresh.css?v=20261124"/>
+<script src="/assets/js/home-refresh.js?v=20261124" defer></script>
 </body>
 </html>
-
