@@ -2955,7 +2955,7 @@ html[data-theme="light"] .pj-verify-copy{
 </style>
 <!-- PJ_ACCOUNT_VERIFICATION_UX_V1_STYLES_END -->
 </head>
-<body>
+<body data-home-refresh="true">
 <div class="cosmos-bg"></div>
 <!-- ════════ NAV ════════ -->
 <nav class="nav" id="nav">
@@ -3114,15 +3114,7 @@ html[data-theme="light"] .pj-verify-copy{
 <div aria-label="Core website tools" class="hero-proof"><span class="proof-pill"><strong>No signup</strong></span><span class="proof-pill"><strong>Free</strong> core tools</span><span class="proof-pill">City-based Panchang</span><span class="proof-pill">Vedic / Sidereal</span></div>
 </div>
 </section>
-<section class="section start-here-section" id="start-here">
-<div class="container">
-  <div class="section-intro center reveal">
-    <span class="label">Find Your Way</span>
-    <h2 class="heading">What do you want to <em>do today?</em></h2>
-    <p class="section-desc">You do not need to remember where a feature lives. Search by what you want — Kundli, Tithi, marriage matching, consultation, tracking, or learning.</p>
-  </div>
-
-  <div class="pj-site-finder reveal" id="site-finder">
+<section class="section start-here-section" id="start-here"><div class="container"><h2 class="home-heading">Your daily Jyotisha toolkit</h2><div class="pj-site-finder reveal" id="site-finder">
     <div class="pj-finder-input-wrap">
       <span class="pj-finder-icon" aria-hidden="true">⌕</span>
       <input id="siteFinderInput" type="search" autocomplete="off" placeholder="Find a tool or page… e.g. Kundli, Rahu Kaal, consultation" aria-label="Find a Parashar Jyotisha tool or page" aria-controls="siteFinderResults"/>
@@ -3138,40 +3130,77 @@ html[data-theme="light"] .pj-verify-copy{
     </div>
   </div>
 
-  <div class="quick-start-grid">
-    <a class="quick-start-card reveal primary" href="panchang.html"><div class="quick-start-icon">📅</div><h3>Today’s Panchang</h3><p>Tithi, Nakshatra, Rahu Kaal, sunrise and daily timing for your city.</p><span class="quick-start-cta">Check today →</span></a>
-    <a class="quick-start-card reveal" href="free-kundli.html"><div class="quick-start-icon">📜</div><h3>My Birth Chart</h3><p>Generate a free Kundli with planets, houses, Dasha, Yogas and advanced analysis.</p><span class="quick-start-cta">Generate Kundli →</span></a>
-    <a class="quick-start-card reveal" href="kundli-matching.html"><div class="quick-start-icon">💑</div><h3>Marriage &amp; Compatibility</h3><p>Check Ashtakoota Gun Milan, compatibility and related matching factors.</p><span class="quick-start-cta">Match Kundli →</span></a>
-    <a class="quick-start-card reveal" href="sade-sati-calculator.html"><div class="quick-start-icon">🪐</div><h3>Saturn &amp; Transits</h3><p>Check Sade Sati and explore current planetary Gochar affecting your chart.</p><span class="quick-start-cta">Check transits →</span></a>
-    <a class="quick-start-card reveal" href="#contact"><div class="quick-start-icon">🙏</div><h3>Ask for Guidance</h3><p>Submit a free consultation request when you need personal interpretation.</p><span class="quick-start-cta">Request guidance →</span></a>
-    <a class="quick-start-card reveal" href="track-consultation.html"><div class="quick-start-icon">🔎</div><h3>Track My Consultation</h3><p>Check progress and access your reply using Reference ID and registered email.</p><span class="quick-start-cta">Track status →</span></a>
-  </div>
-
-  <div class="pj-account-home-card reveal" aria-label="My Kundli account">
-  <div class="pj-account-home-icon" aria-hidden="true">&#128100;</div>
-  <div class="pj-account-home-copy">
-    <span class="pj-account-home-kicker">Private Jyotisha account</span>
-    <h3>Your Jyotisha space</h3>
-    <p>Save birth profiles, reopen your Kundlis and create official PDF reports from your private dashboard. Core calculators remain free without signing up.</p>
-  </div>
-  <div class="pj-account-home-actions">
-    <a class="btn btn-outline" href="my-kundli.html">Open My Kundli &rarr;</a>
-    <small>Sign in or create your free account</small>
-  </div>
+  <div class="home-shortcuts"><a class="home-shortcut" href="/panchang.html"><span aria-hidden="true">☀</span><strong>Panchang</strong></a><a class="home-shortcut" href="/free-kundli.html"><span aria-hidden="true">◇</span><strong>Free Kundli</strong></a><a class="home-shortcut" href="/planets-today.html"><span aria-hidden="true">♄</span><strong>Planets Today</strong></a><a class="home-shortcut" href="/kundli-matching.html"><span aria-hidden="true">♡</span><strong>Kundli Matching</strong></a><a class="home-shortcut" href="/rahu-kaal.html"><span aria-hidden="true">◷</span><strong>Rahu Kaal</strong></a><a class="home-shortcut" href="/vimshottari-dasha.html"><span aria-hidden="true">◴</span><strong>Dasha</strong></a><a class="home-shortcut" href="/sade-sati-calculator.html"><span aria-hidden="true">♧</span><strong>Sade Sati</strong></a><a class="home-shortcut" href="/learn.html"><span aria-hidden="true">▷</span><strong>Learn Jyotisha</strong></a></div><div id="home-recent" hidden></div></div></section>
+<section class="section panchang-section" id="panchang">
+<div class="container">
+<div class="section-intro center">
+<span class="label">Daily Panchang</span>
+<h2 class="heading">Today’s Cosmic <em>Weather</em></h2>
+<p class="section-desc" id="panchangIntro">
+        Panchang is the living clock of Vedic time. See the five limbs, daily caution periods, sunrise/sunset and practical guidance for your city.
+      </p>
 </div>
-
-<div class="pj-start-more reveal">
-    <a class="btn btn-outline" href="#tools">Browse featured tools</a>
-    <a class="btn btn-ghost" href="tools.html">Open all calculators</a>
-    <a class="btn btn-ghost" href="learn.html">Learn Jyotisha</a>
-  </div>
-
-  <div class="trust-strip">
-    <div class="trust-item"><span class="trust-icon">✓</span><div><strong>No unnecessary signup</strong><span>Use the core calculators directly.</span></div></div>
-    <div class="trust-item"><span class="trust-icon">⌖</span><div><strong>Location-aware Panchang</strong><span>Daily timings adapt to the selected city.</span></div></div>
-    <div class="trust-item"><span class="trust-icon">☉</span><div><strong>Traditional calculation focus</strong><span>Built around Vedic / sidereal Jyotisha methods.</span></div></div>
-    <div class="trust-item"><span class="trust-icon">🔒</span><div><strong>Privacy-conscious</strong><span>Consultation and review workflows protect personal details.</span></div></div>
-  </div>
+<div class="panchang-visual-grid">
+<div class="panchang-live upgraded reveal" id="panchangCard">
+<div class="panchang-shell">
+<div class="panchang-topbar">
+<div>
+<div class="panchang-kicker">Live Panchang · Vedic Time Quality</div>
+<div class="panchang-title-main">Panchang — <em id="panchangDate">Today</em></div>
+<div class="panchang-subline"><span id="panchangCityLabel">Delhi, India</span> · updates from Parashar Jyotisha API</div>
+</div>
+<div class="panchang-live-badge" id="panchangStatus">Live Data</div>
+</div>
+<div aria-label="Panchang city controls" class="panchang-controls">
+<input aria-label="City for Panchang" class="panchang-city-input" id="panchangCityInput" placeholder="Enter city, e.g. Dehradun, Delhi, Varanasi" value="Delhi"/>
+<button class="panchang-action primary" id="panchangRefreshBtn" type="button">Show Panchang</button>
+<a class="panchang-action secondary" href="panchang.html">Open Full Tool →</a>
+</div>
+<div class="panchang-mood-row">
+<div class="panchang-mood-card">
+<div class="pm-label">Daily reading</div>
+<div class="pm-title" id="panchangMoodTitle">Reading today’s time quality…</div>
+<div class="pm-text" id="panchangMoodText">The day’s mood is built from Tithi, Nakshatra, Yoga, Karana and weekday. Use it for awareness, not fear.</div>
+</div>
+<div class="panchang-mini-grid">
+<div class="panchang-mini-card"><div class="pm-label">Best use</div><strong id="panchangBestUse">Daily planning</strong><span>Choose calmer timing for important work.</span></div>
+<div class="panchang-mini-card"><div class="pm-label">Care window</div><strong id="panchangCareWindow">Rahu Kaal</strong><span id="panchangCareText">Avoid new beginnings during caution periods.</span></div>
+</div>
+</div>
+<div class="panchang-items enhanced" id="panchangLimbs">
+<div class="panchang-el enhanced" data-icon="🌙" id="limb-tithi"><div class="panchang-el-label">Tithi</div><div class="panchang-el-value">—</div><div class="panchang-el-sub">Lunar day</div></div>
+<div class="panchang-el enhanced" data-icon="⭐" id="limb-nakshatra"><div class="panchang-el-label">Nakshatra</div><div class="panchang-el-value">—</div><div class="panchang-el-sub">Moon’s star</div></div>
+<div class="panchang-el enhanced" data-icon="🔆" id="limb-yoga"><div class="panchang-el-label">Yoga</div><div class="panchang-el-value">—</div><div class="panchang-el-sub">Sun–Moon harmony</div></div>
+<div class="panchang-el enhanced" data-icon="📐" id="limb-karana"><div class="panchang-el-label">Karana</div><div class="panchang-el-value">—</div><div class="panchang-el-sub">Half tithi action quality</div></div>
+<div class="panchang-el enhanced" data-icon="📅" id="limb-vara"><div class="panchang-el-label">Vara</div><div class="panchang-el-value">—</div><div class="panchang-el-sub">Weekday lord</div></div>
+</div>
+<div class="panchang-extras enhanced" id="panchangExtras">
+<div class="pe-item enhanced good"><div class="pe-icon">🌅</div><div><div class="pe-label">Sunrise</div><div class="pe-value" id="pe-sunrise">—</div></div></div>
+<div class="pe-item enhanced"><div class="pe-icon">🌇</div><div><div class="pe-label">Sunset</div><div class="pe-value" id="pe-sunset">—</div></div></div>
+<div class="pe-item enhanced caution"><div class="pe-icon">⚠️</div><div><div class="pe-label">Rahu Kaal</div><div class="pe-value" id="pe-rahu">—</div></div></div>
+<div class="pe-item enhanced caution"><div class="pe-icon">🧭</div><div><div class="pe-label">Disha Shool</div><div class="pe-value" id="pe-disha">—</div></div></div>
+<div class="pe-item enhanced"><div class="pe-icon">🌙</div><div><div class="pe-label">Moonrise</div><div class="pe-value" id="pe-moonrise">—</div></div></div>
+<div class="pe-item enhanced"><div class="pe-icon">🌘</div><div><div class="pe-label">Moonset</div><div class="pe-value" id="pe-moonset">—</div></div></div>
+<div class="pe-item enhanced"><div class="pe-icon">🕉️</div><div><div class="pe-label">Abhijit</div><div class="pe-value" id="pe-abhijit">—</div></div></div>
+<div class="pe-item enhanced"><div class="pe-icon">🌄</div><div><div class="pe-label">Brahma Muhurta</div><div class="pe-value" id="pe-brahma">—</div></div></div>
+</div>
+<div class="panchang-guide">
+<div class="panchang-guide-card"><b>For worship</b><span>Use sunrise, Tithi and Nakshatra to understand the devotional tone of the day.</span></div>
+<div class="panchang-guide-card"><b>For new work</b><span>Prefer supportive muhurta; avoid starting important work during Rahu Kaal.</span></div>
+<div class="panchang-guide-card"><b>For travel</b><span>Check Disha Shool and combine it with your personal chart when the journey is important.</span></div>
+</div>
+<div class="panchang-foot">
+<span id="panchangUpdated">Powered by Parashar Jyotisha API · Updates daily at sunrise</span>
+<a href="panchang.html">Need date selection or another city? Open full Panchang.</a>
+</div>
+</div>
+</div>
+<figure class="panchang-sacred-panel reveal reveal-d1" aria-label="Gajendra Moksha sacred artwork">
+  <div class="panchang-sacred-aura" aria-hidden="true"></div>
+  <img src="assets/images/garuda-elephant.png" alt="Gajendra Moksha sacred artwork with Lord Vishnu and Gajendra" loading="lazy"/ decoding="async">
+  <figcaption><span>Gajendra Moksha</span><small>Grace · surrender · divine protection</small></figcaption>
+</figure>
+</div>
 </div>
 </section>
 <!-- ════════ PHILOSOPHY STRIP ════════ -->
@@ -3183,7 +3212,7 @@ html[data-theme="light"] .pj-verify-copy{
 <div class="philosophy-attr">— Ancient Vedic Wisdom</div>
 </div>
 <!-- ════════ FREE TOOLS ════════ -->
-<section class="section" id="tools">
+<section class="section" id="home-planets"><div class="container home-sky"><div><span class="label">The sky at this moment</span><h2 class="heading">Planets Today</h2><p>See the current sidereal chart for Dehradun. Open the full tool to change city, date or time.</p><div class="home-actions"><button type="button" data-home-chart="north" aria-pressed="true">North Indian</button><button type="button" data-home-chart="south" aria-pressed="false">South Indian</button><button type="button" id="home-sky-refresh">Refresh</button></div><p id="home-sky-status" role="status">Positions load when this section comes into view.</p><p id="home-sky-moment"></p><p class="home-note">Lahiri · Sign numbers 1–12 · R = retrograde. This is the current sky, not your birth chart.</p><a class="btn btn-outline" href="/planets-today.html">Explore date, time & all planets</a></div><div id="home-sky-chart" aria-live="polite"></div></div></section><section class="home-guidance container" id="home-guidance"><div><span class="label">Personal guidance</span><h2>A question about your own chart?</h2><p>Request a free consultation. Email verification is required; replies are subject to availability.</p></div><div class="home-actions"><a class="btn btn-ember" href="#contact">Ask for Free Consultation</a><a class="btn btn-outline" href="/track-consultation.html">Track my consultation</a></div></section><section class="section" id="home-lessons"><div class="container"><span class="label">School of Parashara Astrology</span><h2 class="heading">Learn with each visit</h2><p>Explore Nakshatras through guided video lessons and our written Jyotisha library.</p><div class="home-lessons-grid"><a class="home-lesson" href="https://www.youtube.com/watch?v=pwjTdotP2z0" target="_blank" rel="noopener noreferrer"><img loading="lazy" width="480" height="270" src="https://i.ytimg.com/vi/pwjTdotP2z0/hqdefault.jpg" alt="Ashwini Nakshatra · Episode 1"/><div><h3>Ashwini Nakshatra · Episode 1</h3><span>Watch on YouTube (new tab)</span></div></a><a class="home-lesson" href="https://www.youtube.com/watch?v=bFHXFuQvn-M" target="_blank" rel="noopener noreferrer"><img loading="lazy" width="480" height="270" src="https://i.ytimg.com/vi/bFHXFuQvn-M/hqdefault.jpg" alt="Bharani Nakshatra · Episode 2"/><div><h3>Bharani Nakshatra · Episode 2</h3><span>Watch on YouTube (new tab)</span></div></a></div><a class="btn btn-outline" href="/learn.html">Browse lessons & written guides</a></div></section><section class="section" id="tools">
 <div class="container">
 <div class="section-intro center reveal">
 <span class="label">Explore More Tools</span>
@@ -3262,82 +3291,7 @@ html[data-theme="light"] .pj-verify-copy{
 </a>
 </div>
 </div>
-</section>
-<!-- ════════ DAILY PANCHANG ════════ -->
-<section class="section panchang-section" id="panchang">
-<div class="container">
-<div class="section-intro center">
-<span class="label">Daily Panchang</span>
-<h2 class="heading">Today’s Cosmic <em>Weather</em></h2>
-<p class="section-desc" id="panchangIntro">
-        Panchang is the living clock of Vedic time. See the five limbs, daily caution periods, sunrise/sunset and practical guidance for your city.
-      </p>
-</div>
-<div class="panchang-visual-grid">
-<div class="panchang-live upgraded reveal" id="panchangCard">
-<div class="panchang-shell">
-<div class="panchang-topbar">
-<div>
-<div class="panchang-kicker">Live Panchang · Vedic Time Quality</div>
-<div class="panchang-title-main">Panchang — <em id="panchangDate">Today</em></div>
-<div class="panchang-subline"><span id="panchangCityLabel">Delhi, India</span> · updates from Parashar Jyotisha API</div>
-</div>
-<div class="panchang-live-badge" id="panchangStatus">Live Data</div>
-</div>
-<div aria-label="Panchang city controls" class="panchang-controls">
-<input aria-label="City for Panchang" class="panchang-city-input" id="panchangCityInput" placeholder="Enter city, e.g. Dehradun, Delhi, Varanasi" value="Delhi"/>
-<button class="panchang-action primary" id="panchangRefreshBtn" type="button">Show Panchang</button>
-<a class="panchang-action secondary" href="panchang.html">Open Full Tool →</a>
-</div>
-<div class="panchang-mood-row">
-<div class="panchang-mood-card">
-<div class="pm-label">Daily reading</div>
-<div class="pm-title" id="panchangMoodTitle">Reading today’s time quality…</div>
-<div class="pm-text" id="panchangMoodText">The day’s mood is built from Tithi, Nakshatra, Yoga, Karana and weekday. Use it for awareness, not fear.</div>
-</div>
-<div class="panchang-mini-grid">
-<div class="panchang-mini-card"><div class="pm-label">Best use</div><strong id="panchangBestUse">Daily planning</strong><span>Choose calmer timing for important work.</span></div>
-<div class="panchang-mini-card"><div class="pm-label">Care window</div><strong id="panchangCareWindow">Rahu Kaal</strong><span id="panchangCareText">Avoid new beginnings during caution periods.</span></div>
-</div>
-</div>
-<div class="panchang-items enhanced" id="panchangLimbs">
-<div class="panchang-el enhanced" data-icon="🌙" id="limb-tithi"><div class="panchang-el-label">Tithi</div><div class="panchang-el-value">—</div><div class="panchang-el-sub">Lunar day</div></div>
-<div class="panchang-el enhanced" data-icon="⭐" id="limb-nakshatra"><div class="panchang-el-label">Nakshatra</div><div class="panchang-el-value">—</div><div class="panchang-el-sub">Moon’s star</div></div>
-<div class="panchang-el enhanced" data-icon="🔆" id="limb-yoga"><div class="panchang-el-label">Yoga</div><div class="panchang-el-value">—</div><div class="panchang-el-sub">Sun–Moon harmony</div></div>
-<div class="panchang-el enhanced" data-icon="📐" id="limb-karana"><div class="panchang-el-label">Karana</div><div class="panchang-el-value">—</div><div class="panchang-el-sub">Half tithi action quality</div></div>
-<div class="panchang-el enhanced" data-icon="📅" id="limb-vara"><div class="panchang-el-label">Vara</div><div class="panchang-el-value">—</div><div class="panchang-el-sub">Weekday lord</div></div>
-</div>
-<div class="panchang-extras enhanced" id="panchangExtras">
-<div class="pe-item enhanced good"><div class="pe-icon">🌅</div><div><div class="pe-label">Sunrise</div><div class="pe-value" id="pe-sunrise">—</div></div></div>
-<div class="pe-item enhanced"><div class="pe-icon">🌇</div><div><div class="pe-label">Sunset</div><div class="pe-value" id="pe-sunset">—</div></div></div>
-<div class="pe-item enhanced caution"><div class="pe-icon">⚠️</div><div><div class="pe-label">Rahu Kaal</div><div class="pe-value" id="pe-rahu">—</div></div></div>
-<div class="pe-item enhanced caution"><div class="pe-icon">🧭</div><div><div class="pe-label">Disha Shool</div><div class="pe-value" id="pe-disha">—</div></div></div>
-<div class="pe-item enhanced"><div class="pe-icon">🌙</div><div><div class="pe-label">Moonrise</div><div class="pe-value" id="pe-moonrise">—</div></div></div>
-<div class="pe-item enhanced"><div class="pe-icon">🌘</div><div><div class="pe-label">Moonset</div><div class="pe-value" id="pe-moonset">—</div></div></div>
-<div class="pe-item enhanced"><div class="pe-icon">🕉️</div><div><div class="pe-label">Abhijit</div><div class="pe-value" id="pe-abhijit">—</div></div></div>
-<div class="pe-item enhanced"><div class="pe-icon">🌄</div><div><div class="pe-label">Brahma Muhurta</div><div class="pe-value" id="pe-brahma">—</div></div></div>
-</div>
-<div class="panchang-guide">
-<div class="panchang-guide-card"><b>For worship</b><span>Use sunrise, Tithi and Nakshatra to understand the devotional tone of the day.</span></div>
-<div class="panchang-guide-card"><b>For new work</b><span>Prefer supportive muhurta; avoid starting important work during Rahu Kaal.</span></div>
-<div class="panchang-guide-card"><b>For travel</b><span>Check Disha Shool and combine it with your personal chart when the journey is important.</span></div>
-</div>
-<div class="panchang-foot">
-<span id="panchangUpdated">Powered by Parashar Jyotisha API · Updates daily at sunrise</span>
-<a href="panchang.html">Need date selection or another city? Open full Panchang.</a>
-</div>
-</div>
-</div>
-<figure class="panchang-sacred-panel reveal reveal-d1" aria-label="Gajendra Moksha sacred artwork">
-  <div class="panchang-sacred-aura" aria-hidden="true"></div>
-  <img src="assets/images/garuda-elephant.png" alt="Gajendra Moksha sacred artwork with Lord Vishnu and Gajendra" loading="lazy"/ decoding="async">
-  <figcaption><span>Gajendra Moksha</span><small>Grace · surrender · divine protection</small></figcaption>
-</figure>
-</div>
-</div>
-</section>
-<!-- ════════ GUIDANCE / SERVICES ════════ -->
-<section class="section" id="guidance">
+</section><section class="section" id="guidance">
 <div class="section-line"></div>
 <div class="container" style="margin-top:5rem;">
 <div class="guidance-grid">
@@ -3411,6 +3365,10 @@ html[data-theme="light"] .pj-verify-copy{
 </div>
 </div>
 </section>
+<!-- ════════ DAILY PANCHANG ════════ -->
+
+<!-- ════════ GUIDANCE / SERVICES ════════ -->
+
 <!-- ════════ ABOUT ════════ -->
 <section class="section" id="about">
 <div class="section-line"></div>
@@ -4212,15 +4170,26 @@ function pMood(p){
   if(/ekadashi|dwadashi|purnima|pratipada/i.test(t)) return {title:'Spiritual focus is strong', text:`${t} supports inner discipline, charity, mantra and self-control. Keep important decisions calm and sattvik.`};
   return {title:'Mixed but usable time quality', text:'Read the five limbs together. Use supportive windows for important work and keep caution periods for routine tasks.'};
 }
+let homePanchangRequest=0,homePanchangController;
 async function loadPanchang(city){
+  const requestId=++homePanchangRequest;
+  if(homePanchangController)homePanchangController.abort();
+  const controller=homePanchangController=new AbortController();
+  const timer=setTimeout(()=>controller.abort(),45000);
   const input = document.getElementById('panchangCityInput');
   const chosenCity = (city || (input && input.value) || 'Delhi').trim() || 'Delhi';
   const status = document.getElementById('panchangStatus');
+  document.getElementById('panchangCityLabel').textContent=chosenCity;
+  document.querySelectorAll('#panchang .panchang-el-value,#panchang .pe-value,#panchang .panchang-el-sub').forEach(el=>el.textContent='—');
+  document.getElementById('panchangUpdated').textContent='';
+  document.querySelectorAll('#panchang .panchang-el-value,#panchang .pe-value').forEach(el=>el.textContent='—');
   if(status){ status.textContent='Loading…'; status.className='panchang-live-badge status-loading'; }
   try {
-    const r = await fetch(`${API}/today?city=${encodeURIComponent(chosenCity)}`);
+    const r = await fetch(`${API}/today?city=${encodeURIComponent(chosenCity)}`,{signal:controller.signal});
     const json = await r.json();
+    if(requestId!==homePanchangRequest)return;
     if(!r.ok || json.status === 'error') throw new Error(json.detail || json.message || 'API error');
+    try{localStorage.setItem('pj-panchang-city',chosenCity);}catch(_){}
     const data = json.data || json;
     const p = data.panchanga || data.panchang || data;
     const sun = data.sun_moon || data.timings || data.sun || p;
@@ -4262,17 +4231,18 @@ async function loadPanchang(city){
 
     if(status){ status.textContent='Live Data'; status.className='panchang-live-badge'; }
   } catch(e) {
-    console.log('Panchang API offline — showing graceful fallback', e);
-    if(status){ status.textContent='Demo / API pending'; status.className='panchang-live-badge status-error'; }
-    document.getElementById('panchangMoodTitle').textContent = 'Live Panchang will appear here';
-    document.getElementById('panchangMoodText').textContent = 'The layout is ready. When the API responds, this card will show live Tithi, Nakshatra, Yoga, Karana, Vara and timings.';
-  }
+    if(requestId!==homePanchangRequest)return;
+    if(status){ status.textContent='Temporarily unavailable'; status.className='panchang-live-badge status-error'; }
+    document.getElementById('panchangMoodTitle').textContent = 'Unable to load today’s Panchang';
+    document.getElementById('panchangMoodText').textContent = 'Check the city and select Show Panchang to retry, or open the full Panchang tool.';
+  } finally {clearTimeout(timer);}
 }
 const pBtn = document.getElementById('panchangRefreshBtn');
 if(pBtn) pBtn.addEventListener('click', () => loadPanchang());
 const pCity = document.getElementById('panchangCityInput');
 if(pCity) pCity.addEventListener('keydown', e => { if(e.key === 'Enter') loadPanchang(); });
-loadPanchang('Delhi');
+let homeSavedCity='Dehradun';try{homeSavedCity=localStorage.getItem('pj-panchang-city')||homeSavedCity;}catch(_){}
+if(pCity)pCity.value=homeSavedCity;loadPanchang(homeSavedCity);
 </script>
 <!-- Legal footer -->
 <footer class="legal-footer">
@@ -4804,5 +4774,7 @@ html[data-theme="light"] .pj-quick-find{background:rgba(255,249,239,.96);color:#
 
 <link rel="stylesheet" href="/assets/css/mobile-experience.css?v=20261030">
 <script src="/assets/js/mobile-experience.js?v=20261030" defer></script>
+<link rel="stylesheet" href="/assets/css/home-refresh.css?v=20261124"/>
+<script src="/assets/js/home-refresh.js?v=20261124" defer></script>
 </body>
 </html>
