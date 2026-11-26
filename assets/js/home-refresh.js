@@ -6,7 +6,7 @@ const signs=hi?['मेष','वृषभ','मिथुन','कर्क','स
 const short=hi?{Sun:'सू',Moon:'चं',Mars:'मं',Mercury:'बु',Jupiter:'गु',Venus:'शु',Saturn:'श',Rahu:'रा',Ketu:'के'}:{Sun:'Su',Moon:'Mo',Mars:'Ma',Mercury:'Me',Jupiter:'Ju',Venus:'Ve',Saturn:'Sa',Rahu:'Ra',Ketu:'Ke'};
 const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const sign=n=>Math.floor(((n%360)+360)%360/30);
-let chartData=null,style='north',busy=false;
+let chartData=null,style='north',busy=false,selection=null,skySerial=0;
 try{style=localStorage.getItem('pj-home-chart')==='south'?'south':'north';}catch(_){}
 function chart(){
  if(!chartData)return;const lag=sign(chartData.lagna.degree),planets=chartData.planets;
@@ -27,23 +27,25 @@ function chart(){
 function buttons(){document.querySelectorAll('[data-home-chart]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.homeChart===style)));}
 document.querySelectorAll('[data-home-chart]').forEach(b=>b.addEventListener('click',()=>{style=b.dataset.homeChart;try{localStorage.setItem('pj-home-chart',style);}catch(_){}buttons();chart();}));buttons();
 async function loadSky(){
- if(busy)return;busy=true;$('home-sky-refresh').disabled=true;chartData=null;$('home-sky-chart').replaceChildren();$('home-sky-moment').textContent='';
- $('home-sky-status').textContent=hi?'ग्रह स्थिति की गणना हो रही है…':'Calculating current positions…';
- const parts=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Kolkata',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date()).map(p=>[p.type,p.value]));
- const query=new URLSearchParams({dob:`${parts.year}-${parts.month}-${parts.day}`,tob:`${parts.hour}:${parts.minute}`,city:'Dehradun, Uttarakhand, India'});
+ if(!selection)return;const request=++skySerial;busy=true;$('home-sky-refresh').disabled=true;chartData=null;$('home-sky-chart').replaceChildren();$('home-sky-moment').textContent='';
+ $('home-sky-status').textContent=hi?'ग्रह स्थिति की गणना हो रही है…':'Calculating sunrise positions…';
+ const query=new URLSearchParams({dob:selection.date,tob:selection.time.slice(0,5),city:selection.city});
  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),45000);
  try{
   const response=await fetch('https://vedic-horoscope-api-production.up.railway.app/api/v1/kundli/birth-chart?'+query,{signal:controller.signal});
-  if(!response.ok)throw Error('API unavailable');const json=await response.json(),d=json.data;
+  if(request!==skySerial)return;if(!response.ok)throw Error('API unavailable');const json=await response.json(),d=json.data;if(request!==skySerial)return;
   if(!d||!Number.isFinite(d.lagna?.degree)||!d.birth_info?.timezone||!Array.isArray(d.planets)||!Object.keys(short).every(n=>d.planets.some(p=>p.name===n&&Number.isFinite(p.longitude))))throw Error('Incomplete positions');
   d.planets=d.planets.filter(p=>Object.hasOwn(short,p.name));chartData=d;chart();
-  const b=d.birth_info;$('home-sky-moment').textContent=(hi?'देहरादून':'Dehradun')+' · '+b.date_of_birth+' · '+b.time_of_birth+' · '+b.timezone;
-  $('home-sky-status').textContent=hi?'गणना पूर्ण। नवीनतम समय के लिए फिर देखें दबाएँ।':'Chart ready. Select Refresh for the latest moment.';
- }catch(_){$('home-sky-status').textContent=hi?'अभी ग्रह स्थिति नहीं मिल सकी। फिर देखें दबाएँ या पूरा टूल खोलें।':'Positions are unavailable right now. Retry or open the full tool.';}
- finally{clearTimeout(timer);busy=false;$('home-sky-refresh').disabled=false;}
+  const b=d.birth_info;$('home-sky-moment').textContent=selection.city+' · '+b.date_of_birth+' · '+b.time_of_birth+' · '+b.timezone;
+  $('home-sky-status').textContent=hi?'चयनित तारीख के स्थानीय सूर्योदय की गणना पूर्ण।':'Chart ready for local sunrise on the selected date.';
+ }catch(_){if(request!==skySerial)return;$('home-sky-status').textContent=hi?'अभी ग्रह स्थिति नहीं मिल सकी। फिर देखें दबाएँ या पूरा टूल खोलें।':'Positions are unavailable right now. Retry or open the full tool.';}
+ finally{clearTimeout(timer);if(request===skySerial){busy=false;$('home-sky-refresh').disabled=false;}}
 }
 $('home-sky-refresh').addEventListener('click',loadSky);
-if('IntersectionObserver' in window){const observer=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting)){observer.disconnect();loadSky();}},{rootMargin:'150px'});observer.observe($('home-planets'));}else loadSky();
+document.addEventListener('pj-day-loading',()=>{skySerial++;selection=null;chartData=null;$('home-sky-chart').replaceChildren();$('home-sky-moment').textContent='';$('home-sky-status').textContent=hi?'ऊपर शहर और तारीख का समय लोड हो रहा है…':'Waiting for the selected city and date…';});
+document.addEventListener('pj-day-selected',e=>{selection=e.detail;loadSky();});
+const skyIntro=document.querySelector('#home-planets .home-sky > div > p');
+if(skyIntro)skyIntro.textContent=hi?'ऊपर चुने गए शहर और तारीख के स्थानीय सूर्योदय की कुंडली। अलग समय चुनने के लिए पूरा टूल खोलें।':'Chart for the selected city and date at local sunrise. Open the full tool to choose another time.';
 // Desktop hover is optional; click and keyboard behavior remain available.
 document.querySelectorAll('.pj-nav-menu').forEach(menu=>{
  let timer;
