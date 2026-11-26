@@ -3131,78 +3131,12 @@ html[data-theme="light"] .pj-verify-copy{
   </div>
 
   <div class="home-shortcuts"><a class="home-shortcut" href="/panchang.html"><span aria-hidden="true">☀</span><strong>Panchang</strong></a><a class="home-shortcut" href="/free-kundli.html"><span aria-hidden="true">◇</span><strong>Free Kundli</strong></a><a class="home-shortcut" href="/planets-today.html"><span aria-hidden="true">♄</span><strong>Planets Today</strong></a><a class="home-shortcut" href="/kundli-matching.html"><span aria-hidden="true">♡</span><strong>Kundli Matching</strong></a><a class="home-shortcut" href="/rahu-kaal.html"><span aria-hidden="true">◷</span><strong>Rahu Kaal</strong></a><a class="home-shortcut" href="/vimshottari-dasha.html"><span aria-hidden="true">◴</span><strong>Dasha</strong></a><a class="home-shortcut" href="/sade-sati-calculator.html"><span aria-hidden="true">♧</span><strong>Sade Sati</strong></a><a class="home-shortcut" href="/learn.html"><span aria-hidden="true">▷</span><strong>Learn Jyotisha</strong></a></div><div id="home-recent" hidden></div></div></section>
-<section class="section panchang-section" id="panchang">
-<div class="container">
-<div class="section-intro center">
-<span class="label">Daily Panchang</span>
-<h2 class="heading">Today’s Cosmic <em>Weather</em></h2>
-<p class="section-desc" id="panchangIntro">
-        Panchang is the living clock of Vedic time. See the five limbs, daily caution periods, sunrise/sunset and practical guidance for your city.
-      </p>
-</div>
-<div class="panchang-visual-grid">
-<div class="panchang-live upgraded reveal" id="panchangCard">
-<div class="panchang-shell">
-<div class="panchang-topbar">
-<div>
-<div class="panchang-kicker">Live Panchang · Vedic Time Quality</div>
-<div class="panchang-title-main">Panchang — <em id="panchangDate">Today</em></div>
-<div class="panchang-subline"><span id="panchangCityLabel">Delhi, India</span> · updates from Parashar Jyotisha API</div>
-</div>
-<div class="panchang-live-badge" id="panchangStatus">Live Data</div>
-</div>
-<div aria-label="Panchang city controls" class="panchang-controls">
-<input aria-label="City for Panchang" class="panchang-city-input" id="panchangCityInput" placeholder="Enter city, e.g. Dehradun, Delhi, Varanasi" value="Delhi"/>
-<button class="panchang-action primary" id="panchangRefreshBtn" type="button">Show Panchang</button>
-<a class="panchang-action secondary" href="panchang.html">Open Full Tool →</a>
-</div>
-<div class="panchang-mood-row">
-<div class="panchang-mood-card">
-<div class="pm-label">Daily reading</div>
-<div class="pm-title" id="panchangMoodTitle">Reading today’s time quality…</div>
-<div class="pm-text" id="panchangMoodText">The day’s mood is built from Tithi, Nakshatra, Yoga, Karana and weekday. Use it for awareness, not fear.</div>
-</div>
-<div class="panchang-mini-grid">
-<div class="panchang-mini-card"><div class="pm-label">Best use</div><strong id="panchangBestUse">Daily planning</strong><span>Choose calmer timing for important work.</span></div>
-<div class="panchang-mini-card"><div class="pm-label">Care window</div><strong id="panchangCareWindow">Rahu Kaal</strong><span id="panchangCareText">Avoid new beginnings during caution periods.</span></div>
-</div>
-</div>
-<div class="panchang-items enhanced" id="panchangLimbs">
-<div class="panchang-el enhanced" data-icon="🌙" id="limb-tithi"><div class="panchang-el-label">Tithi</div><div class="panchang-el-value">—</div><div class="panchang-el-sub">Lunar day</div></div>
-<div class="panchang-el enhanced" data-icon="⭐" id="limb-nakshatra"><div class="panchang-el-label">Nakshatra</div><div class="panchang-el-value">—</div><div class="panchang-el-sub">Moon’s star</div></div>
-<div class="panchang-el enhanced" data-icon="🔆" id="limb-yoga"><div class="panchang-el-label">Yoga</div><div class="panchang-el-value">—</div><div class="panchang-el-sub">Sun–Moon harmony</div></div>
-<div class="panchang-el enhanced" data-icon="📐" id="limb-karana"><div class="panchang-el-label">Karana</div><div class="panchang-el-value">—</div><div class="panchang-el-sub">Half tithi action quality</div></div>
-<div class="panchang-el enhanced" data-icon="📅" id="limb-vara"><div class="panchang-el-label">Vara</div><div class="panchang-el-value">—</div><div class="panchang-el-sub">Weekday lord</div></div>
-</div>
-<div class="panchang-extras enhanced" id="panchangExtras">
-<div class="pe-item enhanced good"><div class="pe-icon">🌅</div><div><div class="pe-label">Sunrise</div><div class="pe-value" id="pe-sunrise">—</div></div></div>
-<div class="pe-item enhanced"><div class="pe-icon">🌇</div><div><div class="pe-label">Sunset</div><div class="pe-value" id="pe-sunset">—</div></div></div>
-<div class="pe-item enhanced caution"><div class="pe-icon">⚠️</div><div><div class="pe-label">Rahu Kaal</div><div class="pe-value" id="pe-rahu">—</div></div></div>
-<div class="pe-item enhanced caution"><div class="pe-icon">🧭</div><div><div class="pe-label">Disha Shool</div><div class="pe-value" id="pe-disha">—</div></div></div>
-<div class="pe-item enhanced"><div class="pe-icon">🌙</div><div><div class="pe-label">Moonrise</div><div class="pe-value" id="pe-moonrise">—</div></div></div>
-<div class="pe-item enhanced"><div class="pe-icon">🌘</div><div><div class="pe-label">Moonset</div><div class="pe-value" id="pe-moonset">—</div></div></div>
-<div class="pe-item enhanced"><div class="pe-icon">🕉️</div><div><div class="pe-label">Abhijit</div><div class="pe-value" id="pe-abhijit">—</div></div></div>
-<div class="pe-item enhanced"><div class="pe-icon">🌄</div><div><div class="pe-label">Brahma Muhurta</div><div class="pe-value" id="pe-brahma">—</div></div></div>
-</div>
-<div class="panchang-guide">
-<div class="panchang-guide-card"><b>For worship</b><span>Use sunrise, Tithi and Nakshatra to understand the devotional tone of the day.</span></div>
-<div class="panchang-guide-card"><b>For new work</b><span>Prefer supportive muhurta; avoid starting important work during Rahu Kaal.</span></div>
-<div class="panchang-guide-card"><b>For travel</b><span>Check Disha Shool and combine it with your personal chart when the journey is important.</span></div>
-</div>
-<div class="panchang-foot">
-<span id="panchangUpdated">Powered by Parashar Jyotisha API · Updates daily at sunrise</span>
-<a href="panchang.html">Need date selection or another city? Open full Panchang.</a>
-</div>
-</div>
-</div>
-<figure class="panchang-sacred-panel reveal reveal-d1" aria-label="Gajendra Moksha sacred artwork">
-  <div class="panchang-sacred-aura" aria-hidden="true"></div>
-  <img src="assets/images/garuda-elephant.png" alt="Gajendra Moksha sacred artwork with Lord Vishnu and Gajendra" loading="lazy"/ decoding="async">
-  <figcaption><span>Gajendra Moksha</span><small>Grace · surrender · divine protection</small></figcaption>
-</figure>
-</div>
-</div>
-</section>
+<section class="section" id="panchang"><div class="container day-board" id="day-board">
+ <div class="day-heading"><div><span class="label">YOUR DAY IN JYOTISHA</span><h2>A clear view of your day</h2><p>One location. One date. Every transition together.</p></div><a id="day-full" class="btn btn-outline" href="/panchang.html">Full Panchang</a></div>
+ <form id="day-form" class="day-controls"><label>City<input id="day-city" required maxlength="120" value="Dehradun" autocomplete="address-level2"></label><label>Date<input id="day-date" type="date" required></label><button type="submit" class="btn btn-ember" id="day-submit">Show day</button></form>
+ <div class="day-options"><div><button type="button" id="day-prev">Previous day</button><button type="button" id="day-today">Today</button><button type="button" id="day-next">Next day</button></div><label>Time format <select id="day-clock"><option value="12">12 hour</option><option value="24">24 hour</option></select></label><label>View <select id="day-view"><option value="simple">Simple</option><option value="detail">Detailed</option></select></label></div>
+ <p id="day-status" role="status" aria-live="polite"></p><div id="day-output"></div><div id="day-detail" class="day-detail" hidden tabindex="-1"></div>
+ </div></section>
 <!-- ════════ PHILOSOPHY STRIP ════════ -->
 <div class="philosophy">
 <p class="philosophy-quote">
@@ -3212,7 +3146,7 @@ html[data-theme="light"] .pj-verify-copy{
 <div class="philosophy-attr">— Ancient Vedic Wisdom</div>
 </div>
 <!-- ════════ FREE TOOLS ════════ -->
-<section class="section" id="home-planets"><div class="container home-sky"><div><span class="label">The sky at this moment</span><h2 class="heading">Planets Today</h2><p>See the current sidereal chart for Dehradun. Open the full tool to change city, date or time.</p><div class="home-actions"><button type="button" data-home-chart="north" aria-pressed="true">North Indian</button><button type="button" data-home-chart="south" aria-pressed="false">South Indian</button><button type="button" id="home-sky-refresh">Refresh</button></div><p id="home-sky-status" role="status">Positions load when this section comes into view.</p><p id="home-sky-moment"></p><p class="home-note">Lahiri · Sign numbers 1–12 · R = retrograde. This is the current sky, not your birth chart.</p><a class="btn btn-outline" href="/planets-today.html">Explore date, time & all planets</a></div><div id="home-sky-chart" aria-live="polite"></div></div></section><section class="home-guidance container" id="home-guidance"><div><span class="label">Personal guidance</span><h2>A question about your own chart?</h2><p>Request a free consultation. Email verification is required; replies are subject to availability.</p></div><div class="home-actions"><a class="btn btn-ember" href="#contact">Ask for Free Consultation</a><a class="btn btn-outline" href="/track-consultation.html">Track my consultation</a></div></section><section class="section" id="home-lessons"><div class="container"><span class="label">School of Parashara Astrology</span><h2 class="heading">Learn with each visit</h2><p>Explore Nakshatras through guided video lessons and our written Jyotisha library.</p><div class="home-lessons-grid"><a class="home-lesson" href="https://www.youtube.com/watch?v=pwjTdotP2z0" target="_blank" rel="noopener noreferrer"><img loading="lazy" width="480" height="270" src="https://i.ytimg.com/vi/pwjTdotP2z0/hqdefault.jpg" alt="Ashwini Nakshatra · Episode 1"/><div><h3>Ashwini Nakshatra · Episode 1</h3><span>Watch on YouTube (new tab)</span></div></a><a class="home-lesson" href="https://www.youtube.com/watch?v=bFHXFuQvn-M" target="_blank" rel="noopener noreferrer"><img loading="lazy" width="480" height="270" src="https://i.ytimg.com/vi/bFHXFuQvn-M/hqdefault.jpg" alt="Bharani Nakshatra · Episode 2"/><div><h3>Bharani Nakshatra · Episode 2</h3><span>Watch on YouTube (new tab)</span></div></a></div><a class="btn btn-outline" href="/learn.html">Browse lessons & written guides</a></div></section><section class="section" id="tools">
+<section class="section" id="home-planets"><div class="container home-sky"><div><span class="label">Your selected day</span><h2 class="heading">Sky at Sunrise</h2><p>Chart for the selected city and date, calculated at local sunrise. Open the full tool to choose another time.</p><div class="home-actions"><button type="button" data-home-chart="north" aria-pressed="true">North Indian</button><button type="button" data-home-chart="south" aria-pressed="false">South Indian</button><button type="button" id="home-sky-refresh">Refresh</button></div><p id="home-sky-status" role="status">Choose a city and date in the panel above.</p><p id="home-sky-moment"></p><p class="home-note">Lahiri · Sign numbers 1–12 · R = retrograde. Sunrise chart for the selected place and date; this is not your birth chart.</p><a class="btn btn-outline" href="/planets-today.html">Explore date, time & all planets</a></div><div id="home-sky-chart" aria-live="polite"></div></div></section><section class="home-guidance container" id="home-guidance"><div><span class="label">Personal guidance</span><h2>A question about your own chart?</h2><p>Request a free consultation. Email verification is required; replies are subject to availability.</p></div><div class="home-actions"><a class="btn btn-ember" href="#contact">Ask for Free Consultation</a><a class="btn btn-outline" href="/track-consultation.html">Track my consultation</a></div></section><section class="section" id="home-lessons"><div class="container"><span class="label">School of Parashara Astrology</span><h2 class="heading">Learn with each visit</h2><p>Explore Nakshatras through guided video lessons and our written Jyotisha library.</p><div class="home-lessons-grid"><a class="home-lesson" href="https://www.youtube.com/watch?v=pwjTdotP2z0" target="_blank" rel="noopener noreferrer"><img loading="lazy" width="480" height="270" src="https://i.ytimg.com/vi/pwjTdotP2z0/hqdefault.jpg" alt="Ashwini Nakshatra · Episode 1"/><div><h3>Ashwini Nakshatra · Episode 1</h3><span>Watch on YouTube (new tab)</span></div></a><a class="home-lesson" href="https://www.youtube.com/watch?v=bFHXFuQvn-M" target="_blank" rel="noopener noreferrer"><img loading="lazy" width="480" height="270" src="https://i.ytimg.com/vi/bFHXFuQvn-M/hqdefault.jpg" alt="Bharani Nakshatra · Episode 2"/><div><h3>Bharani Nakshatra · Episode 2</h3><span>Watch on YouTube (new tab)</span></div></a></div><a class="btn btn-outline" href="/learn.html">Browse lessons & written guides</a></div></section><section class="section" id="tools">
 <div class="container">
 <div class="section-intro center reveal">
 <span class="label">Explore More Tools</span>
@@ -4026,223 +3960,6 @@ function enableNativePickers(){
 }
 enableNativePickers();
 
-// ─── LIVE API — Parashar Jyotisha (Railway) ───
-const API = 'https://vedic-horoscope-api-production.up.railway.app/api/v1';
-
-function pFirst(v){ return Array.isArray(v) ? v[0] : v; }
-function pText(v){
-  v = pFirst(v);
-  if (v === null || v === undefined || v === '') return '';
-  if (typeof v === 'string' || typeof v === 'number') return String(v);
-  return v.name || v.name_en || v.tithi_name || v.nakshatra_name || v.yoga_name || v.karana_name || v.vaara || v.weekday || v.value || '';
-}
-function pEnd(v){
-  v = pFirst(v);
-  if (!v || typeof v === 'string') return '';
-  return v.end_time || v.end || v.until || v.ends_at || v.time || '';
-}
-function pCleanTime(v){
-  if (!v) return '';
-  v = String(v).trim();
-  if (!v) return '';
-  const m = v.match(/T(\d{2}):(\d{2})/);
-  if (m) return to12(`${m[1]}:${m[2]}`);
-  const hm = v.match(/(\d{1,2}):(\d{2})(?::\d{2})?/);
-  if (hm) return to12(`${hm[1].padStart(2,'0')}:${hm[2]}`);
-  return v.replace(/\+05:?30/g,' IST').replace(/\.\d+/g,'');
-}
-function to12(hm){
-  const m = String(hm||'').match(/^(\d{1,2}):(\d{2})/);
-  if(!m) return hm || '';
-  let h = parseInt(m[1],10); const min=m[2]; const ap=h>=12?'PM':'AM'; h=h%12; if(h===0) h=12;
-  return `${h}:${min} ${ap}`;
-}
-function pRange(v){
-  if(!v) return '';
-  if(typeof v === 'string') return v;
-  v = pFirst(v);
-  if(!v || typeof v !== 'object') return '';
-  const a = pCleanTime(v.start || v.from || v.start_time || '');
-  const b = pCleanTime(v.end || v.to || v.end_time || '');
-  return [a,b].filter(Boolean).join(' – ');
-}
-
-const WEEKDAY_SA = ['Ravivara','Somavara','Mangalavara','Budhavara','Guruvara','Shukravara','Shanivara'];
-const WEEKDAY_EN = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-function pParseDateAny(raw){
-  if(!raw) return null;
-  // Some API responses send date/location as an object. Never stringify an object into "[object Object]";
-  // instead inspect known date keys and use the first parseable value.
-  if(typeof raw === 'object'){
-    const keys = ['date_iso','iso_date','gregorian_date','date_display','panchanga_date','civil_date','local_date','date','day'];
-    for(const k of keys){
-      if(raw[k]){
-        const dt = pParseDateAny(raw[k]);
-        if(dt && !Number.isNaN(dt.getTime())) return dt;
-      }
-    }
-    return null;
-  }
-  let v = String(raw).trim();
-  if(!v || v === '[object Object]') return null;
-  // YYYY-MM-DD or YYYY/MM/DD, including ISO datetime prefix
-  let m = v.match(/(\d{4})[-\/](\d{1,2})[-\/](\d{1,2})/);
-  if(m) return new Date(Number(m[1]), Number(m[2])-1, Number(m[3]));
-  // DD-MM-YYYY or DD/MM/YYYY
-  m = v.match(/(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})/);
-  if(m) return new Date(Number(m[3]), Number(m[2])-1, Number(m[1]));
-  // Text like Sunday, 17 May 2026
-  m = v.match(/(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})/);
-  if(m){
-    const monthsMap = {january:0,february:1,march:2,april:3,may:4,june:5,july:6,august:7,september:8,october:9,november:10,december:11};
-    const mi = monthsMap[m[2].toLowerCase()];
-    if(mi !== undefined) return new Date(Number(m[3]), mi, Number(m[1]));
-  }
-  return null;
-}
-function pFindDateInApiData(data){
-  const p = data.panchanga || data.panchang || {};
-  const candidates = [
-    data.date_iso, data.iso_date, data.gregorian_date, data.date_display, data.panchanga_date, data.civil_date, data.local_date, data.date, data.day,
-    p.date_iso, p.iso_date, p.gregorian_date, p.date_display, p.panchanga_date, p.civil_date, p.local_date, p.date, p.day
-  ];
-  for(const c of candidates){
-    const dt = pParseDateAny(c);
-    if(dt && !Number.isNaN(dt.getTime())) return dt;
-  }
-  // /today endpoint fallback: use the user's civil date rather than any stale weekday text.
-  const today = new Date();
-  return new Date(today.getFullYear(), today.getMonth(), today.getDate());
-}
-function pWeekdayFromApiData(data){
-  const dt = pFindDateInApiData(data);
-  if(!dt || Number.isNaN(dt.getTime())) return null;
-  const i = dt.getDay();
-  return { index:i, en:WEEKDAY_EN[i], sa:WEEKDAY_SA[i] };
-}
-function pDisplayDateFromApiData(data){
-  const dt = pFindDateInApiData(data);
-  if(dt && !Number.isNaN(dt.getTime())) return `${WEEKDAY_EN[dt.getDay()]}, ${dt.getDate()} ${months[dt.getMonth()]} ${dt.getFullYear()}`;
-  const fallback = data.date_display || data.date;
-  return (typeof fallback === 'string' ? fallback : '') || new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-}
-function pLocationText(loc, fallback){
-  if(!loc) return fallback || '';
-  if(typeof loc === 'string' || typeof loc === 'number') return String(loc);
-  if(typeof loc === 'object'){
-    const parts = [];
-    const city = loc.city || loc.name || loc.place || loc.location || loc.locality;
-    const state = loc.state || loc.region || loc.admin1;
-    const country = loc.country;
-    if(city) parts.push(city);
-    if(state && String(state).toLowerCase() !== String(city||'').toLowerCase()) parts.push(state);
-    if(country && !parts.some(x => String(x).toLowerCase() === String(country).toLowerCase())) parts.push(country);
-    return parts.filter(Boolean).join(', ') || fallback || '';
-  }
-  return fallback || '';
-}
-
-function pPick(obj, keys){
-  for(const k of keys){
-    if(obj && obj[k] !== undefined && obj[k] !== null && obj[k] !== '') return obj[k];
-  }
-  return '';
-}
-function updateLimb(id, label, val, fallback){
-  const el = document.getElementById(id); if(!el) return;
-  const name = pText(val) || '—';
-  const end = pEnd(val);
-  const raw = pFirst(val);
-  const nature = raw && typeof raw === 'object' ? (raw.paksha || raw.nature || raw.quality || raw.meaning || '') : '';
-  el.querySelector('.panchang-el-value').textContent = name;
-  el.querySelector('.panchang-el-sub').textContent = [nature, end ? 'until ' + pCleanTime(end) : ''].filter(Boolean).join(' · ') || fallback;
-  el.classList.toggle('good', /shobhana|siddhi|saubhagya|favorable|auspicious|balava|bava|gara/i.test([name,nature].join(' ')));
-  el.classList.toggle('warn', /vishti|bhadra|vyatipata|vaidhrti|avoid|caution/i.test([name,nature].join(' ')));
-}
-function pMood(p){
-  const t = pText(p.tithi || p.tithi_at_sunrise);
-  const n = pText(p.nakshatra);
-  const y = pText(p.yoga);
-  const k = pText(p.karana || p.karana_at_sunrise || p.karanas);
-  const avoid = /vishti|bhadra|rahu|vyatipata|vaidhrti/i.test([k,y].join(' '));
-  if(avoid) return {title:'Careful planning day', text:'The day has a caution signature. Good for routine, prayer, review and disciplined work; avoid impulsive new beginnings.'};
-  if(/revati|pushya|hasta|rohini|mrigashira|anuradha|uttara/i.test(n)) return {title:'Supportive and balanced day', text:`${n} gives a steadier emotional tone. Use the day for learning, worship, planning and constructive conversations.`};
-  if(/ekadashi|dwadashi|purnima|pratipada/i.test(t)) return {title:'Spiritual focus is strong', text:`${t} supports inner discipline, charity, mantra and self-control. Keep important decisions calm and sattvik.`};
-  return {title:'Mixed but usable time quality', text:'Read the five limbs together. Use supportive windows for important work and keep caution periods for routine tasks.'};
-}
-let homePanchangRequest=0,homePanchangController;
-async function loadPanchang(city){
-  const requestId=++homePanchangRequest;
-  if(homePanchangController)homePanchangController.abort();
-  const controller=homePanchangController=new AbortController();
-  const timer=setTimeout(()=>controller.abort(),45000);
-  const input = document.getElementById('panchangCityInput');
-  const chosenCity = (city || (input && input.value) || 'Delhi').trim() || 'Delhi';
-  const status = document.getElementById('panchangStatus');
-  document.getElementById('panchangCityLabel').textContent=chosenCity;
-  document.querySelectorAll('#panchang .panchang-el-value,#panchang .pe-value,#panchang .panchang-el-sub').forEach(el=>el.textContent='—');
-  document.getElementById('panchangUpdated').textContent='';
-  document.querySelectorAll('#panchang .panchang-el-value,#panchang .pe-value').forEach(el=>el.textContent='—');
-  if(status){ status.textContent='Loading…'; status.className='panchang-live-badge status-loading'; }
-  try {
-    const r = await fetch(`${API}/today?city=${encodeURIComponent(chosenCity)}`,{signal:controller.signal});
-    const json = await r.json();
-    if(requestId!==homePanchangRequest)return;
-    if(!r.ok || json.status === 'error') throw new Error(json.detail || json.message || 'API error');
-    try{localStorage.setItem('pj-panchang-city',chosenCity);}catch(_){}
-    const data = json.data || json;
-    const p = data.panchanga || data.panchang || data;
-    const sun = data.sun_moon || data.timings || data.sun || p;
-    const bad = data.inauspicious_periods || data.inauspicious || data.caution || p;
-    const good = data.auspicious_periods || data.auspicious || data.muhurta || p;
-
-    const dateText = pDisplayDateFromApiData(data);
-    const apiWeekday = pWeekdayFromApiData(data);
-    const loc = pLocationText(data.location_used || data.location || data.city, chosenCity);
-    document.getElementById('panchangDate').textContent = String(dateText).replace(/-/g,' ');
-    document.getElementById('panchangCityLabel').textContent = loc;
-
-    updateLimb('limb-tithi','Tithi', pPick(p,['tithi','tithi_at_sunrise']), 'Lunar day');
-    updateLimb('limb-nakshatra','Nakshatra', pPick(p,['nakshatra','nakshatra_at_sunrise']), 'Moon’s star');
-    updateLimb('limb-yoga','Yoga', pPick(p,['yoga','yoga_at_sunrise']), 'Sun–Moon harmony');
-    const karanaRaw=pPick(p,['karana','karana_at_sunrise','karanas']);
-    const karana=(karanaRaw&&typeof karanaRaw==='object'&&!Array.isArray(karanaRaw))?(karanaRaw.first||karanaRaw.current||karanaRaw):karanaRaw;
-    updateLimb('limb-karana','Karana', karana, 'Half tithi action quality');
-    // Vara must match the displayed civil date. Some API responses may contain a stale/alternate `vaara` field,
-    // so we calculate weekday from the returned date first, then fall back to API weekday text.
-    updateLimb('limb-vara','Vara', apiWeekday ? apiWeekday.sa : pPick(p,['vaara','vara','weekday']), 'Weekday lord');
-
-    document.getElementById('pe-sunrise').textContent = pCleanTime(sun.sunrise || p.sunrise) || '—';
-    document.getElementById('pe-sunset').textContent = pCleanTime(sun.sunset || p.sunset) || '—';
-    document.getElementById('pe-moonrise').textContent = pCleanTime(sun.moonrise || p.moonrise) || '—';
-    document.getElementById('pe-moonset').textContent = pCleanTime(sun.moonset || p.moonset) || '—';
-    document.getElementById('pe-rahu').textContent = pRange(bad.rahu_kalam || bad.rahu_kaal || p.rahu_kalam) || pText(bad.rahu_kalam || p.rahu_kalam) || '—';
-    document.getElementById('pe-disha').textContent = pText(p.disha_shool || p.disha_shula || bad.disha_shool) || '—';
-    document.getElementById('pe-abhijit').textContent = pRange(good.abhijeet_muhurat || good.abhijit_muhurta || p.abhijeet_muhurat || p.abhijit_muhurta) || pText(p.abhijeet_muhurat || p.abhijit_muhurta) || '—';
-    document.getElementById('pe-brahma').textContent = pRange(good.brahma_muhurta || good.brahma_muhurat || p.brahma_muhurta || p.brahma_muhurat) || pText(p.brahma_muhurta || p.brahma_muhurat) || '—';
-
-    const mood = pMood(p);
-    document.getElementById('panchangMoodTitle').textContent = mood.title;
-    document.getElementById('panchangMoodText').textContent = mood.text;
-    document.getElementById('panchangBestUse').textContent = /Careful/.test(mood.title) ? 'Routine + prayer' : 'Planning + worship';
-    const rahuText = document.getElementById('pe-rahu').textContent;
-    document.getElementById('panchangCareText').textContent = rahuText && rahuText !== '—' ? `Avoid new beginnings around ${rahuText}.` : 'Avoid caution periods for new beginnings.';
-    document.getElementById('panchangUpdated').textContent = `Live from ${loc} · updated ${new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})}`;
-
-    if(status){ status.textContent='Live Data'; status.className='panchang-live-badge'; }
-  } catch(e) {
-    if(requestId!==homePanchangRequest)return;
-    if(status){ status.textContent='Temporarily unavailable'; status.className='panchang-live-badge status-error'; }
-    document.getElementById('panchangMoodTitle').textContent = 'Unable to load today’s Panchang';
-    document.getElementById('panchangMoodText').textContent = 'Check the city and select Show Panchang to retry, or open the full Panchang tool.';
-  } finally {clearTimeout(timer);}
-}
-const pBtn = document.getElementById('panchangRefreshBtn');
-if(pBtn) pBtn.addEventListener('click', () => loadPanchang());
-const pCity = document.getElementById('panchangCityInput');
-if(pCity) pCity.addEventListener('keydown', e => { if(e.key === 'Enter') loadPanchang(); });
-let homeSavedCity='Dehradun';try{homeSavedCity=localStorage.getItem('pj-panchang-city')||homeSavedCity;}catch(_){}
-if(pCity)pCity.value=homeSavedCity;loadPanchang(homeSavedCity);
 </script>
 <!-- Legal footer -->
 <footer class="legal-footer">
@@ -4775,6 +4492,8 @@ html[data-theme="light"] .pj-quick-find{background:rgba(255,249,239,.96);color:#
 <link rel="stylesheet" href="/assets/css/mobile-experience.css?v=20261030">
 <script src="/assets/js/mobile-experience.js?v=20261030" defer></script>
 <link rel="stylesheet" href="/assets/css/home-refresh.css?v=20261124"/>
-<script src="/assets/js/home-refresh.js?v=20261124" defer></script>
+<script src="/assets/js/home-refresh.js?v=20261126" defer></script>
+<link rel="stylesheet" href="/assets/css/day-board.css?v=20261126">
+<script src="/assets/js/day-board.js?v=20261126" defer></script>
 </body>
 </html>
